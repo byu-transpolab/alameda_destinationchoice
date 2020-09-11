@@ -71,7 +71,7 @@ Location Based Services (LBS) [@Roll2019; @Komanduri2017]. LBS use a network of
 mobile applications that obtain the users’ physical location. A variety of
 commercial vendors repackage, clean, and scale these data to population or
 traffic targets and sell origin-destination matrices to researchers and
-practitioners at relatively low prices. @monz2019using, for example, demonstrate
+practitioners at relatively low prices. @Monz2019, for example, demonstrate
 how passive device data can be used to accurately estimate trips to natural
 recreation areas.
 
