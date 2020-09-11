@@ -1,5 +1,5 @@
 ---
-title: "Developing a Park Activity Location Choice Model from Passive Origin-Destination Data Tables"
+title: "Estimating Park Choice and Access in Alameda County, California, using Passive Origin-Destination Data."
 author:
   - name: Gregory Macfarlane
     email: gregmacfarlane@byu.edu
