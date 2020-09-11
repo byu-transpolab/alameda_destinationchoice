@@ -7,7 +7,7 @@
 *.log
 *.spl
 
-*_cache/*
+R/*_cache/*
 
 data/shortest_paths/*
-
+data/shortest_paths.7z

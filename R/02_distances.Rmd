@@ -1,0 +1,272 @@
+---
+title: "Distances"
+---
+
+```{r setup, include=FALSE, cache = FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+library(tidyverse)
+library(tigris)
+library(sf)
+library(leaflet)
+library(here)
+
+basetiles <- providers$CartoDB.Positron
+this_crs <- 2227 # EPSG:2227 – NAD83 / California zone 3 (ftUS)
+this_utm <- 32610 # UTM10N
+options(tigris_use_cache = TRUE)
+```
+
+A key aspect of accessibility to parks is the distance between parks and
+neighborhoods. There are two different ways to calculate distance:
+
+   - *Euclidean* distances use the straight-line distance between two points.
+   - *Network* distances use the path along a highway or sidewalk network.
+  
+Both measurements have limitations. Euclidean distances are particularly
+problematic when there are rivers, interstates, or other impassible features that
+substantially lengthen the distance people travel to get between points. On the
+other hand, there is not lots of data suggesting that people perceive network 
+travel times very well when they are choosing destinations. We originally
+estimated the models for this paper with Euclidean distances, but
+our reviewers suggested we examine network-based distances as well.
+
+We will use the same parks dataset we assembled [previously](01_parks.Rmd).
+
+```{r load}
+parks <- read_rds(here("data/attributed_parks.rds"))
+```
+
+## Euclidean Distances
+
+The geometric centroid of the tract / block group is not a good approximation of
+the center point of the tract from an accessibility standpoint. Thus, we 
+get the population-weighted centroid for block groups from Census.
+
+
+```{r bg_centroids}
+# California has state FIPS 06
+bg_url <- "https://www2.census.gov/geo/docs/reference/cenpop2010/blkgrp/CenPop2010_Mean_BG06.txt"
+
+bg_centroids <- read_csv(bg_url) %>%
+  # Alameda is county 001
+  filter(COUNTYFP %in% c("001")) %>%
+  transmute(geoid = str_c(STATEFP, COUNTYFP, TRACTCE, BLKGRPCE), LATITUDE, LONGITUDE) %>%
+  # convert to sf and project into the feet-based projection used in the
+  # parks dataset.
+  st_as_sf(crs = 4326, coords = c("LONGITUDE", "LATITUDE")) %>%
+  st_transform(this_crs) 
+```
+
+
+The `st_distance()` function from the `sf` library is able to compute the 
+Euclidean distance between two sets of shapes, and gets the distance between 
+points and edges of polygons directly. We calculate the distance in miles, 
+and constrain that the minimum distance is 0.1 miles (no one lives in a park).
+
+```{r distance_table}
+distance_table <- function(points, poly){
+  dists <- st_distance(points, poly, by_element = FALSE) %>%
+    units::set_units(miles) %>%
+    units::drop_units()
+  
+  dists <- pmax(dists, 0.1)
+  
+  rownames(dists) <- points$geoid
+  colnames(dists) <- poly$id
+  
+  as_tibble(dists, rownames = "geoid") %>%
+    pivot_longer(cols = -geoid, names_to = "park_id", values_to = "distance")
+}
+
+dist_bg_euc <- distance_table(bg_centroids, parks)
+```
+
+
+```{r distances}
+list("blockgroups" = dist_bg_euc) %>%
+  write_rds(here("data/distances.rds"))
+```
+
+## Network Distances
+
+To calculate network-based distances between block group / tract centroids and
+park boundaries, we employ the `osmnx` library for Python. This is a relatively
+new package that allows users to retrieve networks from OpenStreetMap and 
+compute shortest paths using Python's other network libraries. We retrieve
+a walk network for Alameda County, and re-project it to UTM zone 10N. An
+image of this network is provided in Figure \@ref(fig:oakland-osm-network)
+
+```py
+graph = ox.graph_from_place("Alameda County, California", network_type='walk')
+# project to UTM zone 10 N and simplify
+graph_proj = ox.project_graph(graph)
+graph_proj = nx.DiGraph(graph_proj)
+```
+
+```{r oakland-osm-network, fig.cap="OpenStreetMap walk network in Oakland, obtained through the `osmnx` pakcakge."}
+knitr::include_graphics(here("images/oakland_osm_network.png"))
+```
+
+
+One limitation of the network calculation is that it only works for nodes on the
+network, and we can only find nearest nodes to points. Thus we need to convert
+the park polygons data into points. But we can't simply have an endless number
+of points because the shortest path calculations are computationally extensive.
+
+So to make this work, we first simplify the parks polygons, convert the boundaries
+to linestrings, and then sample points along the linestring.
+
+```{r park_points, eval = TRUE}
+# get park boundary polygon
+park_boundaries <- parks %>%
+  select(id)  %>%
+  
+  # some polygons are way too detailed, so we want to simplify to 100 foot resolution
+  st_simplify(dTolerance = 100, preserveTopology = TRUE) %>%
+  
+  # need to convert everything to multipolygons to get multiple rows per shape
+  st_cast("MULTIPOLYGON") %>%
+  
+  st_cast("POLYGON") %>%
+  # cast the polygons to a linestring of the park perimeter
+  st_cast("LINESTRING", group_or_split = TRUE) 
+point_samples <- park_boundaries %>%
+  # sample points along the line, one point per 500 feet.
+  st_line_sample(density = 1/500) 
+# append open space id and coerce to single point per row
+park_points <- st_sf(id = park_boundaries$id, geometry = point_samples)  %>%
+  st_as_sf() %>%
+  st_cast(to = "POINT")
+```
+
+We can illustrate what this looks like. Every park has at least one sampled point,
+and some have several. Unfortunately there's not a concave polygon function to help
+us remove all the internal points from the parks.
+
+```{r simplified-point-map, cache = FALSE}
+leaflet() %>%
+  addProviderTiles(providers$Esri.WorldGrayCanvas) %>%
+  addPolygons(data = parks %>% st_transform(4326), color = "green") %>%
+  addCircleMarkers(data = park_points %>% st_transform(4326), radius = 0.001,
+                   color = "red") 
+```
+
+With `r nrow(park_points)` and `r nrow(bg_centroids)`, that suggests we
+need to compute `r nrow(park_points) * nrow(bg_centroids)` shortest
+paths. Even on a 20+ core process, this would take a long time.  As a result,
+we simplify the problem by first identifying the "closest" point of the park
+by Euclidean distance and then computing the network path to that point.
+This introduces some distortion where if the closest Euclidean point is across 
+a river or interstate, the method calculates the network distance to *that*
+point instead of the first point the person would encounter following the
+network. This may end up overstating the true experienced distance.
+
+```py
+# loop through centroids for block group or tract
+for bg in df.itertuples():
+    # loop through parks
+    for park in park_ids:
+        these_points = park_points.loc[[park]]
+        min_euc = float("inf")
+        
+        # loop through points associated with park
+        for point in these_points.itertuples():
+            # find closest park point by Euclidean distance
+            dx = point.LONGITUDE - bg.LONGITUDE
+            dy = point.LATITUDE - bg.LATITUDE
+            euc_dist = math.sqrt(dx**2 + dy**2)
+            
+            if euc_dist < min_euc:
+                min_euc = euc_dist
+                closest_point = point.node
+                
+        # compute shortest path between closest_point and centroid
+        try:
+            length = nx.shortest_path_length(graph, source=bg.node, target=closest_point, weight='length')
+        except:
+            # can fail if no path exists
+            length = float("inf")
+```
+
+
+The network path is calculated in meters, because the UTM coordinates are in meters.
+
+```{r writeout}
+write_points_file <- function(points, file){
+  points %>% 
+    st_transform(4326) %>%
+    mutate(
+      LATITUDE = st_coordinates(.)[, 2],
+      LONGITUDE = st_coordinates(.)[, 1]
+    ) %>%
+    st_transform(this_utm) %>%
+    mutate(
+      Y = st_coordinates(.)[, 2],
+      X = st_coordinates(.)[, 1]
+    ) %>%
+    st_set_geometry(NULL) %>%
+    write_csv(file)
+}
+park_points     %>% write_points_file(here("data/park_points.csv"))
+bg_centroids    %>% write_points_file(here("data/bg_centroids.csv"))
+```
+
+## Distance Examination
+
+After computing the distance between the block group centroids and the park points,
+we examine the relationship between the Euclidean and network distances, as well
+as the geographical location of the points. Figure \@ref(fig:dist-exploration)
+shows this comparison, and it appears that the network distances are rationally longer.
+
+```{r read_distances}
+bg <- read_rds(here("data/blockgroups.rds"))
+# download shortest paths data calculated on MaryLou
+shortest_paths_7z <- here("data/shortest_paths.7z")
+shortest_paths <- here("data/shortest_paths")
+if(!dir.exists(shortest_paths)){
+  if(!file.exists(shortest_paths_7z)) {
+    download.file("https://byu.box.com/shared/static/96tx18jcpcy47xg2mbbdig6zcrbru6x7.7z",
+                  shortest_paths_7z)
+  }
+  system2("7z", c("e", shortest_paths_7z, str_c("-o", shortest_paths)) )
+}
+
+distance_files <- list.files(shortest_paths, "*.csv", full.names = TRUE)
+read_dist_csv <- function(x){
+  # warnings are from `inf` strings, which become converted to NA, which is okay.
+  suppressWarnings(read_csv(x, col_types = "ccnn") %>% as_tibble() %>%
+                     mutate(geoid = str_pad(geoid, 12, "left", "0") ))
+}
+
+distances <- lapply(distance_files, read_dist_csv) %>% 
+  bind_rows() %>%
+  left_join(dist_bg_euc %>% rename(miles = distance), by = c("geoid", "park_id")) %>%
+  mutate(distance = distance * 0.000621371,
+         euc_dist = euc_dist * 0.000621371)
+```
+
+```{r dist-exploration, fig.cap="Comparison of Euclidean and walk network distances."}
+ggplot(distances %>% sample_n(1e5), aes(y = distance, x = miles)) + 
+  geom_point(alpha = 0.1) +  geom_abline(slope = 1, lty = "dashed") + 
+  xlab("Euclidean distance [miles]") + ylab("Network distance [miles]") +
+  theme_bw()
+```
+
+
+The map below shows the distance from a park to all block groups, and it appears
+as though the paths are correct and rational. 
+```{r distance-map}
+pal <- colorQuantile(palette = "magma", log(distances$distance), n = 9)
+bg %>%
+  select(geoid) %>%
+  left_join(distances %>% filter(park_id == "29615"), by = "geoid") %>%
+  st_transform(4326) %>%
+  leaflet() %>%
+  addProviderTiles(providers$Esri.WorldGrayCanvas) %>%
+  addPolygons(color = ~pal(log(distance)), group = "Network") %>%
+  addPolygons(color = ~pal(log(euc_dist)), group = "Euclidean") %>%
+  addPolygons(color = ~pal(log(miles)), group = "SF-Euclidean") %>%
+  addLayersControl(overlayGroups = c("Network", "Euclidean", "SF-Euclidean"))
+```
+
+
