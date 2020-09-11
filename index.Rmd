@@ -1,20 +1,21 @@
 ---
-title: "Article Long Title"
+title: "Developing a Park Activity Location Choice Model from Passive Origin-Destination Data Tables"
 author:
   - name: Gregory Macfarlane
     email: gregmacfarlane@byu.edu
     affiliation: Brigham Young University
     footnote: 1
-  - name: Bob Example
-    email: bob@example.com
-    affiliation: Brigham Young University
-  - name: Cat Example
+    authors:
+  - name: Teresa Tapia
+    address: StreetLight Data, Inc.
+    email: teresa.tapia@streetlightdata.com
+  - name: Carole Turley-Voulgaris
     email: cat@example.com
-    affiliation: Another University
+    affiliation: Harvard University
 address:
   - code: Brigham Young University
     address: Civil and Environmental Engineering Department, 430 Engineering Building, Provo, Utah 84602
-  - code: Another University
+  - code: Harvard University
     address: Some Other Place
 footnote:
   - code: 1
@@ -22,13 +23,73 @@ footnote:
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: article
-journal: "Submitted to Journal"
+journal: "Submitted to Transportation Research Part C: Emerging Technologies"
 bibliography: [book.bib]
 biblio-style: apalike
+keywords:
+  - Accessibility
+  - Passive Data
+  - Location Choice
 link-citations: yes
 abstract: |
-  This is where the abstract should go.
-description: "A short description"
+  Parks provide important benefits to those who live near them, in the form of improved property values, health outcomes, etc.; nevertheless, measuring and understanding who lives near a park is an open research question. In particular, it is not well understood which park individuals will choose to use when given a choice among a set of nearby parks of varying sizes and at varying distances from their home. In this paper we present a park activity location choice model estimated from a passive origin-destination dataset --- supplied by StreetLight Data, Inc. --- representing trips to parks and green spaces in Alameda County, California. The estimated model parameters reveal heterogeneous preferences for park size and willingness-to-travel across block-group level socioeconomic segmentation: Specifically, high-income block groups appear more positively attracted to larger parks, and block groups with a high proportion of ethnic minority individuals are more likely to select nearby parks. The findings have importance for understanding recreational access among different populations, and the methodology more generally supplies a potential template for using passive data products within travel modeling.
+description: "Alameda Park Choice"
 ---
 
 # Introduction {#intro}
+Parks and other green spaces generate immense value for the public who are able
+to access them. The @CityParksAlliance categorizes the observed benefits of
+urban parks as encouraging active lifestyles [@Bancroft2015], contributing to
+local economies, aiding in stormwater management and flood mitigation,
+improving local air quality, increasing community engagement [@Madzia2018], and
+enhancing public equity.
+
+Nevertheless, understanding and quantifying these benefits depends in many
+cases on identifying who lives near the parks and is therefore able to access
+them. Many previous studies [e.g., @Richardson2012] rely on comparison of total
+greenspace across metropolitan areas; this methodology may not adequately
+control for city-level fixed effects and it may ignore the potentially
+inequitable distribution of park space within a region. Studies focusing on
+access within metropolitan areas typically assume that people living within a
+certain distance or travel time threshold have access to a park, or examine the
+quantity of park space within one's own arbitrarily defined "neighborhood"
+[@Mitchell2008,Stark2014]. But these methods do not account for the fact that
+some people will travel to other parks to perform recreational activities. A
+more holistic measure that continuously measures access across multiple
+preference dimensions is desirable.
+
+An appealing solution would be to examine and model the activity location
+choices of park users. Such a model would help researchers understand how
+individuals of different backgrounds and preferences value different park
+amenities. Further, the logsums of a location choice model provide a continuous
+measure of accessibility that explicitly accounts for such variation
+[@DeJong2007]. Unfortunately, park choice models of this form are rare in the
+literature. Travel demand models built for infrastructure forecasting are a
+common way to generate such accessibility logsums, but these models group many
+different kinds of social and recreational trips together [@nchrp716]. Further,
+the attraction term for such trip purposes is commonly a function of the retail
+or service employment or the number of households at the destination; a typical
+park or green space has neither employees nor residents. Finally, many regional
+household travel surveys are oriented towards an average weekday travel
+pattern, and many park trips occur irregularly or on weekends.
+
+In this paper we present a park destination choice model where individuals
+living in Alameda County, California choose among parks in the same county. The
+individuals are constructed from passive data that was derived from mobile
+devices and processed using algorithms developed by StreetLight Data, Inc. The
+origin location points are inferred residence block groups for unique devices
+and the destination points are geofenced polygons representing green and open
+spaces. The individuals’ choice of park location is conditioned on the distance
+from the block group to the parks in the choice set as well as the size of each
+park; market segmentation allows for heterogeneous responses between ethnic
+groups and income strata.
+
+The paper proceeds in the following manner: A discussion of prior attempts to
+study park choice and employ passive origin-destination data in the literature
+is given directly. The Methodology section presents the data gathering and
+cleaning efforts as well as the econometric location choice model. The Results
+section presents the estimated model coefficients and a discussion of the
+findings, as well as a model validation exercise. After presenting limitations
+and associated avenues for future research, a final Conclusions section
+outlines the contributions of this study for recreational trip modeling and
+location choice modeling more generally.

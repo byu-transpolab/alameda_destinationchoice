@@ -1,3 +1,93 @@
 # Literature
 
-Here is a review of existing methods.
+Understanding who has access to parks is a long-standing question across
+multiple scientific disciplines. Researchers specializing in recreation
+management, public health, urban planning, ecology, and civil engineering have
+all played a role in shaping our collective understanding of park design,
+access, and use. A complete review of all of these fields is not warranted for
+the scope of this paper, but some recent findings are worth discussion.
+
+A popular measure of park accessibility is the Trust for Public Land’s
+“ParkScore” statistic [@parkscore2019]. ParkScore considers the share of the
+population that resides within a 10-minute walk of a green space using a
+sophisticated network routing algorithm, in combination with the total city
+green space, investment, and amenities weighted against the socioeconomic
+characteristics of the population outside of the 10-minute walk threshold. The
+resulting score is a convenient quantitative tool in estimating the relative
+quality of green space access across cities [@Rigolon2018]. It may be less
+useful at identifying the comparative quality of access within a city,
+particularly as more than 95% of residents in many large metropolitan areas like
+San Francisco and New York live within the binary 10-minute walk threshold. The
+Centers for Disease Control and Prevention (CDC) has developed an "Accessibility
+to Parks Indicator" along similar lines [@Ussery2016], calculating the share of
+the population living within a half-mile of a park for each county in the U.S.
+
+There is recognition that park access should in some way be linked with park
+use. After all, a park that has many visitors must by definition be accessible
+to those visitors. @McCormack2010 provide a comprehensive review of this
+literature; it is sufficient here to note that most studies find a complicated
+interplay between park size, maintenance, facilities, and travel distance. Many
+of these attributes are incorporated into ParkIndex [@Kaczynski2016], which
+estimates the resident park use potential within $100 m^2$ grid cells, based on
+a household park use survey in Kansas City.
+
+From a transportation engineering perspective, the park use potential measured
+by ParkIndex is not dissimilar from a park trip production potential. Along
+these lines, the question of park use is a destination choice problem, where
+trip makers consider which park is most attractive to accomplish their
+recreation activity. The Institute of Transportation Engineers (ITE) Trip
+Generation Manual [-@ite2019] contains trip attraction rates for public parks
+that use as attraction terms the park acreage, number of picnic tables,
+employees, and other variables. As with many land uses in Trip Generation, the
+provided trip generation rates are based on a limited number of observational
+samples and may not represent large-sample behavior [@Millard-Ball2015].
+Moreover, regression-based attraction rates isolated from trip production and
+travel behavior ignore the geographical and behavioral contexts in which people
+actually make trips to parks [@Barnard1987]: Though more people may come to
+larger parks, a park cannot attract more people simply by becoming bigger.
+
+There are limited examples of researchers using a destination choice model to
+predict recreation attractions. @Kinnell2006 apply a choice model to a survey
+of park visitors in New Jersey, and estimate the relative attractiveness of park
+attributes including playgrounds, picnic areas, and park acreage weighed against
+the travel disutility and the relative crime rate at the destination. In a
+similar study, @Meyerhoff2010 model the urban swimming location choice for a
+surveyed sample. In both studies, the researchers were attempting to ascertain
+which attributes of a recreation generated the most positive utility, and
+therefore which attributes should be prioritized for improvement. These studies
+have not to our knowledge been previously referenced in discussions of park
+accessibility.
+
+## Passive Location Data
+
+The advent of large-scale mobile networks and the seemingly perpetual
+association of unique devices with unique users has given researchers a new
+opportunity to observe the movements and activity location patterns for large
+subsets of the population [@Naboulsi2016]. Such passively collected movement
+data --- sometimes referred to as “Big Data” --- is passively collected as a
+by-product of other systems including cellular call data records  [e.g.,
+@Bolla2000; @Calabrese2011], probe GPS data [@Huang2015], and more recently
+Location Based Services (LBS) [@Roll2019; @Komanduri2017]. LBS use a network of
+mobile applications that obtain the users’ physical location. A variety of
+commercial vendors repackage, clean, and scale these data to population or
+traffic targets and sell origin-destination matrices to researchers and
+practitioners at relatively low prices. @monz2019using, for example, demonstrate
+how passive device data can be used to accurately estimate trips to natural
+recreation areas.
+
+Passive origin-destination matrices are beginning to inform trip distribution
+model development more directly as well. @tf_idea proposes one methodology,
+where passive origin-destination matrices serve as a probabilistic sampling
+frame for a simulated trip destination choice. @Bernardin2018 employ a passive
+origin-destination matrix as a shadow price reference in an activity-based
+location choice model, iteratively adjusting the parameters of the choice
+utilities to minimize the observed error between the matrix and the modeled
+predictions. A similar method developed by @Zhu2018 uses the passive dataset
+directly, sampling 10,000 random trips from GPS traces of taxi trips in Shanghai
+and estimating a destination choice model. Employing the passive data set in
+this way provides the authors an opportunity to examine the choices of a
+large sample of a small population (taxi passengers) as well as sufficient data
+to estimate a “constants-rich” destination choice model with uniquely estimated
+coefficients for each origin-destination pair. The Zhu and Ye methodology
+suggests that a similar approach should apply in other contexts, including park
+choice.
