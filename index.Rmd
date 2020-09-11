@@ -1,0 +1,34 @@
+---
+title: "Article Long Title"
+author:
+  - name: Gregory Macfarlane
+    email: gregmacfarlane@byu.edu
+    affiliation: Brigham Young University
+    footnote: 1
+  - name: Bob Example
+    email: bob@example.com
+    affiliation: Brigham Young University
+  - name: Cat Example
+    email: cat@example.com
+    affiliation: Another University
+address:
+  - code: Brigham Young University
+    address: Civil and Environmental Engineering Department, 430 Engineering Building, Provo, Utah 84602
+  - code: Another University
+    address: Some Other Place
+footnote:
+  - code: 1
+    text: "Corresponding Author"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: article
+journal: "Submitted to Journal"
+bibliography: [book.bib]
+biblio-style: apalike
+link-citations: yes
+abstract: |
+  This is where the abstract should go.
+description: "A short description"
+---
+
+# Introduction {#intro}

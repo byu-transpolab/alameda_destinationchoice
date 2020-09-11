@@ -1,0 +1,121 @@
+\documentclass[]{elsarticle} %review=doublespace preprint=single 5p=2 column
+%%% Begin My package additions %%%%%%%%%%%%%%%%%%%
+\usepackage[hyphens]{url}
+
+  \journal{Submitted to Journal} % Sets Journal name
+
+
+\usepackage{lineno} % add
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\usepackage{graphicx}
+\usepackage{booktabs} % book-quality tables
+%%%%%%%%%%%%%%%% end my additions to header
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \usepackage{fontspec}
+  \ifxetex
+    \usepackage{xltxtra,xunicode}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use microtype if available
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+\usepackage{natbib}
+\bibliographystyle{plainnat}
+\usepackage{longtable}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={Article Long Title},
+            colorlinks=false,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+
+\setcounter{secnumdepth}{5}
+% Pandoc toggle for numbering sections (defaults to be off)
+
+
+% Pandoc header
+\usepackage{booktabs}
+
+
+
+\begin{document}
+\begin{frontmatter}
+
+  \title{Article Long Title}
+    \author[Brigham Young University]{Gregory Macfarlane\corref{1}}
+   \ead{gregmacfarlane@byu.edu} 
+    \author[Brigham Young University]{Bob Example}
+   \ead{bob@example.com} 
+    \author[Another University]{Cat Example}
+   \ead{cat@example.com} 
+      \address[Brigham Young University]{Civil and Environmental Engineering Department, 430 Engineering Building, Provo, Utah 84602}
+    \address[Another University]{Some Other Place}
+      \cortext[1]{Corresponding Author}
+  
+  \begin{abstract}
+  This is where the abstract should go.
+  \end{abstract}
+  
+ \end{frontmatter}
+
+\hypertarget{intro}{%
+\section{Introduction}\label{intro}}
+
+\hypertarget{literature}{%
+\section{Literature}\label{literature}}
+
+Here is a review of existing methods.
+
+\hypertarget{methods}{%
+\section{Methods}\label{methods}}
+
+We describe our methods in this chapter.
+
+\hypertarget{data}{%
+\subsection{Data}\label{data}}
+
+\hypertarget{applications}{%
+\section{Applications}\label{applications}}
+
+Some \emph{significant} applications are demonstrated in this chapter.
+
+\hypertarget{example-one}{%
+\subsection{Example one}\label{example-one}}
+
+\hypertarget{example-two}{%
+\subsection{Example two}\label{example-two}}
+
+\hypertarget{final-words}{%
+\section{Final Words}\label{final-words}}
+
+We have finished a nice book.
+
+\bibliography{book.bib}
+
+
+\end{document}
+
+
