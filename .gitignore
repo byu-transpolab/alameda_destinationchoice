@@ -6,3 +6,8 @@
 *.aux
 *.log
 *.spl
+
+*_cache/*
+
+data/shortest_paths/*
+

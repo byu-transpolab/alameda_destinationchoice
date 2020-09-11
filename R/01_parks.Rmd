@@ -1,0 +1,369 @@
+---
+title: "Parks and Block Groups"
+---
+
+```{r setup, include=FALSE, cache = FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+library(osmdata)
+library(sf)
+library(tidyverse)
+library(leaflet)
+library(tidycensus)
+library(qwraps2)
+library(knitrProgressBar)
+library(here)
+basetiles <- providers$CartoDB.Positron
+this_crs <- 2227 # EPSG:2227 – NAD83 / California zone 3 (ftUS)
+options(tigris_use_cache = TRUE)
+```
+
+In this document we construct a dataset for all parks in Alameda County.
+We begin with a parks polygons layer and append amenity data collected from 
+OpenStreetMap through the OverPass API.
+
+We also compile a dataset of block groups in Alameda County with demographic
+attributes.
+
+## Park Polygons
+
+We obtained a polygons shapefile layer representing open spaces in Alameda
+County, California from the California Protected Areas Database [@cpad2019].
+This dataset was selected because it included multiple different types of open
+space including local and state parks, traditional green spaces as well as
+wildlife refuges and other facilities that can be used for recreation. We
+removed facilities that did not allow open access to the public (such as the
+Oakland Zoo) and facilities whose boundaries conflated with freeway right-of-way
+–-- this prevents trips through the park from being conflated with park trips in
+the passive origin-destination data. 
+
+```{r parks}
+not_parks <- c("3455", "15886", "13243")
+parks <- st_read(here("data/bayarea_parks.geojson"), quiet = TRUE) %>%
+  filter(COUNTY == "Alameda") %>%
+  transmute(
+    id = as.character(UNIT_ID), name = UNIT_NAME, 
+    access = factor(ACCESS_TYP, levels = c("Open Access", "No Public Access", 
+                                           "Restricted Access")),
+    acres = ACRES, type = DES_TP) %>%
+  filter(!id %in% not_parks) %>%
+  filter(access == "Open Access") %>%
+  select(id, access, acres, type)  %>%
+  st_transform(this_crs)
+```
+
+
+```{r parks_map, cache = FALSE}
+type_pal <- colorFactor("Dark2", parks$type)
+leaflet(parks %>% st_transform(4326)) %>%
+  addProviderTiles(basetiles) %>%
+  addPolygons(color = ~type_pal(type))
+```
+
+
+
+### Park Amenities
+
+The park amenities are drawn from OpenStreetMap data collected through the
+Overpass API. Each overpass query uses the same bounding box, which is a polygon
+of Alameda County.
+
+```{r bb}
+bb <- getbb("Alameda County, California", format_out = "polygon")
+```
+
+#### Playgrounds
+
+Playgrounds are defined with the `leisure = playground` tag and key. See details
+on the [OSM Wiki](https://wiki.openstreetmap.org/wiki/Tag:leisure=playground?uselang=en-US).
+Playgrounds can be either points or polygons in OpenStreetMap, though polygons are
+preferred. We assume that playgrounds are located at the centroid of their
+polygon or at the point. 
+
+```{r playgrounds}
+playground_osm <- opq(bb) %>% # specify boundary for query
+  add_osm_feature(key = "leisure", value = "playground") %>% # specify which kinds of data we want
+  osmdata_sf() %>% # get a list of sf data frames for these tags
+  trim_osmdata(bb, exclude = TRUE)
+
+playgrounds <- rbind(
+  # convert polygons to centroids
+  playground_osm$osm_polygons %>%
+    st_transform(this_crs) %>%
+    st_centroid() %>%
+    select(osm_id),
+  # get points
+  playground_osm$osm_points %>%
+    st_transform(this_crs) %>%
+    select(osm_id)
+  # no multipolygons or polylines that need to be included
+) %>%
+  mutate(playground = TRUE)
+
+```
+
+Below is a map of the playgrounds we could potentially include in the analysis.
+It is worth noting that this dataset could be incomplete. It also likely
+includes playgrounds that are affiliated with private gardens or schools, which
+will not be in the parks dataset. This is a limitation we will have to underline,
+but might not be able to address.
+
+```{r playgrounds-map, cache=FALSE}
+leaflet(playgrounds %>% st_transform(4326)) %>%
+  addProviderTiles(basetiles) %>%
+  addCircleMarkers(color = "blue", radius = 2)
+```
+
+#### Courts and Pitches
+
+Next up we have ball fields and pitches. These are defined with the `leisure = "pitch"`
+tag and key, see details on the [OSM Wiki](https://wiki.openstreetmap.org/wiki/Tag:leisure%3Dpitch).
+Most of these elements are points, with some polygons that we convert to centroids. We
+eliminated pitches for golf as these are unlikely to drive urban park trips.
+
+
+```{r pitches}
+pitches_osm <- opq(bb) %>% # specify boundary for query
+  add_osm_feature(key = "leisure", value = "pitch") %>% 
+  osmdata_sf() %>% 
+  trim_osmdata(bb, exclude = TRUE)
+
+pitches <- rbind(
+  # convert polygons to centroids
+  pitches_osm$osm_polygons %>%
+    st_transform(this_crs) %>%
+    st_centroid() %>%
+    select(osm_id, sport),
+  # get points
+  pitches_osm$osm_points %>%
+    st_transform(this_crs) %>%
+    select(osm_id, sport)
+  # no multipolygons or polylines that need to be included
+) %>%
+  filter(sport != "golf") %>%
+  mutate(
+    sport = case_when(
+      grepl("football", sport) | grepl("soccer", sport) ~ "football / soccer",
+      grepl("baseball", sport) | grepl("softball", sport) ~ "baseball",
+      grepl("basketball", sport) ~ "basketball",
+      grepl("tennis", sport) ~ "tennis",
+      grepl("volleyball", sport) ~ "volleyball",
+      TRUE ~ "other"
+    )
+  )
+```
+
+As before, we likely include in this query pitches that are part of private
+athletic clubs or schools. These will be dropped in the spatial join to follow.
+
+```{r pitches-map, cache = FALSE}
+pitch_sport <- colorFactor("Dark2", pitches$sport)
+leaflet(pitches %>% st_transform(4326)) %>%
+  addProviderTiles(basetiles) %>%
+  addCircleMarkers(color = ~pitch_sport(sport), radius = 2) %>%
+  addLegend(pal = pitch_sport, values = ~ sport)
+```
+
+#### Trails
+
+
+```{r trails}
+trails_osm <- opq(bb) %>% # specify boundary for query
+  add_osm_feature(key = "highway", value = c("footway", "cycleway", "path")) %>% 
+  osmdata_sf() %>% 
+  trim_osmdata(bb, exclude = FALSE)
+  
+
+trails <- rbind(
+  # points are nodes, so we can skip them.
+  # lines
+  trails_osm$osm_lines %>%
+    st_transform(this_crs) %>%
+    select(osm_id, bicycle, foot, horse),
+  
+  # circular paths get converted to polygons, so we need to 
+  # turn them back into lines.
+  trails_osm$osm_polygons %>%
+    st_transform(this_crs) %>%
+    st_boundary() %>%
+    select(osm_id, bicycle, foot, horse)
+) %>%
+  mutate(length = st_length(.))
+```
+
+```{r trails-map, cache = FALSE}
+leaflet(trails %>% st_transform(4326)) %>%
+  addProviderTiles(basetiles) %>%
+  addPolylines()
+```
+
+### Attribution
+
+We now need to establish whether the parks intersect geometrically with the features
+we have identified, thereby establishing whether the parks have the amenities
+we care about.
+
+```{r attributed-parks}
+attributed_parks <- parks %>%  
+  # determine if a playground point is inside the park polygon boundary
+  st_join(playgrounds %>% select(playground), st_intersects)  %>%
+  # a park with multiple playgrounds will join multiple times, so we need to 
+  # summarize them back down.
+  group_by(id) %>% slice(1) %>% ungroup() %>%
+  mutate(playground = ifelse(is.na(playground), F, playground)) %>%
+  
+  # determine if the pitch points are inside the park polygon boundaries
+  st_join(pitches %>% select(sport)) %>%
+  # multiple pitches in a park result in repeated rows. 
+  group_by(id) %>% slice(1) %>% ungroup() %>%
+  mutate(pitch = ifelse(is.na(sport), F, T)) %>%
+  select(-sport) %>%
+  
+  # determine if the trails are inside the park polygon boundaries
+  st_join(trails %>% select(trail = osm_id), st_intersects) %>%
+  # multiple pitches in a park result in repeated rows. 
+  group_by(id) %>% slice(1) %>% ungroup() %>%
+  mutate(trail = ifelse(is.na(trail), F, T))
+```
+
+The table below shows the distribution the attributes of the `r
+nrow(attributed_parks)` parks.
+
+
+```{r park_attributes, results="asis"}
+our_summary1 <- list(
+  "Acres" =
+    list("min" = ~ min(.data$acres),
+         "max" = ~ max(.data$acres),
+         "mean (sd)" = ~ qwraps2::mean_sd(.data$acres)),
+  "Attributes" =
+    list("Has Playground" = ~qwraps2::n_perc0(.data$playground),
+         "Has Pitch / Court" = ~qwraps2::n_perc0(.data$pitch),
+         "Has Paths" =  ~qwraps2::n_perc0(.data$trail))
+)
+
+attributed_parks %>% st_set_geometry(NULL) %>%
+  qwraps2::summary_table(our_summary1) %>% 
+  print(markup = "markdown")
+```
+
+
+
+## Block Groups
+
+Now, we turn to the block groups in Alameda County. For each block group, 
+we retrieve socioeconomic data from the 2014-2018 American Community Survey. The
+variables we obtain include:
+
+  - population (`B25008`), housing units (`B25001`), and households (`B19001`)
+  - median household income (`B19013`)
+  - number of households at different income groups (`B19001`)
+  - number of households by race (`B02001`) plus households of hispanic origin (`B03001`)
+
+With this raw data, we compute several additional variables that we will use in 
+our analysis. We define the percent of households in each block group as the
+share of households under $35k / year, and high-income households as those over
+$125k. Household density is the number of households per square kilometer. 
+Hispanic / Latino descent is only available at the tract level.
+
+> Need to find a better way to capture hispanic populations, but we are moving
+on for now.
+
+```{r acs, message = FALSE}
+variables <- c(
+  "population" = "B25008_001", # TOTAL POPULATION IN OCCUPIED HOUSING UNITS BY TENURE
+  "housing_units" = "B25001_001", # HOUSING UNITS
+  "households" = "B19001_001", #HOUSEHOLD INCOME IN THE PAST 12 MONTHS (IN 2017 INFLATION-ADJUSTED DOLLARS)
+  #Estimate!!Total!!Female!!Worked in the past 12 months!!Usually worked 35 or more hours per week
+  # RACE
+  "black" = "B02001_003",
+  "asian" = "B02001_005",
+  "pacific" = "B02001_006",
+  "nativeam" = "B02001_004",
+  "other" = "B02001_007",
+  # HISPANIC OR LATINO ORIGIN BY SPECIFIC ORIGIN
+  # The number of hispanic individuals needs to be drawn from a different table.
+  # But this is only available at the tract level, where it appears to be roughly
+  # collinear with the "some other race alone"
+  "hispanic" = "B03001_003",
+  #MEDIAN HOUSEHOLD INCOME IN THE PAST 12 MONTHS (IN 2017 INFLATION-ADJUSTED DOLLARS)
+  "income" = "B19013_001",
+  #HOUSEHOLD INCOME IN THE PAST 12 MONTHS (IN 2017 INFLATION-ADJUSTED DOLLARS)
+  "inc_0010" = "B19001_002",  "inc_1015" = "B19001_003", "inc_1520" = "B19001_004",
+  "inc_2025" = "B19001_005", "inc_2530" = "B19001_006", "inc_3035" = "B19001_007",
+  "inc_125"  = "B19001_015", "inc_150"  = "B19001_016", "inc_200"  = "B19001_017"
+)
+
+
+acs_bg <- get_acs(geography = "block group", variables = variables, year = 2018,
+               state = "CA", county = "001", geometry = TRUE)
+
+acs <- acs_bg %>%
+  select(-moe) %>%
+  spread(variable, estimate) %>%
+  mutate(
+    area = as.numeric(st_area(geometry) * 1e-6),
+  ) %>%
+  select(-hispanic) %>%
+  # area is in m^2, change to km^2
+  transmute(
+    geoid = GEOID,
+    population, households, housing_units, 
+    density = households / area,
+    income,
+    # many of the variables come in raw counts, but we want to consider
+    # them as shares of a relevant denominator.
+    lowincome    = 100 * (inc_0010 + inc_1015 + inc_1520 + inc_2530 +
+                            inc_3035) / households,
+    highincome   = 100 * (inc_125 + inc_150 + inc_200) / households,
+    black        = 100 * black / population,
+    asian        = 100 * asian / population,
+    other        = 100 * (nativeam + pacific + other) / population,
+    minority     = black + other
+  )  
+```
+
+
+
+```{r acs-table}
+tracts_data_index <- tibble(
+  variable =  c("density", 
+    "income", "lowincome", "highincome",
+    "black", "asian", "other")
+) %>%
+  mutate(order = row_number())
+acs %>%
+  st_set_geometry(NULL) %>%
+  filter(population > 0) %>%
+  tbl_df() %>%
+  dplyr::select(tracts_data_index$variable) %>%
+  gather(variable, value) %>%
+  group_by(variable) %>%
+  summarise(
+    `msd` = paste(median_iqr(value, na_rm = TRUE, show_n = "never", digits = 1))
+  ) %>%
+  inner_join(tracts_data_index, by = "variable") %>%
+  arrange(order) %>%
+  mutate(
+    variable = c(
+      "Density: Households per square kilometer",
+      "Income: Median tract income",
+      "Low Income: Share of households making less than $35k",
+      "High Income: Share of households making more than $125k",
+      "Black: Share of population who is Black",
+      "Asian: Share of population who is Asian",
+      "Other: Share of population who belong to other minority groups")
+  ) %>%
+  dplyr::select(-order) %>%
+  knitr::kable(col.names = c("", "Median (IQR)"), 
+        digits = 1,
+        caption = "Descriptive Statistics for Residence Block Groups")
+```
+
+
+
+## Write Out
+```{r write-out}
+write_rds(attributed_parks, here("data/attributed_parks.rds"))
+write_rds(acs, here("data/blockgroups.rds"))
+```
+
