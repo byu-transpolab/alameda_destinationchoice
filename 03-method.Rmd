@@ -1,10 +1,516 @@
-# Methods
+# Methodology
 
-We describe our methods in this chapter.
-
-## Data
-
-```{r load_data}
-
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+library(here)
+library(osmdata)
+library(sf)
+library(tidyverse)
+library(leaflet)
+library(tidycensus)
+library(qwraps2)
+library(knitrProgressBar)
+basetiles <- providers$CartoDB.Positron
+this_crs <- 2227 # EPSG:2227 – NAD83 / California zone 3 (ftUS)
+bb <- getbb("Alameda County, California", format_out = "polygon")
+options(tigris_use_cache = TRUE)
 ```
 
+
+
+We constructed a dataset on which to estimate park activity location choices for
+a sample of observed trips in Alameda County, California. Alameda County is one
+of the seven counties that constitutes the San Francisco Bay Area metropolitan
+region in California. Alameda is the seventh most populous county in California
+with a population of 1.5 million [@alamedafacts], and has 14 incorporated cities
+and several unincorporated communities. It is an economically and ethnically
+diverse county and hence it was an attractive area to use for this study. The
+racial makeup of Alameda County was (49.7%) White, (11.2%) African American,
+(1.0%) Native American, (38.7%) Asian, (1.0%) Pacific Islander, and (22.4%
+Hispanic or Latino (of any race). Alameda County has a diverse set of parks,
+ranging from local small community parks, urban and transit-accessible parks
+like the Lake Merritt Recreational area, accessible coastal access, and suburban
+recreational areas like Lake Chabot.
+
+
+
+## Data
+We constructed an analysis dataset from a publicly-available parks polygons
+layer, a commercially acquired passive device origin-destination table
+representing trips between the parks and home block groups, and American
+Community Survey data for the home block groups.
+
+We obtained a polygons shapefile layer representing open spaces in Alameda
+County, California from the California Protected Areas Database [@cpad2019].
+This dataset was selected because it included multiple different types of open
+space including local and state parks, traditional green spaces as well as
+wildlife refuges and other facilities that can be used for recreation. We
+removed facilities that did not allow open access to the public (such as the
+Oakland Zoo) and facilities whose boundaries conflated with freeway right-of-way
+– this prevents trips through the park from being conflated with park trips in
+the passive origin-destination data. 
+
+```{r parks}
+not_parks <- c("3455", "15886", "13243")
+parks <- st_read(here("data/bayarea_parks.geojson"), quiet = TRUE) %>%
+  filter(COUNTY == "Alameda") %>%
+  transmute(
+    id = as.character(UNIT_ID), name = UNIT_NAME, 
+    access = factor(ACCESS_TYP, levels = c("Open Access", "No Public Access", 
+                                           "Restricted Access")),
+    acres = ACRES, type = DES_TP) %>%
+  filter(!id %in% not_parks) %>%
+  filter(access == "Open Access") %>%
+  select(id, access, acres, type)  %>%
+  st_transform(this_crs)
+```
+
+From this initial parks polygons dataset, we obtained park attribute information
+through OpenStreetMap (OSM) using the `osmdata` package for R [@osmdata]. Three 
+attribute elements are considered in this analysis. First, we identify playgrounds
+using OSM facilities given a `leisure = playground` tag. 
+
+```{r playgrounds, warning = FALSE}
+playground_osm <- opq(bb) %>% # specify boundary for query
+  add_osm_feature(key = "leisure", value = "playground") %>% # specify which kinds of data we want
+  osmdata_sf() %>% # get a list of sf data frames for these tags
+  trim_osmdata(bb, exclude = TRUE)
+
+playgrounds <- rbind(
+  # convert polygons to centroids
+  playground_osm$osm_polygons %>%
+    st_transform(this_crs) %>%
+    st_centroid() %>%
+    select(osm_id),
+  # get points
+  playground_osm$osm_points %>%
+    st_transform(this_crs) %>%
+    select(osm_id)
+  # no multipolygons or polylines that need to be included
+) %>%
+  mutate(playground = TRUE)
+```
+
+Second, we consider sport fields of various kinds identified with the OSM
+`leisure = pitch` tag. This tag has an additional attribute describing the sport
+the field is designed for, which we retain in a consolidated manner. Soccer and
+American football fields are considered in a single category, and baseball and
+softball fields are combined as well. Basketball, tennis, and volleyball courts
+are kept as distinct categories, with all other sport-specific fields combined
+into a single "other". Golf courses are discarded.
+
+```{r pitches}
+pitches_osm <- opq(bb) %>% # specify boundary for query
+  add_osm_feature(key = "leisure", value = "pitch") %>% 
+  osmdata_sf() %>% 
+  trim_osmdata(bb, exclude = TRUE)
+
+pitches <- rbind(
+  # convert polygons to centroids
+  pitches_osm$osm_polygons %>%
+    st_transform(this_crs) %>%
+    st_centroid() %>%
+    select(osm_id, sport),
+  # get points
+  pitches_osm$osm_points %>%
+    st_transform(this_crs) %>%
+    select(osm_id, sport)
+  # no multipolygons or polylines that need to be included
+) %>%
+  filter(sport != "golf") %>%
+  mutate(
+    sport = case_when(
+      grepl("football", sport) | grepl("soccer", sport) ~ "football / soccer",
+      grepl("baseball", sport) | grepl("softball", sport) ~ "baseball",
+      grepl("basketball", sport) ~ "basketball",
+      grepl("tennis", sport) ~ "tennis",
+      grepl("volleyball", sport) ~ "volleyball",
+      TRUE ~ "other"
+    )
+  )
+```
+
+Finally, we identified trails and footpaths using the `path`, `cycleway`, and
+`footway` values of the `highway` tag. A visual inspection of the resulting data
+revealed that the large preponderance of sidewalks and cycling trails within parks
+in Alameda County are identified properly with these variables.
+
+```{r trails}
+trails_osm <- opq(bb) %>% # specify boundary for query
+  add_osm_feature(key = "highway", value = c("footway", "cycleway", "path")) %>% 
+  osmdata_sf() %>% 
+  trim_osmdata(bb, exclude = FALSE)
+
+trails <- rbind(
+  # points are nodes, so we can skip them.
+  # lines
+  trails_osm$osm_lines %>%
+    st_transform(this_crs) %>%
+    select(osm_id, bicycle, foot, horse),
+  
+  # circular paths get converted to polygons, so we need to 
+  # turn them back into lines.
+  trails_osm$osm_polygons %>%
+    st_transform(this_crs) %>%
+    st_boundary() %>%
+    select(osm_id, bicycle, foot, horse)
+) %>%
+  mutate(length = st_length(.))
+```
+
+It is possible for each of these facilities to exist outside the context of 
+a public park. For example, many private apartment complexes have playgrounds
+and high schools will have sports facilities that are not necessarily open to
+the general public. We spatially matched the OSM amenities data and retained
+only those facilities that intersected with the CPAD open spaces database 
+identified earlier.  
+
+```{r attributed-parks}
+attributed_parks <- parks %>%  
+  # determine if a playground point is inside the park polygon boundary
+  st_join(playgrounds %>% select(playground), st_intersects)  %>%
+  # a park with multiple playgrounds will join multiple times, so we need to 
+  # summarize them back down.
+  group_by(id) %>% slice(1) %>% ungroup() %>%
+  mutate(playground = ifelse(is.na(playground), F, playground)) %>%
+  
+  # determine if the pitch points are inside the park polygon boundaries
+  st_join(pitches %>% select(sport)) %>%
+  # multiple pitches in a park result in repeated rows. 
+  group_by(id) %>% slice(1) %>% ungroup() %>%
+  mutate(pitch = ifelse(is.na(sport), F, T)) %>%
+  select(-sport) %>%
+  
+  # determine if the trails are inside the park polygon boundaries
+  st_join(trails %>% select(trail = osm_id), st_intersects) %>%
+  # multiple pitches in a park result in repeated rows. 
+  group_by(id) %>% slice(1) %>% ungroup() %>%
+  mutate(trail = ifelse(is.na(trail), F, T))
+```
+
+
+
+
+
+
+We provided the park boundaries layer to a commercial firm, StreetLight Data
+Inc., which develops and resells origin-destination matrices derived from
+passive device location data. The provider employs a proprietary data processing
+engine (called Route Science) to algorithmically transform observed device
+location data points (the provider uses in-vehicle GPS units and mobile device
+LBS) over time into contextualized, normalized, and aggregated travel patterns.
+From these travel patterns, the Route Science processing algorithms infer likely
+home Census block group locations for composite groups of people and converts
+raw location data points into trip origin and destination points [@Pan2006;
+@Friedrich2010].
+
+```{r park_flows}
+park_flows <- read_csv(here("data/Master_BlockGroups_Final071519.csv"), 
+                       col_types = cols()) %>% 
+  # need to make block group id properly formatted.
+  transmute(
+    park = as.character(`Zone Name`),
+    home = paste0("0", round(`Block Group ID`)),
+    county = substr(home, 0, 5),
+    attractions = `Zone Traffic (StL Index)`,
+    d_share = `Percent by Home Location`
+  ) %>%
+  
+  # only keep bgs in the area
+  filter(county %in% c("06001")) %>%
+  # and only keep parks that we are looking at
+  filter(park %in% parks$id) %>%
+  
+  mutate(flow = attractions * d_share) %>%
+  group_by(home) %>%
+  mutate(
+    productions = sum(flow),
+    o_share = flow / productions
+  ) 
+``` 
+
+For each park polygon, the firm returned a population-weighted estimate of how
+many devices were observed by home location block group over several months in
+the period between May 2018 and October 2018. We transformed this table such
+that it represented the weighted unique devices traveling between block groups
+and parks. We discarded home location block groups outside of Alameda County;
+the imputed home locations can be far away from the study area for a small
+amount of trips and are unlikely to represent common or repeated park
+activities.
+
+```{r parks-table, results="asis"}
+attributed_parks <- attributed_parks %>% group_by(type) %>%
+  left_join(park_flows %>% group_by(park) %>% slice(1) %>% 
+              select(park, attractions), by = c("id" = "park")) %>%
+  mutate(attractions = ifelse(is.na(attractions), 0, attractions)) 
+```
+
+Table \ref{tab:parks-table} presents descriptive statistics
+on the `r nrow(parks)` parks assembled for this study, grouped according to the
+park type as defined on CPAD. A little more than half of the parks have
+identified paths, while around 40% of the identified parks have playgrounds and
+sport fields.
+
+```{r park_attributes, results="asis"}
+our_summary1 <- list(
+  "Acres" =
+    list("min" = ~ min(.data$acres),
+         "max" = ~ max(.data$acres),
+         "mean (sd)" = ~ qwraps2::mean_sd(.data$acres)),
+  "Attributes" =
+    list("Has Playground" = ~qwraps2::n_perc0(.data$playground),
+         "Has Pitch / Court" = ~qwraps2::n_perc0(.data$pitch),
+         "Has Paths" =  ~qwraps2::n_perc0(.data$trail)),
+  "Visitor Devices" =
+    list("min" = ~ min(.data$attractions),
+         "max" = ~ max(.data$attractions),
+         "mean (sd)" = ~ qwraps2::mean_sd(.data$attractions))
+)
+
+attributed_parks %>% st_set_geometry(NULL) %>%
+  group_by(type) %>%
+  qwraps2::summary_table(our_summary1) %>% 
+  print(markup = "markdown")
+```
+
+
+
+In order to understand the demographic makeup of the home block groups and
+potentially the characteristics of the people who make each trip, we obtained
+2013-2017 five-year data aggregations from the American Community Survey 
+using the `tidycensus` [@Walker2019] interface to the
+Census API for several key demographic and built environment variables: the
+share of individuals by ethnic group, the share of households by income level,
+household median income, and the housing unit density. An important attribute of
+the choice model is the distance from the home block group to the park boundary.
+Because we have no information on where in the block group a home is actually
+located, we use the population-weighted block group centroid published by the
+Census Bureau as the location for all homes in the block group. We then measured
+the Euclidean distance in miles between the block group and the boundary of each
+park in the polygons layer.
+
+
+```{r acs, message = FALSE}
+variables <- c(
+  "population" = "B25008_001", # TOTAL POPULATION IN OCCUPIED HOUSING UNITS BY TENURE
+  "housing_units" = "B25001_001", # HOUSING UNITS
+  "households" = "B19001_001", #HOUSEHOLD INCOME IN THE PAST 12 MONTHS (IN 2017 INFLATION-ADJUSTED DOLLARS)
+  #Estimate!!Total!!Female!!Worked in the past 12 months!!Usually worked 35 or more hours per week
+  # RACE
+  "black" = "B02001_003",
+  "asian" = "B02001_005",
+  "pacific" = "B02001_006",
+  "nativeam" = "B02001_004",
+  # HISPANIC OR LATINO ORIGIN BY SPECIFIC ORIGIN
+  # The number of hispanic individuals needs to be drawn from a different table.
+  "hispanic" = "B03001_003",
+  #MEDIAN HOUSEHOLD INCOME IN THE PAST 12 MONTHS (IN 2017 INFLATION-ADJUSTED DOLLARS)
+  "income" = "B19013_001",
+  #HOUSEHOLD INCOME IN THE PAST 12 MONTHS (IN 2017 INFLATION-ADJUSTED DOLLARS)
+  "inc_0010" = "B19001_002",  "inc_1015" = "B19001_003", "inc_1520" = "B19001_004",
+  "inc_2025" = "B19001_005", "inc_2530" = "B19001_006", "inc_3035" = "B19001_007",
+  "inc_125"  = "B19001_015", "inc_150"  = "B19001_016", "inc_200"  = "B19001_017"
+)
+
+acs <- get_acs(geography = "block group", variables = variables, year = 2017,
+               state = "CA", county = "001", geometry = TRUE) %>%
+  select(-moe) %>%
+  spread(variable, estimate) %>%
+  mutate(area = as.numeric(st_area(geometry) * 1e-6)) %>%
+  # area is in m^2, change to km^2
+  transmute(
+    geoid = GEOID,
+    population, households, housing_units, 
+    density = households / area,
+    income,
+    # many of the variables come in raw counts, but we want to consider
+    # them as shares of a relevant denominator.
+    lowincome    = 100 * (inc_0010 + inc_1015 + inc_1520 + inc_2530 +
+                            inc_3035) / households,
+    highincome   = 100 * (inc_125 + inc_150 + inc_200) / households,
+    black        = 100 * black / population,
+    asian        = 100 * asian / population,
+    other        = 100 * (nativeam + pacific) / population,
+    white_hisp   = 100 - black - asian - other
+  )
+```
+
+
+
+```{r distances}
+bg_centroids <- read_csv(
+  "https://www2.census.gov/geo/docs/reference/cenpop2010/blkgrp/CenPop2010_Mean_BG06.txt",
+  col_types = list("TRACTCE" = col_character(), "BLKGRPCE" = col_character())
+) %>%
+  mutate(GEOID = str_c(STATEFP, COUNTYFP, TRACTCE, BLKGRPCE)) %>%
+  filter(COUNTYFP %in% "001") %>%
+  st_as_sf(crs = 4326, coords = c("LONGITUDE", "LATITUDE")) %>%
+  st_transform(this_crs)
+
+# distances from all tract centroids to all parks
+distances <- st_distance(bg_centroids, parks, byid = TRUE) %>%
+  units::set_units(miles) %>%
+  units::drop_units()
+
+rownames(distances) <- bg_centroids$GEOID
+colnames(distances) <- parks$id
+
+distance_df <- distances %>%
+  omxr::gather_matrix(value_name = "dist_euclid") %>%
+  rename(home = origin, park = destination)
+```
+
+
+```{r acs-table}
+tracts_data_index <- tibble(
+  variable =  c("density", 
+    "income", "lowincome", "highincome",
+    "black", "asian", "other")
+) %>%
+  mutate(order = row_number())
+acs %>%
+  st_set_geometry(NULL) %>%
+  filter(population > 0) %>%
+  tbl_df() %>%
+  dplyr::select(tracts_data_index$variable) %>%
+  gather(variable, value) %>%
+  group_by(variable) %>%
+  summarise(
+    `msd` = paste(median_iqr(value, na_rm = TRUE, show_n = "never", digits = 1))
+  ) %>%
+  inner_join(tracts_data_index, by = "variable") %>%
+  arrange(order) %>%
+  mutate(
+    variable = c(
+      "Density: Households per square kilometer",
+      "Income: Median tract income",
+      "Low Income: Share of households making less than $35k",
+      "High Income: Share of households making more than $125k",
+      "Black: Share of population who is black",
+      "Asian: Share of population who is Asian",
+      "Other: Share of population who belong to other minority groups")
+  ) %>%
+  dplyr::select(-order) %>%
+  knitr::kable(col.names = c("", "Median (IQR)"), booktabs = TRUE,
+        digits = 1,
+        caption = "Descriptive Statistics for Residence Block Groups")
+```
+
+
+## Model
+
+In random utility choice theory, if an individual living in block group $n$
+wishes to make a park trip, the probability that the individual will choose
+park $i$ from the set of all parks $J$ can be described as a ratio of the
+park's measurable utility $V_{ni}$ to the sum of the utilities for all parks
+in the set. In the common destination choice framework we apply a
+multinomial logit model [@McFadden1974, Recker1978],
+\begin{equation}\label{eq:p}
+   P_{ni} = \frac{\exp(V_{ni})}{\sum_{j \in J}\exp(V_{nj})}
+\end{equation}
+where the measurable utility $V_{ni}$ is a linear-in-parameters function of 
+the destination attributes. If the park choice can be defined solely by
+its size and the impedance in reaching the park from block group $n$, then the
+measurable utility would be
+\begin{equation}\label{eq:V}
+V_{ni} = \beta_{1} * \mathit{size}_{i} + \beta_2 * \mathit{impedance}_{ni}
+\end{equation}
+where $\beta_1, \beta_2$ are estimable coefficients giving the relative utility
+(or disutility) of that attribute to the choice maker, all else equal. It is
+possible to add additional amenities of the park or the journey to the utility
+equation. However, as the number of alternatives is large, it is impractical to
+consider alternative-specific constants or coefficients and therefore not
+possible to include attributes of the home block group or traveler $n$ directly.
+We can, however, segment the data and estimate different distance and size
+parameters for different segments to observe heterogeneity in the utility
+parameters between different socioeconomic groups.
+
+The logarithm of the sum in the denominator of Equation \ref{eq:p} (called the
+logsum) provides a measure of the consumer surplus of the choice set
+[@Williams1977a],
+\begin{equation}\label{eq:logsum}
+CS_n = \ln{{\sum_{j \in J}\exp(V_{nj})}} + C
+\end{equation}
+where $C$ is a constant indicating an unknown absolute value. But comparing the
+relative logsum values across choice makers, $CS_n - CS_{n-1}$ gives an
+indication of which choice maker has a more valuable choice set. Or, in this
+case of a park destination choice model, which choice maker has better access to
+parks. Such a "utility-based" accessibility term is thus continuously defined,
+dervied directly from choice theory, and can contain multiple dimensions of the
+attributes of the choice [@Handy1997;@Dong2006].
+
+
+```{r params}
+set.seed(42)
+n_obs <- 20000
+n_alts <- 10
+n_flow <- sum(park_flows$flow)
+ll0e <- sum(n_obs *.8 * log(1/n_alts))
+```
+
+
+```{r mydata}
+mydata <- park_flows %>%
+  ungroup() %>%
+  mutate(weight = flow / sum(flow)) %>%
+  sample_n(n_obs, replace = TRUE, weight = weight) %>%
+  transmute(id = row_number(), home, alt_0 = park, 
+            validation = sample(c(TRUE,FALSE), n(), TRUE, prob = c(0.2, 0.8)))
+```
+
+In the most typical cases, researchers estimate the utility coefficients for
+destination choice models from household travel surveys. As we have no knowledge
+of an appropriate survey on park access, we need to synthesize a suitable
+estimation data set. We do this by sampling
+`r n_obs` random discrete device origin-destination pairs from the commercial
+passive data matrix, weighted by the volume of the flows. This corresponds to a
+`r round(n_obs / n_flow * 100, 1)`\% sample of all the observed device
+origin-destination pairs.
+
+The sampled origin-destination pair gives the home location as well as the
+"chosen" alternative for a synthetic person. In principle the individual's
+choice set contains all the parks in our dataset; in practice it can be
+difficult to estimate choice models with so many alternatives 
+($|J| = `r nrow(parks)`$). For this reason we randomly sample `r n_alts` additional parks
+to serve as the non-chosen alternatives for our synthetic choice maker. Such
+random sampling of alternatives reduces the efficiency of the estimated
+coefficients but the coefficients remain unbiased [@train2009]. As the model has
+no alternative-specific constants, the standard likelihood comparison statistic
+against the market shares model $\rho^2$ is not computable. We instead use the
+likelihood comparison against the equal shares model $\rho_0^2$.
+
+```{r sampled_parks}
+sampled_parks <- lapply(1:n_obs, function(i){
+  sample(parks$id, n_alts)
+}) %>%
+  unlist() %>%
+  matrix(ncol = n_alts) %>%
+  as_tibble(.name_repair = ~ str_c("alt", 1:n_alts, sep = "_"))
+
+logitdata <- mydata %>%
+  bind_cols(sampled_parks) %>%
+  gather(key = "alt", value = "park", -id, -home, -validation) %>%
+  mutate(chosen = alt == "alt_0") %>%
+  arrange(id, alt) %>%
+  
+  # append distances
+  left_join(distance_df, by = c("home", "park")) %>%
+  
+  # append park attributes
+  left_join(parks, by = c("park" = "id")) %>%
+  
+  # append block group attributes
+  left_join(acs %>% select(geoid, density:other) %>% st_set_geometry(NULL),
+            by = c("home" = "geoid")
+   
+)
+```
+
+
+The resulting analysis dataset therefore contains `r n_obs` choice makers that
+select between `r n_alts + 1` parks including the park they were observed to
+choose; the measured distance between the choice maker's block group and all
+parks in the choice set; and the acreage of each park in the choice set. We hold
+out a random sample of approximately 20% of choice makers for validation
+purposes. We use the `mlogit` package for R [@mlogit, R] to estimate the
+multinomial logit models.

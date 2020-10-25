@@ -4,26 +4,26 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Article Long Title</title>
-  <meta name="description" content="A short description" />
+  <title>Estimating Park Choice and Access in Alameda County, California, using Passive Origin-Destination Data.</title>
+  <meta name="description" content="Alameda Park Choice" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Article Long Title" />
+  <meta property="og:title" content="Estimating Park Choice and Access in Alameda County, California, using Passive Origin-Destination Data." />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="A short description" />
+  <meta property="og:description" content="Alameda Park Choice" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Article Long Title" />
+  <meta name="twitter:title" content="Estimating Park Choice and Access in Alameda County, California, using Passive Origin-Destination Data." />
   
-  <meta name="twitter:description" content="A short description" />
+  <meta name="twitter:description" content="Alameda Park Choice" />
   
 
 
 
-<meta name="date" content="2020-09-09" />
+<meta name="date" content="2020-10-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -76,13 +76,16 @@ div.abstract{
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Short Title</a></li>
+<li><a href="./">Alameda Park Choice</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>2</b> Literature</a></li>
-<li class="chapter" data-level="3" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>3</b> Methods</a><ul>
-<li class="chapter" data-level="3.1" data-path="methods.html"><a href="methods.html#data"><i class="fa fa-check"></i><b>3.1</b> Data</a></li>
+<li class="chapter" data-level="2" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>2</b> Literature</a><ul>
+<li class="chapter" data-level="2.1" data-path="literature.html"><a href="literature.html#passive-location-data"><i class="fa fa-check"></i><b>2.1</b> Passive Location Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="methodology.html"><a href="methodology.html"><i class="fa fa-check"></i><b>3</b> Methodology</a><ul>
+<li class="chapter" data-level="3.1" data-path="methodology.html"><a href="methodology.html#data"><i class="fa fa-check"></i><b>3.1</b> Data</a></li>
+<li class="chapter" data-level="3.2" data-path="methodology.html"><a href="methodology.html#model"><i class="fa fa-check"></i><b>3.2</b> Model</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>4</b> Applications</a><ul>
 <li class="chapter" data-level="4.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>4.1</b> Example one</a></li>
@@ -102,7 +105,7 @@ div.abstract{
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Article Long Title</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Estimating Park Choice and Access in Alameda County, California, using Passive Origin-Destination Data.</a>
           </h1>
         </div>
 
@@ -111,28 +114,103 @@ div.abstract{
 
             <section class="normal" id="section-">
 <div id="header">
-<h1 class="title">Article Long Title</h1>
+<h1 class="title">Estimating Park Choice and Access in Alameda County, California, using Passive Origin-Destination Data.</h1>
 <p class="author"><em>Gregory Macfarlane</em></p>
 <address class="author_afil">
 Brigham Young University<br><a class="author_email" href="mailto:#"><a href="mailto:gregmacfarlane@byu.edu" class="email">gregmacfarlane@byu.edu</a></a>
 </address>
-<p class="author"><em>Bob Example</em></p>
-<address class="author_afil">
-Brigham Young University<br><a class="author_email" href="mailto:#"><a href="mailto:bob@example.com" class="email">bob@example.com</a></a>
+<p class="author"><em>Teresa Tapia</em></p>
+<a class="author_email" href="mailto:#"><a href="mailto:teresa.tapia@streetlightdata.com" class="email">teresa.tapia@streetlightdata.com</a></a>
 </address>
-<p class="author"><em>Cat Example</em></p>
+<p class="author"><em>Carole Turley-Voulgaris</em></p>
 <address class="author_afil">
-Another University<br><a class="author_email" href="mailto:#"><a href="mailto:cat@example.com" class="email">cat@example.com</a></a>
+Harvard University<br><a class="author_email" href="mailto:#"><a href="mailto:cat@example.com" class="email">cat@example.com</a></a>
 </address>
-<p class="date"><em>2020-09-09</em></p>
+<p class="date"><em>2020-10-24</em></p>
 <div class="abstract">
 <p class="abstract">Abstract</p>
-<p>This is where the abstract should go.</p>
+<p>Parks provide important benefits to those who live near them, in the form of improved property values, health outcomes, etc.; nevertheless, measuring and understanding who lives near a park is an open research question. In particular, it is not well understood which park individuals will choose to use when given a choice among a set of nearby parks of varying sizes and at varying distances from their home. In this paper we present a park activity location choice model estimated from a passive origin-destination dataset — supplied by StreetLight Data, Inc. — representing trips to parks and green spaces in Alameda County, California. The estimated model parameters reveal heterogeneous preferences for park size and willingness-to-travel across block-group level socioeconomic segmentation: Specifically, high-income block groups appear more positively attracted to larger parks, and block groups with a high proportion of ethnic minority individuals are more likely to select nearby parks. The findings have importance for understanding recreational access among different populations, and the methodology more generally supplies a potential template for using passive data products within travel modeling.</p>
 </div>
 </div>
 <div id="intro" class="section level1">
 <h1><span class="header-section-number"> 1</span> Introduction</h1>
+<p>Parks and other green spaces generate immense value for the public who are able
+to access them. The <span class="citation">City Parks Alliance (<a href="#ref-CityParksAlliance" role="doc-biblioref">2019</a>)</span> categorizes the observed benefits of
+urban parks as encouraging active lifestyles <span class="citation">(Bancroft et al. <a href="#ref-Bancroft2015" role="doc-biblioref">2015</a>)</span>, contributing to
+local economies, aiding in stormwater management and flood mitigation,
+improving local air quality, increasing community engagement <span class="citation">(Madzia et al. <a href="#ref-Madzia2018" role="doc-biblioref">2018</a>)</span>, and
+enhancing public equity.</p>
+<p>Nevertheless, understanding and quantifying these benefits depends in many
+cases on identifying who lives near the parks and is therefore able to access
+them. Many previous studies <span class="citation">(e.g., Richardson et al. <a href="#ref-Richardson2012" role="doc-biblioref">2012</a>)</span> rely on comparison of total
+greenspace across metropolitan areas; this methodology may not adequately
+control for city-level fixed effects and it may ignore the potentially
+inequitable distribution of park space within a region. Studies focusing on
+access within metropolitan areas typically assume that people living within a
+certain distance or travel time threshold have access to a park, or examine the
+quantity of park space within one’s own arbitrarily defined “neighborhood”
+<span class="citation">(Mitchell and Popham <a href="#ref-Mitchell2008" role="doc-biblioref">2008</a>, Stark2014)</span>. But these methods do not account for the fact that
+some people will travel to other parks to perform recreational activities. A
+more holistic measure that continuously measures access across multiple
+preference dimensions is desirable.</p>
+<p>An appealing solution would be to examine and model the activity location
+choices of park users. Such a model would help researchers understand how
+individuals of different backgrounds and preferences value different park
+amenities. Further, the logsums of a location choice model provide a continuous
+measure of accessibility that explicitly accounts for such variation
+<span class="citation">(Jong et al. <a href="#ref-DeJong2007" role="doc-biblioref">2007</a>)</span>. Unfortunately, park choice models of this form are rare in the
+literature. Travel demand models built for infrastructure forecasting are a
+common way to generate such accessibility logsums, but these models group many
+different kinds of social and recreational trips together <span class="citation">(National Academies of Sciences Engineering and Medicine <a href="#ref-nchrp716" role="doc-biblioref">2012</a>)</span>. Further,
+the attraction term for such trip purposes is commonly a function of the retail
+or service employment or the number of households at the destination; a typical
+park or green space has neither employees nor residents. Finally, many regional
+household travel surveys are oriented towards an average weekday travel
+pattern, and many park trips occur irregularly or on weekends.</p>
+<p>In this paper we present a park destination choice model where individuals
+living in Alameda County, California choose among parks in the same county. The
+individuals are constructed from passive data that was derived from mobile
+devices and processed using algorithms developed by StreetLight Data, Inc. The
+origin location points are inferred residence block groups for unique devices
+and the destination points are geofenced polygons representing green and open
+spaces. The individuals’ choice of park location is conditioned on the distance
+from the block group to the parks in the choice set as well as the size of each
+park; market segmentation allows for heterogeneous responses between ethnic
+groups and income strata.</p>
+<p>The paper proceeds in the following manner: A discussion of prior attempts to
+study park choice and employ passive origin-destination data in the literature
+is given directly. The Methodology section presents the data gathering and
+cleaning efforts as well as the econometric location choice model. The Results
+section presents the estimated model coefficients and a discussion of the
+findings, as well as a model validation exercise. After presenting limitations
+and associated avenues for future research, a final Conclusions section
+outlines the contributions of this study for recreational trip modeling and
+location choice modeling more generally.</p>
 
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Bancroft2015">
+<p>Bancroft, Carolyn, Spruha Joshi, Andrew Rundle, Malo Hutson, Catherine Chong, Christopher C. Weiss, Jeanine Genkinger, Kathryn Neckerman, and Gina Lovasi. 2015. “Association of proximity and density of parks and objectively measured physical activity in the United States: A systematic review.” <em>Social Science &amp; Medicine</em> 138 (August): 22–30. <a href="https://doi.org/10.1016/j.socscimed.2015.05.034">https://doi.org/10.1016/j.socscimed.2015.05.034</a>.</p>
+</div>
+<div id="ref-CityParksAlliance">
+<p>City Parks Alliance. 2019. “Why City Parks Matter.” <a href="https://cityparksalliance.org/about-us/why-city-parks-matter/">https://cityparksalliance.org/about-us/why-city-parks-matter/</a>.</p>
+</div>
+<div id="ref-DeJong2007">
+<p>Jong, Gerard de, Andrew Daly, Marits Pieters, and Toon van der Hoorn. 2007. “The logsum as an evaluation measure: Review of the literature and new results.” <em>Transportation Research Part A: Policy and Practice</em> 41 (9): 874–89. <a href="https://doi.org/10.1016/J.TRA.2006.10.002">https://doi.org/10.1016/J.TRA.2006.10.002</a>.</p>
+</div>
+<div id="ref-Madzia2018">
+<p>Madzia, Juliana, Patrick Ryan, Kimberly Yolton, Zana Percy, Nick Newman, Grace LeMasters, and Cole Brokamp. 2018. “Residential Greenspace Association with Childhood Behavioral Outcomes.” <em>The Journal of Pediatrics</em>, December. <a href="https://doi.org/10.1016/J.JPEDS.2018.10.061">https://doi.org/10.1016/J.JPEDS.2018.10.061</a>.</p>
+</div>
+<div id="ref-Mitchell2008">
+<p>Mitchell, Richard, and Frank Popham. 2008. “Effect of exposure to natural environment on health inequalities: an observational population study.” <em>The Lancet</em> 372 (9650): 1655–60. <a href="https://doi.org/10.1016/S0140-6736(08)61689-X">https://doi.org/10.1016/S0140-6736(08)61689-X</a>.</p>
+</div>
+<div id="ref-nchrp716">
+<p>National Academies of Sciences Engineering and Medicine. 2012. <em>Travel Demand Forecasting: Parameters and Techniques</em>. NCHRP 716. Washington, D.C.: Transportation Research Board; National Academies Press. <a href="https://doi.org/10.17226/14665">https://doi.org/10.17226/14665</a>.</p>
+</div>
+<div id="ref-Richardson2012">
+<p>Richardson, Elizabeth A, Richard Mitchell, Terry Hartig, Sjerp de Vries, Thomas Astell-Burt, and Howard Frumkin. 2012. “Green cities and health: a question of scale?” <em>Journal of Epidemiology and Community Health</em> 66 (2): 160 LP–165. <a href="https://doi.org/10.1136/jech.2011.137240">https://doi.org/10.1136/jech.2011.137240</a>.</p>
+</div>
 </div>
             </section>
 
@@ -182,7 +260,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["project_name.pdf", "project_name.epub"],
+"download": ["alameda_destinationchoice.pdf", "alameda_destinationchoice.epub"],
 "toc": {
 "collapse": "subsection"
 }

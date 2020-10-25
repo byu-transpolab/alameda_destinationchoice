@@ -4,26 +4,26 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title> 2 Literature | Article Long Title</title>
-  <meta name="description" content="A short description" />
+  <title> 2 Literature | Developing a Park Activity Location Choice Model from Passive Origin-Destination Data Tables</title>
+  <meta name="description" content="Alameda Park Choice" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content=" 2 Literature | Article Long Title" />
+  <meta property="og:title" content=" 2 Literature | Developing a Park Activity Location Choice Model from Passive Origin-Destination Data Tables" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="A short description" />
+  <meta property="og:description" content="Alameda Park Choice" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content=" 2 Literature | Article Long Title" />
+  <meta name="twitter:title" content=" 2 Literature | Developing a Park Activity Location Choice Model from Passive Origin-Destination Data Tables" />
   
-  <meta name="twitter:description" content="A short description" />
+  <meta name="twitter:description" content="Alameda Park Choice" />
   
 
 
 
-<meta name="date" content="2020-09-09" />
+<meta name="date" content="2020-09-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -76,11 +76,13 @@ div.abstract{
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Short Title</a></li>
+<li><a href="./">Alameda Park Choice</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>2</b> Literature</a></li>
+<li class="chapter" data-level="2" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>2</b> Literature</a><ul>
+<li class="chapter" data-level="2.1" data-path="literature.html"><a href="literature.html#passive-location-data"><i class="fa fa-check"></i><b>2.1</b> Passive Location Data</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>3</b> Methods</a><ul>
 <li class="chapter" data-level="3.1" data-path="methods.html"><a href="methods.html#data"><i class="fa fa-check"></i><b>3.1</b> Data</a></li>
 </ul></li>
@@ -102,7 +104,7 @@ div.abstract{
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Article Long Title</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Developing a Park Activity Location Choice Model from Passive Origin-Destination Data Tables</a>
           </h1>
         </div>
 
@@ -112,8 +114,155 @@ div.abstract{
             <section class="normal" id="section-">
 <div id="literature" class="section level1">
 <h1><span class="header-section-number"> 2</span> Literature</h1>
-<p>Here is a review of existing methods.</p>
+<p>Understanding who has access to parks is a long-standing question across
+multiple scientific disciplines. Researchers specializing in recreation
+management, public health, urban planning, ecology, and civil engineering have
+all played a role in shaping our collective understanding of park design,
+access, and use. A complete review of all of these fields is not warranted for
+the scope of this paper, but some recent findings are worth discussion.</p>
+<p>A popular measure of park accessibility is the Trust for Public Land’s
+“ParkScore” statistic <span class="citation">(Trust for Public Land <a href="#ref-parkscore2019" role="doc-biblioref">2019</a>)</span>. ParkScore considers the share of the
+population that resides within a 10-minute walk of a green space using a
+sophisticated network routing algorithm, in combination with the total city
+green space, investment, and amenities weighted against the socioeconomic
+characteristics of the population outside of the 10-minute walk threshold. The
+resulting score is a convenient quantitative tool in estimating the relative
+quality of green space access across cities <span class="citation">(Rigolon, Browning, and Jennings <a href="#ref-Rigolon2018" role="doc-biblioref">2018</a>)</span>. It may be less
+useful at identifying the comparative quality of access within a city,
+particularly as more than 95% of residents in many large metropolitan areas like
+San Francisco and New York live within the binary 10-minute walk threshold. The
+Centers for Disease Control and Prevention (CDC) has developed an “Accessibility
+to Parks Indicator” along similar lines <span class="citation">(Ussery et al. <a href="#ref-Ussery2016" role="doc-biblioref">2016</a>)</span>, calculating the share of
+the population living within a half-mile of a park for each county in the U.S.</p>
+<p>There is recognition that park access should in some way be linked with park
+use. After all, a park that has many visitors must by definition be accessible
+to those visitors. <span class="citation">McCormack et al. (<a href="#ref-McCormack2010" role="doc-biblioref">2010</a>)</span> provide a comprehensive review of this
+literature; it is sufficient here to note that most studies find a complicated
+interplay between park size, maintenance, facilities, and travel distance. Many
+of these attributes are incorporated into ParkIndex <span class="citation">(Kaczynski et al. <a href="#ref-Kaczynski2016" role="doc-biblioref">2016</a>)</span>, which
+estimates the resident park use potential within <span class="math inline">\(100 m^2\)</span> grid cells, based on
+a household park use survey in Kansas City.</p>
+<p>From a transportation engineering perspective, the park use potential measured
+by ParkIndex is not dissimilar from a park trip production potential. Along
+these lines, the question of park use is a destination choice problem, where
+trip makers consider which park is most attractive to accomplish their
+recreation activity. The Institute of Transportation Engineers (ITE) Trip
+Generation Manual <span class="citation">(<a href="#ref-ite2019" role="doc-biblioref">2017</a>)</span> contains trip attraction rates for public parks
+that use as attraction terms the park acreage, number of picnic tables,
+employees, and other variables. As with many land uses in Trip Generation, the
+provided trip generation rates are based on a limited number of observational
+samples and may not represent large-sample behavior <span class="citation">(Millard-Ball <a href="#ref-Millard-Ball2015" role="doc-biblioref">2015</a>)</span>.
+Moreover, regression-based attraction rates isolated from trip production and
+travel behavior ignore the geographical and behavioral contexts in which people
+actually make trips to parks <span class="citation">(Barnard and Brindle <a href="#ref-Barnard1987" role="doc-biblioref">1987</a>)</span>: Though more people may come to
+larger parks, a park cannot attract more people simply by becoming bigger.</p>
+<p>There are limited examples of researchers using a destination choice model to
+predict recreation attractions. <span class="citation">Kinnell et al. (<a href="#ref-Kinnell2006" role="doc-biblioref">2006</a>)</span> apply a choice model to a survey
+of park visitors in New Jersey, and estimate the relative attractiveness of park
+attributes including playgrounds, picnic areas, and park acreage weighed against
+the travel disutility and the relative crime rate at the destination. In a
+similar study, <span class="citation">Meyerhoff, Dehnhardt, and Hartje (<a href="#ref-Meyerhoff2010" role="doc-biblioref">2010</a>)</span> model the urban swimming location choice for a
+surveyed sample. In both studies, the researchers were attempting to ascertain
+which attributes of a recreation generated the most positive utility, and
+therefore which attributes should be prioritized for improvement. These studies
+have not to our knowledge been previously referenced in discussions of park
+accessibility.</p>
+<div id="passive-location-data" class="section level2">
+<h2><span class="header-section-number">2.1</span> Passive Location Data</h2>
+<p>The advent of large-scale mobile networks and the seemingly perpetual
+association of unique devices with unique users has given researchers a new
+opportunity to observe the movements and activity location patterns for large
+subsets of the population <span class="citation">(Naboulsi et al. <a href="#ref-Naboulsi2016" role="doc-biblioref">2016</a>)</span>. Such passively collected movement
+data — sometimes referred to as “Big Data” — is passively collected as a
+by-product of other systems including cellular call data records <span class="citation">(e.g., Bolla and Davoli <a href="#ref-Bolla2000" role="doc-biblioref">2000</a>; Calabrese et al. <a href="#ref-Calabrese2011" role="doc-biblioref">2011</a>)</span>, probe GPS data <span class="citation">(Huang and Levinson <a href="#ref-Huang2015" role="doc-biblioref">2015</a>)</span>, and more recently
+Location Based Services (LBS) <span class="citation">(Roll <a href="#ref-Roll2019" role="doc-biblioref">2019</a>; Komanduri et al. <a href="#ref-Komanduri2017" role="doc-biblioref">2017</a>)</span>. LBS use a network of
+mobile applications that obtain the users’ physical location. A variety of
+commercial vendors repackage, clean, and scale these data to population or
+traffic targets and sell origin-destination matrices to researchers and
+practitioners at relatively low prices. <span class="citation">Monz et al. (<a href="#ref-Monz2019" role="doc-biblioref">2019</a>)</span>, for example, demonstrate
+how passive device data can be used to accurately estimate trips to natural
+recreation areas.</p>
+<p>Passive origin-destination matrices are beginning to inform trip distribution
+model development more directly as well. <span class="citation">Kressner (<a href="#ref-tf_idea" role="doc-biblioref">2017</a>)</span> proposes one methodology,
+where passive origin-destination matrices serve as a probabilistic sampling
+frame for a simulated trip destination choice. <span class="citation">Bernardin et al. (<a href="#ref-Bernardin2018" role="doc-biblioref">2018</a>)</span> employ a passive
+origin-destination matrix as a shadow price reference in an activity-based
+location choice model, iteratively adjusting the parameters of the choice
+utilities to minimize the observed error between the matrix and the modeled
+predictions. A similar method developed by <span class="citation">Zhu and Ye (<a href="#ref-Zhu2018" role="doc-biblioref">2018</a>)</span> uses the passive dataset
+directly, sampling 10,000 random trips from GPS traces of taxi trips in Shanghai
+and estimating a destination choice model. Employing the passive data set in
+this way provides the authors an opportunity to examine the choices of a
+large sample of a small population (taxi passengers) as well as sufficient data
+to estimate a “constants-rich” destination choice model with uniquely estimated
+coefficients for each origin-destination pair. The Zhu and Ye methodology
+suggests that a similar approach should apply in other contexts, including park
+choice.</p>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Barnard1987">
+<p>Barnard, P. O., and R. E. Brindle. 1987. “A review and critique of current methods used to predict traffic generation with some accompanying suggestions on alternative approaches.” <em>Transportation Planning and Technology</em> 11 (4): 273–88. <a href="https://doi.org/10.1080/03081068708717349">https://doi.org/10.1080/03081068708717349</a>.</p>
+</div>
+<div id="ref-Bernardin2018">
+<p>Bernardin, Vincent L, John L Bowman, Mark Bradley, Jason Chen, Nazneen Ferdous, and Yuen Lee. 2018. “Incorporating Big Data in an Activity-Based Travel Model: The Chattanooga Case Study.” In <em>TRB Annual Meeting</em>. Transportation Research Board. <a href="https://trid.trb.org/view/1495930">https://trid.trb.org/view/1495930</a>.</p>
+</div>
+<div id="ref-Bolla2000">
+<p>Bolla, R., and F. Davoli. 2000. “Road traffic estimation from location tracking data in the mobile cellular network.” In <em>2000 Ieee Wireless Communications and Networking Conference. Conference Record (Cat. No.00TH8540)</em>, 1107–12. IEEE. <a href="https://doi.org/10.1109/WCNC.2000.904783">https://doi.org/10.1109/WCNC.2000.904783</a>.</p>
+</div>
+<div id="ref-Calabrese2011">
+<p>Calabrese, Francesco, Giusy Di Lorenzo, Liang Liu, and Carlo Ratti. 2011. “Estimating Origin-Destination Flows Using Mobile Phone Location Data.” <em>IEEE Pervasive Computing</em> 10 (4): 36–44. <a href="https://doi.org/10.1109/mprv.2011.41">https://doi.org/10.1109/mprv.2011.41</a>.</p>
+</div>
+<div id="ref-Huang2015">
+<p>Huang, Arthur, and David Levinson. 2015. “Axis of travel: Modeling non-work destination choice with GPS data.” <em>Transportation Research Part C: Emerging Technologies</em> 58 (September): 208–23. <a href="https://doi.org/10.1016/J.TRC.2015.03.022">https://doi.org/10.1016/J.TRC.2015.03.022</a>.</p>
+</div>
+<div id="ref-ite2019">
+<p>Institute of Transportation Engineers. 2017. <em>Trip Generation Manual</em>. 10th Editi. Washington, D.C.: Institute of Transportation Engineers.</p>
+</div>
+<div id="ref-Kaczynski2016">
+<p>Kaczynski, Andrew T., Jasper Schipperijn, J. Aaron Hipp, Gina M. Besenyi, Sonja A. Wilhelm Stanis, S. Morgan Hughey, and Sara Wilcox. 2016. “ParkIndex: Development of a standardized metric of park access for research and planning.” <em>Preventive Medicine</em> 87 (June): 110–14. <a href="https://doi.org/10.1016/J.YPMED.2016.02.012">https://doi.org/10.1016/J.YPMED.2016.02.012</a>.</p>
+</div>
+<div id="ref-Kinnell2006">
+<p>Kinnell, J. C., M. F. Bingham, A. F. Mohamed, W. H. Desvousges, T. B. Kiler, E. K. Hastings, and K. T. Kuhns. 2006. “Estimating Site Choice Decisions for Urban Recreators.” <em>Land Economics</em> 82 (2): 257–72. <a href="https://doi.org/10.3368/le.82.2.257">https://doi.org/10.3368/le.82.2.257</a>.</p>
+</div>
+<div id="ref-Komanduri2017">
+<p>Komanduri, Anurag, Laura Schewel, Dan Beagan, and Dale Wong. 2017. “Using Big Data to Develop Comparative Commercial Vehicle Metrics for Port Traffic at Major Ports in the U.S.” In <em>TRB Annual Meeting</em>. Transportation Research Board. <a href="https://trid.trb.org/View/1438797">https://trid.trb.org/View/1438797</a>.</p>
+</div>
+<div id="ref-tf_idea">
+<p>Kressner, Josephine D. 2017. “Synthetic Household Travel Data Using Consumer and Mobile Phone Data.” Transportation Research Board.</p>
+</div>
+<div id="ref-McCormack2010">
+<p>McCormack, Gavin R., Melanie Rock, Ann M. Toohey, and Danica Hignell. 2010. “Characteristics of urban parks associated with park use and physical activity: A review of qualitative research.” <em>Health &amp; Place</em> 16 (4): 712–26. <a href="https://doi.org/10.1016/J.HEALTHPLACE.2010.03.003">https://doi.org/10.1016/J.HEALTHPLACE.2010.03.003</a>.</p>
+</div>
+<div id="ref-Meyerhoff2010">
+<p>Meyerhoff, Jürgen, Alexandra Dehnhardt, and Volkmar Hartje. 2010. “Take your swimsuit along: the value of improving urban bathing sites in the metropolitan area of Berlin.” <em>Journal of Environmental Planning and Management</em> 53 (1): 107–24. <a href="https://doi.org/10.1080/09640560903399863">https://doi.org/10.1080/09640560903399863</a>.</p>
+</div>
+<div id="ref-Millard-Ball2015">
+<p>Millard-Ball, Adam. 2015. “Phantom trips: Overestimating the traffic impacts of new development.” <em>Journal of Transport and Land Use</em> 8 (1): 31–49. <a href="https://doi.org/10.5198/jtlu.2015.384">https://doi.org/10.5198/jtlu.2015.384</a>.</p>
+</div>
+<div id="ref-Monz2019">
+<p>Monz, Christopher, Milan Mitrovich, Ashley D’Antonio, and Abigail Sisneros-Kidd. 2019. “Using Mobile Device Data to Estimate Visitation in Parks and Protected Areas: An Example from the Nature Reserve of Orange County, California.” <em>Journal of Park and Recreation Administration</em> 0 (0). <a href="https://doi.org/10.18666/JPRA-2019-9899">https://doi.org/10.18666/JPRA-2019-9899</a>.</p>
+</div>
+<div id="ref-Naboulsi2016">
+<p>Naboulsi, Diala, Marco Fiore, Stephane Ribot, and Razvan Stanica. 2016. “Large-Scale Mobile Traffic Analysis: A Survey.” <em>IEEE Communications Surveys &amp; Tutorials</em> 18 (1): 124–61. <a href="https://doi.org/10.1109/COMST.2015.2491361">https://doi.org/10.1109/COMST.2015.2491361</a>.</p>
+</div>
+<div id="ref-Rigolon2018">
+<p>Rigolon, Alessandro, Matthew Browning, and Viniece Jennings. 2018. “Inequities in the quality of urban park systems: An environmental justice investigation of cities in the United States.” <em>Landscape and Urban Planning</em> 178 (October): 156–69. <a href="https://doi.org/10.1016/J.LANDURBPLAN.2018.05.026">https://doi.org/10.1016/J.LANDURBPLAN.2018.05.026</a>.</p>
+</div>
+<div id="ref-Roll2019">
+<p>Roll, Josh. 2019. “Evaluating Streetlight Estimates of Annual Average Daily Traffic in Oregon.” Oregon Department of Transportation; Oregon Department of Transportation. <a href="https://trid.trb.org/View/1630252">https://trid.trb.org/View/1630252</a>.</p>
+</div>
+<div id="ref-parkscore2019">
+<p>Trust for Public Land. 2019. “2019 ParkScore Index.” <a href="https://www.tpl.org/parkscore">https://www.tpl.org/parkscore</a>.</p>
+</div>
+<div id="ref-Ussery2016">
+<p>Ussery, Emily Neusel, Leah Yngve, Dee Merriam, Geoffrey Whitfield, Stephanie Foster, Arthur Wendel, and Tegan Boehmer. 2016. “The National Environmental Public Health Tracking Network Access to Parks Indicator: A National County-Level Measure of Park Proximity.” <em>Journal of Park and Recreation Administration</em> 34 (3): 52. <a href="https://doi.org/10.18666/JPRA-2016-V34-I3-7119">https://doi.org/10.18666/JPRA-2016-V34-I3-7119</a>.</p>
+</div>
+<div id="ref-Zhu2018">
+<p>Zhu, Jiayu, and Xin Ye. 2018. “Development of destination choice model with pairwise district-level constants using taxi GPS data.” <em>Transportation Research Part C: Emerging Technologies</em> 93 (August): 410–24. <a href="https://doi.org/10.1016/J.TRC.2018.06.016">https://doi.org/10.1016/J.TRC.2018.06.016</a>.</p>
+</div>
 </div>
             </section>
 
@@ -163,7 +312,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["project_name.pdf", "project_name.epub"],
+"download": ["alameda_destinationchoice.pdf", "alameda_destinationchoice.epub"],
 "toc": {
 "collapse": "subsection"
 }
@@ -171,6 +320,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
