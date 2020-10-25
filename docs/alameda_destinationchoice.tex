@@ -1,0 +1,268 @@
+\documentclass[]{elsarticle} %review=doublespace preprint=single 5p=2 column
+%%% Begin My package additions %%%%%%%%%%%%%%%%%%%
+\usepackage[hyphens]{url}
+
+  \journal{Submitted to Transportation Research Part C: Emerging Technologies} % Sets Journal name
+
+
+\usepackage{lineno} % add
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\usepackage{graphicx}
+\usepackage{booktabs} % book-quality tables
+%%%%%%%%%%%%%%%% end my additions to header
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \usepackage{fontspec}
+  \ifxetex
+    \usepackage{xltxtra,xunicode}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use microtype if available
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+\usepackage{natbib}
+\bibliographystyle{plainnat}
+\usepackage{longtable}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={Developing a Park Activity Location Choice Model from Passive Origin-Destination Data Tables},
+            colorlinks=false,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+
+\setcounter{secnumdepth}{5}
+% Pandoc toggle for numbering sections (defaults to be off)
+
+
+% Pandoc header
+\usepackage{booktabs}
+
+
+
+\begin{document}
+\begin{frontmatter}
+
+  \title{Developing a Park Activity Location Choice Model from Passive Origin-Destination Data Tables}
+    \author[Brigham Young University]{Gregory Macfarlane\corref{1}}
+   \ead{gregmacfarlane@byu.edu} 
+    \author[]{Teresa Tapia}
+   \ead{teresa.tapia@streetlightdata.com} 
+    \author[Harvard University]{Carole Turley-Voulgaris}
+   \ead{cat@example.com} 
+      \address[Brigham Young University]{Civil and Environmental Engineering Department, 430 Engineering Building, Provo, Utah 84602}
+    \address[Harvard University]{Some Other Place}
+      \cortext[1]{Corresponding Author}
+  
+  \begin{abstract}
+  Parks provide important benefits to those who live near them, in the form of improved property values, health outcomes, etc.; nevertheless, measuring and understanding who lives near a park is an open research question. In particular, it is not well understood which park individuals will choose to use when given a choice among a set of nearby parks of varying sizes and at varying distances from their home. In this paper we present a park activity location choice model estimated from a passive origin-destination dataset --- supplied by StreetLight Data, Inc.~--- representing trips to parks and green spaces in Alameda County, California. The estimated model parameters reveal heterogeneous preferences for park size and willingness-to-travel across block-group level socioeconomic segmentation: Specifically, high-income block groups appear more positively attracted to larger parks, and block groups with a high proportion of ethnic minority individuals are more likely to select nearby parks. The findings have importance for understanding recreational access among different populations, and the methodology more generally supplies a potential template for using passive data products within travel modeling.
+  \end{abstract}
+   \begin{keyword} Accessibility Passive Data Location Choice\end{keyword}
+ \end{frontmatter}
+
+\hypertarget{intro}{%
+\section{Introduction}\label{intro}}
+
+Parks and other green spaces generate immense value for the public who are able
+to access them. The \citet{CityParksAlliance} categorizes the observed benefits of
+urban parks as encouraging active lifestyles \citep{Bancroft2015}, contributing to
+local economies, aiding in stormwater management and flood mitigation,
+improving local air quality, increasing community engagement \citep{Madzia2018}, and
+enhancing public equity.
+
+Nevertheless, understanding and quantifying these benefits depends in many
+cases on identifying who lives near the parks and is therefore able to access
+them. Many previous studies \citep[e.g.,][]{Richardson2012} rely on comparison of total
+greenspace across metropolitan areas; this methodology may not adequately
+control for city-level fixed effects and it may ignore the potentially
+inequitable distribution of park space within a region. Studies focusing on
+access within metropolitan areas typically assume that people living within a
+certain distance or travel time threshold have access to a park, or examine the
+quantity of park space within one's own arbitrarily defined ``neighborhood''
+\citep[Stark2014]{Mitchell2008}. But these methods do not account for the fact that
+some people will travel to other parks to perform recreational activities. A
+more holistic measure that continuously measures access across multiple
+preference dimensions is desirable.
+
+An appealing solution would be to examine and model the activity location
+choices of park users. Such a model would help researchers understand how
+individuals of different backgrounds and preferences value different park
+amenities. Further, the logsums of a location choice model provide a continuous
+measure of accessibility that explicitly accounts for such variation
+\citep{DeJong2007}. Unfortunately, park choice models of this form are rare in the
+literature. Travel demand models built for infrastructure forecasting are a
+common way to generate such accessibility logsums, but these models group many
+different kinds of social and recreational trips together \citep{nchrp716}. Further,
+the attraction term for such trip purposes is commonly a function of the retail
+or service employment or the number of households at the destination; a typical
+park or green space has neither employees nor residents. Finally, many regional
+household travel surveys are oriented towards an average weekday travel
+pattern, and many park trips occur irregularly or on weekends.
+
+In this paper we present a park destination choice model where individuals
+living in Alameda County, California choose among parks in the same county. The
+individuals are constructed from passive data that was derived from mobile
+devices and processed using algorithms developed by StreetLight Data, Inc.~The
+origin location points are inferred residence block groups for unique devices
+and the destination points are geofenced polygons representing green and open
+spaces. The individuals' choice of park location is conditioned on the distance
+from the block group to the parks in the choice set as well as the size of each
+park; market segmentation allows for heterogeneous responses between ethnic
+groups and income strata.
+
+The paper proceeds in the following manner: A discussion of prior attempts to
+study park choice and employ passive origin-destination data in the literature
+is given directly. The Methodology section presents the data gathering and
+cleaning efforts as well as the econometric location choice model. The Results
+section presents the estimated model coefficients and a discussion of the
+findings, as well as a model validation exercise. After presenting limitations
+and associated avenues for future research, a final Conclusions section
+outlines the contributions of this study for recreational trip modeling and
+location choice modeling more generally.
+
+\hypertarget{literature}{%
+\section{Literature}\label{literature}}
+
+Understanding who has access to parks is a long-standing question across
+multiple scientific disciplines. Researchers specializing in recreation
+management, public health, urban planning, ecology, and civil engineering have
+all played a role in shaping our collective understanding of park design,
+access, and use. A complete review of all of these fields is not warranted for
+the scope of this paper, but some recent findings are worth discussion.
+
+A popular measure of park accessibility is the Trust for Public Land's
+``ParkScore'' statistic \citep{parkscore2019}. ParkScore considers the share of the
+population that resides within a 10-minute walk of a green space using a
+sophisticated network routing algorithm, in combination with the total city
+green space, investment, and amenities weighted against the socioeconomic
+characteristics of the population outside of the 10-minute walk threshold. The
+resulting score is a convenient quantitative tool in estimating the relative
+quality of green space access across cities \citep{Rigolon2018}. It may be less
+useful at identifying the comparative quality of access within a city,
+particularly as more than 95\% of residents in many large metropolitan areas like
+San Francisco and New York live within the binary 10-minute walk threshold. The
+Centers for Disease Control and Prevention (CDC) has developed an ``Accessibility
+to Parks Indicator'' along similar lines \citep{Ussery2016}, calculating the share of
+the population living within a half-mile of a park for each county in the U.S.
+
+There is recognition that park access should in some way be linked with park
+use. After all, a park that has many visitors must by definition be accessible
+to those visitors. \citet{McCormack2010} provide a comprehensive review of this
+literature; it is sufficient here to note that most studies find a complicated
+interplay between park size, maintenance, facilities, and travel distance. Many
+of these attributes are incorporated into ParkIndex \citep{Kaczynski2016}, which
+estimates the resident park use potential within \(100 m^2\) grid cells, based on
+a household park use survey in Kansas City.
+
+From a transportation engineering perspective, the park use potential measured
+by ParkIndex is not dissimilar from a park trip production potential. Along
+these lines, the question of park use is a destination choice problem, where
+trip makers consider which park is most attractive to accomplish their
+recreation activity. The Institute of Transportation Engineers (ITE) Trip
+Generation Manual \citeyearpar{ite2019} contains trip attraction rates for public parks
+that use as attraction terms the park acreage, number of picnic tables,
+employees, and other variables. As with many land uses in Trip Generation, the
+provided trip generation rates are based on a limited number of observational
+samples and may not represent large-sample behavior \citep{Millard-Ball2015}.
+Moreover, regression-based attraction rates isolated from trip production and
+travel behavior ignore the geographical and behavioral contexts in which people
+actually make trips to parks \citep{Barnard1987}: Though more people may come to
+larger parks, a park cannot attract more people simply by becoming bigger.
+
+There are limited examples of researchers using a destination choice model to
+predict recreation attractions. \citet{Kinnell2006} apply a choice model to a survey
+of park visitors in New Jersey, and estimate the relative attractiveness of park
+attributes including playgrounds, picnic areas, and park acreage weighed against
+the travel disutility and the relative crime rate at the destination. In a
+similar study, \citet{Meyerhoff2010} model the urban swimming location choice for a
+surveyed sample. In both studies, the researchers were attempting to ascertain
+which attributes of a recreation generated the most positive utility, and
+therefore which attributes should be prioritized for improvement. These studies
+have not to our knowledge been previously referenced in discussions of park
+accessibility.
+
+\hypertarget{passive-location-data}{%
+\subsection{Passive Location Data}\label{passive-location-data}}
+
+The advent of large-scale mobile networks and the seemingly perpetual
+association of unique devices with unique users has given researchers a new
+opportunity to observe the movements and activity location patterns for large
+subsets of the population \citep{Naboulsi2016}. Such passively collected movement
+data --- sometimes referred to as ``Big Data'' --- is passively collected as a
+by-product of other systems including cellular call data records \citep[e.g.,][]{Bolla2000, Calabrese2011}, probe GPS data \citep{Huang2015}, and more recently
+Location Based Services (LBS) \citep{Roll2019, Komanduri2017}. LBS use a network of
+mobile applications that obtain the users' physical location. A variety of
+commercial vendors repackage, clean, and scale these data to population or
+traffic targets and sell origin-destination matrices to researchers and
+practitioners at relatively low prices. \citet{Monz2019}, for example, demonstrate
+how passive device data can be used to accurately estimate trips to natural
+recreation areas.
+
+Passive origin-destination matrices are beginning to inform trip distribution
+model development more directly as well. \citet{tf_idea} proposes one methodology,
+where passive origin-destination matrices serve as a probabilistic sampling
+frame for a simulated trip destination choice. \citet{Bernardin2018} employ a passive
+origin-destination matrix as a shadow price reference in an activity-based
+location choice model, iteratively adjusting the parameters of the choice
+utilities to minimize the observed error between the matrix and the modeled
+predictions. A similar method developed by \citet{Zhu2018} uses the passive dataset
+directly, sampling 10,000 random trips from GPS traces of taxi trips in Shanghai
+and estimating a destination choice model. Employing the passive data set in
+this way provides the authors an opportunity to examine the choices of a
+large sample of a small population (taxi passengers) as well as sufficient data
+to estimate a ``constants-rich'' destination choice model with uniquely estimated
+coefficients for each origin-destination pair. The Zhu and Ye methodology
+suggests that a similar approach should apply in other contexts, including park
+choice.
+
+\hypertarget{methods}{%
+\section{Methods}\label{methods}}
+
+We describe our methods in this chapter.
+
+\hypertarget{data}{%
+\subsection{Data}\label{data}}
+
+\hypertarget{applications}{%
+\section{Applications}\label{applications}}
+
+Some \emph{significant} applications are demonstrated in this chapter.
+
+\hypertarget{example-one}{%
+\subsection{Example one}\label{example-one}}
+
+\hypertarget{example-two}{%
+\subsection{Example two}\label{example-two}}
+
+\hypertarget{final-words}{%
+\section{Final Words}\label{final-words}}
+
+We have finished a nice book.
+
+\bibliography{book.bib}
+
+
+\end{document}
+
+
