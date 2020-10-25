@@ -2,14 +2,12 @@
 .Rhistory
 .RData
 .Ruserdata
-
 *.aux
 *.log
 *.spl
-
 R/*_cache/*
-
 data/shortest_paths/*
 data/shortest_paths.7z
 data/Master_BlockGroups_Final071519.csv
 data/park_flows.rds
+alameda_destinationchoice.Rmd
