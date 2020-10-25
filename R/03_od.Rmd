@@ -1,0 +1,107 @@
+---
+title: "OD"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(tigris_use_cache = TRUE)
+library(tidyverse)
+library(tigris)
+library(sf)
+library(leaflet)
+library(qwraps2)
+```
+
+In this document we examine and process the origin-destination records provided by
+StreetLight Data to compile a distribution of park trip origin block groups.
+
+
+The data are stored as the share of trips bound for parks (`id`) from
+blockgroups (`geoid`). The `share` is the share the total `attractions` to a park
+originating in that block group. There are also values for the day type and the
+day share, but we use trips on all days at all times of the day.
+
+```{r trips}
+trips <- read_csv(here("data/Master_BlockGroups_Final071519.csv")) %>% 
+  # need to make block group id properly formatted.
+  transmute(
+    id = as.character(`Zone Name`),
+    geoid = paste0("0", round(`Block Group ID`)),
+    county = substr(geoid, 0, 5),
+    attractions = `Zone Traffic (StL Index)`,
+    d_share = `Percent by Home Location`,
+    volume = attractions * d_share
+  ) %>%
+  # only keep bgs in the area
+  filter(county %in% c("06001", "06013"))
+
+trips %>% sample_n(10)
+
+```
+
+Let's look at the volume of trips inbound to Lakeside Park in Oakland by Lake
+Merrit from each block group by volume. Unsurprisingly, the block groups 
+immediately next to the park show a great deal affinity to the park. 
+But it also draws visitors from a wider group of block groups, particularly
+along the east bench.
+
+```{r lakeside-map}
+block_group_shape <- tigris::block_groups(
+  "CA",  county = c("001"),  class = "sf") %>%
+  select(geoid = GEOID) %>%
+  st_transform(4326)
+
+inbound_trips <- block_group_shape %>% 
+  left_join(
+    trips %>% filter(id == "21997") %>% select(geoid, volume), 
+    by = "geoid"
+  ) %>%
+  mutate(volume = ifelse(is.na(volume), 0, volume))
+
+pal <- colorBin("BuPu", bins = c(0, 1, 10, 30, 50, Inf))
+
+leaflet(inbound_trips) %>%
+  addProviderTiles(providers$Esri.WorldGrayCanvas) %>%
+  addPolygons(color = ~pal(volume)) %>%
+  addLegend("bottomleft", pal = pal, values =~volume)
+```
+
+The `share` colum is actually the opposite of what we want to have; we are
+interested not in where park visitors are coming *from*, but which parks 
+people *travel to* based on their home block group.
+
+```{r flipit}
+park_flows <- trips %>%
+  group_by(geoid) %>%
+  mutate(
+    productions = sum(volume),
+    o_share = volume / productions
+  )  %>%
+  write_rds(here("data/park_flows.rds"))
+```
+
+The map below shows for a block group selected in black the distribution of 
+observed park destinations. Interestingly enough, the nearest parks are *not*
+the most commonly observed parks. But the parks that are not nearby are large
+parks likely to attract people from far away.
+
+```{r map2}
+parks_map_data <- read_rds(here("data/attributed_parks.rds")) %>%
+  filter(id %in% park_flows$id) %>%
+  transmute(id) %>%
+  left_join(park_flows %>% filter(geoid == "060014052001"), by = "id") %>%
+  filter(!is.na(o_share))
+
+leaflet(parks_map_data %>% st_transform(4326)) %>%
+  addProviderTiles(providers$Esri.WorldGrayCanvas) %>%
+  addPolygons(color = ~pal(volume)) %>%
+  addPolygons(data = block_group_shape %>% filter(geoid == "060014052001"), 
+              color = "black") %>%
+  addLegend("bottomleft", pal = pal, values =~o_share)
+```
+
+
+
+
+
+
