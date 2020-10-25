@@ -1,14 +1,21 @@
-## My Template Article
+## Park Destination Choice in Alameda County
 
-The `bookdown` example template has a lot going for it, but there are a number 
-of complicated changes I need to make every time I start a new article. So this
-template has the changes pre-made!
-
-Changes from the default `bookdown` template include:
-
-  - The html output is put in `docs` instead of `_book`, which makes it easy to
-  host the website through GitHub pages.
-  - The pdf output generates an `article` instead of a `book`. The specific 
-  LaTeX template is the Elsevier template, where most of my articles have been
-  published to date.
-  - The keys for the article template are already set up.
+ Parks provide important benefits to those who live near them, in the form of
+ improved property values, health outcomes, etc.; nevertheless, measuring and
+ understanding who lives near a park is an open research question. In
+ particular, it is not well understood which park individuals will choose to use
+ when given a choice among a set of nearby parks of varying sizes and at varying
+ distances from their home. In this paper we present a park activity location
+ choice model estimated from a passive origin-destination dataset --- supplied
+ by StreetLight Data, Inc. --- representing trips to parks and green spaces in
+ Alameda County, California. The estimated model parameters reveal heterogeneous
+ preferences for park size and willingness-to-travel across block-group level
+ socioeconomic segmentation: Specifically, high-income block groups appear more
+ positively attracted to larger parks, and block groups with a high proportion
+ of ethnic minority individuals are more likely to select nearby parks. The
+ findings have importance for understanding recreational access among different
+ populations, and the methodology more generally supplies a potential template
+ for using passive data products within travel modeling.
+ 
+ 
+ An earlier version of this paper was presented at the 2020 TRB Annual Meeting.
