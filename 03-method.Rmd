@@ -6,6 +6,7 @@ library(here)
 library(osmdata)
 library(sf)
 library(tidyverse)
+library(ggmap)
 library(leaflet)
 library(tidycensus)
 library(qwraps2)
@@ -68,7 +69,9 @@ parks <- st_read(here("data/bayarea_parks.geojson"), quiet = TRUE) %>%
 From this initial parks polygons dataset, we obtained park attribute information
 through OpenStreetMap (OSM) using the `osmdata` package for R [@osmdata]. Three 
 attribute elements are considered in this analysis. First, we identify playgrounds
-using OSM facilities given a `leisure = playground` tag. 
+using OSM facilities given a `leisure = playground` tag. The tagged facilities can
+be either polygon or point objects; in the former case we use the polygon centroid
+to determine the location of the playground.
 
 ```{r playgrounds, warning = FALSE}
 playground_osm <- opq(bb) %>% # specify boundary for query
@@ -97,7 +100,8 @@ the field is designed for, which we retain in a consolidated manner. Soccer and
 American football fields are considered in a single category, and baseball and
 softball fields are combined as well. Basketball, tennis, and volleyball courts
 are kept as distinct categories, with all other sport-specific fields combined
-into a single "other". Golf courses are discarded.
+into a single "other". Golf courses are discarded. As with playgrounds, polygon 
+field and court objects are converted into points at the polygon centroid.
 
 ```{r pitches}
 pitches_osm <- opq(bb) %>% # specify boundary for query
@@ -133,7 +137,9 @@ pitches <- rbind(
 Finally, we identified trails and footpaths using the `path`, `cycleway`, and
 `footway` values of the `highway` tag. A visual inspection of the resulting data
 revealed that the large preponderance of sidewalks and cycling trails within parks
-in Alameda County are identified properly with these variables.
+in Alameda County are identified properly with these variables. Trails are
+represented in OSM as polylines, or as polygons if they form a complete circle. 
+In the latter case, we converted the polygon boundary into an explicit polyline object.
 
 ```{r trails}
 trails_osm <- opq(bb) %>% # specify boundary for query
@@ -188,6 +194,25 @@ attributed_parks <- parks %>%
   mutate(trail = ifelse(is.na(trail), F, T))
 ```
 
+
+```{r parks-map, fig.cap="Location of e-scooter users in Provo, Utah.", warning=FALSE, cache = FALSE}
+if(knitr::is_latex_output()) {
+  alameda_back <- get_googlemap(c(lon = -122.1300334, lat = 37.69427), 
+                                zoom = 9, maptype = "terrain", color = "bw") 
+  plot(st_transform(parks, 3857)[,"access"], bgMap = alameda_back)
+} else {
+  leaflet() %>%
+    addProviderTiles(providers$Esri.WorldGrayCanvas) %>%
+    addPolygons(data = parks %>% st_transform(4326), group = "Parks", color = "green") %>%
+    addCircleMarkers(data = playgrounds %>% st_transform(4326), 
+                     group = "Playgrounds", color = "blue", radius = 2) %>%
+    addCircleMarkers(data = pitches %>% st_transform(4326), 
+                     group = "Sport Fields", color = "red", radius = 2) %>%
+    addPolylines(data = trails %>% st_transform(4326), 
+                 group = "Trails", color = "black") %>%
+    addLayersControl(overlayGroups = c("Parks", "Playgrounds", "Sport Fields", "Trails"))
+}
+```
 
 
 
