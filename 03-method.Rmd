@@ -404,7 +404,7 @@ wishes to make a park trip, the probability that the individual will choose
 park $i$ from the set of all parks $J$ can be described as a ratio of the
 park's measurable utility $V_{ni}$ to the sum of the utilities for all parks
 in the set. In the common destination choice framework we apply a
-multinomial logit model [@McFadden1974, Recker1978],
+multinomial logit model [@McFadden1974, @Recker1978],
 \begin{equation}\label{eq:p}
    P_{ni} = \frac{\exp(V_{ni})}{\sum_{j \in J}\exp(V_{nj})}
 \end{equation}
@@ -512,5 +512,5 @@ select between `r n_alts + 1` parks including the park they were observed to
 choose; the measured distance between the choice maker's block group and all
 parks in the choice set; and the acreage of each park in the choice set. We hold
 out a random sample of approximately 20% of choice makers for validation
-purposes. We use the `mlogit` package for R [@mlogit, R] to estimate the
+purposes. We use the `mlogit` package for R [@mlogit, @R] to estimate the
 multinomial logit models.

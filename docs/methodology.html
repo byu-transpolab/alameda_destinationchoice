@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2020-10-24" />
+<meta name="date" content="2020-10-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -183,7 +183,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 a sample of observed trips in Alameda County, California. Alameda County is one
 of the seven counties that constitutes the San Francisco Bay Area metropolitan
 region in California. Alameda is the seventh most populous county in California
-with a population of 1.5 million <span class="citation">(<span class="citeproc-not-found" data-reference-id="alamedafacts"><strong>???</strong></span>)</span>, and has 14 incorporated cities
+with a population of 1.5 million <span class="citation">(U.S. Census Bureau <a href="#ref-alamedafacts" role="doc-biblioref">2019</a>)</span>, and has 14 incorporated cities
 and several unincorporated communities. It is an economically and ethnically
 diverse county and hence it was an attractive area to use for this study. The
 racial makeup of Alameda County was (49.7%) White, (11.2%) African American,
@@ -199,7 +199,7 @@ layer, a commercially acquired passive device origin-destination table
 representing trips between the parks and home block groups, and American
 Community Survey data for the home block groups.</p>
 <p>We obtained a polygons shapefile layer representing open spaces in Alameda
-County, California from the California Protected Areas Database <span class="citation">(<span class="citeproc-not-found" data-reference-id="cpad2019"><strong>???</strong></span>)</span>.
+County, California from the California Protected Areas Database <span class="citation">(GreenInfo Network <a href="#ref-cpad2019" role="doc-biblioref">2019</a>)</span>.
 This dataset was selected because it included multiple different types of open
 space including local and state parks, traditional green spaces as well as
 wildlife refuges and other facilities that can be used for recreation. We
@@ -336,7 +336,7 @@ location data points (the provider uses in-vehicle GPS units and mobile device
 LBS) over time into contextualized, normalized, and aggregated travel patterns.
 From these travel patterns, the Route Science processing algorithms infer likely
 home Census block group locations for composite groups of people and converts
-raw location data points into trip origin and destination points <span class="citation">(<span class="citeproc-not-found" data-reference-id="Pan2006"><strong>???</strong></span>; <span class="citeproc-not-found" data-reference-id="Friedrich2010"><strong>???</strong></span>)</span>.</p>
+raw location data points into trip origin and destination points <span class="citation">(Pan et al. <a href="#ref-Pan2006" role="doc-biblioref">2006</a>; Friedrich et al. <a href="#ref-Friedrich2010" role="doc-biblioref">2010</a>)</span>.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="methodology.html#cb7-1"></a>park_flows &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="kw">here</span>(<span class="st">&quot;data/Master_BlockGroups_Final071519.csv&quot;</span>), </span>
 <span id="cb7-2"><a href="methodology.html#cb7-2"></a>                       <span class="dt">col_types =</span> <span class="kw">cols</span>()) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb7-3"><a href="methodology.html#cb7-3"></a><span class="st">  </span><span class="co"># need to make block group id properly formatted.</span></span>
@@ -488,7 +488,7 @@ sport fields.</p>
 <p>In order to understand the demographic makeup of the home block groups and
 potentially the characteristics of the people who make each trip, we obtained
 2013-2017 five-year data aggregations from the American Community Survey
-using the <code>tidycensus</code> <span class="citation">(<span class="citeproc-not-found" data-reference-id="Walker2019"><strong>???</strong></span>)</span> interface to the
+using the <code>tidycensus</code> <span class="citation">(Walker <a href="#ref-Walker2019" role="doc-biblioref">2019</a>)</span> interface to the
 Census API for several key demographic and built environment variables: the
 share of individuals by ethnic group, the share of households by income level,
 household median income, and the housing unit density. An important attribute of
@@ -644,7 +644,7 @@ wishes to make a park trip, the probability that the individual will choose
 park <span class="math inline">\(i\)</span> from the set of all parks <span class="math inline">\(J\)</span> can be described as a ratio of the
 park’s measurable utility <span class="math inline">\(V_{ni}\)</span> to the sum of the utilities for all parks
 in the set. In the common destination choice framework we apply a
-multinomial logit model <span class="citation">(<span class="citeproc-not-found" data-reference-id="McFadden1974"><strong>???</strong></span>)</span>,
+multinomial logit model <span class="citation">(McFadden <a href="#ref-McFadden1974" role="doc-biblioref">1974</a>, @Recker1978)</span>,
 <span class="math display">\[\begin{equation}\label{eq:p}
    P_{ni} = \frac{\exp(V_{ni})}{\sum_{j \in J}\exp(V_{nj})}
 \end{equation}\]</span>
@@ -666,7 +666,7 @@ parameters for different segments to observe heterogeneity in the utility
 parameters between different socioeconomic groups.</p>
 <p>The logarithm of the sum in the denominator of Equation  (called the
 logsum) provides a measure of the consumer surplus of the choice set
-<span class="citation">(<span class="citeproc-not-found" data-reference-id="Williams1977a"><strong>???</strong></span>)</span>,
+<span class="citation">(Williams <a href="#ref-Williams1977a" role="doc-biblioref">1977</a>)</span>,
 <span class="math display">\[\begin{equation}\label{eq:logsum}
 CS_n = \ln{{\sum_{j \in J}\exp(V_{nj})}} + C
 \end{equation}\]</span>
@@ -676,7 +676,7 @@ indication of which choice maker has a more valuable choice set. Or, in this
 case of a park destination choice model, which choice maker has better access to
 parks. Such a “utility-based” accessibility term is thus continuously defined,
 dervied directly from choice theory, and can contain multiple dimensions of the
-attributes of the choice <span class="citation">(<span class="citeproc-not-found" data-reference-id="Handy1997"><strong>???</strong></span>; <span class="citeproc-not-found" data-reference-id="Dong2006"><strong>???</strong></span>)</span>.</p>
+attributes of the choice <span class="citation">(Handy and Niemeier <a href="#ref-Handy1997" role="doc-biblioref">1997</a>; Dong et al. <a href="#ref-Dong2006" role="doc-biblioref">2006</a>)</span>.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="methodology.html#cb15-1"></a><span class="kw">set.seed</span>(<span class="dv">42</span>)</span>
 <span id="cb15-2"><a href="methodology.html#cb15-2"></a>n_obs &lt;-<span class="st"> </span><span class="dv">20000</span></span>
 <span id="cb15-3"><a href="methodology.html#cb15-3"></a>n_alts &lt;-<span class="st"> </span><span class="dv">10</span></span>
@@ -703,7 +703,7 @@ difficult to estimate choice models with so many alternatives
 (<span class="math inline">\(|J| = 500\)</span>). For this reason we randomly sample 10 additional parks
 to serve as the non-chosen alternatives for our synthetic choice maker. Such
 random sampling of alternatives reduces the efficiency of the estimated
-coefficients but the coefficients remain unbiased <span class="citation">(<span class="citeproc-not-found" data-reference-id="train2009"><strong>???</strong></span>)</span>. As the model has
+coefficients but the coefficients remain unbiased <span class="citation">(Train <a href="#ref-train2009" role="doc-biblioref">2009</a>)</span>. As the model has
 no alternative-specific constants, the standard likelihood comparison statistic
 against the market shares model <span class="math inline">\(\rho^2\)</span> is not computable. We instead use the
 likelihood comparison against the equal shares model <span class="math inline">\(\rho_0^2\)</span>.</p>
@@ -736,15 +736,48 @@ select between 11 parks including the park they were observed to
 choose; the measured distance between the choice maker’s block group and all
 parks in the choice set; and the acreage of each park in the choice set. We hold
 out a random sample of approximately 20% of choice makers for validation
-purposes. We use the <code>mlogit</code> package for R <span class="citation">(<span class="citeproc-not-found" data-reference-id="mlogit"><strong>???</strong></span>, R)</span> to estimate the
+purposes. We use the <code>mlogit</code> package for R <span class="citation">(Croissant <a href="#ref-mlogit" role="doc-biblioref">2019</a>, <span class="citation">@R</span>)</span> to estimate the
 multinomial logit models.</p>
 
 </div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
+<div id="ref-mlogit">
+<p>Croissant, Yves. 2019. <em>mlogit: Multinomial Logit Models</em>. <a href="https://cran.r-project.org/package=mlogit">https://cran.r-project.org/package=mlogit</a>.</p>
+</div>
+<div id="ref-Dong2006">
+<p>Dong, Xiaojing, Moshe E. Ben-Akiva, John L. Bowman, and Joan L. Walker. 2006. “Moving from trip-based to activity-based measures of accessibility.” <em>Transportation Research Part A: Policy and Practice</em> 40 (2): 163–80. <a href="https://doi.org/10.1016/J.TRA.2005.05.002">https://doi.org/10.1016/J.TRA.2005.05.002</a>.</p>
+</div>
+<div id="ref-Friedrich2010">
+<p>Friedrich, Markus, Katrin Immisch, Prokop Jehlicka, Thomas Otterstätter, and Johannes Schlaich. 2010. “Generating Origin-Destination Matrices from Mobile Phone Trajectories.” <em>Transportation Research Record: Journal of the Transportation Research Board</em> 2196: 93–101. <a href="https://doi.org/10.3141/2196-10">https://doi.org/10.3141/2196-10</a>.</p>
+</div>
+<div id="ref-cpad2019">
+<p>GreenInfo Network. 2019. “California Protected Areas Database.” <a href="https://www.calands.org/cpad/">https://www.calands.org/cpad/</a>.</p>
+</div>
+<div id="ref-Handy1997">
+<p>Handy, S L, and D A Niemeier. 1997. “Measuring Accessibility: An Exploration of Issues and Alternatives.” <em>Environment and Planning A</em> 29 (7): 1175–94. <a href="https://doi.org/10.1068/a291175">https://doi.org/10.1068/a291175</a>.</p>
+</div>
+<div id="ref-McFadden1974">
+<p>McFadden, Daniel L. 1974. “Conditional Logit Analysis of Qualitative Choice Behavior.” In <em>Frontiers in Econometrics</em>, edited by Paul Zarembka, 105–42. New York: Academic Press.</p>
+</div>
 <div id="ref-osmdata">
 <p>Padgham, Mark, Bob Rudis, Robin Lovelace, and Maëlle Salmon. 2017. “Osmdata.” <em>The Journal of Open Source Software</em> 2 (14). <a href="https://doi.org/10.21105/joss.00305">https://doi.org/10.21105/joss.00305</a>.</p>
+</div>
+<div id="ref-Pan2006">
+<p>Pan, Changxuan, Jiangang Lu, Shan Di, and Bin Ran. 2006. “Cellular-Based Data-Extracting Method for Trip Distribution.” <em>Transportation Research Record: Journal of the Transportation Research Board</em> 1945 (1): 33–39. <a href="https://doi.org/10.1177/0361198106194500105">https://doi.org/10.1177/0361198106194500105</a>.</p>
+</div>
+<div id="ref-train2009">
+<p>Train, Kenneth E. 2009. <em>Discrete Choice Methods with Simulation, 2nd Edition</em>. Cambridge: Cambridge University Press. <a href="https://doi.org/10.1016/S0898-1221(04)90100-9">https://doi.org/10.1016/S0898-1221(04)90100-9</a>.</p>
+</div>
+<div id="ref-alamedafacts">
+<p>U.S. Census Bureau. 2019. “QuickFacts: Alameda County, California.” <a href="https://www.census.gov/quickfacts/fact/table/alamedacountycalifornia/PST045218">https://www.census.gov/quickfacts/fact/table/alamedacountycalifornia/PST045218</a>.</p>
+</div>
+<div id="ref-Walker2019">
+<p>Walker, Kyle. 2019. <em>tidycensus: Load US Census Boundary and Attribute Data as ’tidyverse’ and ’sf’-Ready Data Frames</em>. <a href="https://cran.r-project.org/package=tidycensus">https://cran.r-project.org/package=tidycensus</a>.</p>
+</div>
+<div id="ref-Williams1977a">
+<p>Williams, H C W L. 1977. “On the Formation of Travel Demand Models and Economic Evaluation Measures of User Benefit.” <em>Environment and Planning A: Economy and Space</em> 9 (3): 285–344. <a href="https://doi.org/10.1068/a090285">https://doi.org/10.1068/a090285</a>.</p>
 </div>
 </div>
             </section>
