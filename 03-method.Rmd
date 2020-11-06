@@ -34,7 +34,6 @@ like the Lake Merritt Recreational area, accessible coastal access, and suburban
 recreational areas like Lake Chabot.
 
 
-
 ## Data
 We constructed an analysis dataset from a publicly-available parks polygons
 layer, a commercially acquired passive device origin-destination table
@@ -215,9 +214,6 @@ if(knitr::is_latex_output()) {
 ```
 
 
-
-
-
 We provided the park boundaries layer to a commercial firm, StreetLight Data
 Inc., which develops and resells origin-destination matrices derived from
 passive device location data. The provider employs a proprietary data processing
@@ -311,8 +307,9 @@ the choice model is the distance from the home block group to the park boundary.
 Because we have no information on where in the block group a home is actually
 located, we use the population-weighted block group centroid published by the
 Census Bureau as the location for all homes in the block group. We then measured
-the Euclidean distance in miles between the block group and the boundary of each
-park in the polygons layer.
+the network-based distance between the park and the home block group centroid
+using a walk network derived from OpenStreetMap using the `networkx` package
+for Python [@networkx],
 
 
 ```{r acs, message = FALSE}
@@ -361,29 +358,17 @@ acs <- get_acs(geography = "block group", variables = variables, year = 2017,
 ```
 
 
-
-```{r distances}
-bg_centroids <- read_csv(
-  "https://www2.census.gov/geo/docs/reference/cenpop2010/blkgrp/CenPop2010_Mean_BG06.txt",
-  col_types = list("TRACTCE" = col_character(), "BLKGRPCE" = col_character())
-) %>%
-  mutate(GEOID = str_c(STATEFP, COUNTYFP, TRACTCE, BLKGRPCE)) %>%
-  filter(COUNTYFP %in% "001") %>%
-  st_as_sf(crs = 4326, coords = c("LONGITUDE", "LATITUDE")) %>%
-  st_transform(this_crs)
-
-# distances from all tract centroids to all parks
-distances <- st_distance(bg_centroids, parks, byid = TRUE) %>%
-  units::set_units(miles) %>%
-  units::drop_units()
-
-rownames(distances) <- bg_centroids$GEOID
-colnames(distances) <- parks$id
-
-distance_df <- distances %>%
-  omxr::gather_matrix(value_name = "dist_euclid") %>%
-  rename(home = origin, park = destination)
+```{r net_distances}
+# distances computed in py/shortest_paths.py
+path_files <- dir("data/shortest_paths/", full.names = TRUE)
+distance_df <- lapply(path_files, function(file) {
+  read_csv(file, col_types = list(geoid = col_character(), park_id = col_character()))
+}) %>%
+  bind_rows() %>%
+  rename(home = geoid, park = park_id) %>%
+  mutate(home = sprintf("%012s", home))
 ```
+
 
 
 ```{r acs-table}
@@ -449,6 +434,7 @@ possible to include attributes of the home block group or traveler $n$ directly.
 We can, however, segment the data and estimate different distance and size
 parameters for different segments to observe heterogeneity in the utility
 parameters between different socioeconomic groups.
+
 
 The logarithm of the sum in the denominator of Equation \ref{eq:p} (called the
 logsum) provides a measure of the consumer surplus of the choice set
@@ -537,5 +523,5 @@ select between `r n_alts + 1` parks including the park they were observed to
 choose; the measured distance between the choice maker's block group and all
 parks in the choice set; and the acreage of each park in the choice set. We hold
 out a random sample of approximately 20% of choice makers for validation
-purposes. We use the `mlogit` package for R [@mlogit, @R] to estimate the
+purposes. We use the `mlogit` package for R [@mlogit; @R] to estimate the
 multinomial logit models.
