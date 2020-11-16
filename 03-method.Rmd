@@ -515,6 +515,8 @@ logitdata <- mydata %>%
             by = c("home" = "geoid")
    
 )
+
+write_rds(logitdata, "data/logitdata.rds")
 ```
 
 
