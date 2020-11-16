@@ -172,6 +172,8 @@ identified earlier.
 
 ```{r attributed-parks}
 attributed_parks <- parks %>%  
+  # compute yeo-johnson transformation on acres
+  mutate(yj_acres = VGAM::yeo.johnson(acres, lambda = 0)) %>%
   # determine if a playground point is inside the park polygon boundary
   st_join(playgrounds %>% select(playground), st_intersects)  %>%
   # a park with multiple playgrounds will join multiple times, so we need to 
@@ -362,7 +364,11 @@ acs <- get_acs(geography = "block group", variables = variables, year = 2017,
 # distances computed in py/shortest_paths.py
 path_files <- dir("data/shortest_paths/", full.names = TRUE)
 distance_df <- lapply(path_files, function(file) {
-  read_csv(file, col_types = list(geoid = col_character(), park_id = col_character()))
+  read_csv(file, col_types = list(geoid = col_character(), park_id = col_character())) %>%
+  mutate(
+    yj_distance = VGAM::yeo.johnson(distance, lambda = 0),
+    yj_euc_dist = VGAM::yeo.johnson(euc_dist, lambda = 0)
+  )
 }) %>%
   bind_rows() %>%
   rename(home = geoid, park = park_id) %>%
@@ -419,22 +425,19 @@ multinomial logit model [@McFadden1974, @Recker1978],
    P_{ni} = \frac{\exp(V_{ni})}{\sum_{j \in J}\exp(V_{nj})}
 \end{equation}
 where the measurable utility $V_{ni}$ is a linear-in-parameters function of 
-the destination attributes. If the park choice can be defined solely by
-its size and the impedance in reaching the park from block group $n$, then the
-measurable utility would be
+the destination attributes. 
 \begin{equation}\label{eq:V}
-V_{ni} = \beta_{1} * \mathit{size}_{i} + \beta_2 * \mathit{impedance}_{ni}
+V_{ni} = X\beta
 \end{equation}
-where $\beta_1, \beta_2$ are estimable coefficients giving the relative utility
+where $\beta$ is a vector of estimable coefficients giving the relative utility
 (or disutility) of that attribute to the choice maker, all else equal. It is
-possible to add additional amenities of the park or the journey to the utility
+possible to add amenities of the park or the journey to the utility
 equation. However, as the number of alternatives is large, it is impractical to
 consider alternative-specific constants or coefficients and therefore not
 possible to include attributes of the home block group or traveler $n$ directly.
 We can, however, segment the data and estimate different distance and size
 parameters for different segments to observe heterogeneity in the utility
 parameters between different socioeconomic groups.
-
 
 The logarithm of the sum in the denominator of Equation \ref{eq:p} (called the
 logsum) provides a measure of the consumer surplus of the choice set
@@ -492,7 +495,7 @@ likelihood comparison against the equal shares model $\rho_0^2$.
 
 ```{r sampled_parks}
 sampled_parks <- lapply(1:n_obs, function(i){
-  sample(parks$id, n_alts)
+  sample(attributed_parks$id, n_alts)
 }) %>%
   unlist() %>%
   matrix(ncol = n_alts) %>%
@@ -505,10 +508,10 @@ logitdata <- mydata %>%
   arrange(id, alt) %>%
   
   # append distances
-  left_join(distance_df, by = c("home", "park")) %>%
+  inner_join(distance_df, by = c("home", "park")) %>%
   
   # append park attributes
-  left_join(parks, by = c("park" = "id")) %>%
+  left_join(attributed_parks, by = c("park" = "id")) %>%
   
   # append block group attributes
   left_join(acs %>% select(geoid, density:other) %>% st_set_geometry(NULL),
@@ -526,4 +529,5 @@ choose; the measured distance between the choice maker's block group and all
 parks in the choice set; and the acreage of each park in the choice set. We hold
 out a random sample of approximately 20% of choice makers for validation
 purposes. We use the `mlogit` package for R [@mlogit; @R] to estimate the
-multinomial logit models.
+multinomial logit models. 
+
