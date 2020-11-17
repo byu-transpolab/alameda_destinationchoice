@@ -15,6 +15,7 @@ basetiles <- providers$CartoDB.Positron
 this_crs <- 2227 # EPSG:2227 – NAD83 / California zone 3 (ftUS)
 bb <- getbb("Alameda County, California", format_out = "polygon")
 options(tigris_use_cache = TRUE)
+options(dplyr.summarise.inform = FALSE)
 ```
 
 
@@ -102,7 +103,7 @@ are kept as distinct categories, with all other sport-specific fields combined
 into a single "other". Golf courses are discarded. As with playgrounds, polygon 
 field and court objects are converted into points at the polygon centroid.
 
-```{r pitches}
+```{r pitches, warning = FALSE}
 pitches_osm <- opq(bb) %>% # specify boundary for query
   add_osm_feature(key = "leisure", value = "pitch") %>% 
   osmdata_sf() %>% 
@@ -196,7 +197,7 @@ attributed_parks <- parks %>%
 ```
 
 
-```{r parks-map, fig.cap="Location of e-scooter users in Provo, Utah.", warning=FALSE, cache = FALSE}
+```{r parks-map, fig.cap="Location of parks in Alameda County.", warning=FALSE, cache = FALSE}
 if(knitr::is_latex_output()) {
   alameda_back <- get_googlemap(c(lon = -122.1300334, lat = 37.69427), 
                                 zoom = 9, maptype = "terrain", color = "bw") 
@@ -274,16 +275,16 @@ park type as defined on CPAD. A little more than half of the parks have
 identified paths, while around 40% of the identified parks have playgrounds and
 sport fields.
 
-```{r park_attributes, results="asis"}
-park_attributes <- datasummary_balance(
+```{r park-attributes, results="asis"}
+datasummary_balance(
   ~ type,  
   data = attributed_parks %>% 
     select(Access = access, Acres = acres, type, Playground = playground, 
            `Sport Field` = pitch, Trail = trail, 
            `Mobile Devices` =attractions), 
   dinm = FALSE,
-  title = "Park Summary Statistics",
-  output = "kableExtra")
+  caption = "Park Summary Statistics",
+  booktabs = TRUE)
 ```
 
 
@@ -377,7 +378,7 @@ tracts_data_index <- tibble(
 acs %>%
   st_set_geometry(NULL) %>%
   filter(population > 0) %>%
-  tbl_df() %>%
+  tibble() %>%
   dplyr::select(tracts_data_index$variable) %>%
   gather(variable, value) %>%
   group_by(variable) %>%
