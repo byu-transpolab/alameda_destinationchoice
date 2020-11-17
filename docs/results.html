@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 4 Results | Estimating Park Choice and Access in Alameda County, California, using Passive Origin-Destination Data.</title>
+  <meta name="description" content="Alameda Park Choice" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 4 Results | Estimating Park Choice and Access in Alameda County, California, using Passive Origin-Destination Data." />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Alameda Park Choice" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 4 Results | Estimating Park Choice and Access in Alameda County, California, using Passive Origin-Destination Data." />
+  
+  <meta name="twitter:description" content="Alameda Park Choice" />
+  
+
+
+
+<meta name="date" content="2020-11-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="methodology.html"/>
+<link rel="next" href="final-words.html"/>
+<style type="text/css">
+p.abstract{
+  text-align: center;
+  font-weight: bold;
+}
+div.abstract{
+  margin: auto;
+  width: 90%;
+}
+</style>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.0.3/leaflet-providers-plugin.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Alameda Park Choice</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>2</b> Literature</a><ul>
+<li class="chapter" data-level="2.1" data-path="literature.html"><a href="literature.html#passive-location-data"><i class="fa fa-check"></i><b>2.1</b> Passive Location Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="methodology.html"><a href="methodology.html"><i class="fa fa-check"></i><b>3</b> Methodology</a><ul>
+<li class="chapter" data-level="3.1" data-path="methodology.html"><a href="methodology.html#data"><i class="fa fa-check"></i><b>3.1</b> Data</a></li>
+<li class="chapter" data-level="3.2" data-path="methodology.html"><a href="methodology.html#model"><i class="fa fa-check"></i><b>3.2</b> Model</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a><ul>
+<li class="chapter" data-level="4.1" data-path="results.html"><a href="results.html#model-application"><i class="fa fa-check"></i><b>4.1</b> Model Application</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>5</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Estimating Park Choice and Access in Alameda County, California, using Passive Origin-Destination Data.</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="results" class="section level1">
+<h1><span class="header-section-number"> 4</span> Results</h1>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="results.html#cb16-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb16-2"><a href="results.html#cb16-2"></a><span class="kw">library</span>(mlogit)</span>
+<span id="cb16-3"><a href="results.html#cb16-3"></a><span class="kw">library</span>(modelsummary)</span>
+<span id="cb16-4"><a href="results.html#cb16-4"></a><span class="kw">library</span>(kableExtra)</span>
+<span id="cb16-5"><a href="results.html#cb16-5"></a><span class="kw">library</span>(sf)</span>
+<span id="cb16-6"><a href="results.html#cb16-6"></a><span class="co"># function to index a tibble for mnl estimation</span></span>
+<span id="cb16-7"><a href="results.html#cb16-7"></a>logit_converter &lt;-<span class="st"> </span><span class="cf">function</span>(df) {</span>
+<span id="cb16-8"><a href="results.html#cb16-8"></a>  <span class="kw">dfidx</span>(df, <span class="dt">idx =</span> <span class="kw">list</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;alt&quot;</span>), <span class="dt">shape =</span> <span class="st">&quot;long&quot;</span>,  </span>
+<span id="cb16-9"><a href="results.html#cb16-9"></a>      <span class="dt">choice =</span> <span class="st">&quot;chosen&quot;</span>, <span class="dt">idnames =</span> <span class="st">&quot;id&quot;</span>, <span class="dt">drop.index =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb16-10"><a href="results.html#cb16-10"></a>}</span>
+<span id="cb16-11"><a href="results.html#cb16-11"></a></span>
+<span id="cb16-12"><a href="results.html#cb16-12"></a><span class="co"># function to estimate the mnl model on a subset of data</span></span>
+<span id="cb16-13"><a href="results.html#cb16-13"></a>group_mnl &lt;-<span class="st"> </span><span class="cf">function</span>(df){</span>
+<span id="cb16-14"><a href="results.html#cb16-14"></a>  <span class="kw">mlogit</span>(chosen <span class="op">~</span><span class="st">  </span>yj_distance <span class="op">+</span><span class="st"> </span>yj_acres <span class="op">+</span><span class="st"> </span></span>
+<span id="cb16-15"><a href="results.html#cb16-15"></a><span class="st">                                  </span>playground <span class="op">+</span><span class="st"> </span>pitch <span class="op">+</span><span class="st"> </span>trail <span class="op">|</span><span class="st"> </span><span class="dv">-1</span>,</span>
+<span id="cb16-16"><a href="results.html#cb16-16"></a>         <span class="dt">data =</span> df)</span>
+<span id="cb16-17"><a href="results.html#cb16-17"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="results.html#cb17-1"></a>logitdata &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/logitdata.rds&quot;</span>)</span>
+<span id="cb17-2"><a href="results.html#cb17-2"></a>dfi &lt;-<span class="st"> </span><span class="kw">logit_converter</span>(logitdata)</span>
+<span id="cb17-3"><a href="results.html#cb17-3"></a>estim &lt;-<span class="st"> </span><span class="kw">filter</span>(dfi, validation)</span>
+<span id="cb17-4"><a href="results.html#cb17-4"></a>valid &lt;-<span class="st"> </span><span class="kw">filter</span>(dfi, <span class="op">!</span>validation)</span></code></pre></div>
+<p>We estimated multinomial logit park activity location choice models including
+coefficients for the distance between the park and the home block group and the
+acreage of the park. We applied a Yeo-Johnson transformation <span class="citation">(Yeo and Johnson <a href="#ref-Yeo2000" role="doc-biblioref">2000</a>)</span> to both
+distance and acreage; the Yeo-Johnson transformation replicates the constant
+marginal elasticity of a logarithmic transformation while avoiding undefined
+values (<span class="math inline">\(YJ(0) = 0\)</span>). For simplicity, we call this transformation <code>log()</code> in the
+model results tables. Using a constant marginal elasticity is better reflective
+of how people perceive distances and sizes; a one-mile increase to a trip
+distance is more impactful to a one-mile trip than a ten-mile trip.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="results.html#cb18-1"></a>base_models &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
+<span id="cb18-2"><a href="results.html#cb18-2"></a>  <span class="st">&quot;Network Distance&quot;</span>   =<span class="st"> </span><span class="kw">mlogit</span>(chosen <span class="op">~</span><span class="st"> </span>yj_distance <span class="op">+</span><span class="st"> </span>yj_acres <span class="op">|</span><span class="st"> </span><span class="dv">-1</span> , </span>
+<span id="cb18-3"><a href="results.html#cb18-3"></a>                                <span class="dt">data =</span> estim),</span>
+<span id="cb18-4"><a href="results.html#cb18-4"></a>  <span class="st">&quot;Park Attributes&quot;</span>    =<span class="st"> </span><span class="kw">mlogit</span>(chosen <span class="op">~</span><span class="st"> </span>yj_distance <span class="op">+</span><span class="st"> </span>yj_acres <span class="op">+</span><span class="st"> </span></span>
+<span id="cb18-5"><a href="results.html#cb18-5"></a><span class="st">                                  </span>playground <span class="op">+</span><span class="st"> </span>pitch <span class="op">+</span><span class="st"> </span>trail <span class="op">|</span><span class="st"> </span><span class="dv">-1</span> , </span>
+<span id="cb18-6"><a href="results.html#cb18-6"></a>                                <span class="dt">data =</span> estim)</span>
+<span id="cb18-7"><a href="results.html#cb18-7"></a>)</span></code></pre></div>
+<p>Table <a href="results.html#tab:models-summary">4.1</a> presents the model estimation results for a
+series of models. The two models under the “All” heading were estimated on
+the complete sample of simulated choice makers.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="results.html#cb19-1"></a>minority_models &lt;-<span class="st"> </span>estim <span class="op">%&gt;%</span></span>
+<span id="cb19-2"><a href="results.html#cb19-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">group =</span> <span class="kw">case_when</span>(</span>
+<span id="cb19-3"><a href="results.html#cb19-3"></a>    black <span class="op">&gt;</span><span class="st"> </span><span class="dv">30</span> <span class="op">~</span><span class="st"> &quot;black&quot;</span>,</span>
+<span id="cb19-4"><a href="results.html#cb19-4"></a>    asian <span class="op">&gt;</span><span class="st"> </span><span class="dv">30</span> <span class="op">~</span><span class="st"> &quot;asian&quot;</span>,</span>
+<span id="cb19-5"><a href="results.html#cb19-5"></a>    <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> &quot;other&quot;</span></span>
+<span id="cb19-6"><a href="results.html#cb19-6"></a>  )) <span class="op">%&gt;%</span></span>
+<span id="cb19-7"><a href="results.html#cb19-7"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(group)) <span class="op">%&gt;%</span></span>
+<span id="cb19-8"><a href="results.html#cb19-8"></a><span class="st">  </span><span class="kw">group_by</span>(group) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">nest</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></span>
+<span id="cb19-9"><a href="results.html#cb19-9"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
+<span id="cb19-10"><a href="results.html#cb19-10"></a>    <span class="dt">data =</span> <span class="kw">map</span>(data, logit_converter),</span>
+<span id="cb19-11"><a href="results.html#cb19-11"></a>    <span class="dt">mnl =</span> <span class="kw">map</span>(data, group_mnl)</span>
+<span id="cb19-12"><a href="results.html#cb19-12"></a>  ) </span>
+<span id="cb19-13"><a href="results.html#cb19-13"></a>income_models &lt;-<span class="st"> </span>estim <span class="op">%&gt;%</span></span>
+<span id="cb19-14"><a href="results.html#cb19-14"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">group =</span> <span class="kw">case_when</span>(lowincome <span class="op">&gt;</span><span class="st"> </span><span class="dv">30</span> <span class="op">~</span><span class="st"> &quot;lowincome&quot;</span>, </span>
+<span id="cb19-15"><a href="results.html#cb19-15"></a>                           highincome <span class="op">&gt;</span><span class="st"> </span><span class="dv">50</span> <span class="op">~</span><span class="st"> &quot;highincome&quot;</span>, <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> &quot;other&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb19-16"><a href="results.html#cb19-16"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(group)) <span class="op">%&gt;%</span></span>
+<span id="cb19-17"><a href="results.html#cb19-17"></a><span class="st">  </span><span class="kw">group_by</span>(group) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">nest</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></span>
+<span id="cb19-18"><a href="results.html#cb19-18"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
+<span id="cb19-19"><a href="results.html#cb19-19"></a>    <span class="dt">data =</span> <span class="kw">map</span>(data, logit_converter),</span>
+<span id="cb19-20"><a href="results.html#cb19-20"></a>    <span class="dt">mnl =</span> <span class="kw">map</span>(data, group_mnl)</span>
+<span id="cb19-21"><a href="results.html#cb19-21"></a>  )</span>
+<span id="cb19-22"><a href="results.html#cb19-22"></a>models &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
+<span id="cb19-23"><a href="results.html#cb19-23"></a>  <span class="st">&quot;Distance and Size&quot;</span> =<span class="st"> </span>base_models<span class="op">$</span><span class="st">`</span><span class="dt">Network Distance</span><span class="st">`</span>,</span>
+<span id="cb19-24"><a href="results.html#cb19-24"></a>  <span class="st">&quot;Park Attributes&quot;</span> =<span class="st"> </span>base_models<span class="op">$</span><span class="st">`</span><span class="dt">Park Attributes</span><span class="st">`</span>,</span>
+<span id="cb19-25"><a href="results.html#cb19-25"></a>  <span class="st">&quot;&gt; 30% Asian&quot;</span> =<span class="st"> </span>minority_models<span class="op">$</span>mnl[[<span class="dv">1</span>]],</span>
+<span id="cb19-26"><a href="results.html#cb19-26"></a>  <span class="st">&quot;&gt; 30% Black&quot;</span> =<span class="st"> </span>minority_models<span class="op">$</span>mnl[[<span class="dv">3</span>]],</span>
+<span id="cb19-27"><a href="results.html#cb19-27"></a>  <span class="st">&quot;Other&quot;</span> =<span class="st"> </span>minority_models<span class="op">$</span>mnl[[<span class="dv">2</span>]],</span>
+<span id="cb19-28"><a href="results.html#cb19-28"></a>  <span class="st">&quot;&gt; 30% Low income&quot;</span> =<span class="st"> </span>income_models<span class="op">$</span>mnl[[<span class="dv">1</span>]],</span>
+<span id="cb19-29"><a href="results.html#cb19-29"></a>  <span class="st">&quot;&gt; 50% High income&quot;</span> =<span class="st"> </span>income_models<span class="op">$</span>mnl[[<span class="dv">3</span>]],</span>
+<span id="cb19-30"><a href="results.html#cb19-30"></a>  <span class="st">&quot;Other&quot;</span> =<span class="st"> </span>income_models<span class="op">$</span>mnl[[<span class="dv">2</span>]]</span>
+<span id="cb19-31"><a href="results.html#cb19-31"></a>)</span></code></pre></div>
+<p>The other models presented in Table <a href="results.html#tab:models-summary">4.1</a> were estimated on
+segments of the dataset. These segmentations help to reveal the heterogeneity in
+choice behavior between individuals of different sociodemographic attributes, in
+the absence of person-level data. The thresholds are selected to roughly
+coincide with the quartile values shown in Table <a href="methodology.html#tab:acs-table">3.2</a>, meaning
+that approximately one-quarter of the block groups (not weighted by population)
+will fall within a particular segment. Models under the “Minority” heading
+include a race-based segmentation: simulated individuals living in block groups
+with more than thirty percent Black persons are included in the “&gt;30% Black”
+model, an analogous segmentation for block groups with high Asian populations
+are in the “&gt;30% Asian” model, and the “Other” model contains all other block
+groups.</p>
+<p>Another set of model segmentation relies on the share of the population in each
+block group with household incomes above or below certain thresholds. Again,
+we use the threshold definitions presented in <a href="methodology.html#tab:acs-table">3.2</a></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="results.html#cb20-1"></a><span class="kw">modelsummary</span>(</span>
+<span id="cb20-2"><a href="results.html#cb20-2"></a>  models, <span class="dt">stars =</span> <span class="ot">TRUE</span>, <span class="dt">output =</span> <span class="st">&quot;kableExtra&quot;</span>,</span>
+<span id="cb20-3"><a href="results.html#cb20-3"></a>  <span class="dt">coef_map =</span> <span class="kw">c</span>(</span>
+<span id="cb20-4"><a href="results.html#cb20-4"></a>    <span class="st">&quot;yj_distance&quot;</span> =<span class="st"> &quot;log(Distance)&quot;</span>,</span>
+<span id="cb20-5"><a href="results.html#cb20-5"></a>    <span class="st">&quot;yj_acres&quot;</span> =<span class="st"> &quot;log(Acres)&quot;</span>,</span>
+<span id="cb20-6"><a href="results.html#cb20-6"></a>    <span class="st">&quot;playgroundTRUE&quot;</span> =<span class="st"> &quot;Playground&quot;</span>,</span>
+<span id="cb20-7"><a href="results.html#cb20-7"></a>    <span class="st">&quot;pitchTRUE&quot;</span> =<span class="st"> &quot;Sport Field&quot;</span>,</span>
+<span id="cb20-8"><a href="results.html#cb20-8"></a>    <span class="st">&quot;trailTRUE&quot;</span> =<span class="st"> &quot;Trail&quot;</span></span>
+<span id="cb20-9"><a href="results.html#cb20-9"></a>  ),</span>
+<span id="cb20-10"><a href="results.html#cb20-10"></a>  <span class="dt">gof_omit =</span> <span class="st">&quot;BIC&quot;</span>,</span>
+<span id="cb20-11"><a href="results.html#cb20-11"></a>  <span class="dt">title =</span> <span class="st">&quot;Estimated Model Coefficients&quot;</span></span>
+<span id="cb20-12"><a href="results.html#cb20-12"></a>) <span class="op">%&gt;%</span></span>
+<span id="cb20-13"><a href="results.html#cb20-13"></a><span class="st">  </span><span class="kw">add_header_above</span>(<span class="kw">c</span>(<span class="st">&quot; &quot;</span> =<span class="st"> </span><span class="dv">1</span>, <span class="st">&quot;All&quot;</span> =<span class="st"> </span><span class="dv">2</span>, <span class="st">&quot;Minority&quot;</span> =<span class="st"> </span><span class="dv">3</span>, <span class="st">&quot;Income&quot;</span> =<span class="st"> </span><span class="dv">3</span>))</span></code></pre></div>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:models-summary">Table 4.1: </span>Estimated Model Coefficients
+</caption>
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+All
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Minority
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Income
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Distance and Size
+</th>
+<th style="text-align:left;">
+Park Attributes
+</th>
+<th style="text-align:left;">
+&gt; 30% Asian
+</th>
+<th style="text-align:left;">
+&gt; 30% Black
+</th>
+<th style="text-align:left;">
+Other
+</th>
+<th style="text-align:left;">
+&gt; 30% Low income
+</th>
+<th style="text-align:left;">
+&gt; 50% High income
+</th>
+<th style="text-align:left;">
+Other
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+log(Distance)
+</td>
+<td style="text-align:left;">
+-1.365***
+</td>
+<td style="text-align:left;">
+-1.421***
+</td>
+<td style="text-align:left;">
+-1.364***
+</td>
+<td style="text-align:left;">
+-1.620***
+</td>
+<td style="text-align:left;">
+-1.399***
+</td>
+<td style="text-align:left;">
+-1.470***
+</td>
+<td style="text-align:left;">
+-1.329***
+</td>
+<td style="text-align:left;">
+-1.423***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+(0.022)
+</td>
+<td style="text-align:left;">
+(0.023)
+</td>
+<td style="text-align:left;">
+(0.039)
+</td>
+<td style="text-align:left;">
+(0.065)
+</td>
+<td style="text-align:left;">
+(0.032)
+</td>
+<td style="text-align:left;">
+(0.053)
+</td>
+<td style="text-align:left;">
+(0.051)
+</td>
+<td style="text-align:left;">
+(0.029)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+log(Acres)
+</td>
+<td style="text-align:left;">
+0.410***
+</td>
+<td style="text-align:left;">
+0.349***
+</td>
+<td style="text-align:left;">
+0.405***
+</td>
+<td style="text-align:left;">
+0.296***
+</td>
+<td style="text-align:left;">
+0.322***
+</td>
+<td style="text-align:left;">
+0.295***
+</td>
+<td style="text-align:left;">
+0.391***
+</td>
+<td style="text-align:left;">
+0.355***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+(0.011)
+</td>
+<td style="text-align:left;">
+(0.011)
+</td>
+<td style="text-align:left;">
+(0.019)
+</td>
+<td style="text-align:left;">
+(0.031)
+</td>
+<td style="text-align:left;">
+(0.016)
+</td>
+<td style="text-align:left;">
+(0.026)
+</td>
+<td style="text-align:left;">
+(0.027)
+</td>
+<td style="text-align:left;">
+(0.015)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Playground
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+-0.484***
+</td>
+<td style="text-align:left;">
+-0.396***
+</td>
+<td style="text-align:left;">
+-0.211*
+</td>
+<td style="text-align:left;">
+-0.647***
+</td>
+<td style="text-align:left;">
+-0.404***
+</td>
+<td style="text-align:left;">
+-0.580***
+</td>
+<td style="text-align:left;">
+-0.491***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+(0.050)
+</td>
+<td style="text-align:left;">
+(0.084)
+</td>
+<td style="text-align:left;">
+(0.122)
+</td>
+<td style="text-align:left;">
+(0.072)
+</td>
+<td style="text-align:left;">
+(0.106)
+</td>
+<td style="text-align:left;">
+(0.123)
+</td>
+<td style="text-align:left;">
+(0.063)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sport Field
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+-0.300***
+</td>
+<td style="text-align:left;">
+-0.181**
+</td>
+<td style="text-align:left;">
+-0.682***
+</td>
+<td style="text-align:left;">
+-0.263***
+</td>
+<td style="text-align:left;">
+-0.637***
+</td>
+<td style="text-align:left;">
+0.040
+</td>
+<td style="text-align:left;">
+-0.283***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+(0.050)
+</td>
+<td style="text-align:left;">
+(0.083)
+</td>
+<td style="text-align:left;">
+(0.130)
+</td>
+<td style="text-align:left;">
+(0.072)
+</td>
+<td style="text-align:left;">
+(0.114)
+</td>
+<td style="text-align:left;">
+(0.118)
+</td>
+<td style="text-align:left;">
+(0.064)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Trail
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+0.631***
+</td>
+<td style="text-align:left;">
+0.771***
+</td>
+<td style="text-align:left;">
+0.325***
+</td>
+<td style="text-align:left;">
+0.690***
+</td>
+<td style="text-align:left;">
+0.435***
+</td>
+<td style="text-align:left;">
+0.857***
+</td>
+<td style="text-align:left;">
+0.673***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+(0.052)
+</td>
+<td style="text-align:left;">
+(0.093)
+</td>
+<td style="text-align:left;">
+(0.125)
+</td>
+<td style="text-align:left;">
+(0.075)
+</td>
+<td style="text-align:left;">
+(0.109)
+</td>
+<td style="text-align:left;">
+(0.146)
+</td>
+<td style="text-align:left;">
+(0.066)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Num.Obs.
+</td>
+<td style="text-align:left;">
+3971
+</td>
+<td style="text-align:left;">
+3971
+</td>
+<td style="text-align:left;">
+1379
+</td>
+<td style="text-align:left;">
+593
+</td>
+<td style="text-align:left;">
+1999
+</td>
+<td style="text-align:left;">
+777
+</td>
+<td style="text-align:left;">
+758
+</td>
+<td style="text-align:left;">
+2436
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AIC
+</td>
+<td style="text-align:left;">
+11676.4
+</td>
+<td style="text-align:left;">
+11346.9
+</td>
+<td style="text-align:left;">
+3955.0
+</td>
+<td style="text-align:left;">
+1735.9
+</td>
+<td style="text-align:left;">
+5597.2
+</td>
+<td style="text-align:left;">
+2357.4
+</td>
+<td style="text-align:left;">
+1941.7
+</td>
+<td style="text-align:left;">
+7021.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Log.Lik.
+</td>
+<td style="text-align:left;">
+-5836.201
+</td>
+<td style="text-align:left;">
+-5668.447
+</td>
+<td style="text-align:left;">
+-1972.504
+</td>
+<td style="text-align:left;">
+-862.954
+</td>
+<td style="text-align:left;">
+-2793.578
+</td>
+<td style="text-align:left;">
+-1173.685
+</td>
+<td style="text-align:left;">
+-965.844
+</td>
+<td style="text-align:left;">
+-3505.653
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rho2
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rho20
+</td>
+<td style="text-align:left;">
+0.387
+</td>
+<td style="text-align:left;">
+0.405
+</td>
+<td style="text-align:left;">
+0.403
+</td>
+<td style="text-align:left;">
+0.393
+</td>
+<td style="text-align:left;">
+0.417
+</td>
+<td style="text-align:left;">
+0.370
+</td>
+<td style="text-align:left;">
+0.469
+</td>
+<td style="text-align:left;">
+0.400
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border:0;" colspan="100%">
+<sup></sup> * p &lt; 0.1, ** p &lt; 0.05, *** p &lt; 0.01
+</td>
+</tr>
+</tfoot>
+</table>
+<div id="model-application" class="section level2">
+<h2><span class="header-section-number">4.1</span> Model Application</h2>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Yeo2000">
+<p>Yeo, In-Kwon, and Richard A Johnson. 2000. “A New Family of Power Transformations to Improve Normality or Symmetry.” <em>Biometrika</em> 87 (4): 954–59. <a href="https://www.jstor.org/stable/pdf/2673623.pdf?refreqid=excelsior%3A7f84252acd9abceb732e404db81fe53f">https://www.jstor.org/stable/pdf/2673623.pdf?refreqid=excelsior%3A7f84252acd9abceb732e404db81fe53f</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="methodology.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="final-words.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["alameda_destinationchoice.pdf", "alameda_destinationchoice.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

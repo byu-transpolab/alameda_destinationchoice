@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>References | Developing a Park Activity Location Choice Model from Passive Origin-Destination Data Tables</title>
+  <title>References | Estimating Park Choice and Access in Alameda County, California, using Passive Origin-Destination Data.</title>
   <meta name="description" content="Alameda Park Choice" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="References | Developing a Park Activity Location Choice Model from Passive Origin-Destination Data Tables" />
+  <meta property="og:title" content="References | Estimating Park Choice and Access in Alameda County, California, using Passive Origin-Destination Data." />
   <meta property="og:type" content="book" />
   
   
@@ -16,14 +16,14 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | Developing a Park Activity Location Choice Model from Passive Origin-Destination Data Tables" />
+  <meta name="twitter:title" content="References | Estimating Park Choice and Access in Alameda County, California, using Passive Origin-Destination Data." />
   
   <meta name="twitter:description" content="Alameda Park Choice" />
   
 
 
 
-<meta name="date" content="2020-09-11" />
+<meta name="date" content="2020-11-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -60,8 +60,84 @@ div.abstract{
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.0.3/leaflet-providers-plugin.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -83,12 +159,12 @@ div.abstract{
 <li class="chapter" data-level="2" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>2</b> Literature</a><ul>
 <li class="chapter" data-level="2.1" data-path="literature.html"><a href="literature.html#passive-location-data"><i class="fa fa-check"></i><b>2.1</b> Passive Location Data</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>3</b> Methods</a><ul>
-<li class="chapter" data-level="3.1" data-path="methods.html"><a href="methods.html#data"><i class="fa fa-check"></i><b>3.1</b> Data</a></li>
+<li class="chapter" data-level="3" data-path="methodology.html"><a href="methodology.html"><i class="fa fa-check"></i><b>3</b> Methodology</a><ul>
+<li class="chapter" data-level="3.1" data-path="methodology.html"><a href="methodology.html#data"><i class="fa fa-check"></i><b>3.1</b> Data</a></li>
+<li class="chapter" data-level="3.2" data-path="methodology.html"><a href="methodology.html#model"><i class="fa fa-check"></i><b>3.2</b> Model</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>4</b> Applications</a><ul>
-<li class="chapter" data-level="4.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>4.1</b> Example one</a></li>
-<li class="chapter" data-level="4.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>4.2</b> Example two</a></li>
+<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a><ul>
+<li class="chapter" data-level="4.1" data-path="results.html"><a href="results.html#model-application"><i class="fa fa-check"></i><b>4.1</b> Model Application</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>5</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -104,7 +180,7 @@ div.abstract{
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Developing a Park Activity Location Choice Model from Passive Origin-Destination Data Tables</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Estimating Park Choice and Access in Alameda County, California, using Passive Origin-Destination Data.</a>
           </h1>
         </div>
 
@@ -135,6 +211,24 @@ div.abstract{
 <p>City Parks Alliance. 2019. “Why City Parks Matter.” <a href="https://cityparksalliance.org/about-us/why-city-parks-matter/">https://cityparksalliance.org/about-us/why-city-parks-matter/</a>.</p>
 </div>
 <div>
+<p>Croissant, Yves. 2019. <em>mlogit: Multinomial Logit Models</em>. <a href="https://cran.r-project.org/package=mlogit">https://cran.r-project.org/package=mlogit</a>.</p>
+</div>
+<div>
+<p>Dong, Xiaojing, Moshe E. Ben-Akiva, John L. Bowman, and Joan L. Walker. 2006. “Moving from trip-based to activity-based measures of accessibility.” <em>Transportation Research Part A: Policy and Practice</em> 40 (2): 163–80. <a href="https://doi.org/10.1016/J.TRA.2005.05.002">https://doi.org/10.1016/J.TRA.2005.05.002</a>.</p>
+</div>
+<div>
+<p>Friedrich, Markus, Katrin Immisch, Prokop Jehlicka, Thomas Otterstätter, and Johannes Schlaich. 2010. “Generating Origin-Destination Matrices from Mobile Phone Trajectories.” <em>Transportation Research Record: Journal of the Transportation Research Board</em> 2196: 93–101. <a href="https://doi.org/10.3141/2196-10">https://doi.org/10.3141/2196-10</a>.</p>
+</div>
+<div>
+<p>GreenInfo Network. 2019. “California Protected Areas Database.” <a href="https://www.calands.org/cpad/">https://www.calands.org/cpad/</a>.</p>
+</div>
+<div>
+<p>Hagberg, Aric A., Daniel A. Schult, and Pieter J. Swart. 2008. “Exploring Network Structure, Dynamics, and Function Using Networkx.” In <em>Proceedings of the 7th Python in Science Conference</em>, edited by Gaël Varoquaux, Travis Vaught, and Jarrod Millman, 11–15. Pasadena, CA USA.</p>
+</div>
+<div>
+<p>Handy, S L, and D A Niemeier. 1997. “Measuring Accessibility: An Exploration of Issues and Alternatives.” <em>Environment and Planning A</em> 29 (7): 1175–94. <a href="https://doi.org/10.1068/a291175">https://doi.org/10.1068/a291175</a>.</p>
+</div>
+<div>
 <p>Huang, Arthur, and David Levinson. 2015. “Axis of travel: Modeling non-work destination choice with GPS data.” <em>Transportation Research Part C: Emerging Technologies</em> 58 (September): 208–23. <a href="https://doi.org/10.1016/J.TRC.2015.03.022">https://doi.org/10.1016/J.TRC.2015.03.022</a>.</p>
 </div>
 <div>
@@ -162,6 +256,9 @@ div.abstract{
 <p>McCormack, Gavin R., Melanie Rock, Ann M. Toohey, and Danica Hignell. 2010. “Characteristics of urban parks associated with park use and physical activity: A review of qualitative research.” <em>Health &amp; Place</em> 16 (4): 712–26. <a href="https://doi.org/10.1016/J.HEALTHPLACE.2010.03.003">https://doi.org/10.1016/J.HEALTHPLACE.2010.03.003</a>.</p>
 </div>
 <div>
+<p>McFadden, Daniel L. 1974. “Conditional Logit Analysis of Qualitative Choice Behavior.” In <em>Frontiers in Econometrics</em>, edited by Paul Zarembka, 105–42. New York: Academic Press.</p>
+</div>
+<div>
 <p>Meyerhoff, Jürgen, Alexandra Dehnhardt, and Volkmar Hartje. 2010. “Take your swimsuit along: the value of improving urban bathing sites in the metropolitan area of Berlin.” <em>Journal of Environmental Planning and Management</em> 53 (1): 107–24. <a href="https://doi.org/10.1080/09640560903399863">https://doi.org/10.1080/09640560903399863</a>.</p>
 </div>
 <div>
@@ -180,6 +277,18 @@ div.abstract{
 <p>National Academies of Sciences Engineering and Medicine. 2012. <em>Travel Demand Forecasting: Parameters and Techniques</em>. NCHRP 716. Washington, D.C.: Transportation Research Board; National Academies Press. <a href="https://doi.org/10.17226/14665">https://doi.org/10.17226/14665</a>.</p>
 </div>
 <div>
+<p>Padgham, Mark, Bob Rudis, Robin Lovelace, and Maëlle Salmon. 2017. “Osmdata.” <em>The Journal of Open Source Software</em> 2 (14). <a href="https://doi.org/10.21105/joss.00305">https://doi.org/10.21105/joss.00305</a>.</p>
+</div>
+<div>
+<p>Pan, Changxuan, Jiangang Lu, Shan Di, and Bin Ran. 2006. “Cellular-Based Data-Extracting Method for Trip Distribution.” <em>Transportation Research Record: Journal of the Transportation Research Board</em> 1945 (1): 33–39. <a href="https://doi.org/10.1177/0361198106194500105">https://doi.org/10.1177/0361198106194500105</a>.</p>
+</div>
+<div>
+<p>R Core Team. 2020. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.</p>
+</div>
+<div>
+<p>Recker, Wilfred W., and Lidia P. Kostyniuk. 1978. “Factors influencing destination choice for the urban grocery shopping trip.” <em>Transportation</em> 7 (1): 19–33. <a href="https://doi.org/10.1007/BF00148369">https://doi.org/10.1007/BF00148369</a>.</p>
+</div>
+<div>
 <p>Richardson, Elizabeth A, Richard Mitchell, Terry Hartig, Sjerp de Vries, Thomas Astell-Burt, and Howard Frumkin. 2012. “Green cities and health: a question of scale?” <em>Journal of Epidemiology and Community Health</em> 66 (2): 160 LP–165. <a href="https://doi.org/10.1136/jech.2011.137240">https://doi.org/10.1136/jech.2011.137240</a>.</p>
 </div>
 <div>
@@ -189,10 +298,25 @@ div.abstract{
 <p>Roll, Josh. 2019. “Evaluating Streetlight Estimates of Annual Average Daily Traffic in Oregon.” Oregon Department of Transportation; Oregon Department of Transportation. <a href="https://trid.trb.org/View/1630252">https://trid.trb.org/View/1630252</a>.</p>
 </div>
 <div>
+<p>Train, Kenneth E. 2009. <em>Discrete Choice Methods with Simulation, 2nd Edition</em>. Cambridge: Cambridge University Press. <a href="https://doi.org/10.1016/S0898-1221(04)90100-9">https://doi.org/10.1016/S0898-1221(04)90100-9</a>.</p>
+</div>
+<div>
 <p>Trust for Public Land. 2019. “2019 ParkScore Index.” <a href="https://www.tpl.org/parkscore">https://www.tpl.org/parkscore</a>.</p>
 </div>
 <div>
+<p>U.S. Census Bureau. 2019. “QuickFacts: Alameda County, California.” <a href="https://www.census.gov/quickfacts/fact/table/alamedacountycalifornia/PST045218">https://www.census.gov/quickfacts/fact/table/alamedacountycalifornia/PST045218</a>.</p>
+</div>
+<div>
 <p>Ussery, Emily Neusel, Leah Yngve, Dee Merriam, Geoffrey Whitfield, Stephanie Foster, Arthur Wendel, and Tegan Boehmer. 2016. “The National Environmental Public Health Tracking Network Access to Parks Indicator: A National County-Level Measure of Park Proximity.” <em>Journal of Park and Recreation Administration</em> 34 (3): 52. <a href="https://doi.org/10.18666/JPRA-2016-V34-I3-7119">https://doi.org/10.18666/JPRA-2016-V34-I3-7119</a>.</p>
+</div>
+<div>
+<p>Walker, Kyle. 2019. <em>tidycensus: Load US Census Boundary and Attribute Data as ’tidyverse’ and ’sf’-Ready Data Frames</em>. <a href="https://cran.r-project.org/package=tidycensus">https://cran.r-project.org/package=tidycensus</a>.</p>
+</div>
+<div>
+<p>Williams, H C W L. 1977. “On the Formation of Travel Demand Models and Economic Evaluation Measures of User Benefit.” <em>Environment and Planning A: Economy and Space</em> 9 (3): 285–344. <a href="https://doi.org/10.1068/a090285">https://doi.org/10.1068/a090285</a>.</p>
+</div>
+<div>
+<p>Yeo, In-Kwon, and Richard A Johnson. 2000. “A New Family of Power Transformations to Improve Normality or Symmetry.” <em>Biometrika</em> 87 (4): 954–59. <a href="https://www.jstor.org/stable/pdf/2673623.pdf?refreqid=excelsior%3A7f84252acd9abceb732e404db81fe53f">https://www.jstor.org/stable/pdf/2673623.pdf?refreqid=excelsior%3A7f84252acd9abceb732e404db81fe53f</a>.</p>
 </div>
 <div>
 <p>Zhu, Jiayu, and Xin Ye. 2018. “Development of destination choice model with pairwise district-level constants using taxi GPS data.” <em>Transportation Research Part C: Emerging Technologies</em> 93 (August): 410–24. <a href="https://doi.org/10.1016/J.TRC.2018.06.016">https://doi.org/10.1016/J.TRC.2018.06.016</a>.</p>
