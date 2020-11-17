@@ -275,25 +275,15 @@ identified paths, while around 40% of the identified parks have playgrounds and
 sport fields.
 
 ```{r park_attributes, results="asis"}
-our_summary1 <- list(
-  "Acres" =
-    list("min" = ~ min(.data$acres),
-         "max" = ~ max(.data$acres),
-         "mean (sd)" = ~ qwraps2::mean_sd(.data$acres)),
-  "Attributes" =
-    list("Has Playground" = ~qwraps2::n_perc0(.data$playground),
-         "Has Pitch / Court" = ~qwraps2::n_perc0(.data$pitch),
-         "Has Paths" =  ~qwraps2::n_perc0(.data$trail)),
-  "Visitor Devices" =
-    list("min" = ~ min(.data$attractions),
-         "max" = ~ max(.data$attractions),
-         "mean (sd)" = ~ qwraps2::mean_sd(.data$attractions))
-)
-
-attributed_parks %>% st_set_geometry(NULL) %>%
-  group_by(type) %>%
-  qwraps2::summary_table(our_summary1) %>% 
-  print(markup = "markdown")
+park_attributes <- datasummary_balance(
+  ~ type,  
+  data = attributed_parks %>% 
+    select(Access = access, Acres = acres, type, Playground = playground, 
+           `Sport Field` = pitch, Trail = trail, 
+           `Mobile Devices` =attractions), 
+  dinm = FALSE,
+  title = "Park Summary Statistics",
+  output = "kableExtra")
 ```
 
 
