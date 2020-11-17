@@ -116,7 +116,8 @@ modelsummary(
   gof_omit = "BIC",
   title = "Estimated Model Coefficients"
 ) %>%
-  add_header_above(c(" " = 1, "All" = 2, "Minority" = 3, "Income" = 3))
+  add_header_above(c(" " = 1, "All" = 2, "Minority" = 3, "Income" = 3)) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
 ```
 
 

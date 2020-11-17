@@ -60,16 +60,6 @@ div.abstract{
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
-<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-1.3.1/leaflet.js"></script>
-<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
-<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
-<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
-<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
-<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
-<script src="libs/leaflet-providers-plugin-2.0.3/leaflet-providers-plugin.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
@@ -190,27 +180,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="results" class="section level1">
 <h1><span class="header-section-number"> 4</span> Results</h1>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="results.html#cb16-1"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb16-2"><a href="results.html#cb16-2"></a><span class="kw">library</span>(mlogit)</span>
-<span id="cb16-3"><a href="results.html#cb16-3"></a><span class="kw">library</span>(modelsummary)</span>
-<span id="cb16-4"><a href="results.html#cb16-4"></a><span class="kw">library</span>(kableExtra)</span>
-<span id="cb16-5"><a href="results.html#cb16-5"></a><span class="kw">library</span>(sf)</span>
-<span id="cb16-6"><a href="results.html#cb16-6"></a><span class="co"># function to index a tibble for mnl estimation</span></span>
-<span id="cb16-7"><a href="results.html#cb16-7"></a>logit_converter &lt;-<span class="st"> </span><span class="cf">function</span>(df) {</span>
-<span id="cb16-8"><a href="results.html#cb16-8"></a>  <span class="kw">dfidx</span>(df, <span class="dt">idx =</span> <span class="kw">list</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;alt&quot;</span>), <span class="dt">shape =</span> <span class="st">&quot;long&quot;</span>,  </span>
-<span id="cb16-9"><a href="results.html#cb16-9"></a>      <span class="dt">choice =</span> <span class="st">&quot;chosen&quot;</span>, <span class="dt">idnames =</span> <span class="st">&quot;id&quot;</span>, <span class="dt">drop.index =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb16-10"><a href="results.html#cb16-10"></a>}</span>
-<span id="cb16-11"><a href="results.html#cb16-11"></a></span>
-<span id="cb16-12"><a href="results.html#cb16-12"></a><span class="co"># function to estimate the mnl model on a subset of data</span></span>
-<span id="cb16-13"><a href="results.html#cb16-13"></a>group_mnl &lt;-<span class="st"> </span><span class="cf">function</span>(df){</span>
-<span id="cb16-14"><a href="results.html#cb16-14"></a>  <span class="kw">mlogit</span>(chosen <span class="op">~</span><span class="st">  </span>yj_distance <span class="op">+</span><span class="st"> </span>yj_acres <span class="op">+</span><span class="st"> </span></span>
-<span id="cb16-15"><a href="results.html#cb16-15"></a><span class="st">                                  </span>playground <span class="op">+</span><span class="st"> </span>pitch <span class="op">+</span><span class="st"> </span>trail <span class="op">|</span><span class="st"> </span><span class="dv">-1</span>,</span>
-<span id="cb16-16"><a href="results.html#cb16-16"></a>         <span class="dt">data =</span> df)</span>
-<span id="cb16-17"><a href="results.html#cb16-17"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="results.html#cb17-1"></a>logitdata &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/logitdata.rds&quot;</span>)</span>
-<span id="cb17-2"><a href="results.html#cb17-2"></a>dfi &lt;-<span class="st"> </span><span class="kw">logit_converter</span>(logitdata)</span>
-<span id="cb17-3"><a href="results.html#cb17-3"></a>estim &lt;-<span class="st"> </span><span class="kw">filter</span>(dfi, validation)</span>
-<span id="cb17-4"><a href="results.html#cb17-4"></a>valid &lt;-<span class="st"> </span><span class="kw">filter</span>(dfi, <span class="op">!</span>validation)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="results.html#cb1-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="results.html#cb1-2"></a><span class="kw">library</span>(mlogit)</span>
+<span id="cb1-3"><a href="results.html#cb1-3"></a><span class="kw">library</span>(modelsummary)</span>
+<span id="cb1-4"><a href="results.html#cb1-4"></a><span class="kw">library</span>(kableExtra)</span>
+<span id="cb1-5"><a href="results.html#cb1-5"></a><span class="kw">library</span>(sf)</span>
+<span id="cb1-6"><a href="results.html#cb1-6"></a><span class="co"># function to index a tibble for mnl estimation</span></span>
+<span id="cb1-7"><a href="results.html#cb1-7"></a>logit_converter &lt;-<span class="st"> </span><span class="cf">function</span>(df) {</span>
+<span id="cb1-8"><a href="results.html#cb1-8"></a>  <span class="kw">dfidx</span>(df, <span class="dt">idx =</span> <span class="kw">list</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;alt&quot;</span>), <span class="dt">shape =</span> <span class="st">&quot;long&quot;</span>,  </span>
+<span id="cb1-9"><a href="results.html#cb1-9"></a>      <span class="dt">choice =</span> <span class="st">&quot;chosen&quot;</span>, <span class="dt">idnames =</span> <span class="st">&quot;id&quot;</span>, <span class="dt">drop.index =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb1-10"><a href="results.html#cb1-10"></a>}</span>
+<span id="cb1-11"><a href="results.html#cb1-11"></a></span>
+<span id="cb1-12"><a href="results.html#cb1-12"></a><span class="co"># function to estimate the mnl model on a subset of data</span></span>
+<span id="cb1-13"><a href="results.html#cb1-13"></a>group_mnl &lt;-<span class="st"> </span><span class="cf">function</span>(df){</span>
+<span id="cb1-14"><a href="results.html#cb1-14"></a>  <span class="kw">mlogit</span>(chosen <span class="op">~</span><span class="st">  </span>yj_distance <span class="op">+</span><span class="st"> </span>yj_acres <span class="op">+</span><span class="st"> </span></span>
+<span id="cb1-15"><a href="results.html#cb1-15"></a><span class="st">                                  </span>playground <span class="op">+</span><span class="st"> </span>pitch <span class="op">+</span><span class="st"> </span>trail <span class="op">|</span><span class="st"> </span><span class="dv">-1</span>,</span>
+<span id="cb1-16"><a href="results.html#cb1-16"></a>         <span class="dt">data =</span> df)</span>
+<span id="cb1-17"><a href="results.html#cb1-17"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="results.html#cb2-1"></a>logitdata &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/logitdata.rds&quot;</span>)</span>
+<span id="cb2-2"><a href="results.html#cb2-2"></a>dfi &lt;-<span class="st"> </span><span class="kw">logit_converter</span>(logitdata)</span>
+<span id="cb2-3"><a href="results.html#cb2-3"></a>estim &lt;-<span class="st"> </span><span class="kw">filter</span>(dfi, validation)</span>
+<span id="cb2-4"><a href="results.html#cb2-4"></a>valid &lt;-<span class="st"> </span><span class="kw">filter</span>(dfi, <span class="op">!</span>validation)</span></code></pre></div>
 <p>We estimated multinomial logit park activity location choice models including
 coefficients for the distance between the park and the home block group and the
 acreage of the park. We applied a Yeo-Johnson transformation <span class="citation">(Yeo and Johnson <a href="#ref-Yeo2000" role="doc-biblioref">2000</a>)</span> to both
@@ -220,52 +210,52 @@ values (<span class="math inline">\(YJ(0) = 0\)</span>). For simplicity, we call
 model results tables. Using a constant marginal elasticity is better reflective
 of how people perceive distances and sizes; a one-mile increase to a trip
 distance is more impactful to a one-mile trip than a ten-mile trip.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="results.html#cb18-1"></a>base_models &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
-<span id="cb18-2"><a href="results.html#cb18-2"></a>  <span class="st">&quot;Network Distance&quot;</span>   =<span class="st"> </span><span class="kw">mlogit</span>(chosen <span class="op">~</span><span class="st"> </span>yj_distance <span class="op">+</span><span class="st"> </span>yj_acres <span class="op">|</span><span class="st"> </span><span class="dv">-1</span> , </span>
-<span id="cb18-3"><a href="results.html#cb18-3"></a>                                <span class="dt">data =</span> estim),</span>
-<span id="cb18-4"><a href="results.html#cb18-4"></a>  <span class="st">&quot;Park Attributes&quot;</span>    =<span class="st"> </span><span class="kw">mlogit</span>(chosen <span class="op">~</span><span class="st"> </span>yj_distance <span class="op">+</span><span class="st"> </span>yj_acres <span class="op">+</span><span class="st"> </span></span>
-<span id="cb18-5"><a href="results.html#cb18-5"></a><span class="st">                                  </span>playground <span class="op">+</span><span class="st"> </span>pitch <span class="op">+</span><span class="st"> </span>trail <span class="op">|</span><span class="st"> </span><span class="dv">-1</span> , </span>
-<span id="cb18-6"><a href="results.html#cb18-6"></a>                                <span class="dt">data =</span> estim)</span>
-<span id="cb18-7"><a href="results.html#cb18-7"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="results.html#cb3-1"></a>base_models &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
+<span id="cb3-2"><a href="results.html#cb3-2"></a>  <span class="st">&quot;Network Distance&quot;</span>   =<span class="st"> </span><span class="kw">mlogit</span>(chosen <span class="op">~</span><span class="st"> </span>yj_distance <span class="op">+</span><span class="st"> </span>yj_acres <span class="op">|</span><span class="st"> </span><span class="dv">-1</span> , </span>
+<span id="cb3-3"><a href="results.html#cb3-3"></a>                                <span class="dt">data =</span> estim),</span>
+<span id="cb3-4"><a href="results.html#cb3-4"></a>  <span class="st">&quot;Park Attributes&quot;</span>    =<span class="st"> </span><span class="kw">mlogit</span>(chosen <span class="op">~</span><span class="st"> </span>yj_distance <span class="op">+</span><span class="st"> </span>yj_acres <span class="op">+</span><span class="st"> </span></span>
+<span id="cb3-5"><a href="results.html#cb3-5"></a><span class="st">                                  </span>playground <span class="op">+</span><span class="st"> </span>pitch <span class="op">+</span><span class="st"> </span>trail <span class="op">|</span><span class="st"> </span><span class="dv">-1</span> , </span>
+<span id="cb3-6"><a href="results.html#cb3-6"></a>                                <span class="dt">data =</span> estim)</span>
+<span id="cb3-7"><a href="results.html#cb3-7"></a>)</span></code></pre></div>
 <p>Table <a href="results.html#tab:models-summary">4.1</a> presents the model estimation results for a
 series of models. The two models under the “All” heading were estimated on
 the complete sample of simulated choice makers.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="results.html#cb19-1"></a>minority_models &lt;-<span class="st"> </span>estim <span class="op">%&gt;%</span></span>
-<span id="cb19-2"><a href="results.html#cb19-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">group =</span> <span class="kw">case_when</span>(</span>
-<span id="cb19-3"><a href="results.html#cb19-3"></a>    black <span class="op">&gt;</span><span class="st"> </span><span class="dv">30</span> <span class="op">~</span><span class="st"> &quot;black&quot;</span>,</span>
-<span id="cb19-4"><a href="results.html#cb19-4"></a>    asian <span class="op">&gt;</span><span class="st"> </span><span class="dv">30</span> <span class="op">~</span><span class="st"> &quot;asian&quot;</span>,</span>
-<span id="cb19-5"><a href="results.html#cb19-5"></a>    <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> &quot;other&quot;</span></span>
-<span id="cb19-6"><a href="results.html#cb19-6"></a>  )) <span class="op">%&gt;%</span></span>
-<span id="cb19-7"><a href="results.html#cb19-7"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(group)) <span class="op">%&gt;%</span></span>
-<span id="cb19-8"><a href="results.html#cb19-8"></a><span class="st">  </span><span class="kw">group_by</span>(group) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">nest</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></span>
-<span id="cb19-9"><a href="results.html#cb19-9"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
-<span id="cb19-10"><a href="results.html#cb19-10"></a>    <span class="dt">data =</span> <span class="kw">map</span>(data, logit_converter),</span>
-<span id="cb19-11"><a href="results.html#cb19-11"></a>    <span class="dt">mnl =</span> <span class="kw">map</span>(data, group_mnl)</span>
-<span id="cb19-12"><a href="results.html#cb19-12"></a>  ) </span>
-<span id="cb19-13"><a href="results.html#cb19-13"></a>income_models &lt;-<span class="st"> </span>estim <span class="op">%&gt;%</span></span>
-<span id="cb19-14"><a href="results.html#cb19-14"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">group =</span> <span class="kw">case_when</span>(lowincome <span class="op">&gt;</span><span class="st"> </span><span class="dv">30</span> <span class="op">~</span><span class="st"> &quot;lowincome&quot;</span>, </span>
-<span id="cb19-15"><a href="results.html#cb19-15"></a>                           highincome <span class="op">&gt;</span><span class="st"> </span><span class="dv">50</span> <span class="op">~</span><span class="st"> &quot;highincome&quot;</span>, <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> &quot;other&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb19-16"><a href="results.html#cb19-16"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(group)) <span class="op">%&gt;%</span></span>
-<span id="cb19-17"><a href="results.html#cb19-17"></a><span class="st">  </span><span class="kw">group_by</span>(group) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">nest</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></span>
-<span id="cb19-18"><a href="results.html#cb19-18"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
-<span id="cb19-19"><a href="results.html#cb19-19"></a>    <span class="dt">data =</span> <span class="kw">map</span>(data, logit_converter),</span>
-<span id="cb19-20"><a href="results.html#cb19-20"></a>    <span class="dt">mnl =</span> <span class="kw">map</span>(data, group_mnl)</span>
-<span id="cb19-21"><a href="results.html#cb19-21"></a>  )</span>
-<span id="cb19-22"><a href="results.html#cb19-22"></a>models &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
-<span id="cb19-23"><a href="results.html#cb19-23"></a>  <span class="st">&quot;Distance and Size&quot;</span> =<span class="st"> </span>base_models<span class="op">$</span><span class="st">`</span><span class="dt">Network Distance</span><span class="st">`</span>,</span>
-<span id="cb19-24"><a href="results.html#cb19-24"></a>  <span class="st">&quot;Park Attributes&quot;</span> =<span class="st"> </span>base_models<span class="op">$</span><span class="st">`</span><span class="dt">Park Attributes</span><span class="st">`</span>,</span>
-<span id="cb19-25"><a href="results.html#cb19-25"></a>  <span class="st">&quot;&gt; 30% Asian&quot;</span> =<span class="st"> </span>minority_models<span class="op">$</span>mnl[[<span class="dv">1</span>]],</span>
-<span id="cb19-26"><a href="results.html#cb19-26"></a>  <span class="st">&quot;&gt; 30% Black&quot;</span> =<span class="st"> </span>minority_models<span class="op">$</span>mnl[[<span class="dv">3</span>]],</span>
-<span id="cb19-27"><a href="results.html#cb19-27"></a>  <span class="st">&quot;Other&quot;</span> =<span class="st"> </span>minority_models<span class="op">$</span>mnl[[<span class="dv">2</span>]],</span>
-<span id="cb19-28"><a href="results.html#cb19-28"></a>  <span class="st">&quot;&gt; 30% Low income&quot;</span> =<span class="st"> </span>income_models<span class="op">$</span>mnl[[<span class="dv">1</span>]],</span>
-<span id="cb19-29"><a href="results.html#cb19-29"></a>  <span class="st">&quot;&gt; 50% High income&quot;</span> =<span class="st"> </span>income_models<span class="op">$</span>mnl[[<span class="dv">3</span>]],</span>
-<span id="cb19-30"><a href="results.html#cb19-30"></a>  <span class="st">&quot;Other&quot;</span> =<span class="st"> </span>income_models<span class="op">$</span>mnl[[<span class="dv">2</span>]]</span>
-<span id="cb19-31"><a href="results.html#cb19-31"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="results.html#cb4-1"></a>minority_models &lt;-<span class="st"> </span>estim <span class="op">%&gt;%</span></span>
+<span id="cb4-2"><a href="results.html#cb4-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">group =</span> <span class="kw">case_when</span>(</span>
+<span id="cb4-3"><a href="results.html#cb4-3"></a>    black <span class="op">&gt;</span><span class="st"> </span><span class="dv">30</span> <span class="op">~</span><span class="st"> &quot;black&quot;</span>,</span>
+<span id="cb4-4"><a href="results.html#cb4-4"></a>    asian <span class="op">&gt;</span><span class="st"> </span><span class="dv">30</span> <span class="op">~</span><span class="st"> &quot;asian&quot;</span>,</span>
+<span id="cb4-5"><a href="results.html#cb4-5"></a>    <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> &quot;other&quot;</span></span>
+<span id="cb4-6"><a href="results.html#cb4-6"></a>  )) <span class="op">%&gt;%</span></span>
+<span id="cb4-7"><a href="results.html#cb4-7"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(group)) <span class="op">%&gt;%</span></span>
+<span id="cb4-8"><a href="results.html#cb4-8"></a><span class="st">  </span><span class="kw">group_by</span>(group) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">nest</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></span>
+<span id="cb4-9"><a href="results.html#cb4-9"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
+<span id="cb4-10"><a href="results.html#cb4-10"></a>    <span class="dt">data =</span> <span class="kw">map</span>(data, logit_converter),</span>
+<span id="cb4-11"><a href="results.html#cb4-11"></a>    <span class="dt">mnl =</span> <span class="kw">map</span>(data, group_mnl)</span>
+<span id="cb4-12"><a href="results.html#cb4-12"></a>  ) </span>
+<span id="cb4-13"><a href="results.html#cb4-13"></a>income_models &lt;-<span class="st"> </span>estim <span class="op">%&gt;%</span></span>
+<span id="cb4-14"><a href="results.html#cb4-14"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">group =</span> <span class="kw">case_when</span>(lowincome <span class="op">&gt;</span><span class="st"> </span><span class="dv">30</span> <span class="op">~</span><span class="st"> &quot;lowincome&quot;</span>, </span>
+<span id="cb4-15"><a href="results.html#cb4-15"></a>                           highincome <span class="op">&gt;</span><span class="st"> </span><span class="dv">50</span> <span class="op">~</span><span class="st"> &quot;highincome&quot;</span>, <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> &quot;other&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb4-16"><a href="results.html#cb4-16"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(group)) <span class="op">%&gt;%</span></span>
+<span id="cb4-17"><a href="results.html#cb4-17"></a><span class="st">  </span><span class="kw">group_by</span>(group) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">nest</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></span>
+<span id="cb4-18"><a href="results.html#cb4-18"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
+<span id="cb4-19"><a href="results.html#cb4-19"></a>    <span class="dt">data =</span> <span class="kw">map</span>(data, logit_converter),</span>
+<span id="cb4-20"><a href="results.html#cb4-20"></a>    <span class="dt">mnl =</span> <span class="kw">map</span>(data, group_mnl)</span>
+<span id="cb4-21"><a href="results.html#cb4-21"></a>  )</span>
+<span id="cb4-22"><a href="results.html#cb4-22"></a>models &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
+<span id="cb4-23"><a href="results.html#cb4-23"></a>  <span class="st">&quot;Distance and Size&quot;</span> =<span class="st"> </span>base_models<span class="op">$</span><span class="st">`</span><span class="dt">Network Distance</span><span class="st">`</span>,</span>
+<span id="cb4-24"><a href="results.html#cb4-24"></a>  <span class="st">&quot;Park Attributes&quot;</span> =<span class="st"> </span>base_models<span class="op">$</span><span class="st">`</span><span class="dt">Park Attributes</span><span class="st">`</span>,</span>
+<span id="cb4-25"><a href="results.html#cb4-25"></a>  <span class="st">&quot;&gt; 30% Asian&quot;</span> =<span class="st"> </span>minority_models<span class="op">$</span>mnl[[<span class="dv">1</span>]],</span>
+<span id="cb4-26"><a href="results.html#cb4-26"></a>  <span class="st">&quot;&gt; 30% Black&quot;</span> =<span class="st"> </span>minority_models<span class="op">$</span>mnl[[<span class="dv">3</span>]],</span>
+<span id="cb4-27"><a href="results.html#cb4-27"></a>  <span class="st">&quot;Other&quot;</span> =<span class="st"> </span>minority_models<span class="op">$</span>mnl[[<span class="dv">2</span>]],</span>
+<span id="cb4-28"><a href="results.html#cb4-28"></a>  <span class="st">&quot;&gt; 30% Low income&quot;</span> =<span class="st"> </span>income_models<span class="op">$</span>mnl[[<span class="dv">1</span>]],</span>
+<span id="cb4-29"><a href="results.html#cb4-29"></a>  <span class="st">&quot;&gt; 50% High income&quot;</span> =<span class="st"> </span>income_models<span class="op">$</span>mnl[[<span class="dv">3</span>]],</span>
+<span id="cb4-30"><a href="results.html#cb4-30"></a>  <span class="st">&quot;Other&quot;</span> =<span class="st"> </span>income_models<span class="op">$</span>mnl[[<span class="dv">2</span>]]</span>
+<span id="cb4-31"><a href="results.html#cb4-31"></a>)</span></code></pre></div>
 <p>The other models presented in Table <a href="results.html#tab:models-summary">4.1</a> were estimated on
 segments of the dataset. These segmentations help to reveal the heterogeneity in
 choice behavior between individuals of different sociodemographic attributes, in
 the absence of person-level data. The thresholds are selected to roughly
-coincide with the quartile values shown in Table <a href="methodology.html#tab:acs-table">3.2</a>, meaning
+coincide with the quartile values shown in Table <a href="#tab:acs-table"><strong>??</strong></a>, meaning
 that approximately one-quarter of the block groups (not weighted by population)
 will fall within a particular segment. Models under the “Minority” heading
 include a race-based segmentation: simulated individuals living in block groups
@@ -275,20 +265,22 @@ are in the “&gt;30% Asian” model, and the “Other” model contains all oth
 groups.</p>
 <p>Another set of model segmentation relies on the share of the population in each
 block group with household incomes above or below certain thresholds. Again,
-we use the threshold definitions presented in <a href="methodology.html#tab:acs-table">3.2</a></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="results.html#cb20-1"></a><span class="kw">modelsummary</span>(</span>
-<span id="cb20-2"><a href="results.html#cb20-2"></a>  models, <span class="dt">stars =</span> <span class="ot">TRUE</span>, <span class="dt">output =</span> <span class="st">&quot;kableExtra&quot;</span>,</span>
-<span id="cb20-3"><a href="results.html#cb20-3"></a>  <span class="dt">coef_map =</span> <span class="kw">c</span>(</span>
-<span id="cb20-4"><a href="results.html#cb20-4"></a>    <span class="st">&quot;yj_distance&quot;</span> =<span class="st"> &quot;log(Distance)&quot;</span>,</span>
-<span id="cb20-5"><a href="results.html#cb20-5"></a>    <span class="st">&quot;yj_acres&quot;</span> =<span class="st"> &quot;log(Acres)&quot;</span>,</span>
-<span id="cb20-6"><a href="results.html#cb20-6"></a>    <span class="st">&quot;playgroundTRUE&quot;</span> =<span class="st"> &quot;Playground&quot;</span>,</span>
-<span id="cb20-7"><a href="results.html#cb20-7"></a>    <span class="st">&quot;pitchTRUE&quot;</span> =<span class="st"> &quot;Sport Field&quot;</span>,</span>
-<span id="cb20-8"><a href="results.html#cb20-8"></a>    <span class="st">&quot;trailTRUE&quot;</span> =<span class="st"> &quot;Trail&quot;</span></span>
-<span id="cb20-9"><a href="results.html#cb20-9"></a>  ),</span>
-<span id="cb20-10"><a href="results.html#cb20-10"></a>  <span class="dt">gof_omit =</span> <span class="st">&quot;BIC&quot;</span>,</span>
-<span id="cb20-11"><a href="results.html#cb20-11"></a>  <span class="dt">title =</span> <span class="st">&quot;Estimated Model Coefficients&quot;</span></span>
-<span id="cb20-12"><a href="results.html#cb20-12"></a>) <span class="op">%&gt;%</span></span>
-<span id="cb20-13"><a href="results.html#cb20-13"></a><span class="st">  </span><span class="kw">add_header_above</span>(<span class="kw">c</span>(<span class="st">&quot; &quot;</span> =<span class="st"> </span><span class="dv">1</span>, <span class="st">&quot;All&quot;</span> =<span class="st"> </span><span class="dv">2</span>, <span class="st">&quot;Minority&quot;</span> =<span class="st"> </span><span class="dv">3</span>, <span class="st">&quot;Income&quot;</span> =<span class="st"> </span><span class="dv">3</span>))</span></code></pre></div>
+we use the threshold definitions presented in <a href="#tab:acs-table"><strong>??</strong></a></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="results.html#cb5-1"></a><span class="kw">modelsummary</span>(</span>
+<span id="cb5-2"><a href="results.html#cb5-2"></a>  models, <span class="dt">stars =</span> <span class="ot">TRUE</span>, <span class="dt">output =</span> <span class="st">&quot;kableExtra&quot;</span>,</span>
+<span id="cb5-3"><a href="results.html#cb5-3"></a>  <span class="dt">coef_map =</span> <span class="kw">c</span>(</span>
+<span id="cb5-4"><a href="results.html#cb5-4"></a>    <span class="st">&quot;yj_distance&quot;</span> =<span class="st"> &quot;log(Distance)&quot;</span>,</span>
+<span id="cb5-5"><a href="results.html#cb5-5"></a>    <span class="st">&quot;yj_acres&quot;</span> =<span class="st"> &quot;log(Acres)&quot;</span>,</span>
+<span id="cb5-6"><a href="results.html#cb5-6"></a>    <span class="st">&quot;playgroundTRUE&quot;</span> =<span class="st"> &quot;Playground&quot;</span>,</span>
+<span id="cb5-7"><a href="results.html#cb5-7"></a>    <span class="st">&quot;pitchTRUE&quot;</span> =<span class="st"> &quot;Sport Field&quot;</span>,</span>
+<span id="cb5-8"><a href="results.html#cb5-8"></a>    <span class="st">&quot;trailTRUE&quot;</span> =<span class="st"> &quot;Trail&quot;</span></span>
+<span id="cb5-9"><a href="results.html#cb5-9"></a>  ),</span>
+<span id="cb5-10"><a href="results.html#cb5-10"></a>  <span class="dt">gof_omit =</span> <span class="st">&quot;BIC&quot;</span>,</span>
+<span id="cb5-11"><a href="results.html#cb5-11"></a>  <span class="dt">title =</span> <span class="st">&quot;Estimated Model Coefficients&quot;</span></span>
+<span id="cb5-12"><a href="results.html#cb5-12"></a>) <span class="op">%&gt;%</span></span>
+<span id="cb5-13"><a href="results.html#cb5-13"></a><span class="st">  </span><span class="kw">add_header_above</span>(<span class="kw">c</span>(<span class="st">&quot; &quot;</span> =<span class="st"> </span><span class="dv">1</span>, <span class="st">&quot;All&quot;</span> =<span class="st"> </span><span class="dv">2</span>, <span class="st">&quot;Minority&quot;</span> =<span class="st"> </span><span class="dv">3</span>, <span class="st">&quot;Income&quot;</span> =<span class="st"> </span><span class="dv">3</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb5-14"><a href="results.html#cb5-14"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>, <span class="dt">box_css =</span> <span class="st">&quot;border: 0px;&quot;</span>)</span></code></pre></div>
+<div style="border: 0px;overflow-x: scroll; width:100%; ">
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:models-summary">Table 4.1: </span>Estimated Model Coefficients
@@ -768,6 +760,7 @@ rho20
 </tr>
 </tfoot>
 </table>
+</div>
 <div id="model-application" class="section level2">
 <h2><span class="header-section-number">4.1</span> Model Application</h2>
 
