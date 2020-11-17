@@ -1,7 +1,126 @@
-# Applications
+# Results
 
-Some _significant_ applications are demonstrated in this chapter.
+```{r estimation-setup, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(mlogit)
+library(modelsummary)
+library(kableExtra)
+library(sf)
+# function to index a tibble for mnl estimation
+logit_converter <- function(df) {
+  dfidx(df, idx = list("id", "alt"), shape = "long",  
+      choice = "chosen", idnames = "id", drop.index = FALSE)
+}
 
-## Example one
+# function to estimate the mnl model on a subset of data
+group_mnl <- function(df){
+  mlogit(chosen ~  yj_distance + yj_acres + 
+                                  playground + pitch + trail | -1,
+         data = df)
+}
+```
 
-## Example two
+
+```{r load}
+logitdata <- read_rds("data/logitdata.rds")
+dfi <- logit_converter(logitdata)
+estim <- filter(dfi, validation)
+valid <- filter(dfi, !validation)
+```
+
+We estimated multinomial logit park activity location choice models including
+coefficients for the distance between the park and the home block group and the
+acreage of the park. We applied a Yeo-Johnson transformation [@Yeo2000] to both
+distance and acreage; the Yeo-Johnson transformation replicates the constant
+marginal elasticity of a logarithmic transformation while avoiding undefined
+values ($YJ(0) = 0$). For simplicity, we call this transformation `log()` in the
+model results tables. Using a constant marginal elasticity is better reflective
+of how people perceive distances and sizes; a one-mile increase to a trip
+distance is more impactful to a one-mile trip than a ten-mile trip.
+
+```{r base_models}
+base_models <- list(
+  "Network Distance"   = mlogit(chosen ~ yj_distance + yj_acres | -1 , 
+                                data = estim),
+  "Park Attributes"    = mlogit(chosen ~ yj_distance + yj_acres + 
+                                  playground + pitch + trail | -1 , 
+                                data = estim)
+)
+```
+
+Table \@ref(tab:models-summary) presents the model estimation results for a
+series of models. The two models under the "All" heading were estimated on
+the complete sample of simulated choice makers. 
+
+```{r grouped_models}
+minority_models <- estim %>%
+  mutate(group = case_when(
+    black > 30 ~ "black",
+    asian > 30 ~ "asian",
+    TRUE ~ "other"
+  )) %>%
+  filter(!is.na(group)) %>%
+  group_by(group) %>% nest() %>% ungroup() %>%
+  mutate(
+    data = map(data, logit_converter),
+    mnl = map(data, group_mnl)
+  ) 
+income_models <- estim %>%
+  mutate(group = case_when(lowincome > 30 ~ "lowincome", 
+                           highincome > 50 ~ "highincome", TRUE ~ "other")) %>%
+  filter(!is.na(group)) %>%
+  group_by(group) %>% nest() %>% ungroup() %>%
+  mutate(
+    data = map(data, logit_converter),
+    mnl = map(data, group_mnl)
+  )
+models <- list(
+  "Distance and Size" = base_models$`Network Distance`,
+  "Park Attributes" = base_models$`Park Attributes`,
+  "> 30% Asian" = minority_models$mnl[[1]],
+  "> 30% Black" = minority_models$mnl[[3]],
+  "Other" = minority_models$mnl[[2]],
+  "> 30% Low income" = income_models$mnl[[1]],
+  "> 50% High income" = income_models$mnl[[3]],
+  "Other" = income_models$mnl[[2]]
+)
+```
+
+The other models presented in Table \@ref(tab:models-summary) were estimated on 
+segments of the dataset. These segmentations help to reveal the heterogeneity in
+choice behavior between individuals of different sociodemographic attributes, in
+the absence of person-level data. The thresholds are selected to roughly
+coincide with the quartile values shown in Table \@ref(tab:acs-table), meaning
+that approximately one-quarter of the block groups (not weighted by population)
+will fall within a particular segment. Models under the "Minority" heading
+include a race-based segmentation: simulated individuals living in block groups
+with more than thirty percent Black persons are included in the ">30% Black"
+model, an analogous segmentation for block groups with high Asian populations
+are in the ">30% Asian" model, and the "Other" model contains all other block
+groups.
+
+Another set of model segmentation relies on the share of the population in each
+block group with household incomes above or below certain thresholds. Again,
+we use the threshold definitions presented in \@ref(tab:acs-table)
+
+```{r models-summary}
+modelsummary(
+  models, stars = TRUE, output = "kableExtra",
+  coef_map = c(
+    "yj_distance" = "log(Distance)",
+    "yj_acres" = "log(Acres)",
+    "playgroundTRUE" = "Playground",
+    "pitchTRUE" = "Sport Field",
+    "trailTRUE" = "Trail"
+  ),
+  gof_omit = "BIC",
+  title = "Estimated Model Coefficients"
+) %>%
+  add_header_above(c(" " = 1, "All" = 2, "Minority" = 3, "Income" = 3))
+```
+
+
+
+
+## Model Application
+
