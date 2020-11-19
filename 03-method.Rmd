@@ -358,10 +358,11 @@ acs <- get_acs(geography = "block group", variables = variables, year = 2017,
                state = "CA", county = "001", geometry = TRUE) %>%
   select(-moe) %>%
   spread(variable, estimate) %>%
-  mutate(area = as.numeric(st_area(geometry) * 1e-6)) %>%
   # area is in m^2, change to km^2
+  mutate(area = as.numeric(st_area(geometry) * 1e-6)) %>%
   transmute(
     geoid = GEOID,
+    group = 1,
     population, households, housing_units, 
     density = households / area,
     income,
@@ -374,7 +375,8 @@ acs <- get_acs(geography = "block group", variables = variables, year = 2017,
     asian        = 100 * asian / population,
     other        = 100 * (nativeam + pacific) / population,
     white_hisp   = 100 - black - asian - other
-  )
+  ) %>%
+  filter(population > 0)
 ```
 
 
@@ -396,38 +398,18 @@ distance_df <- lapply(path_files, function(file) {
 
 
 ```{r acs-table}
-tracts_data_index <- tibble(
-  variable =  c("density", 
-    "income", "lowincome", "highincome",
-    "black", "asian", "other")
-) %>%
-  mutate(order = row_number())
-acs %>%
-  st_set_geometry(NULL) %>%
-  filter(population > 0) %>%
-  tibble() %>%
-  dplyr::select(tracts_data_index$variable) %>%
-  gather(variable, value) %>%
-  group_by(variable) %>%
-  summarise(
-    `msd` = paste(median_iqr(value, na_rm = TRUE, show_n = "never", digits = 1))
-  ) %>%
-  inner_join(tracts_data_index, by = "variable") %>%
-  arrange(order) %>%
-  mutate(
-    variable = c(
-      "Density: Households per square kilometer",
-      "Income: Median tract income",
-      "Low Income: Share of households making less than $35k",
-      "High Income: Share of households making more than $125k",
-      "Black: Share of population who is black",
-      "Asian: Share of population who is Asian",
-      "Other: Share of population who belong to other minority groups")
-  ) %>%
-  dplyr::select(-order) %>%
-  knitr::kable(col.names = c("", "Median (IQR)"), booktabs = TRUE,
-        digits = 1,
-        caption = "Descriptive Statistics for Residence Block Groups")
+datasummary_skim(
+  data = acs %>%  
+    select(
+      "Density: Households per square kilometer" = density,
+      "Income: Median tract income" = income,
+      "Low Income: Share of households making less than $35k" = lowincome,
+      "High Income: Share of households making more than $125k" = highincome,
+      "Black: Share of population who is Black" = black,
+      "Asian: Share of population who is Asian" = asian,
+      "Other: Share of population who belong to other minority groups" = other),
+  caption = "Block Group Summary Statistics",
+  booktabs = TRUE)
 ```
 
 
