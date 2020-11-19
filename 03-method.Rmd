@@ -9,7 +9,7 @@ library(tidyverse)
 library(ggmap)
 library(leaflet)
 library(tidycensus)
-library(qwraps2)
+library(modelsummary)
 library(knitrProgressBar)
 basetiles <- providers$CartoDB.Positron
 this_crs <- 2227 # EPSG:2227 – NAD83 / California zone 3 (ftUS)
@@ -100,7 +100,7 @@ the field is designed for, which we retain in a consolidated manner. Soccer and
 American football fields are considered in a single category, and baseball and
 softball fields are combined as well. Basketball, tennis, and volleyball courts
 are kept as distinct categories, with all other sport-specific fields combined
-into a single "other". Golf courses are discarded. As with playgrounds, polygon 
+into a single "other." Golf courses are discarded. As with playgrounds, polygon 
 field and court objects are converted into points at the polygon centroid.
 
 ```{r pitches, warning = FALSE}
@@ -172,28 +172,51 @@ only those facilities that intersected with the CPAD open spaces database
 identified earlier.  
 
 ```{r attributed-parks}
-attributed_parks <- parks %>%  
+# Append attributes to park frame ===============
+parks_with_playgrounds <-  parks %>%  
   # compute yeo-johnson transformation on acres
-  mutate(yj_acres = VGAM::yeo.johnson(acres, lambda = 0)) %>%
   # determine if a playground point is inside the park polygon boundary
   st_join(playgrounds %>% select(playground), st_intersects)  %>%
   # a park with multiple playgrounds will join multiple times, so we need to 
   # summarize them back down.
   group_by(id) %>% slice(1) %>% ungroup() %>%
   mutate(playground = ifelse(is.na(playground), F, playground)) %>%
+  select(id, playground) %>%
+  st_set_geometry(NULL)
   
-  # determine if the pitch points are inside the park polygon boundaries
+# determine if the pitch points are inside the park polygon boundaries
+parks_with_pitches <- parks %>%
+  select(id) %>%
   st_join(pitches %>% select(sport)) %>%
+  st_set_geometry(NULL) %>%
   # multiple pitches in a park result in repeated rows. 
-  group_by(id) %>% slice(1) %>% ungroup() %>%
-  mutate(pitch = ifelse(is.na(sport), F, T)) %>%
-  select(-sport) %>%
-  
+  group_by(id, sport) %>% summarise(count = n()) %>%
+  pivot_wider(id_cols = id, values_from = count, names_from = sport, 
+              values_fill = FALSE) %>%
+  mutate(
+    pitch = ifelse(`NA` == 1, FALSE, TRUE),
+    across(baseball:tennis, ~ifelse(. > 0, TRUE, FALSE)),
+  ) %>%
+    select(-`NA`)
+
+# determine which walking paths are inside park polgon boundaries
+parks_with_trails <- parks %>% 
   # determine if the trails are inside the park polygon boundaries
   st_join(trails %>% select(trail = osm_id), st_intersects) %>%
   # multiple pitches in a park result in repeated rows. 
   group_by(id) %>% slice(1) %>% ungroup() %>%
-  mutate(trail = ifelse(is.na(trail), F, T))
+  mutate(trail = ifelse(is.na(trail), F, T)) %>%
+  select(id, trail) %>%
+  st_set_geometry(NULL)
+
+
+# join together and write out =================
+attributed_parks <- parks %>%
+  # compute yeo-johnson transformation on acres
+  mutate(yj_acres = VGAM::yeo.johnson(acres, lambda = 0)) %>%
+  left_join(parks_with_playgrounds, by = "id") %>%
+  left_join(parks_with_pitches,     by = "id") %>%
+  left_join(parks_with_trails,      by = "id") 
 ```
 
 
@@ -280,7 +303,11 @@ datasummary_balance(
   ~ type,  
   data = attributed_parks %>% 
     select(Access = access, Acres = acres, type, Playground = playground, 
-           `Sport Field` = pitch, Trail = trail, 
+           `Any Sport Field` = pitch, 
+           `Football / Soccer` = `football / soccer`,
+           `Baseball` = baseball, `Basketball` = basketball,
+           `Tennis` = tennis, `Volleyball` = volleyball,
+           Trail = trail, 
            `Mobile Devices` =attractions), 
   dinm = FALSE,
   caption = "Park Summary Statistics",
