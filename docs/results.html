@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2020-11-16" />
+<meta name="date" content="2020-11-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -193,10 +193,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-11"><a href="results.html#cb1-11"></a></span>
 <span id="cb1-12"><a href="results.html#cb1-12"></a><span class="co"># function to estimate the mnl model on a subset of data</span></span>
 <span id="cb1-13"><a href="results.html#cb1-13"></a>group_mnl &lt;-<span class="st"> </span><span class="cf">function</span>(df){</span>
-<span id="cb1-14"><a href="results.html#cb1-14"></a>  <span class="kw">mlogit</span>(chosen <span class="op">~</span><span class="st">  </span>yj_distance <span class="op">+</span><span class="st"> </span>yj_acres <span class="op">+</span><span class="st"> </span></span>
-<span id="cb1-15"><a href="results.html#cb1-15"></a><span class="st">                                  </span>playground <span class="op">+</span><span class="st"> </span>pitch <span class="op">+</span><span class="st"> </span>trail <span class="op">|</span><span class="st"> </span><span class="dv">-1</span>,</span>
+<span id="cb1-14"><a href="results.html#cb1-14"></a>  <span class="kw">mlogit</span>(chosen <span class="op">~</span><span class="st"> </span>yj_distance <span class="op">+</span><span class="st"> </span>yj_acres <span class="op">+</span><span class="st"> </span>playground <span class="op">+</span><span class="st"> </span>baseball <span class="op">+</span><span class="st">  </span>basketball <span class="op">+</span></span>
+<span id="cb1-15"><a href="results.html#cb1-15"></a><span class="st">      `</span><span class="dt">football / soccer</span><span class="st">`</span> <span class="op">+</span><span class="st"> </span>other.x <span class="op">+</span><span class="st"> </span>volleyball <span class="op">+</span><span class="st"> </span>tennis <span class="op">+</span><span class="st"> </span>trail <span class="op">|</span><span class="st"> </span><span class="dv">-1</span>,</span>
 <span id="cb1-16"><a href="results.html#cb1-16"></a>         <span class="dt">data =</span> df)</span>
-<span id="cb1-17"><a href="results.html#cb1-17"></a>}</span></code></pre></div>
+<span id="cb1-17"><a href="results.html#cb1-17"></a>}</span>
+<span id="cb1-18"><a href="results.html#cb1-18"></a></span>
+<span id="cb1-19"><a href="results.html#cb1-19"></a>this_map =<span class="st"> </span><span class="kw">c</span>(</span>
+<span id="cb1-20"><a href="results.html#cb1-20"></a>    <span class="st">&quot;yj_distance&quot;</span> =<span class="st"> &quot;log(Distance)&quot;</span>,</span>
+<span id="cb1-21"><a href="results.html#cb1-21"></a>    <span class="st">&quot;yj_acres&quot;</span> =<span class="st"> &quot;log(Acres)&quot;</span>,</span>
+<span id="cb1-22"><a href="results.html#cb1-22"></a>    <span class="st">&quot;playgroundTRUE&quot;</span> =<span class="st"> &quot;Playground&quot;</span>,</span>
+<span id="cb1-23"><a href="results.html#cb1-23"></a>    <span class="st">&quot;trailTRUE&quot;</span> =<span class="st"> &quot;Trail&quot;</span>,</span>
+<span id="cb1-24"><a href="results.html#cb1-24"></a>    <span class="st">&quot;pitchTRUE&quot;</span> =<span class="st"> &quot;Sport Field&quot;</span>,</span>
+<span id="cb1-25"><a href="results.html#cb1-25"></a>    <span class="st">&quot;basketballTRUE&quot;</span> =<span class="st"> &quot;Basketball&quot;</span>,</span>
+<span id="cb1-26"><a href="results.html#cb1-26"></a>    <span class="st">&quot;baseballTRUE&quot;</span> =<span class="st"> &quot;Baseball&quot;</span>,</span>
+<span id="cb1-27"><a href="results.html#cb1-27"></a>    <span class="st">&quot;`football / soccer`TRUE&quot;</span> =<span class="st"> &quot;Football / Soccer&quot;</span>,</span>
+<span id="cb1-28"><a href="results.html#cb1-28"></a>    <span class="st">&quot;tennisTRUE&quot;</span> =<span class="st"> &quot;Tennis&quot;</span>,</span>
+<span id="cb1-29"><a href="results.html#cb1-29"></a>    <span class="st">&quot;volleyballTRUE&quot;</span> =<span class="st"> &quot;Volleyball&quot;</span>,</span>
+<span id="cb1-30"><a href="results.html#cb1-30"></a>    <span class="st">&quot;other.xTRUE&quot;</span> =<span class="st"> &quot;Other Sport&quot;</span></span>
+<span id="cb1-31"><a href="results.html#cb1-31"></a>  )</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="results.html#cb2-1"></a>logitdata &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span class="st">&quot;data/logitdata.rds&quot;</span>)</span>
 <span id="cb2-2"><a href="results.html#cb2-2"></a>dfi &lt;-<span class="st"> </span><span class="kw">logit_converter</span>(logitdata)</span>
 <span id="cb2-3"><a href="results.html#cb2-3"></a>estim &lt;-<span class="st"> </span><span class="kw">filter</span>(dfi, validation)</span>
@@ -211,88 +225,453 @@ model results tables. Using a constant marginal elasticity is better reflective
 of how people perceive distances and sizes; a one-mile increase to a trip
 distance is more impactful to a one-mile trip than a ten-mile trip.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="results.html#cb3-1"></a>base_models &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
-<span id="cb3-2"><a href="results.html#cb3-2"></a>  <span class="st">&quot;Network Distance&quot;</span>   =<span class="st"> </span><span class="kw">mlogit</span>(chosen <span class="op">~</span><span class="st"> </span>yj_distance <span class="op">+</span><span class="st"> </span>yj_acres <span class="op">|</span><span class="st"> </span><span class="dv">-1</span> , </span>
-<span id="cb3-3"><a href="results.html#cb3-3"></a>                                <span class="dt">data =</span> estim),</span>
-<span id="cb3-4"><a href="results.html#cb3-4"></a>  <span class="st">&quot;Park Attributes&quot;</span>    =<span class="st"> </span><span class="kw">mlogit</span>(chosen <span class="op">~</span><span class="st"> </span>yj_distance <span class="op">+</span><span class="st"> </span>yj_acres <span class="op">+</span><span class="st"> </span></span>
-<span id="cb3-5"><a href="results.html#cb3-5"></a><span class="st">                                  </span>playground <span class="op">+</span><span class="st"> </span>pitch <span class="op">+</span><span class="st"> </span>trail <span class="op">|</span><span class="st"> </span><span class="dv">-1</span> , </span>
-<span id="cb3-6"><a href="results.html#cb3-6"></a>                                <span class="dt">data =</span> estim)</span>
-<span id="cb3-7"><a href="results.html#cb3-7"></a>)</span></code></pre></div>
-<p>Table <a href="results.html#tab:models-summary">4.1</a> presents the model estimation results for a
-series of models. The two models under the “All” heading were estimated on
-the complete sample of simulated choice makers.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="results.html#cb4-1"></a>minority_models &lt;-<span class="st"> </span>estim <span class="op">%&gt;%</span></span>
-<span id="cb4-2"><a href="results.html#cb4-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">group =</span> <span class="kw">case_when</span>(</span>
-<span id="cb4-3"><a href="results.html#cb4-3"></a>    black <span class="op">&gt;</span><span class="st"> </span><span class="dv">30</span> <span class="op">~</span><span class="st"> &quot;black&quot;</span>,</span>
-<span id="cb4-4"><a href="results.html#cb4-4"></a>    asian <span class="op">&gt;</span><span class="st"> </span><span class="dv">30</span> <span class="op">~</span><span class="st"> &quot;asian&quot;</span>,</span>
-<span id="cb4-5"><a href="results.html#cb4-5"></a>    <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> &quot;other&quot;</span></span>
-<span id="cb4-6"><a href="results.html#cb4-6"></a>  )) <span class="op">%&gt;%</span></span>
-<span id="cb4-7"><a href="results.html#cb4-7"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(group)) <span class="op">%&gt;%</span></span>
-<span id="cb4-8"><a href="results.html#cb4-8"></a><span class="st">  </span><span class="kw">group_by</span>(group) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">nest</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></span>
-<span id="cb4-9"><a href="results.html#cb4-9"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
-<span id="cb4-10"><a href="results.html#cb4-10"></a>    <span class="dt">data =</span> <span class="kw">map</span>(data, logit_converter),</span>
-<span id="cb4-11"><a href="results.html#cb4-11"></a>    <span class="dt">mnl =</span> <span class="kw">map</span>(data, group_mnl)</span>
-<span id="cb4-12"><a href="results.html#cb4-12"></a>  ) </span>
-<span id="cb4-13"><a href="results.html#cb4-13"></a>income_models &lt;-<span class="st"> </span>estim <span class="op">%&gt;%</span></span>
-<span id="cb4-14"><a href="results.html#cb4-14"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">group =</span> <span class="kw">case_when</span>(lowincome <span class="op">&gt;</span><span class="st"> </span><span class="dv">30</span> <span class="op">~</span><span class="st"> &quot;lowincome&quot;</span>, </span>
-<span id="cb4-15"><a href="results.html#cb4-15"></a>                           highincome <span class="op">&gt;</span><span class="st"> </span><span class="dv">50</span> <span class="op">~</span><span class="st"> &quot;highincome&quot;</span>, <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> &quot;other&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb4-16"><a href="results.html#cb4-16"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(group)) <span class="op">%&gt;%</span></span>
-<span id="cb4-17"><a href="results.html#cb4-17"></a><span class="st">  </span><span class="kw">group_by</span>(group) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">nest</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></span>
-<span id="cb4-18"><a href="results.html#cb4-18"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
-<span id="cb4-19"><a href="results.html#cb4-19"></a>    <span class="dt">data =</span> <span class="kw">map</span>(data, logit_converter),</span>
-<span id="cb4-20"><a href="results.html#cb4-20"></a>    <span class="dt">mnl =</span> <span class="kw">map</span>(data, group_mnl)</span>
-<span id="cb4-21"><a href="results.html#cb4-21"></a>  )</span>
-<span id="cb4-22"><a href="results.html#cb4-22"></a>models &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
-<span id="cb4-23"><a href="results.html#cb4-23"></a>  <span class="st">&quot;Distance and Size&quot;</span> =<span class="st"> </span>base_models<span class="op">$</span><span class="st">`</span><span class="dt">Network Distance</span><span class="st">`</span>,</span>
-<span id="cb4-24"><a href="results.html#cb4-24"></a>  <span class="st">&quot;Park Attributes&quot;</span> =<span class="st"> </span>base_models<span class="op">$</span><span class="st">`</span><span class="dt">Park Attributes</span><span class="st">`</span>,</span>
-<span id="cb4-25"><a href="results.html#cb4-25"></a>  <span class="st">&quot;&gt; 30% Asian&quot;</span> =<span class="st"> </span>minority_models<span class="op">$</span>mnl[[<span class="dv">1</span>]],</span>
-<span id="cb4-26"><a href="results.html#cb4-26"></a>  <span class="st">&quot;&gt; 30% Black&quot;</span> =<span class="st"> </span>minority_models<span class="op">$</span>mnl[[<span class="dv">3</span>]],</span>
-<span id="cb4-27"><a href="results.html#cb4-27"></a>  <span class="st">&quot;Other&quot;</span> =<span class="st"> </span>minority_models<span class="op">$</span>mnl[[<span class="dv">2</span>]],</span>
-<span id="cb4-28"><a href="results.html#cb4-28"></a>  <span class="st">&quot;&gt; 30% Low income&quot;</span> =<span class="st"> </span>income_models<span class="op">$</span>mnl[[<span class="dv">1</span>]],</span>
-<span id="cb4-29"><a href="results.html#cb4-29"></a>  <span class="st">&quot;&gt; 50% High income&quot;</span> =<span class="st"> </span>income_models<span class="op">$</span>mnl[[<span class="dv">3</span>]],</span>
-<span id="cb4-30"><a href="results.html#cb4-30"></a>  <span class="st">&quot;Other&quot;</span> =<span class="st"> </span>income_models<span class="op">$</span>mnl[[<span class="dv">2</span>]]</span>
-<span id="cb4-31"><a href="results.html#cb4-31"></a>)</span></code></pre></div>
-<p>The other models presented in Table <a href="results.html#tab:models-summary">4.1</a> were estimated on
-segments of the dataset. These segmentations help to reveal the heterogeneity in
-choice behavior between individuals of different sociodemographic attributes, in
-the absence of person-level data. The thresholds are selected to roughly
-coincide with the quartile values shown in Table <a href="#tab:acs-table"><strong>??</strong></a>, meaning
-that approximately one-quarter of the block groups (not weighted by population)
-will fall within a particular segment. Models under the “Minority” heading
-include a race-based segmentation: simulated individuals living in block groups
-with more than thirty percent Black persons are included in the “&gt;30% Black”
-model, an analogous segmentation for block groups with high Asian populations
-are in the “&gt;30% Asian” model, and the “Other” model contains all other block
-groups.</p>
-<p>Another set of model segmentation relies on the share of the population in each
-block group with household incomes above or below certain thresholds. Again,
-we use the threshold definitions presented in <a href="#tab:acs-table"><strong>??</strong></a></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="results.html#cb5-1"></a><span class="kw">modelsummary</span>(</span>
-<span id="cb5-2"><a href="results.html#cb5-2"></a>  models, <span class="dt">stars =</span> <span class="ot">TRUE</span>, <span class="dt">output =</span> <span class="st">&quot;kableExtra&quot;</span>,</span>
-<span id="cb5-3"><a href="results.html#cb5-3"></a>  <span class="dt">coef_map =</span> <span class="kw">c</span>(</span>
-<span id="cb5-4"><a href="results.html#cb5-4"></a>    <span class="st">&quot;yj_distance&quot;</span> =<span class="st"> &quot;log(Distance)&quot;</span>,</span>
-<span id="cb5-5"><a href="results.html#cb5-5"></a>    <span class="st">&quot;yj_acres&quot;</span> =<span class="st"> &quot;log(Acres)&quot;</span>,</span>
-<span id="cb5-6"><a href="results.html#cb5-6"></a>    <span class="st">&quot;playgroundTRUE&quot;</span> =<span class="st"> &quot;Playground&quot;</span>,</span>
-<span id="cb5-7"><a href="results.html#cb5-7"></a>    <span class="st">&quot;pitchTRUE&quot;</span> =<span class="st"> &quot;Sport Field&quot;</span>,</span>
-<span id="cb5-8"><a href="results.html#cb5-8"></a>    <span class="st">&quot;trailTRUE&quot;</span> =<span class="st"> &quot;Trail&quot;</span></span>
-<span id="cb5-9"><a href="results.html#cb5-9"></a>  ),</span>
-<span id="cb5-10"><a href="results.html#cb5-10"></a>  <span class="dt">gof_omit =</span> <span class="st">&quot;BIC&quot;</span>,</span>
-<span id="cb5-11"><a href="results.html#cb5-11"></a>  <span class="dt">title =</span> <span class="st">&quot;Estimated Model Coefficients&quot;</span></span>
-<span id="cb5-12"><a href="results.html#cb5-12"></a>) <span class="op">%&gt;%</span></span>
-<span id="cb5-13"><a href="results.html#cb5-13"></a><span class="st">  </span><span class="kw">add_header_above</span>(<span class="kw">c</span>(<span class="st">&quot; &quot;</span> =<span class="st"> </span><span class="dv">1</span>, <span class="st">&quot;All&quot;</span> =<span class="st"> </span><span class="dv">2</span>, <span class="st">&quot;Minority&quot;</span> =<span class="st"> </span><span class="dv">3</span>, <span class="st">&quot;Income&quot;</span> =<span class="st"> </span><span class="dv">3</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb5-14"><a href="results.html#cb5-14"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>, <span class="dt">box_css =</span> <span class="st">&quot;border: 0px;&quot;</span>)</span></code></pre></div>
+<span id="cb3-2"><a href="results.html#cb3-2"></a>  <span class="st">&quot;Network Distance&quot;</span>   =<span class="st"> </span><span class="kw">mlogit</span>(</span>
+<span id="cb3-3"><a href="results.html#cb3-3"></a>    chosen <span class="op">~</span><span class="st"> </span>yj_distance <span class="op">+</span><span class="st"> </span>yj_acres <span class="op">|</span><span class="st"> </span><span class="dv">-1</span> ,  <span class="dt">data =</span> estim),</span>
+<span id="cb3-4"><a href="results.html#cb3-4"></a>  <span class="st">&quot;Park Attributes&quot;</span>    =<span class="st"> </span><span class="kw">mlogit</span>(</span>
+<span id="cb3-5"><a href="results.html#cb3-5"></a>    chosen <span class="op">~</span><span class="st"> </span>yj_distance <span class="op">+</span><span class="st"> </span>yj_acres <span class="op">+</span><span class="st">  </span>playground <span class="op">+</span><span class="st"> </span>trail <span class="op">+</span><span class="st"> </span>pitch <span class="op">|</span><span class="st"> </span><span class="dv">-1</span> , </span>
+<span id="cb3-6"><a href="results.html#cb3-6"></a>    <span class="dt">data =</span> estim),</span>
+<span id="cb3-7"><a href="results.html#cb3-7"></a>  <span class="st">&quot;Sport Detail&quot;</span>    =<span class="st"> </span><span class="kw">mlogit</span>(</span>
+<span id="cb3-8"><a href="results.html#cb3-8"></a>    chosen <span class="op">~</span><span class="st"> </span>yj_distance <span class="op">+</span><span class="st"> </span>yj_acres <span class="op">+</span><span class="st"> </span>playground <span class="op">+</span><span class="st"> </span>baseball <span class="op">+</span><span class="st">  </span>basketball <span class="op">+</span></span>
+<span id="cb3-9"><a href="results.html#cb3-9"></a><span class="st">      `</span><span class="dt">football / soccer</span><span class="st">`</span> <span class="op">+</span><span class="st"> </span>other.x <span class="op">+</span><span class="st"> </span>volleyball <span class="op">+</span><span class="st"> </span>tennis <span class="op">+</span><span class="st"> </span>trail <span class="op">|</span><span class="st"> </span><span class="dv">-1</span> , </span>
+<span id="cb3-10"><a href="results.html#cb3-10"></a>    <span class="dt">data =</span> estim)</span>
+<span id="cb3-11"><a href="results.html#cb3-11"></a>)</span>
+<span id="cb3-12"><a href="results.html#cb3-12"></a>detail_lrt &lt;-<span class="st"> </span><span class="kw">lrtest</span>(base_models[[<span class="dv">2</span>]], base_models[[<span class="dv">3</span>]])<span class="op">$</span><span class="st">`</span><span class="dt">Pr(&gt;Chisq)</span><span class="st">`</span>[<span class="dv">2</span>]</span></code></pre></div>
+<p>Table <a href="results.html#tab:base-modelsummary">4.1</a> presents the model estimation results for a
+series of models with different utility definitions, each estimated on the
+complete set of synthetic choice makers.</p>
+<ul>
+<li>Curious that playgrounds and sport fields is a negative. Trails are positive.</li>
+<li>Not all sport fields are equal. Gain in likelihood is very small, but
+significant, with a likelihood ratio test of <span class="math inline">\(p\)</span>-value of 1.819064310^{-4}.</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="results.html#cb4-1"></a><span class="kw">modelsummary</span>(</span>
+<span id="cb4-2"><a href="results.html#cb4-2"></a>  base_models, <span class="dt">stars =</span> <span class="ot">TRUE</span>, <span class="dt">output =</span> <span class="st">&quot;kableExtra&quot;</span>,</span>
+<span id="cb4-3"><a href="results.html#cb4-3"></a>  <span class="dt">coef_map =</span> this_map, <span class="dt">gof_omit =</span> <span class="st">&quot;BIC&quot;</span>,</span>
+<span id="cb4-4"><a href="results.html#cb4-4"></a>  <span class="dt">title =</span> <span class="st">&quot;Estimated Model Coefficients&quot;</span></span>
+<span id="cb4-5"><a href="results.html#cb4-5"></a>) <span class="op">%&gt;%</span></span>
+<span id="cb4-6"><a href="results.html#cb4-6"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>, <span class="dt">box_css =</span> <span class="st">&quot;border: 0px;&quot;</span>)</span></code></pre></div>
 <div style="border: 0px;overflow-x: scroll; width:100%; ">
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:models-summary">Table 4.1: </span>Estimated Model Coefficients
+<span id="tab:base-modelsummary">Table 4.1: </span>Estimated Model Coefficients
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Network Distance
+</th>
+<th style="text-align:left;">
+Park Attributes
+</th>
+<th style="text-align:left;">
+Sport Detail
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+log(Distance)
+</td>
+<td style="text-align:left;">
+-1.354***
+</td>
+<td style="text-align:left;">
+-1.394***
+</td>
+<td style="text-align:left;">
+-1.391***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+(0.022)
+</td>
+<td style="text-align:left;">
+(0.022)
+</td>
+<td style="text-align:left;">
+(0.022)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+log(Acres)
+</td>
+<td style="text-align:left;">
+0.409***
+</td>
+<td style="text-align:left;">
+0.353***
+</td>
+<td style="text-align:left;">
+0.348***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+(0.011)
+</td>
+<td style="text-align:left;">
+(0.012)
+</td>
+<td style="text-align:left;">
+(0.012)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Playground
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+-0.436***
+</td>
+<td style="text-align:left;">
+-0.550***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+(0.049)
+</td>
+<td style="text-align:left;">
+(0.049)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Trail
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+0.559***
+</td>
+<td style="text-align:left;">
+0.567***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+(0.052)
+</td>
+<td style="text-align:left;">
+(0.053)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sport Field
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+-0.322***
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+(0.050)
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+-0.226***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+(0.068)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Baseball
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+0.065
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+(0.067)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Football / Soccer
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+-0.482***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+(0.095)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tennis
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+0.234***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+(0.066)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Volleyball
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+0.613***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+(0.135)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Other Sport
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+-0.192**
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+(0.090)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Num.Obs.
+</td>
+<td style="text-align:left;">
+3971
+</td>
+<td style="text-align:left;">
+3971
+</td>
+<td style="text-align:left;">
+3971
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AIC
+</td>
+<td style="text-align:left;">
+11600.2
+</td>
+<td style="text-align:left;">
+11307.2
+</td>
+<td style="text-align:left;">
+11292.8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Log.Lik.
+</td>
+<td style="text-align:left;">
+-5798.103
+</td>
+<td style="text-align:left;">
+-5648.579
+</td>
+<td style="text-align:left;">
+-5636.379
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rho2
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rho20
+</td>
+<td style="text-align:left;">
+0.391
+</td>
+<td style="text-align:left;">
+0.407
+</td>
+<td style="text-align:left;">
+0.408
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border:0;" colspan="100%">
+<sup></sup> * p &lt; 0.1, ** p &lt; 0.05, *** p &lt; 0.01
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="results.html#cb5-1"></a>minority_models &lt;-<span class="st"> </span>estim <span class="op">%&gt;%</span></span>
+<span id="cb5-2"><a href="results.html#cb5-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">group =</span> <span class="kw">case_when</span>(</span>
+<span id="cb5-3"><a href="results.html#cb5-3"></a>    black <span class="op">&gt;</span><span class="st"> </span><span class="dv">30</span> <span class="op">~</span><span class="st"> &quot;black&quot;</span>,</span>
+<span id="cb5-4"><a href="results.html#cb5-4"></a>    asian <span class="op">&gt;</span><span class="st"> </span><span class="dv">30</span> <span class="op">~</span><span class="st"> &quot;asian&quot;</span>,</span>
+<span id="cb5-5"><a href="results.html#cb5-5"></a>    <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> &quot;other&quot;</span></span>
+<span id="cb5-6"><a href="results.html#cb5-6"></a>  )) <span class="op">%&gt;%</span></span>
+<span id="cb5-7"><a href="results.html#cb5-7"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(group)) <span class="op">%&gt;%</span></span>
+<span id="cb5-8"><a href="results.html#cb5-8"></a><span class="st">  </span><span class="kw">group_by</span>(group) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">nest</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></span>
+<span id="cb5-9"><a href="results.html#cb5-9"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
+<span id="cb5-10"><a href="results.html#cb5-10"></a>    <span class="dt">data =</span> <span class="kw">map</span>(data, logit_converter),</span>
+<span id="cb5-11"><a href="results.html#cb5-11"></a>    <span class="dt">mnl =</span> <span class="kw">map</span>(data, group_mnl)</span>
+<span id="cb5-12"><a href="results.html#cb5-12"></a>  ) </span>
+<span id="cb5-13"><a href="results.html#cb5-13"></a>income_models &lt;-<span class="st"> </span>estim <span class="op">%&gt;%</span></span>
+<span id="cb5-14"><a href="results.html#cb5-14"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">group =</span> <span class="kw">case_when</span>(lowincome <span class="op">&gt;</span><span class="st"> </span><span class="dv">30</span> <span class="op">~</span><span class="st"> &quot;lowincome&quot;</span>, </span>
+<span id="cb5-15"><a href="results.html#cb5-15"></a>                           highincome <span class="op">&gt;</span><span class="st"> </span><span class="dv">50</span> <span class="op">~</span><span class="st"> &quot;highincome&quot;</span>, <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> &quot;other&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb5-16"><a href="results.html#cb5-16"></a><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(group)) <span class="op">%&gt;%</span></span>
+<span id="cb5-17"><a href="results.html#cb5-17"></a><span class="st">  </span><span class="kw">group_by</span>(group) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">nest</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></span>
+<span id="cb5-18"><a href="results.html#cb5-18"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
+<span id="cb5-19"><a href="results.html#cb5-19"></a>    <span class="dt">data =</span> <span class="kw">map</span>(data, logit_converter),</span>
+<span id="cb5-20"><a href="results.html#cb5-20"></a>    <span class="dt">mnl =</span> <span class="kw">map</span>(data, group_mnl)</span>
+<span id="cb5-21"><a href="results.html#cb5-21"></a>  )</span>
+<span id="cb5-22"><a href="results.html#cb5-22"></a>models &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
+<span id="cb5-23"><a href="results.html#cb5-23"></a>  <span class="st">&quot;&gt; 30% Asian&quot;</span> =<span class="st"> </span>minority_models<span class="op">$</span>mnl[[<span class="dv">1</span>]],</span>
+<span id="cb5-24"><a href="results.html#cb5-24"></a>  <span class="st">&quot;&gt; 30% Black&quot;</span> =<span class="st"> </span>minority_models<span class="op">$</span>mnl[[<span class="dv">3</span>]],</span>
+<span id="cb5-25"><a href="results.html#cb5-25"></a>  <span class="st">&quot;Other&quot;</span> =<span class="st"> </span>minority_models<span class="op">$</span>mnl[[<span class="dv">2</span>]],</span>
+<span id="cb5-26"><a href="results.html#cb5-26"></a>  <span class="st">&quot;&gt; 30% Low income&quot;</span> =<span class="st"> </span>income_models<span class="op">$</span>mnl[[<span class="dv">1</span>]],</span>
+<span id="cb5-27"><a href="results.html#cb5-27"></a>  <span class="st">&quot;&gt; 50% High income&quot;</span> =<span class="st"> </span>income_models<span class="op">$</span>mnl[[<span class="dv">3</span>]],</span>
+<span id="cb5-28"><a href="results.html#cb5-28"></a>  <span class="st">&quot;Other&quot;</span> =<span class="st"> </span>income_models<span class="op">$</span>mnl[[<span class="dv">2</span>]]</span>
+<span id="cb5-29"><a href="results.html#cb5-29"></a>)</span></code></pre></div>
+<p>The other models presented in Table <a href="results.html#tab:grouped-modelsummary">4.2</a> were
+estimated on segments of the dataset. These segmentations help to reveal the
+heterogeneity in choice behavior between individuals of different
+sociodemographic attributes, in the absence of person-level data. The thresholds
+are selected to roughly coincide with the quartile values shown in Table
+<a href="#tab:acs-table"><strong>??</strong></a>, meaning that approximately one-quarter of the block groups
+(not weighted by population) will fall within a particular segment. Models under
+the “Minority” heading include a race-based segmentation: simulated individuals
+living in block groups with more than thirty percent Black persons are included
+in the “&gt;30% Black” model, an analogous segmentation for block groups with high
+Asian populations are in the “&gt;30% Asian” model, and the “Other” model contains
+all other block groups.</p>
+<p>Another set of model segmentation relies on the share of the population in each
+block group with household incomes above or below certain thresholds. Again,
+we use the threshold definitions based on in <a href="#tab:acs-table"><strong>??</strong></a>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="results.html#cb6-1"></a><span class="kw">modelsummary</span>(</span>
+<span id="cb6-2"><a href="results.html#cb6-2"></a>  models, <span class="dt">stars =</span> <span class="ot">TRUE</span>, <span class="dt">output =</span> <span class="st">&quot;kableExtra&quot;</span>,</span>
+<span id="cb6-3"><a href="results.html#cb6-3"></a>  <span class="dt">coef_map =</span> this_map, <span class="dt">gof_omit =</span> <span class="st">&quot;BIC&quot;</span>,</span>
+<span id="cb6-4"><a href="results.html#cb6-4"></a>  <span class="dt">title =</span> <span class="st">&quot;Estimated Model Coefficients&quot;</span></span>
+<span id="cb6-5"><a href="results.html#cb6-5"></a>) <span class="op">%&gt;%</span></span>
+<span id="cb6-6"><a href="results.html#cb6-6"></a><span class="st">  </span><span class="kw">add_header_above</span>(<span class="kw">c</span>(<span class="st">&quot; &quot;</span> =<span class="st"> </span><span class="dv">1</span>, <span class="st">&quot;Minority&quot;</span> =<span class="st"> </span><span class="dv">3</span>, <span class="st">&quot;Income&quot;</span> =<span class="st"> </span><span class="dv">3</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb6-7"><a href="results.html#cb6-7"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>, <span class="dt">box_css =</span> <span class="st">&quot;border: 0px;&quot;</span>)</span></code></pre></div>
+<div style="border: 0px;overflow-x: scroll; width:100%; ">
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:grouped-modelsummary">Table 4.2: </span>Estimated Model Coefficients
 </caption>
 <thead>
 <tr>
 <th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
-</th>
-<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-All
-</div>
 </th>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
 <div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
@@ -307,12 +686,6 @@ Income
 </tr>
 <tr>
 <th style="text-align:left;">
-</th>
-<th style="text-align:left;">
-Distance and Size
-</th>
-<th style="text-align:left;">
-Park Attributes
 </th>
 <th style="text-align:left;">
 &gt; 30% Asian
@@ -340,50 +713,38 @@ Other
 log(Distance)
 </td>
 <td style="text-align:left;">
--1.365***
+-1.324***
 </td>
 <td style="text-align:left;">
--1.421***
+-1.528***
 </td>
 <td style="text-align:left;">
--1.364***
+-1.379***
 </td>
 <td style="text-align:left;">
--1.620***
+-1.419***
 </td>
 <td style="text-align:left;">
--1.399***
+-1.309***
 </td>
 <td style="text-align:left;">
--1.470***
-</td>
-<td style="text-align:left;">
--1.329***
-</td>
-<td style="text-align:left;">
--1.423***
+-1.395***
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-(0.022)
+(0.038)
 </td>
 <td style="text-align:left;">
-(0.023)
+(0.063)
 </td>
 <td style="text-align:left;">
-(0.039)
+(0.031)
 </td>
 <td style="text-align:left;">
-(0.065)
-</td>
-<td style="text-align:left;">
-(0.032)
-</td>
-<td style="text-align:left;">
-(0.053)
+(0.051)
 </td>
 <td style="text-align:left;">
 (0.051)
@@ -397,53 +758,41 @@ log(Distance)
 log(Acres)
 </td>
 <td style="text-align:left;">
-0.410***
+0.372***
 </td>
 <td style="text-align:left;">
-0.349***
+0.311***
 </td>
 <td style="text-align:left;">
-0.405***
+0.341***
 </td>
 <td style="text-align:left;">
-0.296***
+0.334***
 </td>
 <td style="text-align:left;">
-0.322***
+0.345***
 </td>
 <td style="text-align:left;">
-0.295***
-</td>
-<td style="text-align:left;">
-0.391***
-</td>
-<td style="text-align:left;">
-0.355***
+0.354***
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-(0.011)
+(0.020)
 </td>
 <td style="text-align:left;">
-(0.011)
+(0.032)
 </td>
 <td style="text-align:left;">
-(0.019)
-</td>
-<td style="text-align:left;">
-(0.031)
-</td>
-<td style="text-align:left;">
-(0.016)
-</td>
-<td style="text-align:left;">
-(0.026)
+(0.017)
 </td>
 <td style="text-align:left;">
 (0.027)
+</td>
+<td style="text-align:left;">
+(0.028)
 </td>
 <td style="text-align:left;">
 (0.015)
@@ -454,51 +803,41 @@ log(Acres)
 Playground
 </td>
 <td style="text-align:left;">
+-0.509***
 </td>
 <td style="text-align:left;">
--0.484***
+-0.376***
 </td>
 <td style="text-align:left;">
--0.396***
+-0.641***
 </td>
 <td style="text-align:left;">
--0.211*
-</td>
-<td style="text-align:left;">
--0.647***
-</td>
-<td style="text-align:left;">
--0.404***
-</td>
-<td style="text-align:left;">
--0.580***
+-0.525***
 </td>
 <td style="text-align:left;">
 -0.491***
+</td>
+<td style="text-align:left;">
+-0.583***
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-(0.050)
-</td>
-<td style="text-align:left;">
 (0.084)
 </td>
 <td style="text-align:left;">
+(0.119)
+</td>
+<td style="text-align:left;">
+(0.071)
+</td>
+<td style="text-align:left;">
+(0.104)
+</td>
+<td style="text-align:left;">
 (0.122)
-</td>
-<td style="text-align:left;">
-(0.072)
-</td>
-<td style="text-align:left;">
-(0.106)
-</td>
-<td style="text-align:left;">
-(0.123)
 </td>
 <td style="text-align:left;">
 (0.063)
@@ -506,112 +845,317 @@ Playground
 </tr>
 <tr>
 <td style="text-align:left;">
-Sport Field
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
--0.300***
-</td>
-<td style="text-align:left;">
--0.181**
-</td>
-<td style="text-align:left;">
--0.682***
-</td>
-<td style="text-align:left;">
--0.263***
-</td>
-<td style="text-align:left;">
--0.637***
-</td>
-<td style="text-align:left;">
-0.040
-</td>
-<td style="text-align:left;">
--0.283***
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-(0.050)
-</td>
-<td style="text-align:left;">
-(0.083)
-</td>
-<td style="text-align:left;">
-(0.130)
-</td>
-<td style="text-align:left;">
-(0.072)
-</td>
-<td style="text-align:left;">
-(0.114)
-</td>
-<td style="text-align:left;">
-(0.118)
-</td>
-<td style="text-align:left;">
-(0.064)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 Trail
 </td>
 <td style="text-align:left;">
+0.677***
 </td>
 <td style="text-align:left;">
-0.631***
+0.361***
 </td>
 <td style="text-align:left;">
-0.771***
+0.636***
 </td>
 <td style="text-align:left;">
-0.325***
+0.307***
 </td>
 <td style="text-align:left;">
-0.690***
+0.903***
 </td>
 <td style="text-align:left;">
-0.435***
-</td>
-<td style="text-align:left;">
-0.857***
-</td>
-<td style="text-align:left;">
-0.673***
+0.616***
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
+(0.094)
 </td>
 <td style="text-align:left;">
-(0.052)
+(0.126)
 </td>
 <td style="text-align:left;">
-(0.093)
-</td>
-<td style="text-align:left;">
-(0.125)
-</td>
-<td style="text-align:left;">
-(0.075)
+(0.076)
 </td>
 <td style="text-align:left;">
 (0.109)
 </td>
 <td style="text-align:left;">
+(0.148)
+</td>
+<td style="text-align:left;">
+(0.068)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:left;">
+-0.012
+</td>
+<td style="text-align:left;">
+-0.374**
+</td>
+<td style="text-align:left;">
+-0.393***
+</td>
+<td style="text-align:left;">
+-0.170
+</td>
+<td style="text-align:left;">
+-0.103
+</td>
+<td style="text-align:left;">
+-0.289***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+(0.109)
+</td>
+<td style="text-align:left;">
+(0.183)
+</td>
+<td style="text-align:left;">
+(0.103)
+</td>
+<td style="text-align:left;">
+(0.153)
+</td>
+<td style="text-align:left;">
+(0.160)
+</td>
+<td style="text-align:left;">
+(0.088)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Baseball
+</td>
+<td style="text-align:left;">
+0.116
+</td>
+<td style="text-align:left;">
+0.193
+</td>
+<td style="text-align:left;">
+-0.027
+</td>
+<td style="text-align:left;">
+0.025
+</td>
+<td style="text-align:left;">
+-0.107
+</td>
+<td style="text-align:left;">
+0.130
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+(0.111)
+</td>
+<td style="text-align:left;">
+(0.170)
+</td>
+<td style="text-align:left;">
+(0.097)
+</td>
+<td style="text-align:left;">
 (0.146)
 </td>
 <td style="text-align:left;">
-(0.066)
+(0.164)
+</td>
+<td style="text-align:left;">
+(0.085)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Football / Soccer
+</td>
+<td style="text-align:left;">
+-0.453***
+</td>
+<td style="text-align:left;">
+-1.015***
+</td>
+<td style="text-align:left;">
+-0.370***
+</td>
+<td style="text-align:left;">
+-0.867***
+</td>
+<td style="text-align:left;">
+-0.250
+</td>
+<td style="text-align:left;">
+-0.443***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+(0.152)
+</td>
+<td style="text-align:left;">
+(0.278)
+</td>
+<td style="text-align:left;">
+(0.139)
+</td>
+<td style="text-align:left;">
+(0.226)
+</td>
+<td style="text-align:left;">
+(0.223)
+</td>
+<td style="text-align:left;">
+(0.120)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tennis
+</td>
+<td style="text-align:left;">
+0.370***
+</td>
+<td style="text-align:left;">
+-0.529**
+</td>
+<td style="text-align:left;">
+0.335***
+</td>
+<td style="text-align:left;">
+-0.081
+</td>
+<td style="text-align:left;">
+0.658***
+</td>
+<td style="text-align:left;">
+0.205**
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+(0.108)
+</td>
+<td style="text-align:left;">
+(0.210)
+</td>
+<td style="text-align:left;">
+(0.095)
+</td>
+<td style="text-align:left;">
+(0.163)
+</td>
+<td style="text-align:left;">
+(0.146)
+</td>
+<td style="text-align:left;">
+(0.085)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Volleyball
+</td>
+<td style="text-align:left;">
+0.728***
+</td>
+<td style="text-align:left;">
+-0.086
+</td>
+<td style="text-align:left;">
+0.433**
+</td>
+<td style="text-align:left;">
+0.435
+</td>
+<td style="text-align:left;">
+0.450*
+</td>
+<td style="text-align:left;">
+0.602***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+(0.195)
+</td>
+<td style="text-align:left;">
+(0.615)
+</td>
+<td style="text-align:left;">
+(0.215)
+</td>
+<td style="text-align:left;">
+(0.403)
+</td>
+<td style="text-align:left;">
+(0.257)
+</td>
+<td style="text-align:left;">
+(0.177)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Other Sport
+</td>
+<td style="text-align:left;">
+-0.105
+</td>
+<td style="text-align:left;">
+-0.417
+</td>
+<td style="text-align:left;">
+-0.232*
+</td>
+<td style="text-align:left;">
+-0.493**
+</td>
+<td style="text-align:left;">
+-0.070
+</td>
+<td style="text-align:left;">
+-0.179
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+(0.144)
+</td>
+<td style="text-align:left;">
+(0.270)
+</td>
+<td style="text-align:left;">
+(0.132)
+</td>
+<td style="text-align:left;">
+(0.234)
+</td>
+<td style="text-align:left;">
+(0.188)
+</td>
+<td style="text-align:left;">
+(0.117)
 </td>
 </tr>
 <tr>
@@ -619,19 +1163,13 @@ Trail
 Num.Obs.
 </td>
 <td style="text-align:left;">
-3971
-</td>
-<td style="text-align:left;">
-3971
-</td>
-<td style="text-align:left;">
 1379
 </td>
 <td style="text-align:left;">
-593
+591
 </td>
 <td style="text-align:left;">
-1999
+2001
 </td>
 <td style="text-align:left;">
 777
@@ -648,28 +1186,22 @@ Num.Obs.
 AIC
 </td>
 <td style="text-align:left;">
-11676.4
+3991.8
 </td>
 <td style="text-align:left;">
-11346.9
+1767.9
 </td>
 <td style="text-align:left;">
-3955.0
+5479.7
 </td>
 <td style="text-align:left;">
-1735.9
+2396.9
 </td>
 <td style="text-align:left;">
-5597.2
+1908.5
 </td>
 <td style="text-align:left;">
-2357.4
-</td>
-<td style="text-align:left;">
-1941.7
-</td>
-<td style="text-align:left;">
-7021.3
+6974.6
 </td>
 </tr>
 <tr>
@@ -677,37 +1209,27 @@ AIC
 Log.Lik.
 </td>
 <td style="text-align:left;">
--5836.201
+-1985.903
 </td>
 <td style="text-align:left;">
--5668.447
+-873.953
 </td>
 <td style="text-align:left;">
--1972.504
+-2729.872
 </td>
 <td style="text-align:left;">
--862.954
+-1188.475
 </td>
 <td style="text-align:left;">
--2793.578
+-944.244
 </td>
 <td style="text-align:left;">
--1173.685
-</td>
-<td style="text-align:left;">
--965.844
-</td>
-<td style="text-align:left;">
--3505.653
+-3477.294
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 rho2
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
 </td>
 <td style="text-align:left;">
 </td>
@@ -727,28 +1249,22 @@ rho2
 rho20
 </td>
 <td style="text-align:left;">
-0.387
+0.399
+</td>
+<td style="text-align:left;">
+0.383
+</td>
+<td style="text-align:left;">
+0.431
+</td>
+<td style="text-align:left;">
+0.362
+</td>
+<td style="text-align:left;">
+0.481
 </td>
 <td style="text-align:left;">
 0.405
-</td>
-<td style="text-align:left;">
-0.403
-</td>
-<td style="text-align:left;">
-0.393
-</td>
-<td style="text-align:left;">
-0.417
-</td>
-<td style="text-align:left;">
-0.370
-</td>
-<td style="text-align:left;">
-0.469
-</td>
-<td style="text-align:left;">
-0.400
 </td>
 </tr>
 </tbody>
@@ -761,8 +1277,19 @@ rho20
 </tfoot>
 </table>
 </div>
+<p>Things to look at:</p>
+<ul>
+<li>sensitivity of playgrounds to increasing proportion of black users?
+<ul>
+<li>sensitivity of sports to increasing proportion of high-income users?</li>
+</ul></li>
+</ul>
 <div id="model-application" class="section level2">
 <h2><span class="header-section-number">4.1</span> Model Application</h2>
+<p>In this section, we apply the models to examine a policy intervention to create
+additional parks in Oakland by converting closed streets into effective
+pedestrian plazas. What is the logsum benefit of this policy, and how is it
+distributed?</p>
 
 </div>
 </div>

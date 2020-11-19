@@ -14,10 +14,24 @@ logit_converter <- function(df) {
 
 # function to estimate the mnl model on a subset of data
 group_mnl <- function(df){
-  mlogit(chosen ~  yj_distance + yj_acres + 
-                                  playground + pitch + trail | -1,
+  mlogit(chosen ~ yj_distance + yj_acres + playground + baseball +  basketball +
+      `football / soccer` + other.x + volleyball + tennis + trail | -1,
          data = df)
 }
+
+this_map = c(
+    "yj_distance" = "log(Distance)",
+    "yj_acres" = "log(Acres)",
+    "playgroundTRUE" = "Playground",
+    "trailTRUE" = "Trail",
+    "pitchTRUE" = "Sport Field",
+    "basketballTRUE" = "Basketball",
+    "baseballTRUE" = "Baseball",
+    "`football / soccer`TRUE" = "Football / Soccer",
+    "tennisTRUE" = "Tennis",
+    "volleyballTRUE" = "Volleyball",
+    "other.xTRUE" = "Other Sport"
+  )
 ```
 
 
@@ -40,17 +54,36 @@ distance is more impactful to a one-mile trip than a ten-mile trip.
 
 ```{r base_models}
 base_models <- list(
-  "Network Distance"   = mlogit(chosen ~ yj_distance + yj_acres | -1 , 
-                                data = estim),
-  "Park Attributes"    = mlogit(chosen ~ yj_distance + yj_acres + 
-                                  playground + pitch + trail | -1 , 
-                                data = estim)
+  "Network Distance"   = mlogit(
+    chosen ~ yj_distance + yj_acres | -1 ,  data = estim),
+  "Park Attributes"    = mlogit(
+    chosen ~ yj_distance + yj_acres +  playground + trail + pitch | -1 , 
+    data = estim),
+  "Sport Detail"    = mlogit(
+    chosen ~ yj_distance + yj_acres + playground + baseball +  basketball +
+      `football / soccer` + other.x + volleyball + tennis + trail | -1 , 
+    data = estim)
 )
+detail_lrt <- lrtest(base_models[[2]], base_models[[3]])$`Pr(>Chisq)`[2]
 ```
 
-Table \@ref(tab:models-summary) presents the model estimation results for a
-series of models. The two models under the "All" heading were estimated on
-the complete sample of simulated choice makers. 
+Table \@ref(tab:base-modelsummary) presents the model estimation results for a
+series of models with different utility definitions, each estimated on the 
+complete set of synthetic choice makers. 
+
+  - Curious that playgrounds and sport fields is a negative. Trails are positive.
+  - Not all sport fields are equal. Gain in likelihood is very small, but
+    significant, with a likelihood ratio test of $p$-value of `r detail_lrt`. 
+
+```{r base-modelsummary}
+modelsummary(
+  base_models, stars = TRUE, output = "kableExtra",
+  coef_map = this_map, gof_omit = "BIC",
+  title = "Estimated Model Coefficients"
+) %>%
+  scroll_box(width = "100%", box_css = "border: 0px;")
+```
+
 
 ```{r grouped_models}
 minority_models <- estim %>%
@@ -75,8 +108,6 @@ income_models <- estim %>%
     mnl = map(data, group_mnl)
   )
 models <- list(
-  "Distance and Size" = base_models$`Network Distance`,
-  "Park Attributes" = base_models$`Park Attributes`,
   "> 30% Asian" = minority_models$mnl[[1]],
   "> 30% Black" = minority_models$mnl[[3]],
   "Other" = minority_models$mnl[[2]],
@@ -86,42 +117,43 @@ models <- list(
 )
 ```
 
-The other models presented in Table \@ref(tab:models-summary) were estimated on 
-segments of the dataset. These segmentations help to reveal the heterogeneity in
-choice behavior between individuals of different sociodemographic attributes, in
-the absence of person-level data. The thresholds are selected to roughly
-coincide with the quartile values shown in Table \@ref(tab:acs-table), meaning
-that approximately one-quarter of the block groups (not weighted by population)
-will fall within a particular segment. Models under the "Minority" heading
-include a race-based segmentation: simulated individuals living in block groups
-with more than thirty percent Black persons are included in the ">30% Black"
-model, an analogous segmentation for block groups with high Asian populations
-are in the ">30% Asian" model, and the "Other" model contains all other block
-groups.
+The other models presented in Table \@ref(tab:grouped-modelsummary) were
+estimated on segments of the dataset. These segmentations help to reveal the
+heterogeneity in choice behavior between individuals of different
+sociodemographic attributes, in the absence of person-level data. The thresholds
+are selected to roughly coincide with the quartile values shown in Table
+\@ref(tab:acs-table), meaning that approximately one-quarter of the block groups
+(not weighted by population) will fall within a particular segment. Models under
+the "Minority" heading include a race-based segmentation: simulated individuals
+living in block groups with more than thirty percent Black persons are included
+in the ">30% Black" model, an analogous segmentation for block groups with high
+Asian populations are in the ">30% Asian" model, and the "Other" model contains
+all other block groups.
 
 Another set of model segmentation relies on the share of the population in each
 block group with household incomes above or below certain thresholds. Again,
-we use the threshold definitions presented in \@ref(tab:acs-table)
+we use the threshold definitions based on in \@ref(tab:acs-table).
 
-```{r models-summary}
+```{r grouped-modelsummary}
 modelsummary(
   models, stars = TRUE, output = "kableExtra",
-  coef_map = c(
-    "yj_distance" = "log(Distance)",
-    "yj_acres" = "log(Acres)",
-    "playgroundTRUE" = "Playground",
-    "pitchTRUE" = "Sport Field",
-    "trailTRUE" = "Trail"
-  ),
-  gof_omit = "BIC",
+  coef_map = this_map, gof_omit = "BIC",
   title = "Estimated Model Coefficients"
 ) %>%
-  add_header_above(c(" " = 1, "All" = 2, "Minority" = 3, "Income" = 3)) %>%
+  add_header_above(c(" " = 1, "Minority" = 3, "Income" = 3)) %>%
   scroll_box(width = "100%", box_css = "border: 0px;")
 ```
 
 
+Things to look at:
+
+  - sensitivity of playgrounds to increasing proportion of black users?
+  - sensitivity of sports to increasing proportion of high-income users?
 
 
 ## Model Application
 
+In this section, we apply the models to examine a policy intervention to create
+additional parks in Oakland by converting closed streets into effective
+pedestrian plazas. What is the logsum benefit of this policy, and how is it
+distributed?
