@@ -23,14 +23,14 @@
 
 
 
-<meta name="date" content="2020-11-16" />
+<meta name="date" content="2020-11-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="final-words.html"/>
+<link rel="prev" href="conclusions.html"/>
 
 <style type="text/css">
 p.abstract{
@@ -72,6 +72,12 @@ div.abstract{
 <script src="libs/leaflet-providers-plugin-2.0.3/leaflet-providers-plugin.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -166,7 +172,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a><ul>
 <li class="chapter" data-level="4.1" data-path="results.html"><a href="results.html#model-application"><i class="fa fa-check"></i><b>4.1</b> Model Application</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>5</b> Final Words</a></li>
+<li class="chapter" data-level="5" data-path="limitations-and-future-directions.html"><a href="limitations-and-future-directions.html"><i class="fa fa-check"></i><b>5</b> Limitations and Future Directions</a></li>
+<li class="chapter" data-level="6" data-path="conclusions.html"><a href="conclusions.html"><i class="fa fa-check"></i><b>6</b> Conclusions</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -215,6 +222,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div>
 <p>Dong, Xiaojing, Moshe E. Ben-Akiva, John L. Bowman, and Joan L. Walker. 2006. “Moving from trip-based to activity-based measures of accessibility.” <em>Transportation Research Part A: Policy and Practice</em> 40 (2): 163–80. <a href="https://doi.org/10.1016/J.TRA.2005.05.002">https://doi.org/10.1016/J.TRA.2005.05.002</a>.</p>
+</div>
+<div>
+<p>Fletcher, Donna, and Harold Fletcher. 2003. “Manageable Predictors of Park Visitor Satisfaction: Maintenance and Personnel.” <em>Journal of Park and Recreation Administration</em> 21 (1): 21–37. <a href="https://pdfs.semanticscholar.org/f5cb/11ef839c6366e90654d1a0110f11cbf65334.pdf">https://pdfs.semanticscholar.org/f5cb/11ef839c6366e90654d1a0110f11cbf65334.pdf</a>.</p>
 </div>
 <div>
 <p>Friedrich, Markus, Katrin Immisch, Prokop Jehlicka, Thomas Otterstätter, and Johannes Schlaich. 2010. “Generating Origin-Destination Matrices from Mobile Phone Trajectories.” <em>Transportation Research Record: Journal of the Transportation Research Board</em> 2196: 93–101. <a href="https://doi.org/10.3141/2196-10">https://doi.org/10.3141/2196-10</a>.</p>
@@ -328,7 +338,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="final-words.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="conclusions.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>
@@ -371,7 +381,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["alameda_destinationchoice.pdf", "alameda_destinationchoice.epub"],
+"download": ["alameda_destinationchoice.pdf"],
 "toc": {
 "collapse": "subsection"
 }

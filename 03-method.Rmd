@@ -1,7 +1,12 @@
 # Methodology
 
 ```{r setup, include = FALSE}
-knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+knitr::opts_chunk$set(cache = TRUE)
+
+if(knitr::is_latex_output()){
+  knitr::opts_chunk$set(echo = FALSE)
+}
+
 library(here)
 library(osmdata)
 library(sf)
