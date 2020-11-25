@@ -1,11 +1,14 @@
 # Results
 
-```{r estimation-setup, message=FALSE, warning=FALSE}
+```{r estimation-setup, message=FALSE, warning=FALSE, cache = FALSE}
 library(tidyverse)
 library(mlogit)
 library(modelsummary)
+library(broom)
 library(kableExtra)
 library(sf)
+knitr::opts_chunk$set(cache = TRUE)
+
 # function to index a tibble for mnl estimation
 logit_converter <- function(df) {
   dfidx(df, idx = list("id", "alt"), shape = "long",  
@@ -14,9 +17,14 @@ logit_converter <- function(df) {
 
 # function to estimate the mnl model on a subset of data
 group_mnl <- function(df){
-  mlogit(chosen ~ yj_distance + yj_acres + playground + baseball +  basketball +
-      `football / soccer` + other.x + volleyball + tennis + trail | -1,
-         data = df)
+  tryCatch({
+    mlogit(chosen ~ yj_distance + yj_acres + playground + baseball +  basketball +
+             `football / soccer` + other.x + volleyball + tennis + trail | -1,
+           data = df)
+  }, error = function(e){
+    warning(e, "could not estimate mnl")
+    return(NA)
+  })
 }
 
 this_map = c(
@@ -65,15 +73,39 @@ base_models <- list(
     data = estim)
 )
 detail_lrt <- lrtest(base_models[[2]], base_models[[3]])$`Pr(>Chisq)`[2]
+d_ratio_base <- -1 * coefficients(base_models$`Network Distance`)[1] / 
+  coefficients(base_models$`Network Distance`)[2] 
+d_ratio_sport <- -1 * coefficients(base_models$`Sport Detail`)[1] / 
+  coefficients(base_models$`Sport Detail`)[2] 
 ```
 
 Table \@ref(tab:base-modelsummary) presents the model estimation results for a
-series of models with different utility definitions, each estimated on the 
-complete set of synthetic choice makers. 
+series of models with different utility function definitions, each estimated on the 
+complete set of synthetic choice makers. The first model  --- named "Network 
+Distance" --- only considers the distance to the park and the size of the park
+in the utility equation. The estimated coefficients are significant and of the 
+expected sign: That is, individuals will travel further distances to reach larger
+parks. The ratio of the estimated coefficients implies that on average, people
+will travel `r d_ratio_base` times further to reach a park twice as large.
 
-  - Curious that playgrounds and sport fields is a negative. Trails are positive.
-  - Not all sport fields are equal. Gain in likelihood is very small, but
-    significant, with a likelihood ratio test of $p$-value of `r detail_lrt`. 
+The second and third models in Table \@ref(tab:base-modelsummary) include a 
+vector of park attributes. In the model labeled "Park Attributes," the presence
+of any sport field is considered with a single dummy value, and in the "Sport 
+Detail" model this variable is disaggregated into facilities for different 
+sports. The value of the size and distance coefficients change modestly from
+the "Network Distance" model, with the implied size to distance trade-off rising
+to `r d_ratio_base`. Examining the two amenities models --- independently and in 
+comparison with each other --- reveals a few surprising findings. First, it 
+appears that playgrounds and sport fields in general contribute *negatively* to 
+the choice utility equation. This is both unintuitive and contradictory to
+previous findings in this space [e.g.,  @Kinnell2006]. Considering different
+sports separately, there is a wide variety of observed response with tennis and
+volleyball facilities attracting more trips, and football and basketball
+facilities attracting fewer, all else equal. Trails and walking paths give 
+substantive positive utility in both models. The difference in likelihood statistics
+between the three models is significant (likelihood ratio test 
+$p$-value  `r detail_lrt`), and so in spite of the curious aggregate findings,
+we move forward with this utility specification.
 
 ```{r base-modelsummary}
 modelsummary(
@@ -117,19 +149,17 @@ models <- list(
 )
 ```
 
-The other models presented in Table \@ref(tab:grouped-modelsummary) were
-estimated on segments of the dataset. These segmentations help to reveal the
-heterogeneity in choice behavior between individuals of different
-sociodemographic attributes, in the absence of person-level data. The thresholds
-are selected to roughly coincide with the quartile values shown in Table
-\@ref(tab:acs-table), meaning that approximately one-quarter of the block groups
-(not weighted by population) will fall within a particular segment. Models under
-the "Minority" heading include a race-based segmentation: simulated individuals
-living in block groups with more than thirty percent Black persons are included
-in the ">30% Black" model, an analogous segmentation for block groups with high
-Asian populations are in the ">30% Asian" model, and the "Other" model contains
-all other block groups.
-
+It is worth investigating the heterogeneity in preferences that exist among
+different demographic groups. Though the income and ethnicity of the synthetic
+park visitors is not known, we can segment the estimation dataset based on the
+socioeconomic makeup of the visitors' residence block group. The models presented in 
+Table \@ref(tab:grouped-modelsummary) were
+estimated on segments developed in this manner. 
+Models under the "Minority" heading include a
+race-based segmentation: simulated individuals living in block groups with more
+than thirty percent Black persons are included in the ">30% Black" model, an
+analogous segmentation for block groups with high Asian populations are in the
+">30% Asian" model, and the "Other" model contains all other block groups.
 Another set of model segmentation relies on the share of the population in each
 block group with household incomes above or below certain thresholds. Again,
 we use the threshold definitions based on in \@ref(tab:acs-table).
@@ -144,11 +174,97 @@ modelsummary(
   scroll_box(width = "100%", box_css = "border: 0px;")
 ```
 
+The model estimates in Table \@ref(tab:grouped-modelsummary) reveal that there 
+is noticeable heterogeneity in the response among different socioeconomic
+groups. Park visitors living in block groups with a high proportion of Black and
+low-income residents show less affinity for trails and other walkways, but
+appear are also considerably to be more sensitive to the distance of a park.
+Visitors living in high-income neighborhoods are more attracted to the amenities
+of a park, or rather these visitors do not show significant negative
+coefficients for amenities,  e.g. basketball courts and football fields.
 
-Things to look at:
+  
+```{r split_models}
+# write a function to estimate multiple MNL models on different 
+# segments of the estimation data
+estimate_split_models <- function(data, var, splits) {
+  lapply(splits, function(p){
+    data %>% 
+      filter(.data[[var]] > p) %>% tibble() %>%
+      mutate(share = p)
+  }) %>%
+    bind_rows() %>% group_by(share) %>% nest() %>%
+    mutate(
+      data = map(data, logit_converter),
+      mnl = map(data, group_mnl),
+      coef = map(mnl, tidy)
+    )
+}
 
-  - sensitivity of playgrounds to increasing proportion of black users?
-  - sensitivity of sports to increasing proportion of high-income users?
+splits <- c(0, 5, 10, 15, 20, 30, 40, 50)
+split_models <- lapply(c("black", "asian", "lowincome", "highincome"), function(var) {
+  estimate_split_models(estim, var, splits) %>%
+    mutate(Segmentation = var)
+}) %>% bind_rows() 
+```
+
+Seeing that there is a difference in the response in the model segmentation, 
+it is also worth considering the role of our segmentation thresholds in these
+findings. Figure \@ref(fig:split-plots) shows the estimated coefficients and 
+confidence intervals for these different amenities at different threshold levels
+of segmentation. The threshold level means that at least that percent
+of the block group's population falls in that category. The confidence intervals
+widen as more observations are excluded from the model. The estimated coefficients
+for the different segmentations are identical when the share equals zero, and 
+simply represent the "Sport Detail" model from Table \@ref(tab:base-modelsummary).
+
+Overall, increasing the segmentation threshold level reveals some additional 
+information about user preferences. First, it should be noted that there is
+some inconsistency: for instance, block groups with at least 40% of low income
+households show a lower importance of distance than block groups with either
+30% or 50% low income households. The increasing width of the confidence interval, 
+however, means it is difficult to make generalized statements. Residents of
+block groups with a higher share of Asian or high income households both show
+relatively more affinity for tennis courts and trails. Block groups with high
+Black populations show a somewhat greater preference for playgrounds, as well 
+appearing to be the most distance-sensitive group.
+
+```{r split-plots, fig.cap="Estimated utility coefficients and 95% confidence intervals for park amenities at different socioeconomic threshold levels.", fig.height=7.5, cache = FALSE}
+# extract the coefficients you need to plot
+dat <- modelplot(split_models$mnl %>% 
+            setNames(str_c(split_models$Segmentation, split_models$share, sep = "_")),
+          coef_map = this_map, draw = FALSE) %>%
+  separate(model, into = c("Segmentation", "share"), convert = TRUE, sep = "_") %>%
+  mutate(
+    Segmentation = case_when(
+      Segmentation == "black" ~ "Black",
+      Segmentation == "asian" ~ "Asian",
+      Segmentation == "lowincome" ~ "Income < $35k",
+      Segmentation == "highincome" ~ "Income > $125k"
+    )
+  )
+
+# make the plot
+these_colors <- wesanderson::wes_palettes$Darjeeling1[-4]
+split_plots <- ggplot(dat, aes(x = share, y = estimate, ymin = conf.low, ymax = conf.high, 
+                color = Segmentation, fill = Segmentation)) + 
+  theme_minimal() +
+  geom_line() + 
+  geom_ribbon(alpha = 0.1, size = 0.1, lty = "dotted") + 
+  facet_wrap(~ fct_rev(term), scales = "free_y", ncol = 3)  + 
+  scale_color_manual(values = these_colors) + 
+  scale_fill_manual(values = these_colors) + 
+  xlab("Percent of Block Group Population") + 
+  ylab("Estimated coefficient and 95% confidence interval")
+
+if(knitr::is_latex_output()) {
+  lemon::reposition_legend(split_plots, position = 'top left', panel = "panel-3-4")
+} else {
+  plotly::ggplotly(split_plots)
+}
+```
+
+
 
 
 ## Model Application
@@ -157,3 +273,6 @@ In this section, we apply the models to examine a policy intervention to create
 additional parks in Oakland by converting closed streets into effective
 pedestrian plazas. What is the logsum benefit of this policy, and how is it
 distributed?
+
+
+  > This analysis will be completed in December 2020.
