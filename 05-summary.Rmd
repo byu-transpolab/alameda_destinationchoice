@@ -1,3 +1,83 @@
-# Final Words
+# Limitations and Future Directions
+The ideal dataset for estimating individual choices would be a high-quality,
+large-sample household travel survey of real individuals. Such a survey would
+give details on whether an observed trip to a park was actually a recreation
+trip or rather a different activity entirely. The individual-level demographic
+data would also be valuable in understanding more clearly the observed
+heterogeneity in response among different income or ethnic groups. Additionally,
+the trends and correlations revealed in the presented models may reflect
+situational inequalities rather than true preferences. For example, the 
+distinct observed parameters on size and distance for minority block groups may
+indicate that areas with large minority populations tend to have smaller parks
+that are more geographically distributed relative to other regions of the region.
+Transit access may also affect park choice and how far people are willing to
+travel to access a park. Preliminary analysis of our source data indicates a
+qualitative correlation between good transit access and diverse park use from
+both a geographic and demographic perspective.
 
-We have finished a nice book.
+We limited our analysis to home locations and parks in Alameda County,
+California. It is possible that some Alameda residents visit parks in
+neighboring counties, just as it is possible that parks in Alameda County
+attract trips from outside the county borders. This is most likely for block
+groups and parks on the north and south borders of the county. The lower
+measured accessibility in the area around Berkeley in the northern part of the
+county () is likely affected by the ommission of parks and residents in Contra
+Costa County.
+
+Using Euclidean distance to represent the distance between the block group
+centroid and the border of the park leaves something to be desired: Depending on
+network topography and built environment characteristics, there may be a
+significant variation in perceived travel times between two parks with similar
+straight-line distances. That said, a more precise network-based measure might
+not overcome the inaccuracies resulting from our necessarily measuring distances
+from the block group centroid. As above, an individual-level survey where the
+home location is explicitly known would be preferable regardless of the distance
+method employed.
+
+The activity location data used in this specific analysis treats all days of the
+week and day periods together; it is likely that weekend park choice is
+substantially different from weekday choice, as the activities performed may be
+the same. Also recall that the data consider each device-park pair as a unique
+trip. Repeated trips to the same park may not be properly considered in the data
+sample. A more precise time-of-day and day-of-week segmentation is warranted.
+
+We applied a naive random sampling of the alternatives in our model estimation
+and validation; a more considered approach involving hierarchical destination
+sampling may yield more efficient estimates and therefore a clearer picture of
+the role of size, distance, and other amenities on the observed choices. The 
+relatively weak predictive power of such a simple model formulation (size and
+distance only) indicates that there is potential to examine the role that
+additional park amenities --- ball fields, playgrounds, water features, etc. ---
+play in the relative attractiveness of parks for different market segments. The
+quality of park maintenance is another important feature identified in the
+recreation literature [@Fletcher2003] that is not included here.
+
+# Conclusions
+
+As transportation professionals seek to improve access to parks and better
+coordinate transportation and land use efforts --- and as researchers more
+generally try to understand the role parks and open spaces play in public health
+and society --- it is increasingly important to better understand how, when, and
+why individuals travel to parks. This intersection between recreation and
+transportation has received relatively little exploration, partially because
+travel survey data emphasizes weekday travel and because the role of parks in
+daily activities can be more complicated than with other land uses. This study
+contributes to the understanding of recreation access by presenting a method to
+develop access measures explicitly based on the observed choices of individuals.
+The resulting access measure is continuously defined and incorporates multiple
+dimensions of access, including the travel necessary to reach all nearby parks
+as well as the amenities of each of those parks.  Further, the measure we have
+presented reveals heterogeneous preferences for travel and park size across
+market segments, a heterogeneity that could perhaps be incorporated into an
+understanding of accessibility.
+
+With the growing availability of passive transportation data, there is a
+correspondingly increased opportunity to explore such data to develop a better
+understanding of travel patterns in more careful detail than is possible with
+household travel surveys. Capturing a sufficiently large survey to study trip
+patterns to a single park is an enormous undertaking, and doing such an exercise
+for an entire park system is prohibitively expensive and time-consuming. Passive
+data sets therefore enable analyses that would be unlikely or impossible by
+other means. Challenges to the representativeness and comprehensiveness of
+passive data products are in many cases fair, but this should not preclude their
+use in cases where traditional techniques are not practicable.
