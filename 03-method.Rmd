@@ -304,7 +304,7 @@ identified paths, while around 40% of the identified parks have playgrounds and
 sport fields.
 
 ```{r park-attributes, results="asis"}
-datasummary_balance(
+park_attributes_data <- datasummary_balance(
   ~ type,  
   data = attributed_parks %>% 
     select(Access = access, Acres = acres, type, Playground = playground, 
@@ -314,9 +314,13 @@ datasummary_balance(
            `Tennis` = tennis, `Volleyball` = volleyball,
            Trail = trail, 
            `Mobile Devices` =attractions), 
-  dinm = FALSE,
-  caption = "Park Summary Statistics",
-  booktabs = TRUE)
+  dinm = FALSE, caption = "Park Summary Statistics", booktabs = TRUE)
+
+if(knitr::is_latex_output()){
+  park_attributes_data %>% kableExtra::kable_styling(table.envir = "sidewaystable")
+} else {
+  park_attributes_data
+}
 ```
 
 
@@ -403,18 +407,22 @@ distance_df <- lapply(path_files, function(file) {
 
 
 ```{r acs-table}
-datasummary_skim(
-  data = acs %>%  
-    select(
-      "Density: Households per square kilometer" = density,
-      "Income: Median tract income" = income,
-      "Low Income: Share of households making less than $35k" = lowincome,
-      "High Income: Share of households making more than $125k" = highincome,
-      "Black: Share of population who is Black" = black,
-      "Asian: Share of population who is Asian" = asian,
-      "Other: Share of population who belong to other minority groups" = other),
-  caption = "Block Group Summary Statistics",
-  booktabs = TRUE)
+acs_for_table <- acs %>% select(
+    "Density: Households per square kilometer" = density,
+    "Income: Median tract income" = income,
+    "Low Income: Share of households making less than $35k" = lowincome,
+    "High Income: Share of households making more than $125k" = highincome,
+    "Black: Share of population who is Black" = black,
+    "Asian: Share of population who is Asian" = asian,
+    "Other: Share of population who belong to other minority groups" = other)
+
+if(knitr::is_latex_output()){ 
+  datasummary_skim(acs_for_table, title = "Block Group Summary Statistics",
+    booktabs = TRUE, histogram = FALSE, output = "latex") %>%
+    kableExtra::column_spec(1, width = "3cm")
+} else {
+  datasummary_skim( acs_for_table, title = "Block Group Summary Statistics")
+}
 ```
 
 
