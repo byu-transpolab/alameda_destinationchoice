@@ -330,8 +330,9 @@ potentially the characteristics of the people who make each trip, we obtained
 2013-2017 five-year data aggregations from the American Community Survey 
 using the `tidycensus` [@Walker2019] interface to the
 Census API for several key demographic and built environment variables: the
-share of individuals by ethnic group, the share of households by income level,
-household median income, and the housing unit density. An important attribute of
+share of individuals by race, the share of households by income level,
+household median income, the share of households with children under 6 years old, 
+and the household density. An important attribute of
 the choice model is the distance from the home block group to the park boundary.
 Because we have no information on where in the block group a home is actually
 located, we use the population-weighted block group centroid published by the
