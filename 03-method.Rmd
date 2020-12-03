@@ -343,7 +343,7 @@ for Python [@networkx],
 
 ```{r acs, message = FALSE}
 variables <- c(
-  "population" = "B25008_001", # TOTAL POPULATION IN OCCUPIED HOUSING UNITS BY TENURE
+  "population" = "B02001_001", # TOTAL: RACE
   "housing_units" = "B25001_001", # HOUSING UNITS
   "households" = "B19001_001", #HOUSEHOLD INCOME IN THE PAST 12 MONTHS (IN 2017 INFLATION-ADJUSTED DOLLARS)
   # RACE
