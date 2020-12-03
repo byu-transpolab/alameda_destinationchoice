@@ -134,7 +134,7 @@ pitches <- rbind(
       grepl("basketball", sport) ~ "basketball",
       grepl("tennis", sport) ~ "tennis",
       grepl("volleyball", sport) ~ "volleyball",
-      TRUE ~ "other"
+      TRUE ~ "other_pitch"
     )
   )
 ```
@@ -392,8 +392,8 @@ acs <- get_acs(geography = "block group", variables = variables, year = 2017,
     highincome   = 100 * (inc_125 + inc_150 + inc_200) / households,
     black        = 100 * black / population,
     asian        = 100 * asian / population,
-    other        = 100 * (nativeam + pacific) / population,
-    white_hisp   = 100 - black - asian - other
+    other_race   = 100 * (nativeam + pacific) / population,
+    white_hisp   = 100 - black - asian - other_race
   ) %>%
   filter(population > 0)
 ```
@@ -425,7 +425,7 @@ acs_for_table <- acs %>% select(
     "Children: Share of households with children under 6" = children,
     "Black: Share of population who is Black" = black,
     "Asian: Share of population who is Asian" = asian,
-    "Other: Share of population who belong to other minority groups" = other)
+    "Other: Share of population who belong to other minority groups" = other_race)
 
 if(knitr::is_latex_output()){ 
   datasummary_skim(acs_for_table, title = "Block Group Summary Statistics",
@@ -538,7 +538,7 @@ logitdata <- mydata %>%
   left_join(attributed_parks, by = c("park" = "id")) %>%
   
   # append block group attributes
-  left_join(acs %>% select(geoid, density:other) %>% st_set_geometry(NULL),
+  left_join(acs %>% select(geoid, density:other_race) %>% st_set_geometry(NULL),
             by = c("home" = "geoid")
    
 )
