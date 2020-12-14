@@ -295,6 +295,7 @@ attributed_parks <- attributed_parks %>% group_by(type) %>%
   left_join(park_flows %>% group_by(park) %>% slice(1) %>% 
               select(park, attractions), by = c("id" = "park")) %>%
   mutate(attractions = ifelse(is.na(attractions), 0, attractions)) 
+write_rds(attributed_parks, "data/attributed_parks.rds")
 ```
 
 Table \ref{tab:parks-table} presents descriptive statistics
