@@ -139,15 +139,6 @@ income_models <- estim %>%
     data = map(data, logit_converter),
     mnl = map(data, group_mnl)
   )
-income_models <- estim %>%
-  mutate(group = case_when(lowincome > 30 ~ "lowincome", 
-                           highincome > 50 ~ "highincome", TRUE ~ "other")) %>%
-  filter(!is.na(group)) %>%
-  group_by(group) %>% nest() %>% ungroup() %>%
-  mutate(
-    data = map(data, logit_converter),
-    mnl = map(data, group_mnl)
-  )
 child_models <- estim %>%
   mutate(group = case_when(children > 25 ~ "children", 
                            children < 5 ~ "few children", TRUE ~ "other")) %>%
@@ -189,7 +180,7 @@ we use the threshold definitions based on in \@ref(tab:acs-table).
 modelsummary(
   models, stars = TRUE, output = "kableExtra",
   coef_map = this_map, gof_omit = "BIC",
-  title = "Estimated Model Coefficients"
+  title = "Estimated Model Coefficients with Block Group Segmentations"
 ) %>%
   add_header_above(c(" " = 1, "Minority" = 3, "Income" = 3, "Children" = 3)) %>%
   scroll_box(width = "100%", box_css = "border: 0px;")
