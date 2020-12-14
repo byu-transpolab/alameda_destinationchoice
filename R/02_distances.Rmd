@@ -119,6 +119,7 @@ to linestrings, and then sample points along the linestring.
 ```{r park_points, eval = TRUE}
 # get park boundary polygon
 park_boundaries <- parks %>%
+  ungroup() %>%
   select(id)  %>%
   
   # some polygons are way too detailed, so we want to simplify to 100 foot resolution
@@ -138,6 +139,19 @@ park_points <- st_sf(id = park_boundaries$id, geometry = point_samples)  %>%
   st_as_sf() %>%
   st_cast(to = "POINT")
 ```
+
+We also need to do this for the closed streets.
+```{r closed_street_points}
+streets <- st_read(here("data/slow_streets.geojson")) 
+street_bndy <- streets %>%
+  st_transform(this_crs)  %>% ungroup() %>%
+  transmute(id = str_c("st", ID))  %>%
+  st_cast("LINESTRING", group_or_split = TRUE)
+street_sample <- st_line_sample(street_bndy, density = 1 / 500)
+street_points <- st_sf(id = street_bndy$id, geometry = street_sample)  %>%
+  st_as_sf() %>% st_cast(to = "POINT")
+```
+
 
 We can illustrate what this looks like. Every park has at least one sampled point,
 and some have several. Unfortunately there's not a concave polygon function to help
@@ -208,6 +222,7 @@ write_points_file <- function(points, file){
     write_csv(file)
 }
 park_points     %>% write_points_file(here("data/park_points.csv"))
+street_points   %>% write_points_file(here("data/street_points.csv"))
 bg_centroids    %>% write_points_file(here("data/bg_centroids.csv"))
 ```
 
