@@ -1,5 +1,6 @@
 ---
-title: "Estimating Park Choice and Access in Alameda County, California, using Passive Origin-Destination Data."
+title: "If you build it who will come?" 
+subtitle: "Equity analysis of park system changes using passive origin-destination data"
 author:
   - name: Gregory Macfarlane
     email: gregmacfarlane@byu.edu
@@ -10,8 +11,8 @@ author:
     address: StreetLight Data, Inc.
     email: teresa.tapia@streetlightdata.com
   - name: Carole Turley-Voulgaris
-    email: cat@example.com
-    affiliation: Harvard University
+    email: cvoularis@gsd.harvard.edu
+    affiliation: Harvard Graduate School of Design
 address:
   - code: Brigham Young University
     address: Civil and Environmental Engineering Department, 430 Engineering Building, Provo, Utah 84602
