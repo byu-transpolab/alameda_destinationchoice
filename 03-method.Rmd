@@ -397,6 +397,8 @@ acs <- get_acs(geography = "block group", variables = variables, year = 2017,
     white_hisp   = 100 - black - asian - other_race
   ) %>%
   filter(population > 0)
+
+write_rds(acs, "data/blockgroups.rds")
 ```
 
 
@@ -413,6 +415,7 @@ distance_df <- lapply(path_files, function(file) {
   bind_rows() %>%
   rename(home = geoid, park = park_id) %>%
   mutate(home = sprintf("%012s", home))
+write_rds(distance_df, "data/distances.rds")
 ```
 
 
