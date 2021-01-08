@@ -13,3 +13,4 @@ data/park_flows.rds
 data/logitdata.rds
 alameda_destinationchoice.Rmd
 _bookdown_files
+data/streets/

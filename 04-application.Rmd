@@ -7,7 +7,11 @@ library(modelsummary)
 library(broom)
 library(kableExtra)
 library(sf)
+library(leaflet)
 knitr::opts_chunk$set(cache = TRUE)
+
+# overloaded methods for doing prediction with mlogit objects
+source("R/methods.R")
 
 # function to index a tibble for mnl estimation
 logit_converter <- function(df) {
@@ -40,6 +44,8 @@ this_map = c(
     "volleyballTRUE" = "Volleyball",
     "other_pitchTRUE" = "Other Sport"
   )
+
+this_crs <- 2227 # EPSG:2227 – NAD83 / California zone 3 (ftUS)
 ```
 
 
@@ -279,13 +285,161 @@ if(knitr::is_latex_output()) {
 
 
 
-
 ## Model Application
 
-In this section, we apply the models to examine a policy intervention to create
-additional parks in Oakland by converting closed streets into effective
-pedestrian plazas. What is the logsum benefit of this policy, and how is it
-distributed?
+In spring and summer 2020, cities across the world responded to the COVID-19
+pandemic by converting city streets into temporary pedestrian plazas. The stated
+goals of this policy included providing recreational space that would allow
+people to walk and exercise outside with sufficient personal space and less risk
+of conflict from vehicle traffic. This policy created several dozen temporary
+open spaces in urbanized areas of the county. In this section, we apply the
+models estimated above to evaluate the benefits of this policy in terms of
+aggregate value, as well as the equity of the policy with respect to different
+income and ethnic groups.
+
+```{r closed-streets}
+attributed_parks <- read_rds("data/attributed_parks.rds")
+slowstreets <- st_read("data/slow_streets.geojson")  %>%
+  st_transform(this_crs) 
+
+street_parks <- slowstreets %>%
+  st_buffer(dist = 25)  %>% # 50 foot wide park ( 4 lanes of traffic)
+  mutate(acres = as.numeric(st_area(.)) / 43560) %>% 
+  mutate() %>%
+  transmute(
+    id = str_c("st", ID), access = "Open Access", acres, type = "Street",
+    yj_acres = VGAM::yeo.johnson(acres, lambda = 0),
+    playground = FALSE, baseball = FALSE, basketball = FALSE, 
+    `football / soccer` = FALSE, other_pitch = FALSE, volleyball = FALSE,
+    tennis = FALSE, pitch = FALSE, trail = TRUE, attractions = NA
+  )
+  
+```
+
+We obtained the list of streets in Alameda County that were reported closed
+in the "Shifting Streets" COVID-19 mobility dataset [@slowstreets]. This dataset
+reports that `r nrow(street_parks)` individual streets were closed to vehicle
+traffic (and thereby opened as public spaces); these streets represent 
+`r as.numeric(sum(st_length(slowstreets))) / 5280` total miles across the cities
+of Berkeley, Oakland, and Alameda. For the purposes of this analysis, we
+represent each closed street as a single "park" without any sport facilities or
+playgrounds, but with a trail / walking path. The database provides the closed 
+streets as polyline objects; we assert a 25-foot buffer around the line to
+represent a polygon with a measurable area. Finally, we measure the network-based
+distance from each population-weighted block group centroid to the nearest 
+boundary of each closed park.
+
+```{r street_distances}
+# distances computed in py/shortest_paths.py
+path_files <- dir("data/streets/", full.names = TRUE)
+street_distances <- lapply(path_files, function(file) {
+  read_csv(file, col_types = list(geoid = col_character(), park_id = col_character())) %>%
+  mutate(
+    yj_distance = VGAM::yeo.johnson(distance, lambda = 0),
+    yj_euc_dist = VGAM::yeo.johnson(euc_dist, lambda = 0)
+  )
+}) %>%
+  bind_rows() %>%
+  rename(home = geoid, park = park_id) %>%
+  mutate(home = sprintf("%012s", home))
+```
 
 
-  > This analysis will be completed in December 2020.
+```{r choices}
+# read data on streets and distances
+distance_df <- read_rds("data/distances.rds")
+attributed_parks <- read_rds("data/attributed_parks.rds") %>%
+  mutate(chosen = FALSE) %>% ungroup()
+attributed_parks$chosen[55] <- TRUE
+
+# create base situation prediction dataset
+base_choices <- distance_df %>%
+  left_join(attributed_parks, by = c("park" = "id")) %>% 
+  rename(id = home, alt = park) %>%
+  logit_converter()
+
+# create streets situation prediction dataset, augmented by street parks
+street_choices <-  left_join(
+  bind_rows(street_distances, distance_df),
+  bind_rows(street_parks %>% mutate(chosen = FALSE, attractions = FALSE), 
+            attributed_parks),
+  by = c("park" = "id")) %>%
+  rename(id = home, alt = park) %>%
+  logit_converter()
+```
+
+Using this new dataset --- augmented with parks added by street openings --- we
+applied the "Sport Detail" non-segmented model to calculate park choice utilities 
+and utility-based accessibility values for each block group in Alameda County. 
+As discussed in Section \@ref(model), the difference in accessibility values 
+provides a means to evaluate the benefit of the policy in a By comparing the
+difference in accessibility valuation with and without the street "parks" we can
+evaluate the monetary benefit of the policy. 
+
+The dataset used for this research
+does not have any information on travel costs or entrance fees, and such data
+would likely not be relevant in the context of urban parks. As a result, there
+is no direct link between the utility and a monetary cost in this model directly.
+As a substitution, the regional travel model employed by MTC (the MPO) uses a 
+cost coefficient of $-0.6$ divided by the simulated agents's value of time to determine
+destination choices for non-work trips.^[To be precise, this is the cost coefficient
+on the mode choice for social, recreational, and other trip purposes, which 
+influences destination choice as a logsum-based impedance term.] This value of
+time varies by the agent's income, but using the population median value of
+$7.75 per hour results in a cost coefficient on the destination choice utility
+of $-0.215$. Dividing the difference in accessibility logsums by the negative of 
+this value can provide an initial estimate of the monetary value of the policy
+to each park user.
+
+```{r logsums}
+logsums <- lapply(list("Base" = base_choices, "Streets" = street_choices), function(df){
+  u <- predict(base_models$`Sport Detail`, newdata = df, type = "linpred")
+  logsum <- log(rowSums(exp(u)))
+  list( u = u, logsum = logsum )
+})
+
+logsums_tibble <- tibble(
+  geoid = names(logsums$Base$logsum),
+  base = logsums$Base$logsum,
+  streets = logsums$Streets$logsum
+)
+
+blockgroups <- read_rds("data/blockgroups.rds") %>%
+  left_join(logsums_tibble, by = "geoid") %>%
+  mutate(diff_ls = (streets - base) / 0.215)
+```
+
+Figure \@ref(fig:logsumsmap) presents this monetary valuation spatially.
+Unsurprisingly, the benefits are concentrated in the block groups surrounding
+the opened streets. Most residents of central Oakland see a benefit of somewhere
+around \$1, while some zones see an equivalent benefit of as much as \$30. 
+There is some benefit assigned just for having more options, though this is small
+and on the order of 10 cents for most block groups away from where the 
+street openings occured.
+
+```{r logsumsmap, fig.cap="Monetary value of street opening to residents based on utility change." }
+diff_pal <- colorBin(
+  palette = as.character(wesanderson::wes_palette("Zissou1")),
+  domain = blockgroups$diff_ls,
+  #bins = quantile(blockgroups$diff_ls, probs = c(0, 0.1, 0.3, 0.4, 0.5, 0.8, 0.9, 1))
+  bins = c(0, 0.1, 0.25, 0.5, 1, 2, 10, 35)
+)
+
+leaflet(data = blockgroups %>% st_transform(4326)) %>%
+  addProviderTiles(providers$Esri.WorldGrayCanvas) %>%
+  addPolygons(fillColor = ~diff_pal(diff_ls), 
+              stroke = FALSE, fillOpacity = 1) %>%
+  addPolylines(data = slowstreets %>% st_transform(4326), color = "green") %>%
+  addLegend("bottomleft", pal = diff_pal, values = ~diff_ls, title = "Value of Street Opening")
+```
+
+An important consideration is the equity of the added benefit among households
+of different races and incomes.
+
+```{r equity}
+
+```
+
+
+
+
