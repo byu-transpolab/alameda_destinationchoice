@@ -80,11 +80,15 @@ qualitative studies (as discussed in the following section).
 
 While traditional four-step travel demand models distribute zonal trips based on
 a gravity-based accessibility model, the travel demand modeling profession has
-shifted more recently towards activity-based models that distribute trips based
-on discrete-choice regression models. @mcfadden1974measurement first applied
+shifted more recently towards a destination choice framework that distributes
+trips based on discrete-choice regression models. @mcfadden1974measurement first applied
 discrete choice models to urban travel demand to predict mode choice, and
 activity-based models apply them to all travel behavior choices, including to
 select among alternative routes or alternative destinations [@de2011modelling].
+Though the application of random utility models to destination choice is not new
+[see @anas1983discrete], the increasing availability of computing resources makes
+estimating and applying discrete choice models on large alternative sets in a
+practical context more feasible.
 
 When applied to destination choice, discrete choice models estimate the
 likelihood of selecting a particular destination among a set of alternatives
