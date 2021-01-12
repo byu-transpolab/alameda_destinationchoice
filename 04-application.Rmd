@@ -7,6 +7,7 @@ library(modelsummary)
 library(broom)
 library(kableExtra)
 library(sf)
+library(ggmap)
 library(leaflet)
 knitr::opts_chunk$set(cache = TRUE)
 
@@ -322,12 +323,12 @@ reports that `r nrow(street_parks)` individual streets were closed to vehicle
 traffic (and thereby opened as public spaces); these streets represent 
 `r as.numeric(sum(st_length(slowstreets))) / 5280` total miles across the cities
 of Berkeley, Oakland, and Alameda. For the purposes of this analysis, we
-represent each closed street as a single "park" without any sport facilities or
-playgrounds, but with a trail / walking path. The database provides the closed 
+represent each opened street as a single "park" without any sport facilities or
+playgrounds, but with a trail / walking path. The database provides the opened
 streets as polyline objects; we assert a 25-foot buffer around the line to
 represent a polygon with a measurable area. Finally, we measure the network-based
 distance from each population-weighted block group centroid to the nearest 
-boundary of each closed park.
+boundary of each new open space facility created by this policy.
 
 ```{r street_distances}
 # distances computed in py/shortest_paths.py
@@ -371,25 +372,25 @@ street_choices <-  left_join(
 Using this new dataset --- augmented with parks added by street openings --- we
 applied the "Sport Detail" non-segmented model to calculate park choice utilities 
 and utility-based accessibility values for each block group in Alameda County. 
-As discussed in Section \@ref(model), the difference in accessibility values 
-provides a means to evaluate the benefit of the policy in a By comparing the
-difference in accessibility valuation with and without the street "parks" we can
-evaluate the monetary benefit of the policy. 
-
-The dataset used for this research
-does not have any information on travel costs or entrance fees, and such data
-would likely not be relevant in the context of urban parks. As a result, there
-is no direct link between the utility and a monetary cost in this model directly.
-As a substitution, the regional travel model employed by MTC (the MPO) uses a 
-cost coefficient of $-0.6$ divided by the simulated agents's value of time to determine
-destination choices for non-work trips.^[To be precise, this is the cost coefficient
-on the mode choice for social, recreational, and other trip purposes, which 
-influences destination choice as a logsum-based impedance term.] This value of
-time varies by the agent's income, but using the population median value of
-$7.75 per hour results in a cost coefficient on the destination choice utility
-of $-0.215$. Dividing the difference in accessibility logsums by the negative of 
-this value can provide an initial estimate of the monetary value of the policy
-to each park user.
+As shown with equation \@ref(eq:logsum), the difference in utility-based
+accessibility values with and without the opened streets is the consumer 
+surplus provided by the policy. This surplus is given in a unitless utility,
+but it is possible to convert the surplus into monetary units by diving the
+surplus by a cost utility coefficient. The dataset used for this research does
+not have any information on travel costs or entrance fees, and such data would
+likely not be relevant in the context of urban parks. As a result, there is no
+direct link between the utility and a monetary cost in our estimated models. As
+a substitution, the regional travel model employed by MTC (the MPO) uses a cost
+coefficient of $-0.6$ divided by the simulated agents's value of time to
+determine destination choices for non-work trips.^[To be precise, this is the
+cost coefficient on the mode choice model for social, recreational, and other
+trip purposes, which influences destination choice through a logsum-based
+impedance term.]
+This value of time varies by the agent's income, but using the population median
+value of $7.75 per hour results in a cost coefficient on the destination choice
+utility of $-0.215$. Dividing the difference in accessibility logsums by the
+negative of this value can provide an initial estimate of the monetary value of
+the policy to each park user.
 
 ```{r logsums}
 logsums <- lapply(list("Base" = base_choices, "Streets" = street_choices), function(df){
@@ -412,25 +413,40 @@ blockgroups <- read_rds("data/blockgroups.rds") %>%
 Figure \@ref(fig:logsumsmap) presents this monetary valuation spatially.
 Unsurprisingly, the benefits are concentrated in the block groups surrounding
 the opened streets. Most residents of central Oakland see a benefit of somewhere
-around \$1, while some zones see an equivalent benefit of as much as \$30. 
-There is some benefit assigned just for having more options, though this is small
-and on the order of 10 cents for most block groups away from where the 
-street openings occured.
+around \$1, while some zones see an equivalent benefit of as much as \$30. There
+is some benefit assigned just for having more options, though this is small and
+on the order of 10 cents for most block groups away from where the street
+openings occured.
 
 ```{r logsumsmap, fig.cap="Monetary value of street opening to residents based on utility change.", cache=FALSE}
-diff_pal <- colorBin(
-  palette = as.character(wesanderson::wes_palette("Zissou1")),
-  domain = blockgroups$diff_ls,
-  #bins = quantile(blockgroups$diff_ls, probs = c(0, 0.1, 0.3, 0.4, 0.5, 0.8, 0.9, 1))
-  bins = c(0, 0.1, 0.25, 0.5, 1, 2, 10, 35)
-)
+bins <- c(0, 0.1, 0.25, 0.5, 1, 2, 10, 35)
+mypal <- as.character(wesanderson::wes_palette("Zissou1", n = 7, type = "continuous"))
 
-leaflet(data = blockgroups %>% st_transform(4326)) %>%
-  addProviderTiles(providers$Esri.WorldGrayCanvas) %>%
-  addPolygons(fillColor = ~diff_pal(diff_ls), 
-              stroke = FALSE, fillOpacity = 1) %>%
-  addPolylines(data = slowstreets %>% st_transform(4326), color = "green") %>%
-  addLegend("bottomleft", pal = diff_pal, values = ~diff_ls, title = "Value of Street Opening")
+if(knitr::is_latex_output()) {
+  alameda_back <- get_map(c(lon = -122.1300334, lat = 37.69427), 
+                                zoom = 11, source = "stamen", color = "bw")
+  alameda_back <- ggmap_bbox(alameda_back)
+  
+  ggmap(alameda_back) + 
+    coord_sf(crs = st_crs(3857), 
+             xlim = c(-122.29674 , -122.16358), 
+             ylim = c( 37.74098, 37.87028), expand = FALSE) + 
+    geom_sf(data = blockgroups %>% st_transform(3857), inherit.aes = FALSE,
+            aes(fill = cut(diff_ls, breaks = bins)), lwd = 0) + 
+    scale_fill_manual("Monetary Benefit ($)", values = mypal) +
+    geom_sf(data = slowstreets, color = "black", inherit.aes = FALSE) + 
+    theme_bw()
+    
+} else {
+  diff_pal <- colorBin(palette = mypal, domain = blockgroups$diff_ls, bins = bins )
+  
+  leaflet(data = blockgroups %>% st_transform(4326)) %>%
+    addProviderTiles(providers$Esri.WorldGrayCanvas) %>%
+    addPolygons(fillColor = ~diff_pal(diff_ls), 
+                stroke = FALSE, fillOpacity = 1) %>%
+    addPolylines(data = slowstreets %>% st_transform(4326), color = "green") %>%
+    addLegend("bottomleft", pal = diff_pal, values = ~diff_ls, title = "Value of Street Opening")
+}
 ```
 
 ```{r equity}
