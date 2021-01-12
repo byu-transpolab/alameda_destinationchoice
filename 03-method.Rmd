@@ -4,7 +4,7 @@
 knitr::opts_chunk$set(cache = TRUE)
 
 if(knitr::is_latex_output()){
-  knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+  knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, cache = TRUE)
 }
 
 library(here)
@@ -433,7 +433,7 @@ acs_for_table <- acs %>% select(
 
 if(knitr::is_latex_output()){ 
   datasummary_skim(acs_for_table, title = "Block Group Summary Statistics",
-    booktabs = TRUE, histogram = FALSE, output = "latex") %>%
+    histogram = FALSE, output = "latex") %>%
     kableExtra::column_spec(1, width = "3cm")
 } else {
   datasummary_skim( acs_for_table, title = "Block Group Summary Statistics")

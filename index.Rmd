@@ -1,6 +1,5 @@
 ---
-title: "If you build it who will come?" 
-subtitle: "Equity analysis of park system changes using passive origin-destination data"
+title: "If you build it who will come? Equity analysis of park system changes using passive origin-destination data"
 author:
   - name: Gregory Macfarlane
     email: gregmacfarlane@byu.edu
@@ -26,7 +25,7 @@ site: bookdown::bookdown_site
 documentclass: article
 journal: "Submitted to Transportation Research Part C: Emerging Technologies"
 bibliography: [book.bib]
-biblio-style: apalike
+csl: elsevier-harvard.csl
 keywords:
   - Accessibility
   - Passive Data
