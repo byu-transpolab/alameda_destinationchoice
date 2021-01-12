@@ -417,7 +417,7 @@ There is some benefit assigned just for having more options, though this is smal
 and on the order of 10 cents for most block groups away from where the 
 street openings occured.
 
-```{r logsumsmap, fig.cap="Monetary value of street opening to residents based on utility change." }
+```{r logsumsmap, fig.cap="Monetary value of street opening to residents based on utility change.", cache=FALSE}
 diff_pal <- colorBin(
   palette = as.character(wesanderson::wes_palette("Zissou1")),
   domain = blockgroups$diff_ls,
@@ -433,12 +433,49 @@ leaflet(data = blockgroups %>% st_transform(4326)) %>%
   addLegend("bottomleft", pal = diff_pal, values = ~diff_ls, title = "Value of Street Opening")
 ```
 
-An important consideration is the equity of the added benefit among households
-of different races and incomes.
-
 ```{r equity}
+# percent of households / individuals in each group
+demovars <- c("children", "lowincome", "highincome", "black", 
+              "asian", "other_race", "white_hisp", "all")
+demonames <- c("Households with Children under 6", "Income < $35k",
+               "Income > $125k", "Black", "Asian", "Other", "White / Hispanic", 
+               "All Households")
 
+# Raw demographic totals
+pop_dist <- blockgroups %>% st_set_geometry(NULL) %>% as_tibble()  %>%
+  mutate(all = 100) %>%
+  mutate_at( demovars, (~ ./100 * households)) %>%
+  select(demovars) %>%
+  summarise_all(~sum(., na.rm = TRUE)) %>%
+  gather("group", "population") %>%
+  mutate(
+    `pct_pop` = population / population[length(demonames)] * 100 
+  )
+
+bene_dist <- blockgroups %>% st_set_geometry(NULL) %>% as_tibble()  %>%
+  # benefit is the choice benefit * households * proportion of category 
+  mutate(all = 100) %>%
+  mutate_at( demovars, (~ ./100 * households * diff_ls)) %>%
+  select(demovars) %>%
+  summarise_all(~sum(., na.rm = TRUE)) %>%
+  gather("group", "benefit")    %>% 
+  mutate(
+    pct_benefit = benefit / benefit[length(demonames)] * 100 
+  ) 
+
+left_join( bene_dist, pop_dist, by = "group" ) %>%
+  mutate(
+    group = demonames,
+    group = fct_relevel(group, "All Households", after = 1),
+    diff = pct_benefit - pct_pop
+  ) %>%
+  kbl(caption = "Equity Distribution of Street Opening Benefits", booktabs = TRUE, 
+      col.names = c("Group", "Benefit", "Percent of All Benefits", "Households", 
+                    "Percent of Population", "Difference in Distribution"),
+      digits = c(0, 0, 2, 0, 2, 4)) %>%
+  kable_styling()
 ```
+
 
 
 
