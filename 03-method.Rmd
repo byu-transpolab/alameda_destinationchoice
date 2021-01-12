@@ -305,10 +305,12 @@ identified paths, while around 40% of the identified parks have playgrounds and
 sport fields.
 
 ```{r park-attributes, results="asis"}
-park_attributes_data <- datasummary_balance(
-  ~ type,  
+datasummary_balance(
+  ~ Type,  
   data = attributed_parks %>% 
-    select(Access = access, Acres = acres, type, Playground = playground, 
+    transmute(Access = access, Acres = acres, 
+           Type = ifelse(grepl("Recreation Area", type), "Recreation Area" ,type),
+           Playground = playground, 
            `Any Sport Field` = pitch, 
            `Football / Soccer` = `football / soccer`,
            `Baseball` = baseball, `Basketball` = basketball,
@@ -316,12 +318,6 @@ park_attributes_data <- datasummary_balance(
            Trail = trail, 
            `Mobile Devices` =attractions), 
   dinm = FALSE, caption = "Park Summary Statistics", booktabs = TRUE)
-
-if(knitr::is_latex_output()){
-  park_attributes_data %>% kableExtra::kable_styling(table.envir = "sidewaystable")
-} else {
-  park_attributes_data
-}
 ```
 
 
