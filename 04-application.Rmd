@@ -286,7 +286,7 @@ if(knitr::is_latex_output()) {
 
 
 
-## Model Application
+## Model Application: Equity Analysis of COVID-19 Street Openings
 
 In spring and summer 2020, cities across the world responded to the COVID-19
 pandemic by converting city streets into temporary pedestrian plazas. The stated
@@ -379,18 +379,25 @@ but it is possible to convert the surplus into monetary units by diving the
 surplus by a cost utility coefficient. The dataset used for this research does
 not have any information on travel costs or entrance fees, and such data would
 likely not be relevant in the context of urban parks. As a result, there is no
-direct link between the utility and a monetary cost in our estimated models. As
-a substitution, the regional travel model employed by MTC (the MPO) uses a cost
-coefficient of $-0.6$ divided by the simulated agents's value of time to
-determine destination choices for non-work trips.^[To be precise, this is the
-cost coefficient on the mode choice model for social, recreational, and other
-trip purposes, which influences destination choice through a logsum-based
-impedance term.]
-This value of time varies by the agent's income, but using the population median
-value of $7.75 per hour results in a cost coefficient on the destination choice
-utility of $-0.215$. Dividing the difference in accessibility logsums by the
-negative of this value can provide an initial estimate of the monetary value of
-the policy to each park user.
+direct link between the utility and a monetary cost in our estimated models. 
+
+As a substitution, we use an estimate of the cost coefficient obtained from the 
+open-source activity-based travel demand model ActivitySim, which is itself 
+based on the regional travel model employed by the Metropolitan
+Transportation Commission (MTC), the San Francisco Bay regional MPO. 
+ActivitySim uses a cost coefficient of
+$-0.6$ divided by the each simulated agent's value of time to determine
+destination choices for non-work trips.^[To be precise, this is the cost
+coefficient on the mode choice model for social, recreational, and other trip
+purposes, which influences destination choice through a logsum-based impedance
+term.] In ActivitySim, as in most activity-based travel models, the value of
+time is considered to vary with an individual's income, but in this aggregate
+destination choice model, an aggregate value of time will suffice. The average
+value of time in the synthetic population for the Bay Area is $7.75
+per hour, resulting in a cost coefficient on the destination choice utility of
+$-0.215$. Dividing the difference in accessibility logsums by the negative of
+this value gives an initial estimate of the monetary value of the policy
+to each park user.
 
 ```{r logsums}
 logsums <- lapply(list("Base" = base_choices, "Streets" = street_choices), function(df){
@@ -413,10 +420,11 @@ blockgroups <- read_rds("data/blockgroups.rds") %>%
 Figure \@ref(fig:logsumsmap) presents this monetary valuation spatially.
 Unsurprisingly, the benefits are concentrated in the block groups surrounding
 the opened streets. Most residents of central Oakland see a benefit of somewhere
-around \$1, while some zones see an equivalent benefit of as much as \$30. There
-is some benefit assigned just for having more options, though this is small and
-on the order of 10 cents for most block groups away from where the street
-openings occured.
+around \$1, while some zones see an equivalent benefit of as much as \$30. One
+property of logsum-based accessibility terms is that there is some benefit given
+for simply having more options, whether or not those options are attractive in
+any way. In this application, these benefits are small, on the order of 10 cents
+for most block groups away from where the street openings occurred.
 
 ```{r logsumsmap, fig.cap="Monetary value of street opening to residents based on utility change.", cache=FALSE}
 bins <- c(0, 0.1, 0.25, 0.5, 1, 2, 10, 35)
@@ -448,6 +456,40 @@ if(knitr::is_latex_output()) {
     addLegend("bottomleft", pal = diff_pal, values = ~diff_ls, title = "Value of Street Opening")
 }
 ```
+
+More interesting than the total benefit or even its spatial distribution, however,
+is the social equity of its distribution among different population segments. 
+If we assign the block-group level monetary benefit to each household in the block
+group, we can begin to allocate the distribution of benefits proportionally to
+households of different sociodemographic classifications. Specifically, if a block
+group with $N$ total households has a measured consumer surplus $\delta CS$, then the
+share of the total benefits going to a particular population segment $k$ is
+
+\begin{equation}
+  S_k = N * P_k * \delta CS
+  (\#eq:cs-alloc)
+\end{equation}
+
+where and $P_k$ is the proportion of the block group's population in segment $k$.
+There is some opportunity for confusion when some demographic variables we use 
+(share of households with children, household income) are defined at the 
+household level and other (ethnicity) are defined at the person level. It is similarly
+not clear whether the benefits of improved park access should be assigned at 
+the person level, the household level, or the number of total park trip makers in
+each block group. For consistency and simplicity, we assert that the benefit is
+assigned to each household, and that persons receive a proportional share of the
+household benefit. For example, a block group with 30% Black individuals will
+receive 30% of the benefits assigned to all the households in the block group. 
+
+Table \@ref(tab:equity) shows the total benefit assigned to households in this way 
+as well as the share of all monetary benefits in the region. In some cases, the
+policy of opening streets as public spaces had a pro-social benefit, as 18.7\%
+of benefits went to Black individuals, even though only 11.4\% of the population
+of Alameda County is Black. Similarly, roughly one-quarter of total benefits
+went to households making less than \$35,000 per year even though only one-fifth
+of the households are in this category. On the other hand, a smaller than
+expected share of benefits is allocated to Asian individuals and households making
+more than $125,000 per year.
 
 ```{r equity}
 # percent of households / individuals in each group
@@ -492,7 +534,15 @@ left_join( bene_dist, pop_dist, by = "group" ) %>%
   kable_styling()
 ```
 
-
-
-
+By this analysis, the policy to open streets as pedestrian plazas and public
+spaces appears to be a pro-social policy with substantial benefits to the 
+community. There are some limitations and caveats that ought to be considered;
+for example, COVID-19 led to the closure of some park facilities that were not
+captured in this analysis. This policy would lead to a decrease in the consumer 
+surplus for park access, which might overwhelm or at least change the distribution 
+of benefits we measured here. A policy of permanently closing these streets to
+vehicle traffic would also have potentially deleterious effects on
+transportation access that would need to be considered against the benefits 
+we measure here; in the case of the COVID-19 quarantine, the opportunity 
+cost of closing a street to nonexistent vehicle traffic is basically zero.
 
