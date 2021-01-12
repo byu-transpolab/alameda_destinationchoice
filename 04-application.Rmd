@@ -503,7 +503,7 @@ demonames <- c("Households with Children under 6", "Income < $35k",
 pop_dist <- blockgroups %>% st_set_geometry(NULL) %>% as_tibble()  %>%
   mutate(all = 100) %>%
   mutate_at( demovars, (~ ./100 * households)) %>%
-  select(demovars) %>%
+  select(all_of(demovars)) %>%
   summarise_all(~sum(., na.rm = TRUE)) %>%
   gather("group", "population") %>%
   mutate(
@@ -514,7 +514,7 @@ bene_dist <- blockgroups %>% st_set_geometry(NULL) %>% as_tibble()  %>%
   # benefit is the choice benefit * households * proportion of category 
   mutate(all = 100) %>%
   mutate_at( demovars, (~ ./100 * households * diff_ls)) %>%
-  select(demovars) %>%
+  select(all_of(demovars)) %>%
   summarise_all(~sum(., na.rm = TRUE)) %>%
   gather("group", "benefit")    %>% 
   mutate(
