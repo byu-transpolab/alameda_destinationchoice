@@ -21,6 +21,8 @@ this_crs <- 2227 # EPSG:2227 – NAD83 / California zone 3 (ftUS)
 bb <- getbb("Alameda County, California", format_out = "polygon")
 options(tigris_use_cache = TRUE)
 options(dplyr.summarise.inform = FALSE)
+
+source("R/methods.R")
 ```
 
 
@@ -227,9 +229,20 @@ attributed_parks <- parks %>%
 
 ```{r parks-map, fig.cap="Location of parks in Alameda County.", warning=FALSE, cache = FALSE}
 if(knitr::is_latex_output()) {
-  alameda_back <- get_googlemap(c(lon = -122.1300334, lat = 37.69427), 
-                                zoom = 9, maptype = "terrain", color = "bw") 
-  plot(st_transform(parks, 3857)[,"access"], bgMap = alameda_back)
+  pbox <- st_bbox(st_transform(parks, 4326))
+  alameda_back <- get_map(c(lon = mean(pbox[c(1, 3)]), 
+                            lat = mean(pbox[c(2, 4)]) ), 
+                          zoom = 10, source = "stamen", color = "bw")
+  alameda_back <- ggmap_bbox(alameda_back)
+  
+  ggmap(alameda_back, extent = "device") + 
+    coord_sf(crs = st_crs(3857), 
+             xlim = c(-122.29674 , -122.16358), 
+             ylim = c( 37.74098, 37.87028), expand = FALSE) + 
+    geom_sf(data = parks %>% st_transform(3857), inherit.aes = FALSE,
+            fill = "green", lwd = 0)  + 
+    theme(axis.line = element_line(color = NA))  + 
+    xlab("") + ylab("")
 } else {
   leaflet() %>%
     addProviderTiles(providers$Esri.WorldGrayCanvas) %>%

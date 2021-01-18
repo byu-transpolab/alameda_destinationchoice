@@ -435,7 +435,7 @@ if(knitr::is_latex_output()) {
                                 zoom = 11, source = "stamen", color = "bw")
   alameda_back <- ggmap_bbox(alameda_back)
   
-  ggmap(alameda_back) + 
+  ggmap(alameda_back, extent = "device") + 
     coord_sf(crs = st_crs(3857), 
              xlim = c(-122.29674 , -122.16358), 
              ylim = c( 37.74098, 37.87028), expand = FALSE) + 
@@ -443,7 +443,8 @@ if(knitr::is_latex_output()) {
             aes(fill = cut(diff_ls, breaks = bins)), lwd = 0) + 
     scale_fill_manual("Monetary Benefit ($)", values = mypal) +
     geom_sf(data = slowstreets, color = "black", inherit.aes = FALSE) + 
-    theme_bw()
+    theme(axis.line = element_line(color = NA))  + 
+    xlab("") + ylab("")
     
 } else {
   diff_pal <- colorBin(palette = mypal, domain = blockgroups$diff_ls, bins = bins )
