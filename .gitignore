@@ -5,6 +5,10 @@
 *.aux
 *.log
 *.spl
+*.bbl
+*.blg
+*.out
+*.synctex.gz
 R/*_cache/*
 data/shortest_paths/*
 data/shortest_paths.7z
@@ -14,3 +18,5 @@ data/logitdata.rds
 alameda_destinationchoice.Rmd
 _bookdown_files
 data/streets/
+alameda_destinationchoice_files/*
+alameda_destinationchoice_cache/*
