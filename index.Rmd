@@ -3,20 +3,21 @@ title: "If you build it who will come? Equity analysis of park system changes us
 author:
   - name: Gregory Macfarlane
     email: gregmacfarlane@byu.edu
-    affiliation: Brigham Young University
+    affiliation: BYU
     footnote: 1
-    authors:
   - name: Teresa Tapia
-    address: StreetLight Data, Inc.
     email: teresa.tapia@streetlightdata.com
+    affiliation: StreetLight
   - name: Carole Turley-Voulgaris
-    email: cvoularis@gsd.harvard.edu
-    affiliation: Harvard Graduate School of Design
+    email: cvoulgaris@gsd.harvard.edu
+    affiliation: Harvard
 address:
-  - code: Brigham Young University
-    address: Civil and Environmental Engineering Department, 430 Engineering Building, Provo, Utah 84602
-  - code: Harvard University
-    address: Some Other Place
+  - code: BYU
+    address: Brigham Young University, Civil and Environmental Engineering Department, 430 Engineering Building, Provo, Utah 84602
+  - code:  Harvard
+    address: Harvard Graduate School of Design, 48 Quincy St, Cambridge, Massachussetts 02138
+  - code: StreetLight
+    address: StreetLight Data, Inc., San Francisco, California
 footnote:
   - code: 1
     text: "Corresponding Author"
