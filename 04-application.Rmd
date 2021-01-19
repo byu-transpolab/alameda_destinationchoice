@@ -302,7 +302,7 @@ income and ethnic groups.
 
 ```{r closed-streets}
 attributed_parks <- read_rds("data/attributed_parks.rds")
-slowstreets <- st_read("data/slow_streets.geojson")  %>%
+slowstreets <- st_read("data/slow_streets.geojson", quiet = TRUE)  %>%
   st_transform(this_crs) 
 
 street_parks <- slowstreets %>%
