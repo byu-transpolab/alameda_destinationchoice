@@ -372,7 +372,7 @@ street_choices <-  left_join(
 Using this new dataset --- augmented with parks added by street openings --- we
 applied the "Sport Detail" non-segmented model to calculate park choice utilities 
 and utility-based accessibility values for each block group in Alameda County. 
-As shown with equation \@ref(eq:logsum), the difference in utility-based
+As shown with Equation \@ref(eq:logsum), the difference in utility-based
 accessibility values with and without the opened streets is the consumer 
 surplus provided by the policy. This surplus is given in a unitless utility,
 but it is possible to convert the surplus into monetary units by diving the
