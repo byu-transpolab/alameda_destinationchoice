@@ -186,11 +186,13 @@ we use the threshold definitions based on in \@ref(tab:acs-table).
 ```{r grouped-modelsummary}
 modelsummary(
   models, stars = TRUE, output = "kableExtra",
-  coef_map = this_map, gof_omit = "BIC",
+  coef_map = this_map, gof_omit = "BIC", 
   title = "Estimated Model Coefficients with Block Group Segmentations"
 ) %>%
   add_header_above(c(" " = 1, "Minority" = 3, "Income" = 3, "Children" = 3)) %>%
-  scroll_box(width = "100%", box_css = "border: 0px;")
+  scroll_box(width = "100%", box_css = "border: 0px;") %>%
+  landscape() %>%
+  kable_styling(latex_options = c("striped", "scale_down"))
 ```
 
 The model estimates in Table \@ref(tab:grouped-modelsummary) reveal that there 
@@ -526,13 +528,18 @@ left_join( bene_dist, pop_dist, by = "group" ) %>%
   mutate(
     group = demonames,
     group = fct_relevel(group, "All Households", after = 1),
-    diff = pct_benefit - pct_pop
+    diff = pct_benefit - pct_pop,
+    benefit = scales::dollar(benefit),
+    population = scales::comma(population)
   ) %>%
   kbl(caption = "Equity Distribution of Street Opening Benefits", booktabs = TRUE, 
-      col.names = c("Group", "Benefit", "Percent of All Benefits", "Households", 
-                    "Percent of Population", "Difference in Distribution"),
-      digits = c(0, 0, 2, 0, 2, 4)) %>%
-  kable_styling()
+      col.names = c("Group", "Benefit", "Percent of Benefits", "Households", 
+                    "Percent of Households", "Difference in Distribution"),
+      digits = c(0, 0, 2, 0, 2, 4),
+      align = c('l', rep('c', 5))) %>%
+  kable_styling() %>%
+  column_spec(1, width = "1.8in") %>%
+  column_spec(2:6, width = "0.8in")
 ```
 
 By this analysis, the policy to open streets as pedestrian plazas and public
