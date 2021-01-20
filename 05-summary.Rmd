@@ -81,3 +81,9 @@ data sets therefore enable analyses that would be unlikely or impossible by
 other means. Challenges to the representativeness and comprehensiveness of
 passive data products are in many cases fair, but this should not preclude their
 use in cases where traditional techniques are not practicable.
+
+
+# Acknowledgments {-}
+
+Graphics and tables were developed using several open-source R packages 
+[@ggmap; @modelsummary;@wesanderson].
