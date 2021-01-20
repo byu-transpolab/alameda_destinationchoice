@@ -1,4 +1,4 @@
-\documentclass[]{elsarticle} %review=doublespace preprint=single 5p=2 column
+\documentclass[3p, authoryear]{elsarticle} %review=doublespace preprint=single 5p=2 column
 %%% Begin My package additions %%%%%%%%%%%%%%%%%%%
 \usepackage[hyphens]{url}
 
@@ -88,14 +88,15 @@
 \begin{frontmatter}
 
   \title{If you build it who will come? Equity analysis of park system changes using passive origin-destination data}
-    \author[Brigham Young University]{Gregory Macfarlane\corref{1}}
+    \author[BYU]{Gregory Macfarlane\corref{1}}
    \ead{gregmacfarlane@byu.edu} 
-    \author[]{Teresa Tapia}
+    \author[StreetLight]{Teresa Tapia}
    \ead{teresa.tapia@streetlightdata.com} 
-    \author[Harvard Graduate School of Design]{Carole Turley-Voulgaris}
-   \ead{cvoularis@gsd.harvard.edu} 
-      \address[Brigham Young University]{Civil and Environmental Engineering Department, 430 Engineering Building, Provo, Utah 84602}
-    \address[Harvard University]{Some Other Place}
+    \author[Harvard]{Carole Turley-Voulgaris}
+   \ead{cvoulgaris@gsd.harvard.edu} 
+      \address[BYU]{Brigham Young University, Civil and Environmental Engineering Department, 430 Engineering Building, Provo, Utah 84602}
+    \address[Harvard]{Harvard Graduate School of Design, 48 Quincy St, Cambridge, Massachussetts 02138}
+    \address[StreetLight]{StreetLight Data, Inc., San Francisco, California}
       \cortext[1]{Corresponding Author}
   
   \begin{abstract}
@@ -513,7 +514,7 @@ the imputed home locations can be far away from the study area for a small
 amount of trips and are unlikely to represent common or repeated park
 activities.
 
-Table \ref{tab:parks-table} presents descriptive statistics
+Table \ref{tab:park-attributes} presents descriptive statistics
 on the 500 parks assembled for this study, grouped according to the
 park type as defined on CPAD. A little more than half of the parks have
 identified paths, while around 40\% of the identified parks have playgrounds and
@@ -523,35 +524,38 @@ sport fields.
 
 \caption{\label{tab:park-attributes}Park Summary Statistics}
 \centering
-\begin{tabular}[t]{llllllll}
+\begin{tabular}[t]{llllll}
 \toprule
-\multicolumn{2}{c}{ } & \multicolumn{2}{c}{Local Park (N=441)} & \multicolumn{2}{c}{Local Recreation Area (N=57)} & \multicolumn{2}{c}{State Recreation Area (N=2)} \\
-\cmidrule(l{3pt}r{3pt}){3-4} \cmidrule(l{3pt}r{3pt}){5-6} \cmidrule(l{3pt}r{3pt}){7-8}
-  &    & Mean & Std. Dev. & Mean  & Std. Dev.  & Mean   & Std. Dev.  \\
+\multicolumn{2}{c}{ } & \multicolumn{2}{c}{Local Park (N=441)} & \multicolumn{2}{c}{Recreation Area (N=59)} \\
+\cmidrule(l{3pt}r{3pt}){3-4} \cmidrule(l{3pt}r{3pt}){5-6}
+  &    & Mean & Std. Dev. & Mean  & Std. Dev. \\
 \midrule
-Acres &  & 59.8 & 370.5 & 115.2 & 509.6 & 421.0 & 271.7\\
-Mobile Devices &  & 1450.0 & 6685.4 & 2749.5 & 6250.4 & 80.5 & 113.8\\
+Acres &  & 59.8 & 370.5 & 125.6 & 505.1\\
+Mobile Devices &  & 1450.0 & 6685.4 & 2659.0 & 6161.0\\
 \midrule
- &  & N & \% & N & \% & N & \%\\
-Access & Open Access & 441 & 88.2 & 57 & 11.4 & 2 & 0.4\\
- & No Public Access & 0 & 0.0 & 0 & 0.0 & 0 & 0.0\\
- & Restricted Access & 0 & 0.0 & 0 & 0.0 & 0 & 0.0\\
-Playground & FALSE & 224 & 44.8 & 42 & 8.4 & 2 & 0.4\\
- & TRUE & 217 & 43.4 & 15 & 3.0 & 0 & 0.0\\
-Any Sport Field & FALSE & 276 & 55.2 & 37 & 7.4 & 2 & 0.4\\
- & TRUE & 165 & 33.0 & 20 & 4.0 & 0 & 0.0\\
-Football / Soccer & FALSE & 415 & 83.0 & 49 & 9.8 & 2 & 0.4\\
- & TRUE & 26 & 5.2 & 8 & 1.6 & 0 & 0.0\\
-Baseball & FALSE & 364 & 72.8 & 43 & 8.6 & 2 & 0.4\\
- & TRUE & 77 & 15.4 & 14 & 2.8 & 0 & 0.0\\
-Basketball & FALSE & 341 & 68.2 & 50 & 10.0 & 2 & 0.4\\
- & TRUE & 100 & 20.0 & 7 & 1.4 & 0 & 0.0\\
-Tennis & FALSE & 387 & 77.4 & 51 & 10.2 & 2 & 0.4\\
- & TRUE & 54 & 10.8 & 6 & 1.2 & 0 & 0.0\\
-Volleyball & FALSE & 434 & 86.8 & 55 & 11.0 & 2 & 0.4\\
- & TRUE & 7 & 1.4 & 2 & 0.4 & 0 & 0.0\\
-Trail & FALSE & 155 & 31.0 & 22 & 4.4 & 0 & 0.0\\
- & TRUE & 286 & 57.2 & 35 & 7.0 & 2 & 0.4\\
+ &  & N & \% & N & \%\\
+type & Local Park & 441 & 88.2 & 0 & 0.0\\
+ & Local Recreation Area & 0 & 0.0 & 57 & 11.4\\
+ & State Recreation Area & 0 & 0.0 & 2 & 0.4\\
+Access & Open Access & 441 & 88.2 & 59 & 11.8\\
+ & No Public Access & 0 & 0.0 & 0 & 0.0\\
+ & Restricted Access & 0 & 0.0 & 0 & 0.0\\
+Playground & FALSE & 224 & 44.8 & 44 & 8.8\\
+ & TRUE & 217 & 43.4 & 15 & 3.0\\
+Any Sport Field & FALSE & 276 & 55.2 & 39 & 7.8\\
+ & TRUE & 165 & 33.0 & 20 & 4.0\\
+Football / Soccer & FALSE & 415 & 83.0 & 51 & 10.2\\
+ & TRUE & 26 & 5.2 & 8 & 1.6\\
+Baseball & FALSE & 364 & 72.8 & 45 & 9.0\\
+ & TRUE & 77 & 15.4 & 14 & 2.8\\
+Basketball & FALSE & 341 & 68.2 & 52 & 10.4\\
+ & TRUE & 100 & 20.0 & 7 & 1.4\\
+Tennis & FALSE & 387 & 77.4 & 53 & 10.6\\
+ & TRUE & 54 & 10.8 & 6 & 1.2\\
+Volleyball & FALSE & 434 & 86.8 & 57 & 11.4\\
+ & TRUE & 7 & 1.4 & 2 & 0.4\\
+Trail & FALSE & 155 & 31.0 & 22 & 4.4\\
+ & TRUE & 286 & 57.2 & 37 & 7.4\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -622,9 +626,11 @@ parameters between different socioeconomic groups.
 The logarithm of the sum in the denominator of Equation \ref{eq:p} (called the
 logsum) provides a measure of the consumer surplus of the choice set
 \citep{Williams1977a},
-\begin{equation}\label{eq:logsum}
+\begin{equation}
 CS_n = \ln{{\sum_{j \in J}\exp(V_{nj})}} + C
+  \label{eq:logsum}
 \end{equation}
+
 where \(C\) is a constant indicating an unknown absolute value. But comparing the
 relative logsum values across choice makers, \(CS_n - CS_{n-1}\) gives an
 indication of which choice maker has a more valuable choice set. Or, in this
@@ -759,46 +765,48 @@ Another set of model segmentation relies on the share of the population in each
 block group with household incomes above or below certain thresholds. Again,
 we use the threshold definitions based on in \ref{tab:acs-table}.
 
-\begin{table}
+\begin{landscape}\begin{table}
 
 \caption{\label{tab:grouped-modelsummary}Estimated Model Coefficients with Block Group Segmentations}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lccccccccc}
 \toprule
 \multicolumn{1}{c}{ } & \multicolumn{3}{c}{Minority} & \multicolumn{3}{c}{Income} & \multicolumn{3}{c}{Children} \\
 \cmidrule(l{3pt}r{3pt}){2-4} \cmidrule(l{3pt}r{3pt}){5-7} \cmidrule(l{3pt}r{3pt}){8-10}
   & > 30\% Asian & > 30\% Black & Other & > 30\% Low income & > 50\% High income & Other  & > 25\% children & < 5\% children & Other  \\
 \midrule
-log(Distance) & -1.328*** & -1.522*** & -1.377*** & -1.419*** & -1.309*** & -1.394*** & -1.236*** & -1.594*** & -1.398***\\
+\cellcolor{gray!6}{log(Distance)} & \cellcolor{gray!6}{-1.328***} & \cellcolor{gray!6}{-1.522***} & \cellcolor{gray!6}{-1.377***} & \cellcolor{gray!6}{-1.419***} & \cellcolor{gray!6}{-1.309***} & \cellcolor{gray!6}{-1.394***} & \cellcolor{gray!6}{-1.236***} & \cellcolor{gray!6}{-1.594***} & \cellcolor{gray!6}{-1.398***}\\
  & (0.038) & (0.064) & (0.031) & (0.051) & (0.051) & (0.029) & (0.059) & (0.083) & (0.026)\\
-log(Acres) & 0.373*** & 0.305*** & 0.343*** & 0.338*** & 0.342*** & 0.354*** & 0.313*** & 0.372*** & 0.356***\\
+\cellcolor{gray!6}{log(Acres)} & \cellcolor{gray!6}{0.373***} & \cellcolor{gray!6}{0.305***} & \cellcolor{gray!6}{0.343***} & \cellcolor{gray!6}{0.338***} & \cellcolor{gray!6}{0.342***} & \cellcolor{gray!6}{0.354***} & \cellcolor{gray!6}{0.313***} & \cellcolor{gray!6}{0.372***} & \cellcolor{gray!6}{0.356***}\\
  & (0.020) & (0.033) & (0.017) & (0.027) & (0.028) & (0.015) & (0.030) & (0.044) & (0.014)\\
-Playground & -0.520*** & -0.395*** & -0.628*** & -0.515*** & -0.499*** & -0.585*** & -0.431*** & -0.879*** & -0.540***\\
+\cellcolor{gray!6}{Playground} & \cellcolor{gray!6}{-0.520***} & \cellcolor{gray!6}{-0.395***} & \cellcolor{gray!6}{-0.628***} & \cellcolor{gray!6}{-0.515***} & \cellcolor{gray!6}{-0.499***} & \cellcolor{gray!6}{-0.585***} & \cellcolor{gray!6}{-0.431***} & \cellcolor{gray!6}{-0.879***} & \cellcolor{gray!6}{-0.540***}\\
  & (0.085) & (0.122) & (0.070) & (0.104) & (0.123) & (0.063) & (0.124) & (0.180) & (0.057)\\
-Trail & 0.658*** & 0.361*** & 0.638*** & 0.306*** & 0.896*** & 0.612*** & 0.122 & 0.744*** & 0.638***\\
+\cellcolor{gray!6}{Trail} & \cellcolor{gray!6}{0.658***} & \cellcolor{gray!6}{0.361***} & \cellcolor{gray!6}{0.638***} & \cellcolor{gray!6}{0.306***} & \cellcolor{gray!6}{0.896***} & \cellcolor{gray!6}{0.612***} & \cellcolor{gray!6}{0.122} & \cellcolor{gray!6}{0.744***} & \cellcolor{gray!6}{0.638***}\\
  & (0.095) & (0.128) & (0.076) & (0.109) & (0.148) & (0.068) & (0.126) & (0.190) & (0.062)\\
-Basketball & -0.011 & -0.357* & -0.422*** & -0.187 & -0.109 & -0.300*** & -0.316* & -0.301 & -0.215***\\
+\cellcolor{gray!6}{Basketball} & \cellcolor{gray!6}{-0.011} & \cellcolor{gray!6}{-0.357*} & \cellcolor{gray!6}{-0.422***} & \cellcolor{gray!6}{-0.187} & \cellcolor{gray!6}{-0.109} & \cellcolor{gray!6}{-0.300***} & \cellcolor{gray!6}{-0.316*} & \cellcolor{gray!6}{-0.301} & \cellcolor{gray!6}{-0.215***}\\
  & (0.109) & (0.184) & (0.102) & (0.153) & (0.160) & (0.088) & (0.172) & (0.262) & (0.078)\\
-Baseball & 0.130 & 0.192 & -0.012 & 0.054 & -0.108 & 0.139 & 0.127 & -0.038 & 0.085\\
+\cellcolor{gray!6}{Baseball} & \cellcolor{gray!6}{0.130} & \cellcolor{gray!6}{0.192} & \cellcolor{gray!6}{-0.012} & \cellcolor{gray!6}{0.054} & \cellcolor{gray!6}{-0.108} & \cellcolor{gray!6}{0.139} & \cellcolor{gray!6}{0.127} & \cellcolor{gray!6}{-0.038} & \cellcolor{gray!6}{0.085}\\
  & (0.112) & (0.172) & (0.097) & (0.145) & (0.165) & (0.085) & (0.168) & (0.256) & (0.076)\\
-Football / Soccer & -0.479*** & -1.068*** & -0.359*** & -0.886*** & -0.263 & -0.451*** & -0.163 & -0.964*** & -0.538***\\
+\cellcolor{gray!6}{Football / Soccer} & \cellcolor{gray!6}{-0.479***} & \cellcolor{gray!6}{-1.068***} & \cellcolor{gray!6}{-0.359***} & \cellcolor{gray!6}{-0.886***} & \cellcolor{gray!6}{-0.263} & \cellcolor{gray!6}{-0.451***} & \cellcolor{gray!6}{-0.163} & \cellcolor{gray!6}{-0.964***} & \cellcolor{gray!6}{-0.538***}\\
  & (0.153) & (0.283) & (0.137) & (0.226) & (0.223) & (0.120) & (0.228) & (0.357) & (0.110)\\
-Tennis & 0.386*** & -0.535** & 0.315*** & -0.096 & 0.659*** & 0.201** & 0.348** & -0.059 & 0.229***\\
+\cellcolor{gray!6}{Tennis} & \cellcolor{gray!6}{0.386***} & \cellcolor{gray!6}{-0.535**} & \cellcolor{gray!6}{0.315***} & \cellcolor{gray!6}{-0.096} & \cellcolor{gray!6}{0.659***} & \cellcolor{gray!6}{0.201**} & \cellcolor{gray!6}{0.348**} & \cellcolor{gray!6}{-0.059} & \cellcolor{gray!6}{0.229***}\\
  & (0.108) & (0.210) & (0.095) & (0.163) & (0.146) & (0.085) & (0.163) & (0.264) & (0.076)\\
-Volleyball & 0.703*** & -0.077 & 0.452** & 0.433 & 0.446* & 0.593*** & 0.549* & 0.424 & 0.610***\\
+\cellcolor{gray!6}{Volleyball} & \cellcolor{gray!6}{0.703***} & \cellcolor{gray!6}{-0.077} & \cellcolor{gray!6}{0.452**} & \cellcolor{gray!6}{0.433} & \cellcolor{gray!6}{0.446*} & \cellcolor{gray!6}{0.593***} & \cellcolor{gray!6}{0.549*} & \cellcolor{gray!6}{0.424} & \cellcolor{gray!6}{0.610***}\\
  & (0.197) & (0.615) & (0.212) & (0.403) & (0.257) & (0.177) & (0.329) & (0.538) & (0.154)\\
-Other Sport & -0.051 & -0.258 & -0.212* & -0.495** & 0.010 & -0.133 & 0.268 & -0.417 & -0.223**\\
+\cellcolor{gray!6}{Other Sport} & \cellcolor{gray!6}{-0.051} & \cellcolor{gray!6}{-0.258} & \cellcolor{gray!6}{-0.212*} & \cellcolor{gray!6}{-0.495**} & \cellcolor{gray!6}{0.010} & \cellcolor{gray!6}{-0.133} & \cellcolor{gray!6}{0.268} & \cellcolor{gray!6}{-0.417} & \cellcolor{gray!6}{-0.223**}\\
  & (0.141) & (0.252) & (0.126) & (0.222) & (0.184) & (0.112) & (0.212) & (0.334) & (0.100)\\
 \midrule
-Num.Obs. & 1365 & 579 & 2027 & 777 & 758 & 2436 & 544 & 358 & 3069\\
+\cellcolor{gray!6}{Num.Obs.} & \cellcolor{gray!6}{1365} & \cellcolor{gray!6}{579} & \cellcolor{gray!6}{2027} & \cellcolor{gray!6}{777} & \cellcolor{gray!6}{758} & \cellcolor{gray!6}{2436} & \cellcolor{gray!6}{544} & \cellcolor{gray!6}{358} & \cellcolor{gray!6}{3069}\\
 AIC & 3939.0 & 1739.9 & 5561.4 & 2396.3 & 1908.9 & 6975.0 & 1810.6 & 895.4 & 8574.4\\
-Log.Lik. & -1959.519 & -859.966 & -2770.689 & -1188.142 & -944.432 & -3477.497 & -895.280 & -437.678 & -4277.200\\
+\cellcolor{gray!6}{Log.Lik.} & \cellcolor{gray!6}{-1959.519} & \cellcolor{gray!6}{-859.966} & \cellcolor{gray!6}{-2770.689} & \cellcolor{gray!6}{-1188.142} & \cellcolor{gray!6}{-944.432} & \cellcolor{gray!6}{-3477.497} & \cellcolor{gray!6}{-895.280} & \cellcolor{gray!6}{-437.678} & \cellcolor{gray!6}{-4277.200}\\
 rho2 &  &  &  &  &  &  &  &  & \\
-rho20 & 0.401 & 0.381 & 0.430 & 0.362 & 0.480 & 0.405 & 0.314 & 0.490 & 0.419\\
+\cellcolor{gray!6}{rho20} & \cellcolor{gray!6}{0.401} & \cellcolor{gray!6}{0.381} & \cellcolor{gray!6}{0.430} & \cellcolor{gray!6}{0.362} & \cellcolor{gray!6}{0.480} & \cellcolor{gray!6}{0.405} & \cellcolor{gray!6}{0.314} & \cellcolor{gray!6}{0.490} & \cellcolor{gray!6}{0.419}\\
 \bottomrule
 \multicolumn{10}{l}{\textsuperscript{} * p < 0.1, ** p < 0.05, *** p < 0.01}\\
-\end{tabular}
+\end{tabular}}
 \end{table}
+\end{landscape}
 
 The model estimates in Table \ref{tab:grouped-modelsummary} reveal that there
 is noticeable heterogeneity in the response among different socioeconomic
@@ -849,15 +857,6 @@ models estimated above to evaluate the benefits of this policy in terms of
 aggregate value, as well as the equity of the policy with respect to different
 income and ethnic groups.
 
-\begin{verbatim}
-## Reading layer `slow_streets' from data source `/Users/gregmacfarlane/projects/alameda_destinationchoice/data/slow_streets.geojson' using driver `GeoJSON'
-## Simple feature collection with 74 features and 8 fields
-## geometry type:  MULTILINESTRING
-## dimension:      XY
-## bbox:           xmin: -13614010 ymin: 4542899 xmax: -13599190 ymax: 4561117
-## CRS:            3857
-\end{verbatim}
-
 We obtained the list of streets in Alameda County that were reported closed
 in the ``Shifting Streets'' COVID-19 mobility dataset \citep{slowstreets}. This dataset
 reports that 74 individual streets were closed to vehicle
@@ -874,7 +873,7 @@ boundary of each new open space facility created by this policy.
 Using this new dataset --- augmented with parks added by street openings --- we
 applied the ``Sport Detail'' non-segmented model to calculate park choice utilities
 and utility-based accessibility values for each block group in Alameda County.
-As shown with equation \eqref{eq:logsum}, the difference in utility-based
+As shown with Equation \eqref{eq:logsum}, the difference in utility-based
 accessibility values with and without the opened streets is the consumer
 surplus provided by the policy. This surplus is given in a unitless utility,
 but it is possible to convert the surplus into monetary units by diving the
@@ -954,19 +953,19 @@ more than \$125,000 per year.
 
 \caption{\label{tab:equity}Equity Distribution of Street Opening Benefits}
 \centering
-\begin{tabular}[t]{lrrrrr}
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{1.8in}>{\centering\arraybackslash}p{0.8in}>{\centering\arraybackslash}p{0.8in}>{\centering\arraybackslash}p{0.8in}>{\centering\arraybackslash}p{0.8in}>{\centering\arraybackslash}p{0.8in}}
 \toprule
-Group & Benefit & Percent of All Benefits & Households & Percent of Population & Difference in Distribution\\
+Group & Benefit & Percent of Benefits & Households & Percent of Households & Difference in Distribution\\
 \midrule
-Households with Children under 6 & 91530 & 14.15 & 86095 & 15.13 & -0.9828\\
-Income < \$35k & 157608 & 24.36 & 102580 & 18.03 & 6.3330\\
-Income > \$125k & 164211 & 25.38 & 190573 & 33.49 & -8.1090\\
-Black & 120749 & 18.66 & 64929 & 11.41 & 7.2526\\
-Asian & 125397 & 19.38 & 159001 & 27.94 & -8.5599\\
+Households with Children under 6 & \$91,530 & 14.15 & 86,095 & 15.13 & -0.9828\\
+Income < \$35k & \$157,608 & 24.36 & 102,580 & 18.03 & 6.3330\\
+Income > \$125k & \$164,211 & 25.38 & 190,573 & 33.49 & -8.1090\\
+Black & \$120,749 & 18.66 & 64,929 & 11.41 & 7.2526\\
+Asian & \$125,397 & 19.38 & 159,001 & 27.94 & -8.5599\\
 \addlinespace
-Other & 9522 & 1.47 & 7878 & 1.38 & 0.0874\\
-White / Hispanic & 391355 & 60.49 & 337262 & 59.27 & 1.2200\\
-All Households & 647023 & 100.00 & 569070 & 100.00 & 0.0000\\
+Other & \$9,522 & 1.47 & 7,878 & 1.38 & 0.0874\\
+White / Hispanic & \$391,355 & 60.49 & 337,262 & 59.27 & 1.2200\\
+All Households & \$647,023 & 100.00 & 569,070 & 100.00 & 0.0000\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1069,6 +1068,13 @@ data sets therefore enable analyses that would be unlikely or impossible by
 other means. Challenges to the representativeness and comprehensiveness of
 passive data products are in many cases fair, but this should not preclude their
 use in cases where traditional techniques are not practicable.
+
+\hypertarget{acknowledgments}{%
+\section*{Acknowledgments}\label{acknowledgments}}
+\addcontentsline{toc}{section}{Acknowledgments}
+
+Graphics and tables were developed using several open-source R packages
+\citep{ggmap, modelsummary, wesanderson}.
 
 \bibliography{book.bib}
 

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>If you build it who will come? Equity analysis of park system changes using passive origin-destination data</title>
+  <title>Acknowledgments | If you build it who will come? Equity analysis of park system changes using passive origin-destination data</title>
   <meta name="description" content="Alameda Park Choice" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="If you build it who will come? Equity analysis of park system changes using passive origin-destination data" />
+  <meta property="og:title" content="Acknowledgments | If you build it who will come? Equity analysis of park system changes using passive origin-destination data" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="If you build it who will come? Equity analysis of park system changes using passive origin-destination data" />
+  <meta name="twitter:title" content="Acknowledgments | If you build it who will come? Equity analysis of park system changes using passive origin-destination data" />
   
   <meta name="twitter:description" content="Alameda Park Choice" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="literature.html"/>
+<link rel="prev" href="conclusions.html"/>
+<link rel="next" href="references.html"/>
 <style type="text/css">
 p.abstract{
   text-align: center;
@@ -201,80 +201,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">If you build it who will come? Equity analysis of park system changes using passive origin-destination data</h1>
-<p class="author"><em>Gregory Macfarlane</em></p>
-<address class="author_afil">
-BYU<br><a class="author_email" href="mailto:#"><a href="mailto:gregmacfarlane@byu.edu" class="email">gregmacfarlane@byu.edu</a></a>
-</address>
-<p class="author"><em>Teresa Tapia</em></p>
-<address class="author_afil">
-StreetLight<br><a class="author_email" href="mailto:#"><a href="mailto:teresa.tapia@streetlightdata.com" class="email">teresa.tapia@streetlightdata.com</a></a>
-</address>
-<p class="author"><em>Carole Turley-Voulgaris</em></p>
-<address class="author_afil">
-Harvard<br><a class="author_email" href="mailto:#"><a href="mailto:cvoulgaris@gsd.harvard.edu" class="email">cvoulgaris@gsd.harvard.edu</a></a>
-</address>
-<p class="date"><em>2021-01-19</em></p>
-<div class="abstract">
-<p class="abstract">Abstract</p>
-<p>Parks provide important benefits to those who live near them, in the form of improved property values, health outcomes, etc.; nevertheless, measuring and understanding who lives near a park is an open research question. In particular, it is not well understood which park individuals will choose to use when given a choice among a set of nearby parks of varying sizes and at varying distances from their home. In this paper we present a park activity location choice model estimated from a passive origin-destination dataset — supplied by StreetLight Data, Inc. — representing trips to parks and green spaces in Alameda County, California. The estimated model parameters reveal heterogeneous preferences for park size and willingness-to-travel across block-group level socioeconomic segmentation: Specifically, high-income block groups appear more positively attracted to larger parks, and block groups with a high proportion of ethnic minority individuals are more likely to select nearby parks. The findings have importance for understanding recreational access among different populations, and the methodology more generally supplies a potential template for using passive data products within travel modeling.</p>
-</div>
-</div>
-<div id="intro" class="section level1">
-<h1><span class="header-section-number"> 1</span> Introduction</h1>
-<p>Parks and other green spaces generate immense value for the public who are able
-to access them. The <span class="citation">City Parks Alliance (2019)</span> categorizes the observed benefits of
-urban parks as encouraging active lifestyles <span class="citation">(Bancroft et al. 2015)</span>, contributing to
-local economies, aiding in stormwater management and flood mitigation,
-improving local air quality, increasing community engagement <span class="citation">(Madzia et al. 2018)</span>, and
-enhancing public equity.</p>
-<p>Nevertheless, understanding and quantifying these benefits depends in many
-cases on identifying who lives near the parks and is therefore able to access
-them. Many previous studies <span class="citation">(e.g., Richardson et al. 2012)</span> rely on comparison of total
-greenspace across metropolitan areas; this methodology may not adequately
-control for city-level fixed effects and it may ignore the potentially
-inequitable distribution of park space within a region. Studies focusing on
-access within metropolitan areas typically assume that people living within a
-certain distance or travel time threshold have access to a park, or examine the
-quantity of park space within one’s own arbitrarily defined “neighborhood”
-<span class="citation">(Mitchell and Popham 2008, Stark2014)</span>. But these methods do not account for the fact that
-some people will travel to other parks to perform recreational activities. A
-more holistic measure that continuously measures access across multiple
-preference dimensions is desirable.</p>
-<p>An appealing solution would be to examine and model the activity location
-choices of park users. Such a model would help researchers understand how
-individuals of different backgrounds and preferences value different park
-amenities. Further, the logsums of a location choice model provide a continuous
-measure of accessibility that explicitly accounts for such variation
-<span class="citation">(Jong et al. 2007)</span>. Unfortunately, park choice models of this form are rare in the
-literature. Travel demand models built for infrastructure forecasting are a
-common way to generate such accessibility logsums, but these models group many
-different kinds of social and recreational trips together <span class="citation">(National Academies of Sciences Engineering and Medicine 2012)</span>. Further,
-the attraction term for such trip purposes is commonly a function of the retail
-or service employment or the number of households at the destination; a typical
-park or green space has neither employees nor residents. Finally, many regional
-household travel surveys are oriented towards an average weekday travel
-pattern, and many park trips occur irregularly or on weekends.</p>
-<p>In this paper we present a park destination choice model where individuals
-living in Alameda County, California choose among parks in the same county. The
-individuals are constructed from passive data that was derived from mobile
-devices and processed using algorithms developed by StreetLight Data, Inc. The
-origin location points are inferred residence block groups for unique devices
-and the destination points are geofenced polygons representing green and open
-spaces. The individuals’ choice of park location is conditioned on the distance
-from the block group to the parks in the choice set as well as the size of each
-park; market segmentation allows for heterogeneous responses between ethnic
-groups and income strata.</p>
-<p>The paper proceeds in the following manner: A discussion of prior attempts to
-study park choice and employ passive origin-destination data in the literature
-is given directly. The Methodology section presents the data gathering and
-cleaning efforts as well as the econometric location choice model. The Results
-section presents the estimated model coefficients and a discussion of the
-findings, as well as a model validation exercise. After presenting limitations
-and associated avenues for future research, a final Conclusions section
-outlines the contributions of this study for recreational trip modeling and
-location choice modeling more generally.</p>
+<div id="acknowledgments" class="section level1 unnumbered">
+<h1>Acknowledgments</h1>
+<p>Graphics and tables were developed using several open-source R packages
+<span class="citation">(Kahle and Wickham 2013; Arel-Bundock 2020; Ram and Wickham 2018)</span>.</p>
 
 </div>
             </section>
@@ -282,8 +212,8 @@ location choice modeling more generally.</p>
           </div>
         </div>
       </div>
-
-<a href="literature.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="conclusions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
