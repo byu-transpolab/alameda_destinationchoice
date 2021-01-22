@@ -358,14 +358,11 @@ variables <- c(
   "population" = "B02001_001", # TOTAL: RACE
   "housing_units" = "B25001_001", # HOUSING UNITS
   "households" = "B19001_001", #HOUSEHOLD INCOME IN THE PAST 12 MONTHS (IN 2017 INFLATION-ADJUSTED DOLLARS)
-  # RACE
-  "black" = "B02001_003",
-  "asian" = "B02001_005",
-  "pacific" = "B02001_006",
-  "nativeam" = "B02001_004",
-  # HISPANIC OR LATINO ORIGIN BY SPECIFIC ORIGIN
-  # The number of hispanic individuals needs to be drawn from a different table.
-  "hispanic" = "B03001_003",
+  # Hispanic or Latino Origin by Race
+  "white" = "B03002_003",
+  "black" = "B03002_004",
+  "asian" = "B03002_006",
+  "hispanic" = "B03002_012",
   #MEDIAN HOUSEHOLD INCOME IN THE PAST 12 MONTHS (IN 2017 INFLATION-ADJUSTED DOLLARS)
   "income" = "B19013_001",
   # FAMILY TYPE BY PRESENCE AND AGE OF RELATED CHILDREN
@@ -403,8 +400,8 @@ acs <- get_acs(geography = "block group", variables = variables, year = 2017,
     highincome   = 100 * (inc_125 + inc_150 + inc_200) / households,
     black        = 100 * black / population,
     asian        = 100 * asian / population,
-    other_race   = 100 * (nativeam + pacific) / population,
-    white_hisp   = 100 - black - asian - other_race
+    hispanic     = 100 * hispanic / population,
+    white        = 100 * white / population
   ) %>%
   filter(population > 0)
 
@@ -439,15 +436,13 @@ acs_for_table <- acs %>% select(
     "Children: Share of households with children under 6" = children,
     "Black: Share of population who is Black" = black,
     "Asian: Share of population who is Asian" = asian,
-    "Other: Share of population who belong to other minority groups" = other_race)
+    "Hispanic: Share of population who is Hispanic" = hispanic,
+    "White: Share of population who is White" = white)
 
-if(knitr::is_latex_output()){ 
-  datasummary_skim(acs_for_table, title = "Block Group Summary Statistics",
-    histogram = FALSE, output = "latex") %>%
-    kableExtra::column_spec(1, width = "3cm")
-} else {
-  datasummary_skim( acs_for_table, title = "Block Group Summary Statistics")
-}
+datasummary_skim(acs_for_table, title = "Block Group Summary Statistics",
+  histogram = !knitr::is_latex_output()) %>%
+  kableExtra::column_spec(1, width = "3cm") %>%
+  kableExtra::add_footnote("Hispanic indicates Hispanic individuals of all races; non-Hispanic individuals report a single race alone.")
 ```
 
 
@@ -554,7 +549,7 @@ logitdata <- mydata %>%
   left_join(attributed_parks, by = c("park" = "id")) %>%
   
   # append block group attributes
-  left_join(acs %>% select(geoid, density:other_race) %>% st_set_geometry(NULL),
+  left_join(acs %>% select(geoid, density:white) %>% st_set_geometry(NULL),
             by = c("home" = "geoid")
    
 )

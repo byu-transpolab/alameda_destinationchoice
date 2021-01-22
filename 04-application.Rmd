@@ -129,6 +129,7 @@ minority_models <- estim %>%
   mutate(group = case_when(
     black > 30 ~ "black",
     asian > 30 ~ "asian",
+    hispanic > 30 ~ "hispanic",
     TRUE ~ "other"
   )) %>%
   filter(!is.na(group)) %>%
@@ -157,7 +158,8 @@ child_models <- estim %>%
   )
 models <- list(
   "> 30% Asian" = minority_models$mnl[[1]],
-  "> 30% Black" = minority_models$mnl[[3]],
+  "> 30% Black" = minority_models$mnl[[4]],
+  "> 30% Hispanic" = minority_models$mnl[[3]],
   "Other" = minority_models$mnl[[2]],
   "> 30% Low income" = income_models$mnl[[1]],
   "> 50% High income" = income_models$mnl[[3]],
@@ -189,7 +191,7 @@ modelsummary(
   coef_map = this_map, gof_omit = "BIC", 
   title = "Estimated Model Coefficients with Block Group Segmentations"
 ) %>%
-  add_header_above(c(" " = 1, "Minority" = 3, "Income" = 3, "Children" = 3)) %>%
+  add_header_above(c(" " = 1, "Minority" = 4, "Income" = 3, "Children" = 3)) %>%
   scroll_box(width = "100%", box_css = "border: 0px;") %>%
   landscape() %>%
   kable_styling(latex_options = c("striped", "scale_down"))
@@ -268,7 +270,8 @@ dat <- modelplot(split_models$mnl %>%
 
 # make the plot
 these_colors <- wesanderson::wes_palettes$Darjeeling1
-split_plots <- ggplot(dat, aes(x = share, y = estimate, ymin = conf.low, ymax = conf.high, 
+split_plots <- ggplot(dat, aes(x = share, y = estimate, 
+                               ymin = conf.low, ymax = conf.high, 
                 color = Segmentation, fill = Segmentation)) + 
   theme_minimal() +
   geom_line() + 
@@ -497,9 +500,9 @@ more than $125,000 per year.
 ```{r equity}
 # percent of households / individuals in each group
 demovars <- c("children", "lowincome", "highincome", "black", 
-              "asian", "other_race", "white_hisp", "all")
+              "asian", "hispanic", "white", "all")
 demonames <- c("Households with Children under 6", "Income < $35k",
-               "Income > $125k", "Black", "Asian", "Other", "White / Hispanic", 
+               "Income > $125k", "Black", "Asian", "Hispanic", "White", 
                "All Households")
 
 # Raw demographic totals
