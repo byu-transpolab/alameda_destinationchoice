@@ -458,7 +458,7 @@ if(knitr::is_latex_output()) {
     addProviderTiles(providers$Esri.WorldGrayCanvas) %>%
     addPolygons(fillColor = ~diff_pal(diff_ls), 
                 stroke = FALSE, fillOpacity = 1) %>%
-    addPolylines(data = slowstreets %>% st_transform(4326), color = "green") %>%
+    addPolylines(data = slowstreets %>% st_transform(4326), color = "grey") %>%
     addLegend("bottomleft", pal = diff_pal, values = ~diff_ls, title = "Value of Street Opening")
 }
 ```
