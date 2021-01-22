@@ -531,18 +531,17 @@ left_join( bene_dist, pop_dist, by = "group" ) %>%
   mutate(
     group = demonames,
     group = fct_relevel(group, "All Households", after = 1),
-    diff = pct_benefit - pct_pop,
     benefit = scales::dollar(benefit),
     population = scales::comma(population)
   ) %>%
   kbl(caption = "Equity Distribution of Street Opening Benefits", booktabs = TRUE, 
       col.names = c("Group", "Benefit", "Percent of Benefits", "Households", 
-                    "Percent of Households", "Difference in Distribution"),
-      digits = c(0, 0, 2, 0, 2, 4),
-      align = c('l', rep('c', 5))) %>%
+                    "Percent of Households"),
+      digits = c(0, 0, 2, 0, 2),
+      align = c('l', rep('c', 4))) %>%
   kable_styling() %>%
   column_spec(1, width = "1.8in") %>%
-  column_spec(2:6, width = "0.8in")
+  column_spec(2:5, width = "1in")
 ```
 
 By this analysis, the policy to open streets as pedestrian plazas and public
