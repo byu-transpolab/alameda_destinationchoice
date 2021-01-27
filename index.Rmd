@@ -32,7 +32,24 @@ keywords:
   - Passive Data
   - Location Choice
 abstract: |
-  Parks provide important benefits to those who live near them, in the form of improved property values, health outcomes, etc.; nevertheless, measuring and understanding who lives near a park is an open research question. In particular, it is not well understood which park individuals will choose to use when given a choice among a set of nearby parks of varying sizes and at varying distances from their home. In this paper we present a park activity location choice model estimated from a passive origin-destination dataset --- supplied by StreetLight Data, Inc. --- representing trips to parks and green spaces in Alameda County, California. The estimated model parameters reveal heterogeneous preferences for park size and willingness-to-travel across block-group level socioeconomic segmentation: Specifically, high-income block groups appear more positively attracted to larger parks, and block groups with a high proportion of ethnic minority individuals are more likely to select nearby parks. The findings have importance for understanding recreational access among different populations, and the methodology more generally supplies a potential template for using passive data products within travel modeling.
+  During the spring and summer of 2020, many cities across the world adopted a
+  policy of converting roadway facilities into open pedestrian spaces. This
+  policy was designed to meaningfully improve access to public recreation areas, 
+  but the degree to which this access improved among different populations is an
+  important research question. In particular, academic and practical methods 
+  to measure socio-spatial access to park facilites rely on arbitrary definitions
+  and are not based in revealed preferences for park facilities. In this study,
+  we evaluate the change in a utility-based park accessibility measure resulting 
+  from street conversions in Alameda County, California. Our utility-based 
+  accessibility measure is constructed from a park activity location choice model
+  we estimate using mobile device data --- supplied by StreetLight Data, Inc. ---
+  representing trips to parks in that county. The estimated model reveals
+  heterogeneity in inferred affinity for park attributes among different
+  sociodemographic groups. When applied to the street conversion policy in 
+  Alameda County, the model suggests an aggregate household-level consumer surplus
+  of over $100 thousand (per park trip frequency). This surplus is pro-social
+  in that Black and low-income households receive a greater share of the 
+  surplus than expected based on the population distribution. 
 description: "Alameda Park Choice"
 ---
 
