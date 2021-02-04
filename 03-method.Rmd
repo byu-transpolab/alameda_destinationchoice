@@ -411,7 +411,11 @@ write_rds(acs, "data/blockgroups.rds")
 
 ```{r net_distances}
 # distances computed in py/shortest_paths.py
-path_files <- dir("data/shortest_paths/", full.names = TRUE)
+shortest_path_dir <- "data/shortest_paths"
+if(!dir.exists(shortest_path_dir)) {
+  system2("7z", args = c("x", "data/shortest_paths.7z", "-odata/"))
+}
+path_files <- dir(shortest_path_dir, full.names = TRUE)
 distance_df <- lapply(path_files, function(file) {
   read_csv(file, col_types = list(geoid = col_character(), park_id = col_character())) %>%
   mutate(
