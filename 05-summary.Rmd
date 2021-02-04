@@ -1,4 +1,4 @@
-# Limitations and Future Directions
+# Limitations and Future Directions {#limitations}
 The ideal dataset for estimating individual choices would be a high-quality,
 large-sample household travel survey of real individuals. Such a survey would
 give details on whether an observed trip to a park was actually a recreation
@@ -52,7 +52,7 @@ play in the relative attractiveness of parks for different market segments. The
 quality of park maintenance is another important feature identified in the
 recreation literature [@Fletcher2003] that is not included here.
 
-# Conclusions
+# Conclusions {#conclusions}
 
 As transportation professionals seek to improve access to parks and better
 coordinate transportation and land use efforts --- and as researchers more

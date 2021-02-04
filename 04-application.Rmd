@@ -1,4 +1,4 @@
-# Results
+# Results {#results}
 
 ```{r estimation-setup, message=FALSE, warning=FALSE, cache = FALSE}
 library(tidyverse)
@@ -341,7 +341,7 @@ shortest_path_dir <- "data/shortest_paths_street"
 if(!dir.exists(shortest_path_dir)) {
   system2("7z", args = c("x", "data/shortest_paths_street.7z", "-odata/"))
 }
-path_files <- dir("data/streets/", full.names = TRUE)
+path_files <- dir("data/shortest_paths_street/", full.names = TRUE)
 street_distances <- lapply(path_files, function(file) {
   read_csv(file, col_types = list(geoid = col_character(), park_id = col_character())) %>%
   mutate(
