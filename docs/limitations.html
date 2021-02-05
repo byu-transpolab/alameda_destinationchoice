@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>If you build it who will come? Equity analysis of park system changes using passive origin-destination data</title>
+  <title> 5 Limitations and Future Directions | If you build it who will come? Equity analysis of park system changes using passive origin-destination data</title>
   <meta name="description" content="Alameda Park Choice" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="If you build it who will come? Equity analysis of park system changes using passive origin-destination data" />
+  <meta property="og:title" content=" 5 Limitations and Future Directions | If you build it who will come? Equity analysis of park system changes using passive origin-destination data" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="If you build it who will come? Equity analysis of park system changes using passive origin-destination data" />
+  <meta name="twitter:title" content=" 5 Limitations and Future Directions | If you build it who will come? Equity analysis of park system changes using passive origin-destination data" />
   
   <meta name="twitter:description" content="Alameda Park Choice" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="literature.html"/>
+<link rel="prev" href="results.html"/>
+<link rel="next" href="conclusions.html"/>
 <style type="text/css">
 p.abstract{
   text-align: center;
@@ -201,110 +201,64 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">If you build it who will come? Equity analysis of park system changes using passive origin-destination data</h1>
-<p class="author"><em>Gregory Macfarlane</em></p>
-<address class="author_afil">
-BYU<br><a class="author_email" href="mailto:#"><a href="mailto:gregmacfarlane@byu.edu" class="email">gregmacfarlane@byu.edu</a></a>
-</address>
-<p class="author"><em>Teresa Tapia</em></p>
-<address class="author_afil">
-StreetLight<br><a class="author_email" href="mailto:#"><a href="mailto:teresa.tapia@streetlightdata.com" class="email">teresa.tapia@streetlightdata.com</a></a>
-</address>
-<p class="author"><em>Carole Turley-Voulgaris</em></p>
-<address class="author_afil">
-Harvard<br><a class="author_email" href="mailto:#"><a href="mailto:cvoulgaris@gsd.harvard.edu" class="email">cvoulgaris@gsd.harvard.edu</a></a>
-</address>
-<p class="date"><em>2021-02-04</em></p>
-<div class="abstract">
-<p class="abstract">Abstract</p>
-<p>During the spring and summer of 2020, many cities across the world adopted a
-policy of converting roadway facilities into open pedestrian spaces. This
-policy was designed to meaningfully improve access to public recreation areas,
-but the degree to which this access improved among different populations is an
-important research question. In particular, academic and practical methods
-to measure socio-spatial access to park facilites rely on arbitrary definitions
-and are not based in revealed preferences for park facilities. In this study,
-we evaluate the change in a utility-based park accessibility measure resulting
-from street conversions in Alameda County, California. Our utility-based
-accessibility measure is constructed from a park activity location choice model
-we estimate using mobile device data — supplied by StreetLight Data, Inc. —
-representing trips to parks in that county. The estimated model reveals
-heterogeneity in inferred affinity for park attributes among different
-sociodemographic groups. When applied to the street conversion policy in
-Alameda County, the model suggests an aggregate household-level consumer surplus
-of over $100 thousand (per park trip frequency). This surplus is pro-social
-in that Black and low-income households receive a greater share of the
-surplus than expected based on the population distribution.</p>
-</div>
-</div>
-<div id="intro" class="section level1">
-<h1><span class="header-section-number"> 1</span> Introduction</h1>
-<p>Parks and other green spaces generate immense value for the public who are able
-to access them. The <span class="citation">City Parks Alliance (2019)</span> categorizes the observed benefits of
-urban parks as encouraging active lifestyles <span class="citation">(Bancroft et al. 2015)</span>, contributing to
-local economies, aiding in stormwater management and flood mitigation,
-improving local air quality, increasing community engagement <span class="citation">(Madzia et al. 2018)</span>, and
-enhancing public equity.</p>
-<p>For many, the value of public parks and open public spaces increased during the
-widespread lockdowns enacted in 2020 to slow the transmission of COVID-19. With
-many other entertainment venues shuttered and people otherwise confined to their
-homes, periodic use of public space provided many with emotional relief
-unavailable in other forms. Paired with this increased demand for public open
-space — and the with the epidemiological requirement to leave sufficient space
-between other users — was the related collapse in demand for vehicular travel.
-As a result, cities around the world began closing select streets to automobile
-travel, thereby opening them as pedestrian plazas. The effective result of this
-policy was to create a number of “parks” in urban areas that may have had
-poor access previously. Understanding the equitable distribution of these
-benefits is an important land use policy issue. The potential for non-emergency
-temporary or permanent street conversions also brings up interesting problems
-for land use and transportation policy; indeed, the possibility for
-transportation infrastructure to itself become a socially beneficial land use is
-a tantalizing proposition.</p>
-<p>Unfortunately, quantifying the benefits derived from access to parks in general
-is a complicated problem. Many previous attempts at quantifying access in terms
-of isochronal distances or greenspace concentration have resulted in a
-frustrating lack of clarity on the relationship between thus measured access and
-measures of physical and emotional health <span class="citation">(Bancroft et al. 2015)</span>. Central to this
-confusion is the simple fact that people do not always use the nearest park,
-especially if it does not have qualities that they find attractive. A better
-methodology would be to evaluate the park activity location choices of people in
-a metropolitan area to identify which features of parks — distance, amenities,
-size, etc. — are valued and which are less valued. The resulting activity
-location choice model would enable the evaluation of utility benefits via the
-choice model logsum <span class="citation">(Handy and Niemeier 1997; Jong et al. 2007)</span>.</p>
-<p>In this study, we seek to evaluate the socio-spatial distribution of benefits
-received by residents of Alameda County, California resulting from the
-temporary conversion of streets to public open spaces during the spring and summer
-of 2020. We estimate a park activity location choice model using location-based
-services (LBS) data obtained through StreetLight Data, Inc., a commercial data
-aggregator. The resulting model illuminates the degree to which constructed
-individuals living in U.S. Census block groups of varying sociodemographic
-characteristics value the travel distance between block group and parks, the
-size of the parks, and the amenities of parks including sport fields,
-playgrounds, and walking trails in Alameda county. We then apply this model to
-examine the inferred monetary benefit resulting from the street conversion
-policy, and its distribution among different sociodemographic groups.</p>
-<p>The paper proceeds in the following manner: A <a href="literature.html#literature">discussion</a> of prior attempts to
-evaluate park accessibility and preferences is given directly. A <a href="methodology.html#methodology">Methodology</a>
-section presents our data gathering and cleaning efforts as well as the
-econometric framework for the location choice model. A <a href="results.html#results">Results</a> section
-presents the estimated choice model coefficients alongside a discussion of their
-implications, followed by an analysis of the implied benefits resulting from the
-street conversion policy. After presenting <a href="limitations.html#limitations">limitations</a> and associated avenues
-for future research, a final <a href="conclusions.html#conclusions">Conclusions</a> section outlines the contributions of
-this study for recreational trip modeling and location choice modeling more
-generally.</p>
-
+<div id="limitations" class="section level1">
+<h1><span class="header-section-number"> 5</span> Limitations and Future Directions</h1>
+<p>The ideal dataset for estimating individual choices would be a high-quality,
+large-sample household travel survey of real individuals. Such a survey would
+give details on whether an observed trip to a park was actually a recreation
+trip or rather a different activity entirely. The individual-level demographic
+data would also be valuable in understanding more clearly the observed
+heterogeneity in response among different income or ethnic groups. Additionally,
+the trends and correlations revealed in the presented models may reflect
+situational inequalities rather than true preferences. For example, the
+distinct observed parameters on size and distance for minority block groups may
+indicate that areas with large minority populations tend to have smaller parks
+that are more geographically distributed relative to other regions of the region.
+Transit access may also affect park choice and how far people are willing to
+travel to access a park. Preliminary analysis of our source data indicates a
+qualitative correlation between good transit access and diverse park use from
+both a geographic and demographic perspective.</p>
+<p>We limited our analysis to home locations and parks in Alameda County,
+California. It is possible that some Alameda residents visit parks in
+neighboring counties, just as it is possible that parks in Alameda County
+attract trips from outside the county borders. This is most likely for block
+groups and parks on the north and south borders of the county. The lower
+measured accessibility in the area around Berkeley in the northern part of the
+county () is likely affected by the ommission of parks and residents in Contra
+Costa County.</p>
+<p>Using Euclidean distance to represent the distance between the block group
+centroid and the border of the park leaves something to be desired: Depending on
+network topography and built environment characteristics, there may be a
+significant variation in perceived travel times between two parks with similar
+straight-line distances. That said, a more precise network-based measure might
+not overcome the inaccuracies resulting from our necessarily measuring distances
+from the block group centroid. As above, an individual-level survey where the
+home location is explicitly known would be preferable regardless of the distance
+method employed.</p>
+<p>The activity location data used in this specific analysis treats all days of the
+week and day periods together; it is likely that weekend park choice is
+substantially different from weekday choice, as the activities performed may be
+the same. Also recall that the data consider each device-park pair as a unique
+trip. Repeated trips to the same park may not be properly considered in the data
+sample. A more precise time-of-day and day-of-week segmentation is warranted.</p>
+<p>We applied a naive random sampling of the alternatives in our model estimation
+and validation; a more considered approach involving hierarchical destination
+sampling may yield more efficient estimates and therefore a clearer picture of
+the role of size, distance, and other amenities on the observed choices. The
+relatively weak predictive power of such a simple model formulation (size and
+distance only) indicates that there is potential to examine the role that
+additional park amenities — ball fields, playgrounds, water features, etc. —
+play in the relative attractiveness of parks for different market segments. The
+quality of park maintenance is another important feature identified in the
+recreation literature <span class="citation">(Fletcher and Fletcher 2003)</span> that is not included here.</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="literature.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="results.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="conclusions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
