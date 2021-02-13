@@ -8,6 +8,7 @@
 *.bbl
 *.blg
 *.out
+*.synctex
 *.synctex.gz
 R/*_cache/*
 data/shortest_paths/*
