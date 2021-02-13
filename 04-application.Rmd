@@ -11,6 +11,12 @@ library(ggmap)
 library(leaflet)
 knitr::opts_chunk$set(cache = TRUE)
 
+inline_hook <- function(x) {
+  if (is.numeric(x)) {
+    format(x, digits = 3, big.mark = ",")
+  } else x
+}
+knitr::knit_hooks$set(inline = inline_hook)
 # overloaded methods for doing prediction with mlogit objects
 source("R/methods.R")
 
