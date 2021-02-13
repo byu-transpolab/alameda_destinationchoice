@@ -59,19 +59,20 @@ this_crs <- 2227 # EPSG:2227 – NAD83 / California zone 3 (ftUS)
 ```{r load}
 logitdata <- read_rds("data/logitdata.rds")
 dfi <- logit_converter(logitdata)
-estim <- filter(dfi, validation)
-valid <- filter(dfi, !validation)
+valid <- filter(dfi, validation)
+estim <- dfi
 ```
 
-We estimated multinomial logit park activity location choice models including
-coefficients for the distance between the park and the home block group and the
-acreage of the park. We applied a Yeo-Johnson transformation [@Yeo2000] to both
-distance and acreage; the Yeo-Johnson transformation replicates the constant
-marginal elasticity of a logarithmic transformation while avoiding undefined
-values ($YJ(0) = 0$). For simplicity, we call this transformation `log()` in the
-model results tables. Using a constant marginal elasticity is better reflective
-of how people perceive distances and sizes; a one-mile increase to a trip
-distance is more impactful to a one-mile trip than a ten-mile trip.
+We estimated multinomial logit park activity location choice models on the
+datset described in the previous section. We applied a Yeo-Johnson
+transformation [@Yeo2000] to both distance the distance (in meters) between the
+park and the block group centroid, and to the park acreage. The Yeo-Johnson
+transformation replicates the constant marginal elasticity of a logarithmic
+transformation while avoiding undefined values (e.g., $YJ(0) = 0$). For
+simplicity, we call this transformation `log()` in the model results tables.
+Using a constant marginal elasticity is better reflective of how people perceive
+distances and sizes; a one-mile increase to a trip distance matters more to
+a two-mile trip than a ten-mile trip.
 
 ```{r base_models}
 base_models <- list(
@@ -107,7 +108,7 @@ of any sport field is considered with a single dummy value, and in the "Sport
 Detail" model this variable is disaggregated into facilities for different 
 sports. The value of the size and distance coefficients change modestly from
 the "Network Distance" model, with the implied size to distance trade-off rising
-to `r d_ratio_base`. Examining the two amenities models --- independently and in 
+to `r d_ratio_sport`. Examining the two amenities models --- independently and in 
 comparison with each other --- reveals a few surprising findings. First, it 
 appears that playgrounds and sport fields in general contribute *negatively* to 
 the choice utility equation. This is both unintuitive and contradictory to
@@ -116,9 +117,9 @@ sports separately, there is a wide variety of observed response with tennis and
 volleyball facilities attracting more trips, and football and basketball
 facilities attracting fewer, all else equal. Trails and walking paths give 
 substantive positive utility in both models. The difference in likelihood statistics
-between the three models is significant (likelihood ratio test 
-$p$-value  `r detail_lrt`), and so in spite of the curious aggregate findings,
-we move forward with this utility specification.
+between the three models is significant (likelihood ratio test between Sport Detail
+and Park Attributes model has $p$-value  `r detail_lrt`), and so in spite of the
+curious aggregate findings, we move forward with this utility specification.
 
 ```{r base-modelsummary}
 modelsummary(
@@ -132,11 +133,8 @@ modelsummary(
 
 ```{r grouped_models}
 minority_models <- estim %>%
-  mutate(group = case_when(
-    black > 30 ~ "black",
-    asian > 30 ~ "asian",
-    hispanic > 30 ~ "hispanic",
-    TRUE ~ "other"
+  mutate(group = case_when( black > 30 ~ "black", asian > 30 ~ "asian", 
+                            hispanic > 30 ~ "hispanic", TRUE ~ "othermin"
   )) %>%
   filter(!is.na(group)) %>%
   group_by(group) %>% nest() %>% ungroup() %>%
@@ -146,7 +144,7 @@ minority_models <- estim %>%
   ) 
 income_models <- estim %>%
   mutate(group = case_when(lowincome > 30 ~ "lowincome", 
-                           highincome > 50 ~ "highincome", TRUE ~ "other")) %>%
+                           highincome > 50 ~ "highincome", TRUE ~ "otherinc")) %>%
   filter(!is.na(group)) %>%
   group_by(group) %>% nest() %>% ungroup() %>%
   mutate(
@@ -155,45 +153,54 @@ income_models <- estim %>%
   )
 child_models <- estim %>%
   mutate(group = case_when(children > 25 ~ "children", 
-                           children < 5 ~ "few children", TRUE ~ "other")) %>%
+                           children < 5 ~ "few children", TRUE ~ "otherch")) %>%
   filter(!is.na(group)) %>%
   group_by(group) %>% nest() %>% ungroup() %>%
   mutate(
     data = map(data, logit_converter),
     mnl = map(data, group_mnl)
   )
-models <- list(
-  "> 30% Asian" = minority_models$mnl[[1]],
-  "> 30% Black" = minority_models$mnl[[4]],
-  "> 30% Hispanic" = minority_models$mnl[[3]],
-  "Other" = minority_models$mnl[[2]],
-  "> 30% Low income" = income_models$mnl[[1]],
-  "> 50% High income" = income_models$mnl[[3]],
-  "Other" = income_models$mnl[[2]],
-  "> 25% children" = child_models$mnl[[3]],
-  "< 5% children" = child_models$mnl[[2]],
-  "Other" = child_models$mnl[[1]]
-)
+
+grouped_models <- lapply(list(child_models, income_models, minority_models), 
+                       function(df){
+  lapply(df$mnl, function(x) x) %>% 
+    set_names(nm = c(df$group)) 
+}) %>%
+  unlist(recursive = FALSE)
 ```
 
 It is worth investigating the heterogeneity in preferences that exist among
 different demographic groups. Though the income and ethnicity of the synthetic
 park visitors is not known, we can segment the estimation dataset based on the
 socioeconomic makeup of the visitors' residence block group. The models presented in 
-Table \@ref(tab:grouped-modelsummary) were
-estimated on segments developed in this manner. 
-Models under the "Minority" heading include a
-race-based segmentation: simulated individuals living in block groups with more
-than thirty percent Black persons are included in the ">30% Black" model, an
-analogous segmentation for block groups with high Asian populations are in the
-">30% Asian" model, and the "Other" model contains all other block groups.
-Another set of model segmentation relies on the share of the population in each
-block group with household incomes above or below certain thresholds. Again,
-we use the threshold definitions based on in \@ref(tab:acs-table).
+Table \@ref(tab:grouped-modelsummary) were estimated on segments developed in
+this manner. Models under the "Minority" heading include a race- and ethnicity-
+based segmentation: simulated individuals living in block groups with more than
+thirty percent Black persons are included in the ">30% Black" model, an
+analogous segmentation for block groups with high Asian and Hispanic populations
+are in the ">30% Asian" and ">30% Hispanic" models respectively, and the "Other"
+model contains all other block groups. Another set of model segmentation relies
+on the share of the population in each block group with household incomes above
+or below certain thresholds, and a third relies on the share of households with
+children under 6 years old. Again, we use the threshold definitions largely
+informed by the distributions in \@ref(tab:acs-table).
 
 ```{r grouped-modelsummary}
+grouped_models_clean <- list(
+  "> 30% Asian" = grouped_models$asian,
+  "> 30% Black" = grouped_models$black,
+  "> 30% Hispanic" = grouped_models$hispanic,
+  "Other" = grouped_models$othermin,
+  "> 30% Low income" = grouped_models$lowincome,
+  "> 50% High income" = grouped_models$highincome,
+  "Other" = grouped_models$otherinc,
+  "> 25% children" = grouped_models$children,
+  "< 5% children" = grouped_models$`few children`,
+  "Other" = grouped_models$otherch
+)
+
 modelsummary(
-  models, stars = TRUE, output = "kableExtra",
+  grouped_models_clean, stars = TRUE, output = "kableExtra",
   coef_map = this_map, gof_omit = "BIC", 
   title = "Estimated Model Coefficients with Block Group Segmentations"
 ) %>%
@@ -203,14 +210,17 @@ modelsummary(
   kable_styling(latex_options = c("striped", "scale_down"))
 ```
 
-The model estimates in Table \@ref(tab:grouped-modelsummary) reveal that there 
-is noticeable heterogeneity in the response among different socioeconomic
-groups. Park visitors living in block groups with a high proportion of Black and
-low-income residents show less affinity for trails and other walkways, but
-appear are also considerably to be more sensitive to the distance of a park.
-Visitors living in high-income neighborhoods are more attracted to the amenities
-of a park, or rather these visitors do not show significant negative
-coefficients for amenities,  e.g. basketball courts and football fields.
+The model estimates in Table \@ref(tab:grouped-modelsummary) reveal noticeable
+heterogeneity in the park location choices among visitors from different 
+block group segments. Park
+visitors living in block groups with a high proportion of Black and low-income
+residents show less affinity for trails and other walkways, but appear 
+considerably more sensitive to the distance to a park. Park visitors living in
+high-income neighborhoods are less sensitive to the distance to a park, but 
+receive more utility from certain amenities, in particular trails and tennis 
+courts. Block groups with a high proportion of hispanic residents and residents
+with children under 6 show the least negative response to playgrounds of 
+all the segments.
 
   
 ```{r split_models}
@@ -252,7 +262,7 @@ information about user preferences. First, it should be noted that there is
 some inconsistency: for instance, block groups with at least 40% of low income
 households show a lower importance of distance than block groups with either
 30% or 50% low income households. The increasing width of the confidence interval, 
-however, means it is difficult to make generalized statements. Residents of
+however, means it is sometimes difficult to make generalized statements. Residents of
 block groups with a higher share of Asian or high income households both show
 relatively more affinity for tennis courts and trails. Block groups with high
 Black populations show a somewhat greater preference for playgrounds, as well 
@@ -299,15 +309,10 @@ if(knitr::is_latex_output()) {
 
 ## Model Application: Equity Analysis of COVID-19 Street Openings
 
-In spring and summer 2020, cities across the world responded to the COVID-19
-pandemic by converting city streets into temporary pedestrian plazas. The stated
-goals of this policy included providing recreational space that would allow
-people to walk and exercise outside with sufficient personal space and less risk
-of conflict from vehicle traffic. This policy created several dozen temporary
-open spaces in urbanized areas of the county. In this section, we apply the
-models estimated above to evaluate the benefits of this policy in terms of
-aggregate value, as well as the equity of the policy with respect to different
-income and ethnic groups.
+In this section, we apply the models estimated above to evaluate the benefits of
+the street conversion policy in terms of aggregate value determined by the change
+in accessibility logsum, as well as the equity of the policy with respect to
+different income and ethnic groups.
 
 ```{r closed-streets}
 attributed_parks <- read_rds("data/attributed_parks.rds")
@@ -328,18 +333,20 @@ street_parks <- slowstreets %>%
   
 ```
 
-We obtained the list of streets in Alameda County that were reported closed
+We obtained the list of streets in Alameda County that were reported converted to
+public open space
 in the "Shifting Streets" COVID-19 mobility dataset [@slowstreets]. This dataset
-reports that `r nrow(street_parks)` individual streets were closed to vehicle
-traffic (and thereby opened as public spaces); these streets represent 
+reports that `r nrow(street_parks)` individual streets were converted; these streets represent 
 `r as.numeric(sum(st_length(slowstreets))) / 5280` total miles across the cities
 of Berkeley, Oakland, and Alameda. For the purposes of this analysis, we
 represent each opened street as a single "park" without any sport facilities or
 playgrounds, but with a trail / walking path. The database provides the opened
 streets as polyline objects; we assert a 25-foot buffer around the line to
-represent a polygon with a measurable area. Finally, we measure the network-based
-distance from each population-weighted block group centroid to the nearest 
-boundary of each new open space facility created by this policy.
+represent a polygon with a measurable area. The 25-foot buffer effectively counts
+one vehicle lane and one shoulder parking lane in each direction as converted to 
+"park" space. Finally, we measure the network-based distance from each
+population-weighted block group centroid to the nearest boundary of each new
+open space facility created by this policy.
 
 ```{r street_distances}
 # distances computed in py/shortest_paths.py
@@ -384,7 +391,7 @@ street_choices <-  left_join(
   logit_converter()
 ```
 
-Using this new dataset --- augmented with parks added by street openings --- we
+Using this new dataset --- augmented with parks added by street conversion --- we
 applied the "Sport Detail" non-segmented model to calculate park choice utilities 
 and utility-based accessibility values for each block group in Alameda County. 
 As shown with Equation \@ref(eq:logsum), the difference in utility-based
@@ -486,7 +493,7 @@ share of the total benefits going to a particular population segment $k$ is
   (\#eq:cs-alloc)
 \end{equation}
 
-where and $P_k$ is the proportion of the block group's population in segment $k$.
+where $P_k$ is the proportion of the block group's population in segment $k$.
 There is some opportunity for confusion when some demographic variables we use 
 (share of households with children, household income) are defined at the 
 household level and other (ethnicity) are defined at the person level. It is similarly

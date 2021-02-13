@@ -575,8 +575,7 @@ write_rds(logitdata, "data/logitdata.rds")
 The resulting analysis dataset therefore contains `r n_obs` choice makers that
 select between `r n_alts + 1` parks including the park they were observed to
 choose; the measured distance between the choice maker's block group and all
-parks in the choice set; and the acreage of each park in the choice set. We hold
-out a random sample of approximately 20% of choice makers for validation
-purposes. We use the `mlogit` package for R [@mlogit; @R] to estimate the
-multinomial logit models. 
+parks in the choice set; and the acreage of each park in the choice set.  We use
+the `mlogit` package for R [@mlogit; @R] to estimate the multinomial logit
+models.
 
