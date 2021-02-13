@@ -477,20 +477,23 @@ parameters for different segments to observe heterogeneity in the utility
 parameters between different socioeconomic groups.
 
 The logarithm of the sum in the denominator of Equation \ref{eq:p} (called the
-logsum) provides a measure of the consumer surplus of the choice set
+logsum) provides a measure of the consumer surplus of the choice set enjoyed by
+person $n$
 [@Williams1977a],
 \begin{equation}
 CS_n = \ln{{\sum_{j \in J}\exp(V_{nj})}} + C
   (\#eq:logsum)
 \end{equation}
 
-where $C$ is a constant indicating an unknown absolute value. But comparing the
-relative logsum values across choice makers, $CS_n - CS_{n-1}$ gives an
-indication of which choice maker has a more valuable choice set. Or, in this
-case of a park destination choice model, which choice maker has better access to
-parks. Such a "utility-based" accessibility term is thus continuously defined,
-dervied directly from choice theory, and can contain multiple dimensions of the
-attributes of the choice [@Handy1997;@Dong2006].
+where $C$ is a constant indicating an unknown absolute value;  the difference of 
+logsum values in two different scenarios eliminates $C$. Additionally,
+dividing the difference in logsum from choice set $J$ and choice set $J'$ by a
+cost coefficient
+$\delta CS_n = (\ln{\sum_{j \in J'}\exp(V_{nj})} - \ln{\sum_{j \in J}\exp(V_{nj})})/\beta$
+gives an estimate of the benefit received by person $n$ in monetary terms.
+Thus, such a "utility-based" accessibility term is continuously defined, contains
+multiple dimensions of the attributes of the choice, and can be evaluated
+in monetary terms [@Handy1997;@Dong2006].
 
 
 ```{r params}
