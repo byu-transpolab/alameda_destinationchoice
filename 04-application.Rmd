@@ -223,11 +223,13 @@ with children under 6 show the least negative response to playgrounds of
 all the segments.
 
   
-```{r split_models}
+```{r split_models, cache.lazy = FALSE}
 # write a function to estimate multiple MNL models on different 
 # segments of the estimation data
 estimate_split_models <- function(data, var, splits) {
+  #print(var)
   lapply(splits, function(p){
+    #print(p)
     data %>% 
       filter(.data[[var]] > p) %>% tibble() %>%
       mutate(share = p)
@@ -241,7 +243,7 @@ estimate_split_models <- function(data, var, splits) {
 }
 
 splits <- c(0, 5, 10, 15, 20, 30, 40)
-split_models <- lapply(c("black", "asian", "lowincome", "highincome", "children"), function(var) {
+split_models <- lapply(c("black", "asian", "hispanic", "lowincome", "highincome", "children"), function(var) {
   estimate_split_models(estim, var, splits) %>%
     mutate(Segmentation = var)
 }) %>% bind_rows() 
@@ -278,6 +280,7 @@ dat <- modelplot(split_models$mnl %>%
     Segmentation = case_when(
       Segmentation == "black" ~ "Black",
       Segmentation == "asian" ~ "Asian",
+      Segmentation == "hispanic" ~ "Hispanic",
       Segmentation == "lowincome" ~ "Income < $35k",
       Segmentation == "highincome" ~ "Income > $125k",
       Segmentation == "children" ~ "Children under 6"
@@ -285,7 +288,7 @@ dat <- modelplot(split_models$mnl %>%
   )
 
 # make the plot
-these_colors <- wesanderson::wes_palettes$Darjeeling1
+these_colors <- c(wesanderson::wes_palettes$Darjeeling1, "#046C9A")
 split_plots <- ggplot(dat, aes(x = share, y = estimate, 
                                ymin = conf.low, ymax = conf.high, 
                 color = Segmentation, fill = Segmentation)) + 
