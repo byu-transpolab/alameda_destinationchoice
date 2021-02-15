@@ -447,13 +447,16 @@ acs_for_table <- acs %>% select(
     "Children: Share of households with children under 6" = children,
     "Black: Share of population who is Black" = black,
     "Asian: Share of population who is Asian" = asian,
-    "Hispanic: Share of population who is Hispanic" = hispanic,
+    "Hispanic" = hispanic,
     "White: Share of population who is White" = white)
+names(acs_for_table)[8] <- paste0(kableExtra::footnote_marker_symbol(1), 
+           "Hispanic: Share of population who is Hispanic")
 
 datasummary_skim(acs_for_table, title = "Block Group Summary Statistics",
   histogram = !knitr::is_latex_output()) %>%
-  kableExtra::column_spec(1, width = "3cm") %>%
-  kableExtra::add_footnote("Hispanic indicates Hispanic individuals of all races; non-Hispanic individuals report a single race alone.")
+  kableExtra::column_spec(1, width = "4cm", latex_column_spec = "{>{\hangindent=.2in}L}") %>%
+  kableExtra::add_footnote("Hispanic indicates Hispanic individuals of all races; non-Hispanic individuals report a single race alone.") %>%
+  kableExtra::kable_styling(latex_options = c("scale_down"))
 ```
 
 
