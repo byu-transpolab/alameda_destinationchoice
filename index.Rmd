@@ -24,9 +24,9 @@ footnote:
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: article
-journal: "Submitted to Transportation Research Part C: Emerging Technologies"
+journal: "Journal of Transportation and Land Use"
 bibliography: [book.bib]
-layout: "3p, authoryear"
+layout: "3p, authoryear, review"
 keywords:
   - Accessibility
   - Passive Data
