@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2021-02-04" />
+<meta name="date" content="2021-02-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -203,54 +203,64 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="limitations" class="section level1">
 <h1><span class="header-section-number"> 5</span> Limitations and Future Directions</h1>
-<p>The ideal dataset for estimating individual choices would be a high-quality,
-large-sample household travel survey of real individuals. Such a survey would
-give details on whether an observed trip to a park was actually a recreation
-trip or rather a different activity entirely. The individual-level demographic
-data would also be valuable in understanding more clearly the observed
-heterogeneity in response among different income or ethnic groups. Additionally,
-the trends and correlations revealed in the presented models may reflect
-situational inequalities rather than true preferences. For example, the
-distinct observed parameters on size and distance for minority block groups may
-indicate that areas with large minority populations tend to have smaller parks
-that are more geographically distributed relative to other regions of the region.
-Transit access may also affect park choice and how far people are willing to
-travel to access a park. Preliminary analysis of our source data indicates a
-qualitative correlation between good transit access and diverse park use from
-both a geographic and demographic perspective.</p>
+<p>The utility-based accessibility metrics we present and apply in this paper are
+evaluated from a discrete choice model estimated on simulate decision makers
+constructed from a third-party passive origin-destination matrix. This methodological
+choice has some strengths: Foremost among these is the ability to readily and
+affordably construct a large dataset on an infrequent trip purpose.
+Most destination choice and activity location models are estimated on
+small-sample household travel surveys. Securing sufficient responses to estimate
+a rich behavioral model on a trip purpose as infrequent as parks has proven
+prohibitively expensive outside of extensive research activities
+<span class="citation">(e.g., Kaczynski et al. 2016)</span>. Using passive data sets to increase the effective
+sampling rate possible in a discrete choice model is a potentially powerful strategy,
+and its application here is an important contribution of our work.</p>
+<p>At the same time, passive data sets available from commercial providers do not
+reveal any details about the specific trip makers beyond what can be learned
+from their residence block group. In this research we were able to determine
+whether a device resided in a block group with a high proportion of low-income
+households, but could not have confidence that a particular device belonged
+to a member of such a household. Similarly, there is no information on what kind
+of trip the device-holder actually accomplished at each park. These limitations
+combined mean that it would likely be infeasible to directly observe devices
+that traveled to the converted streets during the COVID-19 lockdowns.
+The ideal dataset for estimating individual park activity location choices generally
+and in special situations would be a high-quality, large-sample household
+survey of real individuals.</p>
+<p>The individual-level demographic data would also be valuable in understanding
+more clearly the observed heterogeneity in response among different income or
+ethnic groups. The trends and correlations revealed in the
+presented models may reflect situational inequities rather than true
+preferences. For example, the distinct observed parameters on size and distance
+for block groups with high minority populations may indicate that areas with
+large minority populations tend to have smaller parks that are more
+geographically distributed relative to other areas of the region. This
+interpretation could also explain some of the non-intuitive response observed in
+our models, especially in regards to playgrounds.</p>
 <p>We limited our analysis to home locations and parks in Alameda County,
 California. It is possible that some Alameda residents visit parks in
 neighboring counties, just as it is possible that parks in Alameda County
 attract trips from outside the county borders. This is most likely for block
-groups and parks on the north and south borders of the county. The lower
-measured accessibility in the area around Berkeley in the northern part of the
-county () is likely affected by the ommission of parks and residents in Contra
-Costa County.</p>
-<p>Using Euclidean distance to represent the distance between the block group
-centroid and the border of the park leaves something to be desired: Depending on
-network topography and built environment characteristics, there may be a
-significant variation in perceived travel times between two parks with similar
-straight-line distances. That said, a more precise network-based measure might
-not overcome the inaccuracies resulting from our necessarily measuring distances
-from the block group centroid. As above, an individual-level survey where the
-home location is explicitly known would be preferable regardless of the distance
-method employed.</p>
-<p>The activity location data used in this specific analysis treats all days of the
-week and day periods together; it is likely that weekend park choice is
-substantially different from weekday choice, as the activities performed may be
-the same. Also recall that the data consider each device-park pair as a unique
-trip. Repeated trips to the same park may not be properly considered in the data
-sample. A more precise time-of-day and day-of-week segmentation is warranted.</p>
-<p>We applied a naive random sampling of the alternatives in our model estimation
-and validation; a more considered approach involving hierarchical destination
-sampling may yield more efficient estimates and therefore a clearer picture of
-the role of size, distance, and other amenities on the observed choices. The
-relatively weak predictive power of such a simple model formulation (size and
-distance only) indicates that there is potential to examine the role that
-additional park amenities — ball fields, playgrounds, water features, etc. —
-play in the relative attractiveness of parks for different market segments. The
-quality of park maintenance is another important feature identified in the
-recreation literature <span class="citation">(Fletcher and Fletcher 2003)</span> that is not included here.</p>
+groups and parks on the north and south borders of the county. The scope of this
+analysis was determined by the passive data set available for the research, but
+the county boundaries are not a general requirement for all studies of this kind.</p>
+<p>The distance to a park was represented in this study using a walk network retrieved
+from the OpenStreetMap project. Though perhaps superior to a Euclidean distance,
+this measure still has many limitations. First, we were unable to verify the
+integrity of the underlying network information; based on our prior experience,
+it is likely that some broken or improperly connected links artificially
+inflated the measured distance for an unknown number of park / block group
+pairs. A more serious limitation, however, is that experienced travel distances
+are a function of the transport mode employed by the traveler. Using bare
+distances does not provide any detail on how access to parks might be increased
+with improved transit service, for example. Using a mode-choice model logsum
+as a multi-modal impedance term in the activity location choice model would
+enable this kind of analysis.</p>
+<p>Of course, COVID-19 led to the closure of some park facilities — playgrounds,
+pavilions, and in some cases entire parks — that were not
+captured in this analysis. These closures would lead to a decrease in the consumer
+surplus for park access, which might overwhelm or at least change the distribution
+of positive benefits we measured here.</p>
 </div>
             </section>
 
