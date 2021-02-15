@@ -31,6 +31,7 @@ keywords:
   - Accessibility
   - Passive Data
   - Location Choice
+  - Parks
 abstract: |
   During the spring and summer of 2020, many cities across the world adopted a
   policy of converting roadway facilities into open pedestrian spaces. This
@@ -47,8 +48,8 @@ abstract: |
   heterogeneity in inferred affinity for park attributes among different
   sociodemographic groups. When applied to the street conversion policy in 
   Alameda County, the model suggests an aggregate household-level consumer surplus
-  of over $100 thousand (per park trip frequency). This surplus is pro-social
-  in that Black and low-income households receive a greater share of the 
+  of over \$600 thousand. This surplus is pro-social
+  in that Black, Hispanic, and low-income households receive a greater share of the 
   surplus than expected based on the population distribution. 
 description: "Alameda Park Choice"
 ---

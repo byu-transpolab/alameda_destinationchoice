@@ -309,7 +309,11 @@ that it represented the weighted unique devices traveling between block groups
 and parks. We discarded home location block groups outside of Alameda County;
 the imputed home locations can be far away from the study area for a small
 amount of trips and are unlikely to represent common or repeated park
-activities.
+activities. Table \@ref(tab:park-attributes) presents descriptive statistics
+on the `r nrow(parks)` parks assembled for this study, grouped according to the
+park type as defined on CPAD. A little more than half of the parks have
+identified paths, while around 40% of the identified parks have playgrounds and
+sport fields.
 
 ```{r parkstable}
 attributed_parks <- attributed_parks %>% group_by(type) %>%
@@ -319,11 +323,6 @@ attributed_parks <- attributed_parks %>% group_by(type) %>%
 write_rds(attributed_parks, "data/attributed_parks.rds")
 ```
 
-Table \@ref(tab:park-attributes) presents descriptive statistics
-on the `r nrow(parks)` parks assembled for this study, grouped according to the
-park type as defined on CPAD. A little more than half of the parks have
-identified paths, while around 40% of the identified parks have playgrounds and
-sport fields.
 
 ```{r park-attributes, results="asis"}
 datasummary_balance(
@@ -447,16 +446,14 @@ acs_for_table <- acs %>% select(
     "Children: Share of households with children under 6" = children,
     "Black: Share of population who is Black" = black,
     "Asian: Share of population who is Asian" = asian,
-    "Hispanic" = hispanic,
+    "Hispanic: Share of population who is Hispanic*" = hispanic,
     "White: Share of population who is White" = white)
-names(acs_for_table)[8] <- paste0(kableExtra::footnote_marker_symbol(1), 
-           "Hispanic: Share of population who is Hispanic")
 
 datasummary_skim(acs_for_table, title = "Block Group Summary Statistics",
   histogram = !knitr::is_latex_output()) %>%
-  kableExtra::column_spec(1, width = "4cm", latex_column_spec = "{>{\hangindent=.2in}L}") %>%
-  kableExtra::add_footnote("Hispanic indicates Hispanic individuals of all races; non-Hispanic individuals report a single race alone.") %>%
-  kableExtra::kable_styling(latex_options = c("scale_down"))
+  kableExtra::kable_styling(latex_options = c("scale_down")) %>%
+  kableExtra::column_spec(1, width = "4cm") %>%
+  kableExtra::footnote(symbol = "Hispanic indicates Hispanic individuals of all races; non-Hispanic individuals report a single race alone.") 
 ```
 
 
@@ -494,12 +491,14 @@ person $n$
 CS_n = \ln{{\sum_{j \in J}\exp(V_{nj})}} + C
   (\#eq:logsum)
 \end{equation}
-
 where $C$ is a constant indicating an unknown absolute value;  the difference of 
 logsum values in two different scenarios eliminates $C$. Additionally,
 dividing the difference in logsum from choice set $J$ and choice set $J'$ by a
-cost coefficient
-$\delta CS_n = (\ln{\sum_{j \in J'}\exp(V_{nj})} - \ln{\sum_{j \in J}\exp(V_{nj})})/\beta$
+cost coefficient $\beta$
+\begin{equation}
+\delta CS_n = (\ln{\sum_{j \in J'}\exp(V_{nj})} - \ln{\sum_{j \in J}\exp(V_{nj})})/\beta
+  (\#eq:deltalogsum)
+\end{equation}
 gives an estimate of the benefit received by person $n$ in monetary terms.
 Thus, such a "utility-based" accessibility term is continuously defined, contains
 multiple dimensions of the attributes of the choice, and can be evaluated

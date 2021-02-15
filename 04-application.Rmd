@@ -207,7 +207,9 @@ modelsummary(
   add_header_above(c(" " = 1, "Minority" = 4, "Income" = 3, "Children" = 3)) %>%
   scroll_box(width = "100%", box_css = "border: 0px;") %>%
   landscape() %>%
-  kable_styling(latex_options = c("striped", "scale_down"))
+  kable_styling(latex_options = c("striped", "scale_down")) %>%
+  add_footnote(
+  "Simulated individuals segmented based on the share of households meeting the segmentation threshold in the residence block group.")
 ```
 
 The model estimates in Table \@ref(tab:grouped-modelsummary) reveal noticeable
@@ -263,12 +265,14 @@ Overall, increasing the segmentation threshold level reveals some additional
 information about user preferences. First, it should be noted that there is
 some inconsistency: for instance, block groups with at least 40% of low income
 households show a lower importance of distance than block groups with either
-30% or 50% low income households. The increasing width of the confidence interval, 
+30% low income households. The increasing width of the confidence interval, 
 however, means it is sometimes difficult to make generalized statements. Residents of
 block groups with a higher share of Asian or high income households both show
-relatively more affinity for tennis courts and trails. Block groups with high
-Black populations show a somewhat greater preference for playgrounds, as well 
-appearing to be the most distance-sensitive group.
+relatively more affinity for tennis courts and trails relative to other groups.
+Residents of block groups with increasing shares of Hispanic individuals show
+the highest affinity for playgrounds, and park goers from neighborhoods with a
+greater share of Black individuals are most sensitive to distance and least
+sensitive to park size.
 
 ```{r split-plots, fig.cap="Estimated utility coefficients and 95% confidence intervals for park amenities at different socioeconomic threshold levels.", fig.height=7.5, cache = FALSE}
 # extract the coefficients you need to plot
@@ -397,11 +401,10 @@ street_choices <-  left_join(
 Using this new dataset --- augmented with parks added by street conversion --- we
 applied the "Sport Detail" non-segmented model to calculate park choice utilities 
 and utility-based accessibility values for each block group in Alameda County. 
-As shown with Equation \@ref(eq:logsum), the difference in utility-based
+As shown with Equation \@ref(eq:deltalogsum), the difference in utility-based
 accessibility values with and without the opened streets is the consumer 
-surplus provided by the policy. This surplus is given in a unitless utility,
-but it is possible to convert the surplus into monetary units by diving the
-surplus by a cost utility coefficient. The dataset used for this research does
+surplus provided by the policy, converted into a monetary value by a
+cost-utility coefficient. The dataset used for this research does
 not have any information on travel costs or entrance fees, and such data would
 likely not be relevant in the context of urban parks. As a result, there is no
 direct link between the utility and a monetary cost in our estimated models. 
@@ -451,7 +454,7 @@ for simply having more options, whether or not those options are attractive in
 any way. In this application, these benefits are small, on the order of 10 cents
 for most block groups away from where the street openings occurred.
 
-```{r logsumsmap, fig.cap="Monetary value of street opening to residents based on utility change.", cache=FALSE}
+```{r logsumsmap, fig.cap="Monetary value of street opening to residents based on utility change. Streets converted to pedestrian plazas are shown in black.", cache=FALSE}
 bins <- c(0, 0.1, 0.25, 0.5, 1, 2, 10, 35)
 mypal <- as.character(wesanderson::wes_palette("Zissou1", n = 7, type = "continuous"))
 
@@ -514,8 +517,8 @@ of benefits went to Black individuals, even though only 11.4\% of the population
 of Alameda County is Black. Similarly, roughly one-quarter of total benefits
 went to households making less than \$35,000 per year even though only one-fifth
 of the households are in this category. On the other hand, a smaller than
-expected share of benefits is allocated to Asian individuals and households making
-more than $125,000 per year.
+expected share of benefits is allocated to Asian individuals and households
+making more than $125,000 per year. 
 
 ```{r equity}
 # percent of households / individuals in each group
@@ -555,24 +558,16 @@ left_join( bene_dist, pop_dist, by = "group" ) %>%
     population = scales::comma(population)
   ) %>%
   kbl(caption = "Equity Distribution of Street Opening Benefits", booktabs = TRUE, 
-      col.names = c("Group", "Benefit", "Percent of Benefits", "Households", 
+      col.names = c("Group", "Benefit", "Percent* of Benefits", "Households**", 
                     "Percent of Households"),
       digits = c(0, 0, 2, 0, 2),
       align = c('l', rep('c', 4))) %>%
-  kable_styling() %>%
+  kable_styling(latex_options = c("scale_down")) %>%
   column_spec(1, width = "1.8in") %>%
-  column_spec(2:5, width = "1in")
+  column_spec(2:5, width = "1in") %>%
+  footnote(symbol = c(
+    "As individuals and households will belong in multiple groups, the percents do not sum to 100.",
+    "Race and ethnicity are person-level attributes; households are assumed to follow the same distribution."))
 ```
 
-By this analysis, the policy to open streets as pedestrian plazas and public
-spaces appears to be a pro-social policy with substantial benefits to the 
-community. There are some limitations and caveats that ought to be considered;
-for example, COVID-19 led to the closure of some park facilities that were not
-captured in this analysis. This policy would lead to a decrease in the consumer 
-surplus for park access, which might overwhelm or at least change the distribution 
-of benefits we measured here. A policy of permanently closing these streets to
-vehicle traffic would also have potentially deleterious effects on
-transportation access that would need to be considered against the benefits 
-we measure here; in the case of the COVID-19 quarantine, the opportunity 
-cost of closing a street to nonexistent vehicle traffic is basically zero.
 
