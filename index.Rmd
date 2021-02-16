@@ -1,39 +1,56 @@
 ---
-title: "If you build it who will come?" 
-subtitle: "Equity analysis of park system changes using passive origin-destination data"
+title: "If you build it who will come? Equity analysis of park system changes using passive origin-destination data"
 author:
   - name: Gregory Macfarlane
     email: gregmacfarlane@byu.edu
-    affiliation: Brigham Young University
+    affiliation: BYU
     footnote: 1
-    authors:
   - name: Teresa Tapia
-    address: StreetLight Data, Inc.
     email: teresa.tapia@streetlightdata.com
+    affiliation: StreetLight
   - name: Carole Turley-Voulgaris
-    email: cvoularis@gsd.harvard.edu
-    affiliation: Harvard Graduate School of Design
+    email: cvoulgaris@gsd.harvard.edu
+    affiliation: Harvard
 address:
-  - code: Brigham Young University
-    address: Civil and Environmental Engineering Department, 430 Engineering Building, Provo, Utah 84602
-  - code: Harvard University
-    address: Some Other Place
+  - code: BYU
+    address: Brigham Young University, Civil and Environmental Engineering Department, 430 Engineering Building, Provo, Utah 84602
+  - code:  Harvard
+    address: Harvard Graduate School of Design, 48 Quincy St, Cambridge, Massachussetts 02138
+  - code: StreetLight
+    address: StreetLight Data, Inc., San Francisco, California
 footnote:
   - code: 1
     text: "Corresponding Author"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: article
-journal: "Submitted to Transportation Research Part C: Emerging Technologies"
+journal: "Journal of Transportation and Land Use"
 bibliography: [book.bib]
-biblio-style: apalike
+layout: "3p, authoryear, review"
 keywords:
   - Accessibility
   - Passive Data
   - Location Choice
-link-citations: yes
+  - Parks
 abstract: |
-  Parks provide important benefits to those who live near them, in the form of improved property values, health outcomes, etc.; nevertheless, measuring and understanding who lives near a park is an open research question. In particular, it is not well understood which park individuals will choose to use when given a choice among a set of nearby parks of varying sizes and at varying distances from their home. In this paper we present a park activity location choice model estimated from a passive origin-destination dataset --- supplied by StreetLight Data, Inc. --- representing trips to parks and green spaces in Alameda County, California. The estimated model parameters reveal heterogeneous preferences for park size and willingness-to-travel across block-group level socioeconomic segmentation: Specifically, high-income block groups appear more positively attracted to larger parks, and block groups with a high proportion of ethnic minority individuals are more likely to select nearby parks. The findings have importance for understanding recreational access among different populations, and the methodology more generally supplies a potential template for using passive data products within travel modeling.
+  During the spring and summer of 2020, many cities across the world adopted a
+  policy of converting roadway facilities into open pedestrian spaces. This
+  policy was designed to meaningfully improve access to public recreation areas, 
+  but the degree to which this access improved among different populations is an
+  important research question. In particular, academic and practical methods 
+  to measure socio-spatial access to park facilites rely on arbitrary definitions
+  and are not based in revealed preferences for park facilities. In this study,
+  we evaluate the change in a utility-based park accessibility measure resulting 
+  from street conversions in Alameda County, California. Our utility-based 
+  accessibility measure is constructed from a park activity location choice model
+  we estimate using mobile device data --- supplied by StreetLight Data, Inc. ---
+  representing trips to parks in that county. The estimated model reveals
+  heterogeneity in inferred affinity for park attributes among different
+  sociodemographic groups. When applied to the street conversion policy in 
+  Alameda County, the model suggests an aggregate household-level consumer surplus
+  of over \$600 thousand. This surplus is pro-social
+  in that Black, Hispanic, and low-income households receive a greater share of the 
+  surplus than expected based on the population distribution. 
 description: "Alameda Park Choice"
 ---
 
@@ -45,52 +62,56 @@ local economies, aiding in stormwater management and flood mitigation,
 improving local air quality, increasing community engagement [@Madzia2018], and
 enhancing public equity.
 
-Nevertheless, understanding and quantifying these benefits depends in many
-cases on identifying who lives near the parks and is therefore able to access
-them. Many previous studies [e.g., @Richardson2012] rely on comparison of total
-greenspace across metropolitan areas; this methodology may not adequately
-control for city-level fixed effects and it may ignore the potentially
-inequitable distribution of park space within a region. Studies focusing on
-access within metropolitan areas typically assume that people living within a
-certain distance or travel time threshold have access to a park, or examine the
-quantity of park space within one's own arbitrarily defined "neighborhood"
-[@Mitchell2008,Stark2014]. But these methods do not account for the fact that
-some people will travel to other parks to perform recreational activities. A
-more holistic measure that continuously measures access across multiple
-preference dimensions is desirable.
+For many, the value of public parks and open public spaces increased during the
+widespread lockdowns enacted in 2020 to slow the transmission of COVID-19. With
+other entertainment venues shuttered and people otherwise confined to their
+homes, periodic use of public space provided an opportunity physical and emotional relief
+unavailable in other forms. Paired with this increased demand for public open
+space --- and the with the epidemiological requirement to leave sufficient space
+between other users --- was the related collapse in demand for vehicular travel.
+As a result, cities around the world began closing select streets to automobile
+travel, thereby opening them as pedestrian plazas. The effective result of this
+policy was to create a number of "parks" in urban areas that may have had
+poor access previously. Understanding the equitable distribution of these
+benefits is an important land use policy issue. The potential for non-emergency
+temporary or permanent street conversions also brings up interesting problems
+for land use and transportation policy; indeed, the possibility for
+transportation infrastructure to *become* a socially beneficial land use is
+a tantalizing proposition.
 
-An appealing solution would be to examine and model the activity location
-choices of park users. Such a model would help researchers understand how
-individuals of different backgrounds and preferences value different park
-amenities. Further, the logsums of a location choice model provide a continuous
-measure of accessibility that explicitly accounts for such variation
-[@DeJong2007]. Unfortunately, park choice models of this form are rare in the
-literature. Travel demand models built for infrastructure forecasting are a
-common way to generate such accessibility logsums, but these models group many
-different kinds of social and recreational trips together [@nchrp716]. Further,
-the attraction term for such trip purposes is commonly a function of the retail
-or service employment or the number of households at the destination; a typical
-park or green space has neither employees nor residents. Finally, many regional
-household travel surveys are oriented towards an average weekday travel
-pattern, and many park trips occur irregularly or on weekends.
+Unfortunately, quantifying the benefits derived from access to parks in general
+is a complicated problem. Many previous attempts at quantifying access in terms
+of isochronal distances or greenspace concentration have resulted in a
+frustrating lack of clarity on the relationship between measured access and
+measures of physical and emotional health [@Bancroft2015]. Central to this
+confusion is the simple fact that people do not always use the nearest park,
+especially if it does not have qualities that they find attractive. A better
+methodology would be to evaluate the park activity location choices of people in
+a metropolitan area to identify which features of parks --- distance, amenities,
+size, etc. --- are valued and which are less valued. The resulting activity
+location choice model would enable the evaluation of utility benefits via the
+choice model logsum [@Handy1997; @DeJong2007].
 
-In this paper we present a park destination choice model where individuals
-living in Alameda County, California choose among parks in the same county. The
-individuals are constructed from passive data that was derived from mobile
-devices and processed using algorithms developed by StreetLight Data, Inc. The
-origin location points are inferred residence block groups for unique devices
-and the destination points are geofenced polygons representing green and open
-spaces. The individuals’ choice of park location is conditioned on the distance
-from the block group to the parks in the choice set as well as the size of each
-park; market segmentation allows for heterogeneous responses between ethnic
-groups and income strata.
+In this study, we seek to evaluate the socio-spatial distribution of benefits
+received by residents of Alameda County, California resulting from the 
+temporary conversion of streets to public open spaces during the spring and summer
+of 2020. We estimate a park activity location choice model using location-based
+services (LBS) data obtained through StreetLight Data, Inc., a commercial data 
+aggregator. The resulting model illuminates the degree to which constructed
+individuals living in U.S. Census block groups of varying sociodemographic
+characteristics value the travel distance between block group and parks, the
+size of the parks, and the amenities of parks including sport fields,
+playgrounds, and walking trails in Alameda county. We then apply this model to
+examine the inferred monetary benefit resulting from the street conversion
+policy, and its distribution among different sociodemographic groups.
 
-The paper proceeds in the following manner: A discussion of prior attempts to
-study park choice and employ passive origin-destination data in the literature
-is given directly. The Methodology section presents the data gathering and
-cleaning efforts as well as the econometric location choice model. The Results
-section presents the estimated model coefficients and a discussion of the
-findings, as well as a model validation exercise. After presenting limitations
-and associated avenues for future research, a final Conclusions section
-outlines the contributions of this study for recreational trip modeling and
-location choice modeling more generally.
+The paper proceeds in the following manner: A [discussion](#literature) of prior attempts to
+evaluate park accessibility and preferences is given directly. A [Methodology](#methodology)
+section presents our data gathering and cleaning efforts as well as the
+econometric framework for the location choice model. A [Results](#results) section
+presents the estimated choice model coefficients alongside a discussion of their
+implications, followed by an analysis of the implied benefits resulting from the
+street conversion policy. After presenting [limitations](#limitations) and associated avenues
+for future research, a final [Conclusions](#conclusions) section outlines the contributions of
+this study for recreational trip modeling and location choice modeling more
+generally.

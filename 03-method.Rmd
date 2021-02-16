@@ -1,10 +1,17 @@
-# Methodology
+# Methodology {#methodology}
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(cache = TRUE)
 
+inline_hook <- function(x) {
+  if (is.numeric(x)) {
+    format(x, digits = 3, big.mark = ",")
+  } else x
+}
+knitr::knit_hooks$set(inline = inline_hook)
+
 if(knitr::is_latex_output()){
-  knitr::opts_chunk$set(echo = FALSE)
+  knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, cache = TRUE)
 }
 
 library(here)
@@ -21,6 +28,8 @@ this_crs <- 2227 # EPSG:2227 – NAD83 / California zone 3 (ftUS)
 bb <- getbb("Alameda County, California", format_out = "polygon")
 options(tigris_use_cache = TRUE)
 options(dplyr.summarise.inform = FALSE)
+
+source("R/methods.R")
 ```
 
 
@@ -226,20 +235,32 @@ attributed_parks <- parks %>%
 
 
 ```{r parks-map, fig.cap="Location of parks in Alameda County.", warning=FALSE, cache = FALSE}
+dj1 <- wesanderson::wes_palette("Darjeeling1")
 if(knitr::is_latex_output()) {
-  alameda_back <- get_googlemap(c(lon = -122.1300334, lat = 37.69427), 
-                                zoom = 9, maptype = "terrain", color = "bw") 
-  plot(st_transform(parks, 3857)[,"access"], bgMap = alameda_back)
+  pbox <- st_bbox(st_transform(parks, 4326))
+  alameda_back <- get_map(c(lon = mean(pbox[c(1, 3)]), 
+                            lat = mean(pbox[c(2, 4)]) ), 
+                          zoom = 10, source = "stamen", color = "bw")
+  alameda_back <- ggmap_bbox(alameda_back)
+  
+  ggmap(alameda_back, extent = "device") + 
+    coord_sf(crs = st_crs(3857), 
+             xlim = c(-122.29674 , -122.16358), 
+             ylim = c( 37.74098, 37.87028), expand = FALSE) + 
+    geom_sf(data = parks %>% st_transform(3857), inherit.aes = FALSE,
+            fill = dj1[2], lwd = 0)  + 
+    theme(axis.line = element_line(color = NA))  + 
+    xlab("") + ylab("")
 } else {
   leaflet() %>%
     addProviderTiles(providers$Esri.WorldGrayCanvas) %>%
-    addPolygons(data = parks %>% st_transform(4326), group = "Parks", color = "green") %>%
+    addPolygons(data = parks %>% st_transform(4326), group = "Parks", color = dj1[2]) %>%
     addCircleMarkers(data = playgrounds %>% st_transform(4326), 
-                     group = "Playgrounds", color = "blue", radius = 2) %>%
+                     group = "Playgrounds", color = dj1[3], radius = 2) %>%
     addCircleMarkers(data = pitches %>% st_transform(4326), 
-                     group = "Sport Fields", color = "red", radius = 2) %>%
+                     group = "Sport Fields", color = dj1[1], radius = 2) %>%
     addPolylines(data = trails %>% st_transform(4326), 
-                 group = "Trails", color = "black") %>%
+                 group = "Trails", color = dj1[5]) %>%
     addLayersControl(overlayGroups = c("Parks", "Playgrounds", "Sport Fields", "Trails"))
 }
 ```
@@ -288,26 +309,28 @@ that it represented the weighted unique devices traveling between block groups
 and parks. We discarded home location block groups outside of Alameda County;
 the imputed home locations can be far away from the study area for a small
 amount of trips and are unlikely to represent common or repeated park
-activities.
-
-```{r parks-table, results="asis"}
-attributed_parks <- attributed_parks %>% group_by(type) %>%
-  left_join(park_flows %>% group_by(park) %>% slice(1) %>% 
-              select(park, attractions), by = c("id" = "park")) %>%
-  mutate(attractions = ifelse(is.na(attractions), 0, attractions)) 
-```
-
-Table \ref{tab:parks-table} presents descriptive statistics
+activities. Table \@ref(tab:park-attributes) presents descriptive statistics
 on the `r nrow(parks)` parks assembled for this study, grouped according to the
 park type as defined on CPAD. A little more than half of the parks have
 identified paths, while around 40% of the identified parks have playgrounds and
 sport fields.
 
+```{r parkstable}
+attributed_parks <- attributed_parks %>% group_by(type) %>%
+  left_join(park_flows %>% group_by(park) %>% slice(1) %>% 
+              select(park, attractions), by = c("id" = "park")) %>%
+  mutate(attractions = ifelse(is.na(attractions), 0, attractions)) 
+write_rds(attributed_parks, "data/attributed_parks.rds")
+```
+
+
 ```{r park-attributes, results="asis"}
-park_attributes_data <- datasummary_balance(
-  ~ type,  
+datasummary_balance(
+  ~ Type,  
   data = attributed_parks %>% 
-    select(Access = access, Acres = acres, type, Playground = playground, 
+    transmute(Access = access, Acres = acres, 
+           Type = ifelse(grepl("Recreation Area", type), "Recreation Area" ,type),
+           Playground = playground, 
            `Any Sport Field` = pitch, 
            `Football / Soccer` = `football / soccer`,
            `Baseball` = baseball, `Basketball` = basketball,
@@ -315,12 +338,6 @@ park_attributes_data <- datasummary_balance(
            Trail = trail, 
            `Mobile Devices` =attractions), 
   dinm = FALSE, caption = "Park Summary Statistics", booktabs = TRUE)
-
-if(knitr::is_latex_output()){
-  park_attributes_data %>% kableExtra::kable_styling(table.envir = "sidewaystable")
-} else {
-  park_attributes_data
-}
 ```
 
 
@@ -347,14 +364,11 @@ variables <- c(
   "population" = "B02001_001", # TOTAL: RACE
   "housing_units" = "B25001_001", # HOUSING UNITS
   "households" = "B19001_001", #HOUSEHOLD INCOME IN THE PAST 12 MONTHS (IN 2017 INFLATION-ADJUSTED DOLLARS)
-  # RACE
-  "black" = "B02001_003",
-  "asian" = "B02001_005",
-  "pacific" = "B02001_006",
-  "nativeam" = "B02001_004",
-  # HISPANIC OR LATINO ORIGIN BY SPECIFIC ORIGIN
-  # The number of hispanic individuals needs to be drawn from a different table.
-  "hispanic" = "B03001_003",
+  # Hispanic or Latino Origin by Race
+  "white" = "B03002_003",
+  "black" = "B03002_004",
+  "asian" = "B03002_006",
+  "hispanic" = "B03002_012",
   #MEDIAN HOUSEHOLD INCOME IN THE PAST 12 MONTHS (IN 2017 INFLATION-ADJUSTED DOLLARS)
   "income" = "B19013_001",
   # FAMILY TYPE BY PRESENCE AND AGE OF RELATED CHILDREN
@@ -370,8 +384,8 @@ variables <- c(
   "inc_125"  = "B19001_015", "inc_150"  = "B19001_016", "inc_200"  = "B19001_017"
 )
 
-acs <- get_acs(geography = "block group", variables = variables, year = 2017,
-               state = "CA", county = "001", geometry = TRUE) %>%
+acs <- get_acs(geography = "block group", variables = variables,
+               state = "CA", county = "Alameda", geometry = TRUE) %>%
   select(-moe) %>%
   spread(variable, estimate) %>%
   # area is in m^2, change to km^2
@@ -392,16 +406,22 @@ acs <- get_acs(geography = "block group", variables = variables, year = 2017,
     highincome   = 100 * (inc_125 + inc_150 + inc_200) / households,
     black        = 100 * black / population,
     asian        = 100 * asian / population,
-    other_race   = 100 * (nativeam + pacific) / population,
-    white_hisp   = 100 - black - asian - other_race
+    hispanic     = 100 * hispanic / population,
+    white        = 100 * white / population
   ) %>%
   filter(population > 0)
+
+write_rds(acs, "data/blockgroups.rds")
 ```
 
 
 ```{r net_distances}
 # distances computed in py/shortest_paths.py
-path_files <- dir("data/shortest_paths/", full.names = TRUE)
+shortest_path_dir <- "data/shortest_paths"
+if(!dir.exists(shortest_path_dir)) {
+  system2("7z", args = c("x", "data/shortest_paths.7z", "-odata/"))
+}
+path_files <- dir(shortest_path_dir, full.names = TRUE)
 distance_df <- lapply(path_files, function(file) {
   read_csv(file, col_types = list(geoid = col_character(), park_id = col_character())) %>%
   mutate(
@@ -412,6 +432,7 @@ distance_df <- lapply(path_files, function(file) {
   bind_rows() %>%
   rename(home = geoid, park = park_id) %>%
   mutate(home = sprintf("%012s", home))
+write_rds(distance_df, "data/distances.rds")
 ```
 
 
@@ -425,15 +446,14 @@ acs_for_table <- acs %>% select(
     "Children: Share of households with children under 6" = children,
     "Black: Share of population who is Black" = black,
     "Asian: Share of population who is Asian" = asian,
-    "Other: Share of population who belong to other minority groups" = other_race)
+    "Hispanic: Share of population who is Hispanic*" = hispanic,
+    "White: Share of population who is White" = white)
 
-if(knitr::is_latex_output()){ 
-  datasummary_skim(acs_for_table, title = "Block Group Summary Statistics",
-    booktabs = TRUE, histogram = FALSE, output = "latex") %>%
-    kableExtra::column_spec(1, width = "3cm")
-} else {
-  datasummary_skim( acs_for_table, title = "Block Group Summary Statistics")
-}
+datasummary_skim(acs_for_table, title = "Block Group Summary Statistics",
+  histogram = !knitr::is_latex_output()) %>%
+  kableExtra::kable_styling(latex_options = c("scale_down")) %>%
+  kableExtra::column_spec(1, width = "4cm") %>%
+  kableExtra::footnote(symbol = "Hispanic indicates Hispanic individuals of all races; non-Hispanic individuals report a single race alone.") 
 ```
 
 
@@ -464,18 +484,25 @@ parameters for different segments to observe heterogeneity in the utility
 parameters between different socioeconomic groups.
 
 The logarithm of the sum in the denominator of Equation \ref{eq:p} (called the
-logsum) provides a measure of the consumer surplus of the choice set
+logsum) provides a measure of the consumer surplus of the choice set enjoyed by
+person $n$
 [@Williams1977a],
-\begin{equation}\label{eq:logsum}
+\begin{equation}
 CS_n = \ln{{\sum_{j \in J}\exp(V_{nj})}} + C
+  (\#eq:logsum)
 \end{equation}
-where $C$ is a constant indicating an unknown absolute value. But comparing the
-relative logsum values across choice makers, $CS_n - CS_{n-1}$ gives an
-indication of which choice maker has a more valuable choice set. Or, in this
-case of a park destination choice model, which choice maker has better access to
-parks. Such a "utility-based" accessibility term is thus continuously defined,
-dervied directly from choice theory, and can contain multiple dimensions of the
-attributes of the choice [@Handy1997;@Dong2006].
+where $C$ is a constant indicating an unknown absolute value;  the difference of 
+logsum values in two different scenarios eliminates $C$. Additionally,
+dividing the difference in logsum from choice set $J$ and choice set $J'$ by a
+cost coefficient $\beta$
+\begin{equation}
+\delta CS_n = (\ln{\sum_{j \in J'}\exp(V_{nj})} - \ln{\sum_{j \in J}\exp(V_{nj})})/\beta
+  (\#eq:deltalogsum)
+\end{equation}
+gives an estimate of the benefit received by person $n$ in monetary terms.
+Thus, such a "utility-based" accessibility term is continuously defined, contains
+multiple dimensions of the attributes of the choice, and can be evaluated
+in monetary terms [@Handy1997;@Dong2006].
 
 
 ```{r params}
@@ -538,7 +565,7 @@ logitdata <- mydata %>%
   left_join(attributed_parks, by = c("park" = "id")) %>%
   
   # append block group attributes
-  left_join(acs %>% select(geoid, density:other_race) %>% st_set_geometry(NULL),
+  left_join(acs %>% select(geoid, density:white) %>% st_set_geometry(NULL),
             by = c("home" = "geoid")
    
 )
@@ -550,8 +577,7 @@ write_rds(logitdata, "data/logitdata.rds")
 The resulting analysis dataset therefore contains `r n_obs` choice makers that
 select between `r n_alts + 1` parks including the park they were observed to
 choose; the measured distance between the choice maker's block group and all
-parks in the choice set; and the acreage of each park in the choice set. We hold
-out a random sample of approximately 20% of choice makers for validation
-purposes. We use the `mlogit` package for R [@mlogit; @R] to estimate the
-multinomial logit models. 
+parks in the choice set; and the acreage of each park in the choice set.  We use
+the `mlogit` package for R [@mlogit; @R] to estimate the multinomial logit
+models.
 
