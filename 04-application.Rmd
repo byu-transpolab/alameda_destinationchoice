@@ -63,16 +63,7 @@ valid <- filter(dfi, validation)
 estim <- dfi
 ```
 
-We estimated multinomial logit park activity location choice models on the
-datset described in the previous section. We applied a Yeo-Johnson
-transformation [@Yeo2000] to both distance the distance (in meters) between the
-park and the block group centroid, and to the park acreage. The Yeo-Johnson
-transformation replicates the constant marginal elasticity of a logarithmic
-transformation while avoiding undefined values (e.g., $YJ(0) = 0$). For
-simplicity, we call this transformation `log()` in the model results tables.
-Using a constant marginal elasticity is better reflective of how people perceive
-distances and sizes; a one-mile increase to a trip distance matters more to
-a two-mile trip than a ten-mile trip.
+We estimated multinomial logit park activity location choice models on the datset described in the previous section. We applied a Yeo-Johnson transformation [@Yeo2000] to both distance the distance (in meters) between the park and the block group centroid, and to the park acreage. The Yeo-Johnson transformation replicates the constant marginal elasticity of a logarithmic transformation while avoiding undefined values (e.g., $YJ(0) = 0$). For simplicity, we call this transformation `log()` in the model results tables. Using a constant marginal elasticity is better reflective of how people perceive distances and sizes; a one-mile increase to a trip distance matters more to a two-mile trip than a ten-mile trip.
 
 ```{r base_models}
 base_models <- list(
@@ -93,33 +84,9 @@ d_ratio_sport <- -1 * coefficients(base_models$`Sport Detail`)[1] /
   coefficients(base_models$`Sport Detail`)[2] 
 ```
 
-Table \@ref(tab:base-modelsummary) presents the model estimation results for a
-series of models with different utility function definitions, each estimated on the 
-complete set of synthetic choice makers. The first model  --- named "Network 
-Distance" --- only considers the distance to the park and the size of the park
-in the utility equation. The estimated coefficients are significant and of the 
-expected sign: That is, individuals will travel further distances to reach larger
-parks. The ratio of the estimated coefficients implies that on average, people
-will travel `r d_ratio_base` times further to reach a park twice as large.
+Table \@ref(tab:base-modelsummary) presents the model estimation results for a series of models with different utility function definitions, each estimated on thecomplete set of synthetic choice makers. The first model  --- named "Network Distance" --- only considers the distance to the park and the size of the park in the utility equation. The estimated coefficients are significant and of the expected sign: That is, individuals will travel further distances to reach larger parks. The ratio of the estimated coefficients implies that on average, people will travel `r d_ratio_base` times further to reach a park twice as large.
 
-The second and third models in Table \@ref(tab:base-modelsummary) include a 
-vector of park attributes. In the model labeled "Park Attributes," the presence
-of any sport field is considered with a single dummy value, and in the "Sport 
-Detail" model this variable is disaggregated into facilities for different 
-sports. The value of the size and distance coefficients change modestly from
-the "Network Distance" model, with the implied size to distance trade-off rising
-to `r d_ratio_sport`. Examining the two amenities models --- independently and in 
-comparison with each other --- reveals a few surprising findings. First, it 
-appears that playgrounds and sport fields in general contribute *negatively* to 
-the choice utility equation. This is both unintuitive and contradictory to
-previous findings in this space [e.g.,  @Kinnell2006]. Considering different
-sports separately, there is a wide variety of observed response with tennis and
-volleyball facilities attracting more trips, and football and basketball
-facilities attracting fewer, all else equal. Trails and walking paths give 
-substantive positive utility in both models. The difference in likelihood statistics
-between the three models is significant (likelihood ratio test between Sport Detail
-and Park Attributes model has $p$-value  `r detail_lrt`), and so in spite of the
-curious aggregate findings, we move forward with this utility specification.
+The second and third models in Table \@ref(tab:base-modelsummary) include a vector of park attributes. In the model labeled "Park Attributes," the presence of any sport field is considered with a single dummy value, and in the "Sport Detail" model this variable is disaggregated into facilities for different sports. The value of the size and distance coefficients change modestly from the "Network Distance" model, with the implied size to distance trade-off rising to `r d_ratio_sport`. Examining the two amenities models --- independently and in comparison with each other --- reveals a few surprising findings. First, it appears that playgrounds and sport fields in general contribute *negatively* to the choice utility equation. This is both unintuitive and contradictory to previous findings in this space [e.g.,  @Kinnell2006]. Considering different sports separately, there is a wide variety of observed response with tennis and volleyball facilities attracting more trips, and football and basketball facilities attracting fewer, all else equal. Trails and walking paths give substantive positive utility in both models. The difference in likelihood statistics between the three models is significant (likelihood ratio test between Sport Detail and Park Attributes model has $p$-value  `r detail_lrt`), and so in spite of the curious aggregate findings, we move forward with this utility specification.
 
 ```{r base-modelsummary}
 modelsummary(
@@ -169,21 +136,7 @@ grouped_models <- lapply(list(child_models, income_models, minority_models),
   unlist(recursive = FALSE)
 ```
 
-It is worth investigating the heterogeneity in preferences that exist among
-different demographic groups. Though the income and ethnicity of the synthetic
-park visitors is not known, we can segment the estimation dataset based on the
-socioeconomic makeup of the visitors' residence block group. The models presented in 
-Table \@ref(tab:grouped-modelsummary) were estimated on segments developed in
-this manner. Models under the "Minority" heading include a race- and ethnicity-
-based segmentation: simulated individuals living in block groups with more than
-thirty percent Black persons are included in the ">30% Black" model, an
-analogous segmentation for block groups with high Asian and Hispanic populations
-are in the ">30% Asian" and ">30% Hispanic" models respectively, and the "Other"
-model contains all other block groups. Another set of model segmentation relies
-on the share of the population in each block group with household incomes above
-or below certain thresholds, and a third relies on the share of households with
-children under 6 years old. Again, we use the threshold definitions largely
-informed by the distributions in \@ref(tab:acs-table).
+It is worth investigating the heterogeneity in preferences that exist among populations. Though the income and ethnicity of the synthetic park visitors is not known, we can segment the estimation dataset based on the socioeconomic makeup of the visitors' residence block group. The models presented in  Table \@ref(tab:grouped-modelsummary) were estimated on segments developed in this manner. Models under the "Race/Ethnicity" heading include a race- and ethnicity-based segmentation: simulated individuals living in block groups with more than thirty percent Black residents are included in the ">30% Black" model, an analogous segmentation for block groups with high Asian and Hispanic populations are in the ">30% Asian" and ">30% Hispanic" models respectively, and the "Other" model contains all other block groups. Another set of model segmentation relies on the share of the population in each block group with household incomes above or below certain thresholds, and a third relies on the share of households with children under 6 years old. Again, we use the threshold definitions largely informed by the distributions in \@ref(tab:acs-table).
 
 ```{r grouped-modelsummary}
 grouped_models_clean <- list(
@@ -204,7 +157,7 @@ modelsummary(
   coef_map = this_map, gof_omit = "BIC", 
   title = "Estimated Model Coefficients with Block Group Segmentations"
 ) %>%
-  add_header_above(c(" " = 1, "Minority" = 4, "Income" = 3, "Children" = 3)) %>%
+  add_header_above(c(" " = 1, "Race/Ethnicity" = 4, "Income" = 3, "Children" = 3)) %>%
   scroll_box(width = "100%", box_css = "border: 0px;") %>%
   landscape() %>%
   kable_styling(latex_options = c("striped", "scale_down")) %>%
@@ -212,17 +165,7 @@ modelsummary(
   "Simulated individuals segmented based on the share of households meeting the segmentation threshold in the residence block group.")
 ```
 
-The model estimates in Table \@ref(tab:grouped-modelsummary) reveal noticeable
-heterogeneity in the park location choices among visitors from different 
-block group segments. Park
-visitors living in block groups with a high proportion of Black and low-income
-residents show less affinity for trails and other walkways, but appear 
-considerably more sensitive to the distance to a park. Park visitors living in
-high-income neighborhoods are less sensitive to the distance to a park, but 
-receive more utility from certain amenities, in particular trails and tennis 
-courts. Block groups with a high proportion of hispanic residents and residents
-with children under 6 show the least negative response to playgrounds of 
-all the segments.
+The model estimates in Table \@ref(tab:grouped-modelsummary) reveal noticeable heterogeneity in the park location choices among visitors from different block group segments. Park visitors living in block groups with a high proportion of Black and low-income residents show less affinity for trails and other walkways, but appear  considerably more sensitive to the distance to a park. Park visitors living in high-income neighborhoods are less sensitive to the distance to a park, but receive more utility from certain amenities, in particular trails and tennis courts. Block groups with a high proportion of Hispanic residents and residents with children under 6 show the least negative response to playgrounds of all the segments.
 
   
 ```{r split_models, cache.lazy = FALSE}
@@ -251,23 +194,9 @@ split_models <- lapply(c("black", "asian", "hispanic", "lowincome", "highincome"
 }) %>% bind_rows() 
 ```
 
-Seeing that there is a difference in the response in the model segmentation, 
-it is also worth considering the role of our segmentation thresholds in these
-findings. Figure \@ref(fig:split-plots) shows the estimated coefficients and 
-confidence intervals for these different amenities at different threshold levels
-of segmentation. The threshold level means that at least that percent
-of the block group's population falls in that category. The confidence intervals
-widen as more observations are excluded from the model. The estimated coefficients
-for the different segmentations are identical when the share equals zero, and 
-simply represent the "Sport Detail" model from Table \@ref(tab:base-modelsummary).
+Seeing that there is a difference in the response in the model segmentation, it is also worth considering the role of our segmentation thresholds in these findings. Figure \@ref(fig:split-plots) shows the estimated coefficients and confidence intervals for these different amenities at different threshold levels of segmentation. The threshold level means that at least that percent of the block group's population falls in that category. The confidence intervals widen as more observations are excluded from the model. The estimated coefficients for the different segmentations are identical when the share equals zero, and simply represent the "Sport Detail" model from Table \@ref(tab:base-modelsummary).
 
-Overall, increasing the segmentation threshold level reveals some additional 
-information about user preferences. First, it should be noted that there is
-some inconsistency: for instance, block groups with at least 40% of low income
-households show a lower importance of distance than block groups with either
-30% low income households. The increasing width of the confidence interval, 
-however, means it is sometimes difficult to make generalized statements. Residents of
-block groups with a higher share of Asian or high income households both show
+Overall, increasing the segmentation threshold level reveals additional information about user preferences. First, it should be noted that there is some inconsistency: for instance, block groups with at least 40% of low income households show a lower importance of distance than block groups with either 30% low income households. The increasing width of the confidence interval, however, means it is sometimes difficult to make generalized statements. Residents of block groups with a higher share of Asian or high income households both show
 relatively more affinity for tennis courts and trails relative to other groups.
 Residents of block groups with increasing shares of Hispanic individuals show
 the highest affinity for playgrounds, and park goers from neighborhoods with a

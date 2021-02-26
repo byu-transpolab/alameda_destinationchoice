@@ -34,20 +34,7 @@ source("R/methods.R")
 
 
 
-We constructed a dataset on which to estimate park activity location choices for
-a sample of observed trips in Alameda County, California. Alameda County is one
-of the seven counties that constitutes the San Francisco Bay Area metropolitan
-region in California. Alameda is the seventh most populous county in California
-with a population of 1.5 million [@alamedafacts], and has 14 incorporated cities
-and several unincorporated communities. It is an economically and ethnically
-diverse county and hence it was an attractive area to use for this study. The
-racial makeup of Alameda County was (49.7%) White, (11.2%) African American,
-(1.0%) Native American, (38.7%) Asian, (1.0%) Pacific Islander, and (22.4%
-Hispanic or Latino (of any race). Alameda County has a diverse set of parks,
-ranging from local small community parks, urban and transit-accessible parks
-like the Lake Merritt Recreational area, accessible coastal access, and suburban
-recreational areas like Lake Chabot.
-
+We constructed a dataset on which to estimate park activity location choices for a sample of observed trips in Alameda County, California. Alameda County is one of nine counties that constitute the San Francisco Bay Area metropolitan region in California. Alameda is the seventh most populous county in California with a population of 1.5 million [@alamedafacts], and has 14 incorporated cities and several unincorporated communities. It is an economically and ethnically diverse county and hence it was an attractive area to use for this study. The racial makeup of Alameda County was (49.7%) White, (11.2%) African American, (1.0%) Native American, (38.7%) Asian, (1.0%) Pacific Islander, and (22.4%) Hispanic or Latino (of any race). Alameda County has a diverse set of parks, ranging from local small community parks, urban and transit-accessible parks like the Lake Merritt Recreational area, accessible coastal access, and suburban recreational areas like Lake Chabot.
 
 ## Data
 We constructed an analysis dataset from a publicly-available parks polygons
@@ -57,13 +44,9 @@ Community Survey data for the home block groups.
 
 We obtained a polygons shapefile layer representing open spaces in Alameda
 County, California from the California Protected Areas Database [@cpad2019].
-This dataset was selected because it included multiple different types of open
-space including local and state parks, traditional green spaces as well as
-wildlife refuges and other facilities that can be used for recreation. We
+This dataset was selected because it included multiple different types of open space including local and state parks, traditional green spaces as well as wildlife refuges and other facilities that can be used for recreation. We
 removed facilities that did not allow open access to the public (such as the
-Oakland Zoo) and facilities whose boundaries conflated with freeway right-of-way
-– this prevents trips through the park from being conflated with park trips in
-the passive origin-destination data. 
+Oakland Zoo) and facilities whose boundaries conflated with freeway right-of-way – this prevents trips through the park from being conflated with park trips in the passive origin-destination data. 
 
 ```{r parks}
 not_parks <- c("3455", "15886", "13243")
@@ -80,12 +63,7 @@ parks <- st_read(here("data/bayarea_parks.geojson"), quiet = TRUE) %>%
   st_transform(this_crs)
 ```
 
-From this initial parks polygons dataset, we obtained park attribute information
-through OpenStreetMap (OSM) using the `osmdata` package for R [@osmdata]. Three 
-attribute elements are considered in this analysis. First, we identify playgrounds
-using OSM facilities given a `leisure = playground` tag. The tagged facilities can
-be either polygon or point objects; in the former case we use the polygon centroid
-to determine the location of the playground.
+From this initial parks polygons dataset, we obtained park attribute information through OpenStreetMap (OSM) using the `osmdata` package for R [@osmdata]. Three attribute elements are considered in this analysis. First, we identify playgrounds using OSM facilities given a `leisure = playground` tag. The tagged facilities can be either polygon or point objects; in the former case we use the polygon centroid to determine the location of the playground.
 
 ```{r playgrounds, warning = FALSE}
 playground_osm <- opq(bb) %>% # specify boundary for query
@@ -109,13 +87,7 @@ playgrounds <- rbind(
 ```
 
 Second, we consider sport fields of various kinds identified with the OSM
-`leisure = pitch` tag. This tag has an additional attribute describing the sport
-the field is designed for, which we retain in a consolidated manner. Soccer and
-American football fields are considered in a single category, and baseball and
-softball fields are combined as well. Basketball, tennis, and volleyball courts
-are kept as distinct categories, with all other sport-specific fields combined
-into a single "other." Golf courses are discarded. As with playgrounds, polygon 
-field and court objects are converted into points at the polygon centroid.
+`leisure = pitch` tag. This tag has an additional attribute describing the sport the field is designed for, which we retain in a consolidated manner. Soccer and American football fields are considered in a single category, and baseball and softball fields are combined as well. Basketball, tennis, and volleyball courts are kept as distinct categories, with all other sport-specific fields combined into a single "other." Golf courses are discarded. As with playgrounds, polygon field and court objects are converted into points at the polygon centroid.
 
 ```{r pitches, warning = FALSE}
 pitches_osm <- opq(bb) %>% # specify boundary for query
@@ -148,12 +120,7 @@ pitches <- rbind(
   )
 ```
 
-Finally, we identified trails and footpaths using the `path`, `cycleway`, and
-`footway` values of the `highway` tag. A visual inspection of the resulting data
-revealed that the large preponderance of sidewalks and cycling trails within parks
-in Alameda County are identified properly with these variables. Trails are
-represented in OSM as polylines, or as polygons if they form a complete circle. 
-In the latter case, we converted the polygon boundary into an explicit polyline object.
+Finally, we identified trails and footpaths using the `path`, `cycleway`, and `footway` values of the `highway` tag. A visual inspection of the resulting data revealed that the large preponderance of sidewalks and cycling trails within parks in Alameda County are identified properly with these variables. Trails are represented in OSM as polylines, or as polygons if they form a complete circle. In the latter case, we converted the polygon boundary into an explicit polyline object.
 
 ```{r trails}
 trails_osm <- opq(bb) %>% # specify boundary for query
@@ -178,12 +145,7 @@ trails <- rbind(
   mutate(length = st_length(.))
 ```
 
-It is possible for each of these facilities to exist outside the context of 
-a public park. For example, many private apartment complexes have playgrounds
-and high schools will have sports facilities that are not necessarily open to
-the general public. We spatially matched the OSM amenities data and retained
-only those facilities that intersected with the CPAD open spaces database 
-identified earlier.  
+It is possible for each of these facilities to exist outside the context of  a public park. For example, many private apartment complexes have playgrounds and high schools will have sports facilities that are not necessarily open to the general public. We spatially matched the OSM amenities data and retained only those facilities that intersected with the CPAD open spaces database identified earlier.  
 
 ```{r attributed-parks}
 # Append attributes to park frame ===============
@@ -222,7 +184,6 @@ parks_with_trails <- parks %>%
   mutate(trail = ifelse(is.na(trail), F, T)) %>%
   select(id, trail) %>%
   st_set_geometry(NULL)
-
 
 # join together and write out =================
 attributed_parks <- parks %>%
@@ -265,17 +226,7 @@ if(knitr::is_latex_output()) {
 }
 ```
 
-
-We provided the park boundaries layer to a commercial firm, StreetLight Data
-Inc., which develops and resells origin-destination matrices derived from
-passive device location data. The provider employs a proprietary data processing
-engine (called Route Science) to algorithmically transform observed device
-location data points (the provider uses in-vehicle GPS units and mobile device
-LBS) over time into contextualized, normalized, and aggregated travel patterns.
-From these travel patterns, the Route Science processing algorithms infer likely
-home Census block group locations for composite groups of people and converts
-raw location data points into trip origin and destination points [@Pan2006;
-@Friedrich2010].
+We provided the park boundaries layer to a commercial firm, StreetLight Data Inc., which develops and resells origin-destination matrices derived from passive device location data. The provider employs a proprietary data processing engine (called Route Science) to algorithmically transform observed device location data points (the provider uses in-vehicle GPS units and mobile device LBS) over time into contextualized, normalized, and aggregated travel patterns. From these travel patterns, the Route Science processing algorithms infer likely home Census block group locations for composite groups of people and converts raw location data points into trip origin and destination points [@Pan2006; @Friedrich2010].
 
 ```{r park_flows}
 park_flows <- read_csv(here("data/Master_BlockGroups_Final071519.csv"), 
@@ -302,18 +253,7 @@ park_flows <- read_csv(here("data/Master_BlockGroups_Final071519.csv"),
   ) 
 ``` 
 
-For each park polygon, the firm returned a population-weighted estimate of how
-many devices were observed by home location block group over several months in
-the period between May 2018 and October 2018. We transformed this table such
-that it represented the weighted unique devices traveling between block groups
-and parks. We discarded home location block groups outside of Alameda County;
-the imputed home locations can be far away from the study area for a small
-amount of trips and are unlikely to represent common or repeated park
-activities. Table \@ref(tab:park-attributes) presents descriptive statistics
-on the `r nrow(parks)` parks assembled for this study, grouped according to the
-park type as defined on CPAD. A little more than half of the parks have
-identified paths, while around 40% of the identified parks have playgrounds and
-sport fields.
+For each park polygon, the firm returned a population-weighted estimate of how many devices were observed by home location block group over several months in the period between May 2018 and October 2018. We transformed this table such that it represented the weighted unique devices traveling between block groups and parks. We discarded home location block groups outside of Alameda County; the imputed home locations can be far away from the study area for a small amount of trips and are unlikely to represent common or repeated park activities. Table \@ref(tab:park-attributes) presents descriptive statistics on the `r nrow(parks)` parks assembled for this study, grouped according to the park type as defined on CPAD. A little more than half of the parks have identified paths, while around 40% of the identified parks have playgrounds and sport fields.
 
 ```{r parkstable}
 attributed_parks <- attributed_parks %>% group_by(type) %>%
@@ -340,22 +280,7 @@ datasummary_balance(
   dinm = FALSE, caption = "Park Summary Statistics", booktabs = TRUE)
 ```
 
-
-
-In order to understand the demographic makeup of the home block groups and
-potentially the characteristics of the people who make each trip, we obtained
-2013-2017 five-year data aggregations from the American Community Survey 
-using the `tidycensus` [@Walker2019] interface to the
-Census API for several key demographic and built environment variables: the
-share of individuals by race, the share of households by income level,
-household median income, the share of households with children under 6 years old, 
-and the household density. An important attribute of
-the choice model is the distance from the home block group to the park boundary.
-Because we have no information on where in the block group a home is actually
-located, we use the population-weighted block group centroid published by the
-Census Bureau as the location for all homes in the block group. We then measured
-the network-based distance between the park and the home block group centroid
-using a walk network derived from OpenStreetMap using the `networkx` package
+In order to understand the demographic makeup of the home block groups and potentially the characteristics of the people who make each trip, we obtained 2013-2017 five-year data aggregations from the American Community Survey  using the `tidycensus` [@Walker2019] interface to the Census API for several key demographic and built environment variables: the share of individuals by race, the share of households by income level, household median income, the share of households with children under 6 years old, and the household density. An important attribute of the choice model is the distance from the home block group to the park boundary. Because we have no information on where in the block group a home is actually located, we use the population-weighted block group centroid published by the Census Bureau as the location for all homes in the block group. We then measured the network-based distance between the park and the home block group centroid using a walk network derived from OpenStreetMap using the `networkx` package
 for Python [@networkx],
 
 
@@ -459,12 +384,7 @@ datasummary_skim(acs_for_table, title = "Block Group Summary Statistics",
 
 ## Model
 
-In random utility choice theory, if an individual living in block group $n$
-wishes to make a park trip, the probability that the individual will choose
-park $i$ from the set of all parks $J$ can be described as a ratio of the
-park's measurable utility $V_{ni}$ to the sum of the utilities for all parks
-in the set. In the common destination choice framework we apply a
-multinomial logit model [@McFadden1974, @Recker1978],
+In random utility choice theory, if an individual living in block group $n$ wishes to make a park trip, the probability that the individual will choose park $i$ from the set of all parks $J$ can be described as a ratio of the park's measurable utility $V_{ni}$ to the sum of the utilities for all parks in the set. In the common destination choice framework we apply a multinomial logit model [@McFadden1974, @Recker1978],
 \begin{equation}\label{eq:p}
    P_{ni} = \frac{\exp(V_{ni})}{\sum_{j \in J}\exp(V_{nj})}
 \end{equation}
@@ -473,36 +393,19 @@ the destination attributes.
 \begin{equation}\label{eq:V}
 V_{ni} = X\beta
 \end{equation}
-where $\beta$ is a vector of estimable coefficients giving the relative utility
-(or disutility) of that attribute to the choice maker, all else equal. It is
-possible to add amenities of the park or the journey to the utility
-equation. However, as the number of alternatives is large, it is impractical to
-consider alternative-specific constants or coefficients and therefore not
-possible to include attributes of the home block group or traveler $n$ directly.
-We can, however, segment the data and estimate different distance and size
-parameters for different segments to observe heterogeneity in the utility
-parameters between different socioeconomic groups.
+where $\beta$ is a vector of estimable coefficients giving the relative utility (or disutility) of that attribute to the choice maker, all else equal. It is possible to add amenities of the park or the journey to the utility equation. However, as the number of alternatives is large, it is impractical to consider alternative-specific constants or coefficients and therefore not possible to include attributes of the home block group or traveler $n$ directly. We can, however, segment the data and estimate different distance and size parameters for different segments to observe heterogeneity in the utility parameters between different socioeconomic groups.
 
-The logarithm of the sum in the denominator of Equation \ref{eq:p} (called the
-logsum) provides a measure of the consumer surplus of the choice set enjoyed by
-person $n$
-[@Williams1977a],
+The logarithm of the sum in the denominator of Equation \ref{eq:p} (called the logsum) provides a measure of the consumer surplus of the choice set enjoyed by person $n$ [@Williams1977a],
 \begin{equation}
 CS_n = \ln{{\sum_{j \in J}\exp(V_{nj})}} + C
   (\#eq:logsum)
 \end{equation}
-where $C$ is a constant indicating an unknown absolute value;  the difference of 
-logsum values in two different scenarios eliminates $C$. Additionally,
-dividing the difference in logsum from choice set $J$ and choice set $J'$ by a
-cost coefficient $\beta$
+where $C$ is a constant indicating an unknown absolute value;  the difference of logsum values in two different scenarios eliminates $C$. Additionally, dividing the difference in logsum from choice set $J$ and choice set $J'$ by a cost coefficient $\beta$
 \begin{equation}
 \delta CS_n = (\ln{\sum_{j \in J'}\exp(V_{nj})} - \ln{\sum_{j \in J}\exp(V_{nj})})/\beta
   (\#eq:deltalogsum)
 \end{equation}
-gives an estimate of the benefit received by person $n$ in monetary terms.
-Thus, such a "utility-based" accessibility term is continuously defined, contains
-multiple dimensions of the attributes of the choice, and can be evaluated
-in monetary terms [@Handy1997;@Dong2006].
+gives an estimate of the benefit received by person $n$ in monetary terms. Thus, such a "utility-based" accessibility term is continuously defined, contains multiple dimensions of the attributes of the choice, and can be evaluated in monetary terms [@Handy1997;@Dong2006].
 
 
 ```{r params}
@@ -523,26 +426,9 @@ mydata <- park_flows %>%
             validation = sample(c(TRUE,FALSE), n(), TRUE, prob = c(0.2, 0.8)))
 ```
 
-In the most typical cases, researchers estimate the utility coefficients for
-destination choice models from household travel surveys. As we have no knowledge
-of an appropriate survey on park access, we need to synthesize a suitable
-estimation data set. We do this by sampling
-`r n_obs` random discrete device origin-destination pairs from the commercial
-passive data matrix, weighted by the volume of the flows. This corresponds to a
-`r round(n_obs / n_flow * 100, 1)`\% sample of all the observed device
-origin-destination pairs.
+In the most typical cases, researchers estimate the utility coefficients for destination choice models from houzsehold travel surveys. For example, the California add-on to the 2017 National Household Travel Survey could be used for this purpose for frequent trips like commutes to work and school. However, as a 24-hour trip diary, it is less useful for recreational trips that may take place less frequently. For better data on park access, we need to synthesize a suitable estimation data set. We do this by sampling `r n_obs` random discrete device origin-destination pairs from the commercial passive data matrix, weighted by the volume of the flows. This corresponds to a `r round(n_obs / n_flow * 100, 1)`\% sample of all the observed device origin-destination pairs.
 
-The sampled origin-destination pair gives the home location as well as the
-"chosen" alternative for a synthetic person. In principle the individual's
-choice set contains all the parks in our dataset; in practice it can be
-difficult to estimate choice models with so many alternatives 
-($|J| = `r nrow(parks)`$). For this reason we randomly sample `r n_alts` additional parks
-to serve as the non-chosen alternatives for our synthetic choice maker. Such
-random sampling of alternatives reduces the efficiency of the estimated
-coefficients but the coefficients remain unbiased [@train2009]. As the model has
-no alternative-specific constants, the standard likelihood comparison statistic
-against the market shares model $\rho^2$ is not computable. We instead use the
-likelihood comparison against the equal shares model $\rho_0^2$.
+The sampled origin-destination pair gives the home location as well as the "chosen" alternative for a synthetic person. In principle the individual's choice set contains all the parks in our dataset; in practice it can be difficult to estimate choice models with so many alternatives  ($|J| = `r nrow(parks)`$). For this reason we randomly sample `r n_alts` additional parks to serve as the non-chosen alternatives for our synthetic choice maker. Such random sampling of alternatives reduces the efficiency of the estimated coefficients but the coefficients remain unbiased [@train2009]. As the model has no alternative-specific constants, the standard likelihood comparison statistic against the market shares model $\rho^2$ is not computable. We instead use the likelihood comparison against the equal shares model $\rho_0^2$.
 
 ```{r sampled_parks}
 sampled_parks <- lapply(1:n_obs, function(i){
@@ -574,10 +460,4 @@ write_rds(logitdata, "data/logitdata.rds")
 ```
 
 
-The resulting analysis dataset therefore contains `r n_obs` choice makers that
-select between `r n_alts + 1` parks including the park they were observed to
-choose; the measured distance between the choice maker's block group and all
-parks in the choice set; and the acreage of each park in the choice set.  We use
-the `mlogit` package for R [@mlogit; @R] to estimate the multinomial logit
-models.
-
+The resulting analysis dataset therefore contains `r n_obs` choice makers that select between `r n_alts + 1` parks including the park they were observed to choose; the measured distance between the choice maker's block group and all parks in the choice set; and the acreage of each park in the choice set.  We use the `mlogit` package for R [@mlogit; @R] to estimate the multinomial logit models.
