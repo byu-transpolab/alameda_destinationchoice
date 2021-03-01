@@ -3,8 +3,18 @@ library(here)
 library(sf)
 
 # Read parks to get ID column
-parks <- st_read("data/bayarea_parks.geojson")
-
+not_parks <- c("3455", "15886", "13243")
+parks <- st_read(here("data/bayarea_parks.geojson"), quiet = TRUE) %>%
+  filter(COUNTY == "Alameda") %>%
+  transmute(
+    id = as.character(UNIT_ID), name = UNIT_NAME, 
+    access = factor(ACCESS_TYP, levels = c("Open Access", "No Public Access", 
+                                           "Restricted Access")),
+    acres = ACRES, type = DES_TP) %>%
+  filter(!id %in% not_parks) %>%
+  filter(access == "Open Access") %>%
+  select(id, access, acres, type)  %>%
+  st_transform(this_crs)
 # Read streetlight data (cannot be shared)
 park_flows <- read_csv(here("data/Master_BlockGroups_Final071519.csv"), 
          col_types = cols()) %>% 
