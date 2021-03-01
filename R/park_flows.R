@@ -13,8 +13,8 @@ parks <- st_read(here("data/bayarea_parks.geojson"), quiet = TRUE) %>%
     acres = ACRES, type = DES_TP) %>%
   filter(!id %in% not_parks) %>%
   filter(access == "Open Access") %>%
-  select(id, access, acres, type)  %>%
-  st_transform(this_crs)
+  select(id, access, acres, type) 
+
 # Read streetlight data (cannot be shared)
 park_flows <- read_csv(here("data/Master_BlockGroups_Final071519.csv"), 
          col_types = cols()) %>% 
