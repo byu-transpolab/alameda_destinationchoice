@@ -336,7 +336,7 @@ distance_df <- lapply(path_files, function(file) {
 }) %>%
   bind_rows() %>%
   rename(home = geoid, park = park_id) %>%
-  mutate(home = sprintf("%012s", home))
+  mutate(home = str_pad(home, width = 12, side = "left", pad = "0"))
 write_rds(distance_df, "data/distances.rds")
 ```
 
