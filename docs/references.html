@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>References | If you build it who will come? Equity analysis of park system changes using passive origin-destination data</title>
   <meta name="description" content="Alameda Park Choice" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="References | If you build it who will come? Equity analysis of park system changes using passive origin-destination data" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2021-02-15" />
+<meta name="date" content="2021-04-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -60,24 +60,18 @@ div.abstract{
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
-<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
+<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script>
 <script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
-<script src="libs/leaflet-providers-plugin-2.0.3/leaflet-providers-plugin.js"></script>
+<script src="libs/leaflet-providers-plugin-2.0.4.1/leaflet-providers-plugin.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -171,11 +165,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3" data-path="literature.html"><a href="literature.html#street-conversion-equity-analysis"><i class="fa fa-check"></i><b>2.3</b> Street Conversion Equity Analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="methodology.html"><a href="methodology.html"><i class="fa fa-check"></i><b>3</b> Methodology</a><ul>
-<li class="chapter" data-level="3.1" data-path="methodology.html"><a href="methodology.html#data"><i class="fa fa-check"></i><b>3.1</b> Data</a></li>
-<li class="chapter" data-level="3.2" data-path="methodology.html"><a href="methodology.html#model"><i class="fa fa-check"></i><b>3.2</b> Model</a></li>
+<li class="chapter" data-level="3.1" data-path="methodology.html"><a href="methodology.html#study-area"><i class="fa fa-check"></i><b>3.1</b> Study area</a></li>
+<li class="chapter" data-level="3.2" data-path="methodology.html"><a href="methodology.html#data"><i class="fa fa-check"></i><b>3.2</b> Data</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="methodology.html"><a href="methodology.html#model-estimation-data"><i class="fa fa-check"></i><b>3.2.1</b> Model estimation data</a></li>
+<li class="chapter" data-level="3.2.2" data-path="methodology.html"><a href="methodology.html#model-application-data"><i class="fa fa-check"></i><b>3.2.2</b> Model application data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="methodology.html"><a href="methodology.html#model-estimation"><i class="fa fa-check"></i><b>3.3</b> Model estimation</a></li>
+<li class="chapter" data-level="3.4" data-path="methodology.html"><a href="methodology.html#model-application"><i class="fa fa-check"></i><b>3.4</b> Model application</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a><ul>
-<li class="chapter" data-level="4.1" data-path="results.html"><a href="results.html#model-application-equity-analysis-of-covid-19-street-openings"><i class="fa fa-check"></i><b>4.1</b> Model Application: Equity Analysis of COVID-19 Street Openings</a></li>
+<li class="chapter" data-level="4.1" data-path="results.html"><a href="results.html#equity-analysis-of-covid-19-street-openings"><i class="fa fa-check"></i><b>4.1</b> Equity Analysis of COVID-19 Street Openings</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="limitations.html"><a href="limitations.html"><i class="fa fa-check"></i><b>5</b> Limitations and Future Directions</a></li>
 <li class="chapter" data-level="6" data-path="conclusions.html"><a href="conclusions.html"><i class="fa fa-check"></i><b>6</b> Conclusions</a></li>
@@ -239,10 +238,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Chang, Hsueh-Sheng, and Chin-Hsien Liao. 2011. “Exploring an Integrated Method for Measuring the Relative Spatial Equity in Public Facilities in the Context of Urban Parks.” <em>Cities</em> 28 (5): 361–71.</p>
 </div>
 <div>
+<p>City of Alameda. 2020. “Slow Streets Alameda.” <a href="https://www.alamedaca.gov/ALERTS-COVID-19/Slow-Streets-Alameda">https://www.alamedaca.gov/ALERTS-COVID-19/Slow-Streets-Alameda</a>.</p>
+</div>
+<div>
+<p>City of Berkeley. 2020. “Berkeley News Main Page.” <a href="https://www.cityofberkeley.info/City_Manager/Press_Releases/2020/2020-06-10_Healthy_Streets_will_support_outdoor_recreation_during_COVID-19.aspx">https://www.cityofberkeley.info/City_Manager/Press_Releases/2020/2020-06-10_Healthy_Streets_will_support_outdoor_recreation_during_COVID-19.aspx</a>.</p>
+</div>
+<div>
+<p>City of Oakland. 2020. “Oakland Slow Streets.” <em>City of Oakland</em>. <a href="https://www.oaklandca.gov/projects/oakland-slow-streets">https://www.oaklandca.gov/projects/oakland-slow-streets</a>.</p>
+</div>
+<div>
 <p>City Parks Alliance. 2019. “Why City Parks Matter.” <a href="https://cityparksalliance.org/about-us/why-city-parks-matter/">https://cityparksalliance.org/about-us/why-city-parks-matter/</a>.</p>
 </div>
 <div>
 <p>Combs, Tabitha, Carlos Felipe Pardo, Epiandes, MobilityWorks, and Datasketch. 2020. “The "Shifting Streets" Covid-19 Mobility Dataset.” <a href="http://pedbikeinfo.org/resources/resources_details.cfm?id=5235">http://pedbikeinfo.org/resources/resources_details.cfm?id=5235</a>.</p>
+</div>
+<div>
+<p>Combs, Tabitha S, and Carlos F Pardo. 2021. “Shifting Streets Covid-19 Mobility Data: Findings from a Global Dataset and a Research Agenda for Transport Planning and Policy.” <em>Transportation Research Interdisciplinary Perspectives</em> 9: 100322.</p>
+</div>
+<div>
+<p>Compton, Nette. 2020. “Parks and the Future: Now Is the Moment to Transform Outdoor Equity Across the Nation.” In <em>Parks and the Pandemic: A Trust for Public Land Special Report</em>, 11–12. San Francisco, CA: The Trust for Public Land. <a href="https://www.tpl.org/sites/default/files/Parks%20and%20Pandemic%20-%20TPL%20special%20report.pdf">https://www.tpl.org/sites/default/files/Parks%20and%20Pandemic%20-%20TPL%20special%20report.pdf</a>.</p>
 </div>
 <div>
 <p>Croissant, Yves. 2019. <em>mlogit: Multinomial Logit Models</em>. <a href="https://cran.r-project.org/package=mlogit">https://cran.r-project.org/package=mlogit</a>.</p>
@@ -254,6 +268,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Dong, Xiaojing, Moshe E. Ben-Akiva, John L. Bowman, and Joan L. Walker. 2006. “Moving from trip-based to activity-based measures of accessibility.” <em>Transportation Research Part A: Policy and Practice</em> 40 (2): 163–80. <a href="https://doi.org/10.1016/J.TRA.2005.05.002">https://doi.org/10.1016/J.TRA.2005.05.002</a>.</p>
 </div>
 <div>
+<p>Fischer, Jaimy, and Meghan Winters. 2021. “COVID-19 Street Reallocation in Mid-Sized Canadian Cities: Socio-Spatial Equity Patterns.” <em>Canadian Journal of Public Health</em> 112 (3): 376–90. <a href="https://doi.org/10.17269/s41997-020-00467-3">https://doi.org/10.17269/s41997-020-00467-3</a>.</p>
+</div>
+<div>
 <p>Floyd, Myron F, and Kimberly J Shinew. 1999. “Convergence and Divergence in Leisure Style Among Whites and African Americans: Toward an Interracial Contact Hypothesis.” <em>Journal of Leisure Research</em> 31 (4): 359–84.</p>
 </div>
 <div>
@@ -261,6 +278,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div>
 <p>Geurs, Karst T., and Bert van Wee. 2004. “Accessibility Evaluation of Land-Use and Transport Strategies: Review and Research Directions.” <em>Journal of Transport Geography</em> 12 (2): 127–40. <a href="https://doi.org/https://doi.org/10.1016/j.jtrangeo.2003.10.005">https://doi.org/https://doi.org/10.1016/j.jtrangeo.2003.10.005</a>.</p>
+</div>
+<div>
+<p>Glaser, Meredith, and Kevin J. Krizek. 2021. “Can Street-Focused Emergency Response Measures Trigger a Transition to New Transport Systems? Exploring Evidence and Lessons from 55 US Cities.” <em>Transport Policy</em> 103 (March): 146–55. <a href="https://doi.org/10.1016/j.tranpol.2021.01.015">https://doi.org/10.1016/j.tranpol.2021.01.015</a>.</p>
 </div>
 <div>
 <p>Gobster, Paul H. 2002. “Managing Urban Parks for a Racially and Ethnically Diverse Clientele.” <em>Leisure Sciences</em> 24 (2): 143–59.</p>
@@ -284,13 +304,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Husbands, Winston, and Paul Idahosa. 1995. “Ethnicity and Recreation Behaviour: A Review and Critique of the Literature.” <em>Canadian Ethnic Studies= Études Ethniques Au Canada</em> 27 (1): 84.</p>
 </div>
 <div>
+<p>Hussain, Benita. 2020. “Parks and Policy: As Park Officials Reimagine Policy in Real Time, Equitalble Access Must Drive Decision-Making.” In <em>Parks and the Pandemic: A Trust for Public Land Special Report</em>, 7–8. San Francisco, CA: The Trust for Public Land. <a href="https://www.tpl.org/sites/default/files/Parks%20and%20Pandemic%20-%20TPL%20special%20report.pdf">https://www.tpl.org/sites/default/files/Parks%20and%20Pandemic%20-%20TPL%20special%20report.pdf</a>.</p>
+</div>
+<div>
 <p>Hutchison, Ray. 1987. “Ethnicity and Urban Recreation: Whites, Blacks, and Hispanics in Chicago’s Public Parks.” <em>Journal of Leisure Research</em> 19 (3): 205–22.</p>
 </div>
 <div>
 <p>Irwin, Patricia Noonan, William C Gartner, and Carolyn C Phelps. 1990. “Mexican-American/Anglo Cultural Differences as Recreation Style Determinants.” <em>Leisure Sciences</em> 12 (4): 335–48.</p>
-</div>
-<div>
-<p>“Jacobellis v. Ohio.” 1964. <em>US Supreme Court</em> 378 (No. 11): 184.</p>
 </div>
 <div>
 <p>Jong, Gerard de, Andrew Daly, Marits Pieters, and Toon van der Hoorn. 2007. “The logsum as an evaluation measure: Review of the literature and new results.” <em>Transportation Research Part A: Policy and Practice</em> 41 (9): 874–89. <a href="https://doi.org/10.1016/J.TRA.2006.10.002">https://doi.org/10.1016/J.TRA.2006.10.002</a>.</p>
@@ -324,9 +344,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div>
 <p>McCormack, Gavin R., Melanie Rock, Ann M. Toohey, and Danica Hignell. 2010. “Characteristics of urban parks associated with park use and physical activity: A review of qualitative research.” <em>Health &amp; Place</em> 16 (4): 712–26. <a href="https://doi.org/10.1016/J.HEALTHPLACE.2010.03.003">https://doi.org/10.1016/J.HEALTHPLACE.2010.03.003</a>.</p>
-</div>
-<div>
-<p>McFadden, Daniel. 1974. “The Measurement of Urban Travel Demand.” <em>Journal of Public Economics</em> 3 (4): 303–28.</p>
 </div>
 <div>
 <p>McFadden, Daniel L. 1974. “Conditional Logit Analysis of Qualitative Choice Behavior.” In <em>Frontiers in Econometrics</em>, edited by Paul Zarembka, 105–42. New York: Academic Press.</p>
@@ -368,6 +385,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Roll, Josh. 2019. “Evaluating Streetlight Estimates of Annual Average Daily Traffic in Oregon.” Oregon Department of Transportation; Oregon Department of Transportation. <a href="https://trid.trb.org/View/1630252">https://trid.trb.org/View/1630252</a>.</p>
 </div>
 <div>
+<p>Schlossberg, Marc, Rebecca Lewis, Aliza Whalen, Clare Haley, Danielle Lewis, Natalie Kataoka, and John Larson-Friend. 2021. <em>Rethinking Streets During COVID-19: An Evidence-Based Guide to 25 Quick Redesigns for Physical Distancing, Public Use and Spatial Equity</em>. Portland, Oregon: Transportation Research; Education Center (TREC).</p>
+</div>
+<div>
 <p>Train, Kenneth E. 2009. <em>Discrete Choice Methods with Simulation, 2nd Edition</em>. Cambridge: Cambridge University Press. <a href="https://doi.org/10.1016/S0898-1221(04)90100-9">https://doi.org/10.1016/S0898-1221(04)90100-9</a>.</p>
 </div>
 <div>
@@ -399,9 +419,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
-
-
-
 
 
 
