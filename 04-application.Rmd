@@ -1,6 +1,6 @@
 # Results {#results}
 
-```{r estimation-setup, message=FALSE, warning=FALSE, cache = FALSE, echo=FALSE}
+```{r estimation-setup, message=FALSE, warning=FALSE, cache = FALSE}
 library(tidyverse)
 library(mlogit)
 library(modelsummary)
@@ -56,7 +56,7 @@ this_crs <- 2227 # EPSG:2227 – NAD83 / California zone 3 (ftUS)
 ```
 
 
-```{r load, echo=FALSE}
+```{r load}
 logitdata <- read_rds("data/logitdata.rds")
 dfi <- logit_converter(logitdata)
 valid <- filter(dfi, validation)
@@ -74,7 +74,7 @@ Using a constant marginal elasticity is better reflective of how people perceive
 distances and sizes; a one-mile increase to a trip distance matters more to a
 two-mile trip than a ten-mile trip.
 
-```{r base_models, echo=FALSE}
+```{r base_models}
 base_models <- list(
   "Network Distance"   = mlogit(
     chosen ~ yj_distance + yj_acres | -1 ,  data = estim),
@@ -120,7 +120,7 @@ difference in likelihood statistics between the three models is significant
 $p$-value  `r detail_lrt`), and so in spite of the curious aggregate findings,
 we move forward with this utility specification.
 
-```{r base-modelsummary, echo=FALSE}
+```{r base-modelsummary}
 modelsummary(
   base_models, stars = TRUE, output = "kableExtra",
   coef_map = this_map, gof_omit = "BIC",
@@ -130,7 +130,7 @@ modelsummary(
 ```
 
 
-```{r grouped_models, echo=FALSE}
+```{r grouped_models}
 minority_models <- estim %>%
   mutate(group = case_when( black > 30 ~ "black", asian > 30 ~ "asian", 
                             hispanic > 30 ~ "hispanic", TRUE ~ "othermin"
@@ -230,7 +230,7 @@ residents with children under 6 show the least negative response to playgrounds
 of all the segments.
 
   
-```{r split_models, cache.lazy = FALSE, eval=FALSE, echo=FALSE}
+```{r split_models, cache.lazy = FALSE}
 # write a function to estimate multiple MNL models on different 
 # segments of the estimation data
 estimate_split_models <- function(data, var, splits) {
@@ -279,13 +279,13 @@ the highest affinity for playgrounds, and park goers from neighborhoods with a
 greater share of Black individuals are most sensitive to distance and least
 sensitive to park size.
 
-```{r split-plots-knit, fig.cap="Estimated utility coefficients and 95% confidence intervals for park amenities at different socioeconomic threshold levels.", fig.height=7.5, echo=FALSE}
+```{r split-plots-knit, fig.cap="Estimated utility coefficients and 95% confidence intervals for park amenities at different socioeconomic threshold levels.", fig.height=7.5}
 
 knitr::include_graphics("images/split_plot.png")
 
 ```
 
-```{r split-plots-orig, fig.cap="Estimated utility coefficients and 95% confidence intervals for park amenities at different socioeconomic threshold levels.", fig.height=7.5, cache = FALSE, eval=FALSE, echo=FALSE}
+```{r split-plots-orig, fig.cap="Estimated utility coefficients and 95% confidence intervals for park amenities at different socioeconomic threshold levels.", fig.height=7.5, cache = FALSE}
 # extract the coefficients you need to plot
 dat <- modelplot(split_models$mnl %>% 
             setNames(str_c(split_models$Segmentation, split_models$share, sep = "_")),
@@ -375,11 +375,11 @@ street_choices <-  left_join(
 ```
 
 
-```{r logsums_knit, echo=FALSE}
+```{r logsums_knit}
 blockgroups <- read_rds("data/blockgroups_logsum.rds")
 ```
 
-```{r logsums_orig, eval=FALSE}
+```{r logsums_orig}
 logsums <- lapply(list("Base" = base_choices, "Streets" = street_choices), function(df){
   u <- predict(base_models$`Sport Detail`, newdata = df, type = "linpred")
   logsum <- log(rowSums(exp(u)))
@@ -474,7 +474,7 @@ one-fifth of the households are in this category. On the other hand, a smaller
 than expected share of benefits is allocated to Asian individuals and households
 making more than $125,000 per year.
 
-```{r equity, echo=FALSE}
+```{r equity}
 # percent of households / individuals in each group
 demovars <- c("children", "lowincome", "highincome", "black", 
               "asian", "hispanic", "white", "all")

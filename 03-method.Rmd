@@ -73,7 +73,7 @@ Oakland Zoo) and facilities whose boundaries conflated with freeway right-of-way
 – this prevents trips through the park from being conflated with park trips in
 the passive origin-destination data.
 
-```{r parks, echo=FALSE}
+```{r parks}
 not_parks <- c("3455", "15886", "13243")
 parks <- st_read(here("data/bayarea_parks.geojson"), quiet = TRUE) %>%
   filter(COUNTY == "Alameda") %>%
@@ -125,7 +125,7 @@ are kept as distinct categories, with all other sport-specific fields combined
 into a single "other." Golf courses are discarded. As with playgrounds, polygon
 field and court objects are converted into points at the polygon centroid.
 
-```{r pitches, warning = FALSE, echo=FALSE}
+```{r pitches, warning = FALSE}
 pitches_osm <- opq(bb) %>% # specify boundary for query
   add_osm_feature(key = "leisure", value = "pitch") %>% 
   osmdata_sf() %>% 
@@ -194,7 +194,7 @@ general public. We spatially matched the OSM amenities data and retained only
 those facilities that intersected with the CPAD open spaces database identified
 earlier.
 
-```{r attributed-parks, echo=FALSE}
+```{r attributed-parks}
 # Append attributes to park frame ===============
 parks_with_playgrounds <-  parks %>%  
   # compute yeo-johnson transformation on acres
@@ -242,7 +242,7 @@ attributed_parks <- parks %>%
 ```
 
 
-```{r parks-map, fig.cap="Location of parks in Alameda County.", warning=FALSE, cache = FALSE, echo=FALSE}
+```{r parks-map, fig.cap="Location of parks in Alameda County.", warning=FALSE, cache = FALSE}
 dj1 <- wesanderson::wes_palette("Darjeeling1")
 if(knitr::is_latex_output()) {
   pbox <- st_bbox(st_transform(parks, 4326))
@@ -284,7 +284,7 @@ home Census block group locations for composite groups of people and converts
 raw location data points into trip origin and destination points [@Pan2006;
 @Friedrich2010].
 
-```{r park_flows, echo=FALSE}
+```{r park_flows}
 # park flows computed from Streetlight data in R/park_flows.R
 park_flows <- read_rds("data/park_flows.rds")
 ``` 
@@ -302,7 +302,7 @@ park type as defined on CPAD. A little more than half of the parks have
 identified paths, while around 40% of the identified parks have playgrounds and
 sport fields.
 
-```{r parkstable, echo=FALSE}
+```{r parkstable}
 attributed_parks <- attributed_parks %>% group_by(type) %>%
   left_join(park_flows %>% group_by(park) %>% slice(1) %>% 
               select(park, attractions), by = c("id" = "park")) %>%
@@ -311,7 +311,7 @@ write_rds(attributed_parks, "data/attributed_parks.rds")
 ```
 
 
-```{r park-attributes, results="asis", echo=FALSE}
+```{r park-attributes, results="asis"}
 datasummary_balance(
   ~ Type,  
   data = attributed_parks %>% 
@@ -342,7 +342,7 @@ block group. We then measured the network-based distance between the park and
 the home block group centroid using a walk network derived from OpenStreetMap
 using the `networkx` package for Python [@networkx],
 
-```{r acs, message = FALSE, echo=FALSE}
+```{r acs, message = FALSE}
 variables <- c(
   "population" = "B02001_001", # TOTAL: RACE
   "housing_units" = "B25001_001", # HOUSING UNITS
@@ -398,7 +398,7 @@ write_rds(acs, "data/blockgroups.rds")
 ```
 
 
-```{r net_distances, echo=FALSE}
+```{r net_distances}
 # distances computed in py/shortest_paths.py
 shortest_path_dir <- "data/shortest_paths"
 if(!dir.exists(shortest_path_dir)) {
@@ -423,7 +423,7 @@ write_rds(distance_df, "data/distances.rds")
 
 
 
-```{r acs-table, echo=FALSE}
+```{r acs-table}
 acs_for_table <- acs %>% select(
     "Density: Households per square kilometer" = density,
     "Income: Median tract income" = income,
@@ -444,7 +444,7 @@ datasummary_skim(acs_for_table, title = "Block Group Summary Statistics",
 
 ### Model application data
 
-```{r closed-streets, echo=FALSE}
+```{r closed-streets}
 slowstreets <- st_read("data/slow_streets.geojson", quiet = TRUE)  %>%
   st_transform(this_crs) 
 
@@ -529,7 +529,7 @@ multiple dimensions of the attributes of the choice, and can be evaluated in
 monetary terms [@Handy1997;@Dong2006].
 
 
-```{r params, echo=FALSE}
+```{r params}
 set.seed(42)
 n_obs <- 20000
 n_alts <- 10
@@ -538,7 +538,7 @@ ll0e <- sum(n_obs *.8 * log(1/n_alts))
 ```
 
 
-```{r mydata, echo=FALSE}
+```{r mydata}
 mydata <- park_flows %>%
   ungroup() %>%
   mutate(weight = flow / sum(flow)) %>%
@@ -570,7 +570,7 @@ no alternative-specific constants, the standard likelihood comparison statistic
 against the market shares model $\rho^2$ is not computable. We instead use the
 likelihood comparison against the equal shares model $\rho_0^2$.
 
-```{r sampled_parks, echo=FALSE}
+```{r sampled_parks}
 sampled_parks <- lapply(1:n_obs, function(i){
   sample(attributed_parks$id, n_alts)
 }) %>%
