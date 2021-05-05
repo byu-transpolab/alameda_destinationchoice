@@ -63,7 +63,16 @@ valid <- filter(dfi, validation)
 estim <- dfi
 ```
 
-We estimated multinomial logit park activity location choice models on the datset described in the previous section. We applied a Yeo-Johnson transformation [@Yeo2000] to both distance the distance (in meters) between the park and the block group centroid, and to the park acreage. The Yeo-Johnson transformation replicates the constant marginal elasticity of a logarithmic transformation while avoiding undefined values (e.g., $YJ(0) = 0$). For simplicity, we call this transformation `log()` in the model results tables. Using a constant marginal elasticity is better reflective of how people perceive distances and sizes; a one-mile increase to a trip distance matters more to a two-mile trip than a ten-mile trip.
+We estimated multinomial logit park activity location choice models on the
+datset described in the previous section. We applied a Yeo-Johnson
+transformation [@Yeo2000] to both distance the distance (in meters) between the
+park and the block group centroid, and to the park acreage. The Yeo-Johnson
+transformation replicates the constant marginal elasticity of a logarithmic
+transformation while avoiding undefined values (e.g., $YJ(0) = 0$). For
+simplicity, we call this transformation `log()` in the model results tables.
+Using a constant marginal elasticity is better reflective of how people perceive
+distances and sizes; a one-mile increase to a trip distance matters more to a
+two-mile trip than a ten-mile trip.
 
 ```{r base_models, echo=FALSE}
 base_models <- list(
@@ -84,9 +93,32 @@ d_ratio_sport <- -1 * coefficients(base_models$`Sport Detail`)[1] /
   coefficients(base_models$`Sport Detail`)[2] 
 ```
 
-Table \@ref(tab:base-modelsummary) presents the model estimation results for each estimated model. The "Network Distance" model, which only considers the distance to the park and the size of the park results in significant estimated coefficients of the expected sign: That is, individuals will travel further distances to reach larger parks. The ratio of the estimated coefficients implies that on average, people will travel `r d_ratio_base` times further to reach a park twice as large.
+Table \@ref(tab:base-modelsummary) presents the model estimation results for
+each estimated model. The "Network Distance" model, which only considers the
+distance to the park and the size of the park results in significant estimated
+coefficients of the expected sign: That is, individuals will travel further
+distances to reach larger parks. The ratio of the estimated coefficients implies
+that on average, people will travel `r d_ratio_base` times further to reach a
+park twice as large.
 
-Table \@ref(tab:base-modelsummary) also shows the results of the "Park Attributes" model, which represents the presence of any sport field with a single dummy variable, and the "Sport Detail" model, which disaggregates this variable into facilities for different sports. The value of the size and distance coefficients change modestly from the "Network Distance" model, with the implied size to distance trade-off rising to `r d_ratio_sport`. Examining the two amenities models --- independently and in comparison with each other --- reveals a few surprising findings. First, it appears that playgrounds and sport fields in general contribute *negatively* to the choice utility equation. This is both unintuitive and contradictory to previous findings in this space [e.g.,  @Kinnell2006]. Considering different sports separately, there is a wide variety of observed response with tennis and volleyball facilities attracting more trips, and football and basketball facilities attracting fewer, all else equal. Trails and walking paths give substantive positive utility in both models. The difference in likelihood statistics between the three models is significant (likelihood ratio test between Sport Detail and Park Attributes model has $p$-value  `r detail_lrt`), and so in spite of the curious aggregate findings, we move forward with this utility specification.
+Table \@ref(tab:base-modelsummary) also shows the results of the "Park
+Attributes" model, which represents the presence of any sport field with a
+single dummy variable, and the "Sport Detail" model, which disaggregates this
+variable into facilities for different sports. The value of the size and
+distance coefficients change modestly from the "Network Distance" model, with
+the implied size to distance trade-off rising to `r d_ratio_sport`. Examining
+the two amenities models --- independently and in comparison with each other ---
+reveals a few surprising findings. First, it appears that playgrounds and sport
+fields in general contribute *negatively* to the choice utility equation. This
+is both unintuitive and contradictory to previous findings in this space [e.g.,
+@Kinnell2006]. Considering different sports separately, there is a wide variety
+of observed response with tennis and volleyball facilities attracting more
+trips, and football and basketball facilities attracting fewer, all else equal.
+Trails and walking paths give substantive positive utility in both models. The
+difference in likelihood statistics between the three models is significant
+(likelihood ratio test between Sport Detail and Park Attributes model has
+$p$-value  `r detail_lrt`), and so in spite of the curious aggregate findings,
+we move forward with this utility specification.
 
 ```{r base-modelsummary, echo=FALSE}
 modelsummary(
@@ -136,7 +168,21 @@ grouped_models <- lapply(list(child_models, income_models, minority_models),
   unlist(recursive = FALSE)
 ```
 
-It is worth investigating the heterogeneity in preferences that exist among populations. Though the income and ethnicity of the synthetic park visitors is not known, we can segment the estimation dataset based on the socioeconomic makeup of the visitors' residence block group. The models presented in  Table \@ref(tab:grouped-modelsummary) were estimated on segments developed in this manner. Models under the "Race/Ethnicity" heading include a race- and ethnicity-based segmentation: simulated individuals living in block groups with more than thirty percent Black residents are included in the ">30% Black" model, an analogous segmentation for block groups with high Asian and Hispanic populations are in the ">30% Asian" and ">30% Hispanic" models respectively, and the "Other" model contains all other block groups. Another set of model segmentation relies on the share of the population in each block group with household incomes above or below certain thresholds, and a third relies on the share of households with children under 6 years old. Again, we use the threshold definitions largely informed by the distributions in \@ref(tab:acs-table).
+It is worth investigating the heterogeneity in preferences that exist among
+populations. Though the income and ethnicity of the synthetic park visitors is
+not known, we can segment the estimation dataset based on the socioeconomic
+makeup of the visitors' residence block group. The models presented in  Table
+\@ref(tab:grouped-modelsummary) were estimated on segments developed in this
+manner. Models under the "Race/Ethnicity" heading include a race- and
+ethnicity-based segmentation: simulated individuals living in block groups with
+more than thirty percent Black residents are included in the ">30% Black" model,
+an analogous segmentation for block groups with high Asian and Hispanic
+populations are in the ">30% Asian" and ">30% Hispanic" models respectively, and
+the "Other" model contains all other block groups. Another set of model
+segmentation relies on the share of the population in each block group with
+household incomes above or below certain thresholds, and a third relies on the
+share of households with children under 6 years old. Again, we use the threshold
+definitions largely informed by the distributions in \@ref(tab:acs-table).
 
 ```{r grouped-modelsummary}
 grouped_models_clean <- list(
@@ -172,7 +218,16 @@ modelsummary(
 
 ```
 
-The model estimates in Table \@ref(tab:grouped-modelsummary) reveal noticeable heterogeneity in the park location choices among visitors from different block group segments. Park visitors living in block groups with a high proportion of Black and low-income residents show less affinity for trails and other walkways, but appear  considerably more sensitive to the distance to a park. Park visitors living in high-income neighborhoods are less sensitive to the distance to a park, but receive more utility from certain amenities, in particular trails and tennis courts. Block groups with a high proportion of Hispanic residents and residents with children under 6 show the least negative response to playgrounds of all the segments.
+The model estimates in Table \@ref(tab:grouped-modelsummary) reveal noticeable
+heterogeneity in the park location choices among visitors from different block
+group segments. Park visitors living in block groups with a high proportion of
+Black and low-income residents show less affinity for trails and other walkways,
+but appear  considerably more sensitive to the distance to a park. Park visitors
+living in high-income neighborhoods are less sensitive to the distance to a
+park, but receive more utility from certain amenities, in particular trails and
+tennis courts. Block groups with a high proportion of Hispanic residents and
+residents with children under 6 show the least negative response to playgrounds
+of all the segments.
 
   
 ```{r split_models, cache.lazy = FALSE, eval=FALSE, echo=FALSE}
@@ -201,9 +256,28 @@ split_models <- lapply(c("black", "asian", "hispanic", "lowincome", "highincome"
 }) %>% bind_rows() 
 ```
 
-Seeing that there is a difference in the response in the model segmentation, it is also worth considering the role of our segmentation thresholds in these findings. Figure \@ref(fig:split-plots) shows the estimated coefficients and confidence intervals for these different amenities at different threshold levels of segmentation. The threshold level means that at least that percent of the block group's population falls in that category. The confidence intervals widen as more observations are excluded from the model. The estimated coefficients for the different segmentations are identical when the share equals zero, and simply represent the "Sport Detail" model from Table \@ref(tab:base-modelsummary).
+Seeing that there is a difference in the response in the model segmentation, it
+is also worth considering the role of our segmentation thresholds in these
+findings. Figure \@ref(fig:split-plots) shows the estimated coefficients and
+confidence intervals for these different amenities at different threshold levels
+of segmentation. The threshold level means that at least that percent of the
+block group's population falls in that category. The confidence intervals widen
+as more observations are excluded from the model. The estimated coefficients for
+the different segmentations are identical when the share equals zero, and simply
+represent the "Sport Detail" model from Table \@ref(tab:base-modelsummary).
 
-Overall, increasing the segmentation threshold level reveals additional information about user preferences. First, it should be noted that there is some inconsistency: for instance, block groups with at least 40% of low income households show a lower importance of distance than block groups with either 30% low income households. The increasing width of the confidence interval, however, means it is sometimes difficult to make generalized statements. Residents of block groups with a higher share of Asian or high income households both show relatively more affinity for tennis courts and trails relative to other groups. Residents of block groups with increasing shares of Hispanic individuals show the highest affinity for playgrounds, and park goers from neighborhoods with a greater share of Black individuals are most sensitive to distance and least sensitive to park size.
+Overall, increasing the segmentation threshold level reveals additional
+information about user preferences. First, it should be noted that there is some
+inconsistency: for instance, block groups with at least 40% of low income
+households show a lower importance of distance than block groups with either 30%
+low income households. The increasing width of the confidence interval, however,
+means it is sometimes difficult to make generalized statements. Residents of
+block groups with a higher share of Asian or high income households both show
+relatively more affinity for tennis courts and trails relative to other groups.
+Residents of block groups with increasing shares of Hispanic individuals show
+the highest affinity for playgrounds, and park goers from neighborhoods with a
+greater share of Black individuals are most sensitive to distance and least
+sensitive to park size.
 
 ```{r split-plots-knit, fig.cap="Estimated utility coefficients and 95% confidence intervals for park amenities at different socioeconomic threshold levels.", fig.height=7.5, echo=FALSE}
 
@@ -251,7 +325,10 @@ if(knitr::is_latex_output()) {
 
 ## Equity Analysis of COVID-19 Street Openings
 
-In this section, we apply the models estimated above to evaluate the benefits of the street conversion policy in terms of aggregate value determined by the change in accessibility logsum, as well as the equity of the policy with respect to different income and ethnic groups.
+In this section, we apply the models estimated above to evaluate the benefits of
+the street conversion policy in terms of aggregate value determined by the
+change in accessibility logsum, as well as the equity of the policy with respect
+to different income and ethnic groups.
 
 ```{r street_distances}
 # distances computed in py/shortest_paths.py
@@ -320,7 +397,14 @@ blockgroups <- read_rds("data/blockgroups.rds") %>%
   mutate(diff_ls = (streets - base) / 0.215)
 ```
 
-Figure \@ref(fig:logsumsmap) presents this monetary valuation spatially. Unsurprisingly, the benefits are concentrated in the block groups surrounding the opened streets. Most residents of central Oakland see a benefit of somewhere around \$1, while some zones see an equivalent benefit of as much as \$30. One property of logsum-based accessibility terms is that there is some benefit given for simply having more options, whether or not those options are attractive in any way. In this application, these benefits are small, on the order of 10 cents for most block groups away from where the street openings occurred.
+Figure \@ref(fig:logsumsmap) presents this monetary valuation spatially.
+Unsurprisingly, the benefits are concentrated in the block groups surrounding
+the opened streets. Most residents of central Oakland see a benefit of somewhere
+around \$1, while some zones see an equivalent benefit of as much as \$30. One
+property of logsum-based accessibility terms is that there is some benefit given
+for simply having more options, whether or not those options are attractive in
+any way. In this application, these benefits are small, on the order of 10 cents
+for most block groups away from where the street openings occurred.
 
 ```{r logsumsmap, fig.cap="Monetary value of street opening to residents based on utility change. Streets converted to pedestrian plazas are shown in black.", cache=FALSE}
 bins <- c(0, 0.1, 0.25, 0.5, 1, 2, 10, 35)
@@ -354,16 +438,41 @@ if(knitr::is_latex_output()) {
 }
 ```
 
-More interesting than the total benefit or even its spatial distribution, however, is the social equity of its distribution among different population segments. If we assign the block-group level monetary benefit to each household in the block group, we can begin to allocate the distribution of benefits proportionally to households of different sociodemographic classifications. Specifically, if a block group with $N$ total households has a measured consumer surplus $\delta CS$, then the share of the total benefits going to a particular population segment $k$ is
+More interesting than the total benefit or even its spatial distribution,
+however, is the social equity of its distribution among different population
+segments. If we assign the block-group level monetary benefit to each household
+in the block group, we can begin to allocate the distribution of benefits
+proportionally to households of different sociodemographic classifications.
+Specifically, if a block group with $N$ total households has a measured consumer
+surplus $\delta CS$, then the share of the total benefits going to a particular
+population segment $k$ is
 
 \begin{equation}
   S_k = N * P_k * \delta CS
   (\#eq:cs-alloc)
 \end{equation}
 
-where $P_k$ is the proportion of the block group's population in segment $k$. There is some opportunity for confusion when some demographic variables we use (share of households with children, household income) are defined at the household level and other (ethnicity) are defined at the person level. It is similarly not clear whether the benefits of improved park access should be assigned at the person level, the household level, or the number of total park trip makers in each block group. For consistency and simplicity, we assert that the benefit is assigned to each household, and that persons receive a proportional share of the household benefit. For example, a block group with 30% Black individuals will receive 30% of the benefits assigned to all the households in the block group. 
+where $P_k$ is the proportion of the block group's population in segment $k$.
+There is some opportunity for confusion when some demographic variables we use
+(share of households with children, household income) are defined at the
+household level and other (ethnicity) are defined at the person level. It is
+similarly not clear whether the benefits of improved park access should be
+assigned at the person level, the household level, or the number of total park
+trip makers in each block group. For consistency and simplicity, we assert that
+the benefit is assigned to each household, and that persons receive a
+proportional share of the household benefit. For example, a block group with 30%
+Black individuals will receive 30% of the benefits assigned to all the
+households in the block group.
 
-Table \@ref(tab:equity) shows the total benefit assigned to households in this way as well as the share of all monetary benefits in the region. In some cases, the policy of opening streets as public spaces had a pro-social benefit, as 18.7\% of benefits went to Black individuals, even though only 11.4\% of the population of Alameda County is Black. Similarly, roughly one-quarter of total benefits went to households making less than \$35,000 per year even though only one-fifth of the households are in this category. On the other hand, a smaller than expected share of benefits is allocated to Asian individuals and households making more than $125,000 per year. 
+Table \@ref(tab:equity) shows the total benefit assigned to households in this
+way as well as the share of all monetary benefits in the region. In some cases,
+the policy of opening streets as public spaces had a pro-social benefit, as
+18.7\% of benefits went to Black individuals, even though only 11.4\% of the
+population of Alameda County is Black. Similarly, roughly one-quarter of total
+benefits went to households making less than \$35,000 per year even though only
+one-fifth of the households are in this category. On the other hand, a smaller
+than expected share of benefits is allocated to Asian individuals and households
+making more than $125,000 per year.
 
 ```{r equity, echo=FALSE}
 # percent of households / individuals in each group
