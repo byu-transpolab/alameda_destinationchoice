@@ -81,6 +81,20 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
 
 
 
@@ -92,7 +106,7 @@
    \ead{gregmacfarlane@byu.edu} 
     \author[StreetLight]{Teresa Tapia}
    \ead{teresa.tapia@streetlightdata.com} 
-    \author[Harvard]{Carole Turley-Voulgaris}
+    \author[Harvard]{Carole Turley Voulgaris}
    \ead{cvoulgaris@gsd.harvard.edu} 
       \address[BYU]{Brigham Young University, Civil and Environmental Engineering Department, 430 Engineering Building, Provo, Utah 84602}
     \address[Harvard]{Harvard Graduate School of Design, 48 Quincy St, Cambridge, Massachussetts 02138}
@@ -100,24 +114,7 @@
       \cortext[1]{Corresponding Author}
   
   \begin{abstract}
-  During the spring and summer of 2020, many cities across the world adopted a
-  policy of converting roadway facilities into open pedestrian spaces. This
-  policy was designed to meaningfully improve access to public recreation areas,
-  but the degree to which this access improved among different populations is an
-  important research question. In particular, academic and practical methods
-  to measure socio-spatial access to park facilites rely on arbitrary definitions
-  and are not based in revealed preferences for park facilities. In this study,
-  we evaluate the change in a utility-based park accessibility measure resulting
-  from street conversions in Alameda County, California. Our utility-based
-  accessibility measure is constructed from a park activity location choice model
-  we estimate using mobile device data --- supplied by StreetLight Data, Inc.~---
-  representing trips to parks in that county. The estimated model reveals
-  heterogeneity in inferred affinity for park attributes among different
-  sociodemographic groups. When applied to the street conversion policy in
-  Alameda County, the model suggests an aggregate household-level consumer surplus
-  of over \$600 thousand. This surplus is pro-social
-  in that Black, Hispanic, and low-income households receive a greater share of the
-  surplus than expected based on the population distribution.
+  During the spring and summer of 2020, cities across the world responded to the global COVID-19 pandemic by converting roadway facilities into open pedestrian spaces. These conversions improved access to public open space, but measuring the variation in that improvement among different populations requires clear definitions of access and methods for measuring it. In this study, we evaluate the change in a utility-based park accessibility measure resulting from street conversions in Alameda County, California. Our utility-based accessibility measure is constructed from a park activity location choice model we estimate using mobile device data --- supplied by StreetLight Data, Inc.~--- representing trips to parks in that county. The estimated model reveals heterogeneity in inferred affinity for park attributes among different sociodemographic groups. We find, for example, that residents of lower-income neighborhoods and those with more residents of color show a greater preference for park proximty while residents of higher-income neighborhods and those with more white residents show a greater preference for park size and amenities. Thus, the closure of streets to create a set of small park-like open spaces has been a pro-social policy in that Black, Hispanic, and low-income households receive a disproportionate share of the benefit, relative to the population distribution.
   \end{abstract}
    \begin{keyword} Accessibility Passive Data Location Choice Parks\end{keyword}
  \end{frontmatter}
@@ -125,75 +122,77 @@
 \hypertarget{intro}{%
 \section{Introduction}\label{intro}}
 
-Parks and other green spaces generate immense value for the public who are able
+Parks and other open spaces generate immense value for the public who are able
 to access them. The \citet{CityParksAlliance} categorizes the observed benefits of
 urban parks as encouraging active lifestyles \citep{Bancroft2015}, contributing to
-local economies, aiding in stormwater management and flood mitigation,
-improving local air quality, increasing community engagement \citep{Madzia2018}, and
-enhancing public equity.
+local economies, aiding in stormwater management and flood mitigation, improving
+local air quality, increasing community engagement \citep{Madzia2018}, and enhancing
+public equity.
 
 For many, the value of public parks and open public spaces increased during the
 widespread lockdowns enacted in 2020 to slow the transmission of COVID-19. With
 other entertainment venues shuttered and people otherwise confined to their
-homes, periodic use of public space provided an opportunity physical and emotional relief
-unavailable in other forms. Paired with this increased demand for public open
-space --- and the with the epidemiological requirement to leave sufficient space
-between other users --- was the related collapse in demand for vehicular travel.
-As a result, cities around the world began closing select streets to automobile
-travel, thereby opening them as pedestrian plazas. The effective result of this
-policy was to create a number of ``parks'' in urban areas that may have had
-poor access previously. Understanding the equitable distribution of these
-benefits is an important land use policy issue. The potential for non-emergency
-temporary or permanent street conversions also brings up interesting problems
-for land use and transportation policy; indeed, the possibility for
-transportation infrastructure to \emph{become} a socially beneficial land use is
-a tantalizing proposition.
+homes, periodic use of public space provided an opportunity physical and
+emotional relief unavailable in other forms. Paired with this increased demand
+for public open space --- and the with the epidemiological requirement to leave
+sufficient space between other users --- was the related collapse in demand for
+vehicular travel. As a result, cities around the world began closing select
+streets to automobile travel, thereby opening them as pedestrian plazas, open
+streets, or slow streets \citep{glaser_can_2021, schlossberg_rethinking_2021, combs2021shifting}. The effective result of this policy was to create a number
+of ``parks'' in urban areas that may have had poor access previously.
+Understanding the equitable distribution of these benefits is an important land
+use policy issue. The potential for non-emergency temporary or permanent street
+conversions also brings up interesting problems for land use and transportation
+policy; indeed, the possibility for transportation infrastructure to \emph{become} a
+socially beneficial land use that goes beyond serving mobility needs is a
+tantalizing proposition.
 
 Unfortunately, quantifying the benefits derived from access to parks in general
 is a complicated problem. Many previous attempts at quantifying access in terms
-of isochronal distances or greenspace concentration have resulted in a
+of isochronal distances or open space concentration have resulted in a
 frustrating lack of clarity on the relationship between measured access and
 measures of physical and emotional health \citep{Bancroft2015}. Central to this
-confusion is the simple fact that people do not always use the nearest park,
-especially if it does not have qualities that they find attractive. A better
-methodology would be to evaluate the park activity location choices of people in
-a metropolitan area to identify which features of parks --- distance, amenities,
+confusion is the fact that people do not always use the nearest park, especially
+if it does not have qualities that they find attractive. A better methodology
+would be to evaluate the park activity location choices of people in a
+metropolitan area to identify which features of parks --- distance, amenities,
 size, etc. --- are valued and which are less valued. The resulting activity
 location choice model would enable the evaluation of utility benefits via the
 choice model logsum \citep{Handy1997, DeJong2007}.
 
 In this study, we seek to evaluate the socio-spatial distribution of benefits
 received by residents of Alameda County, California resulting from the
-temporary conversion of streets to public open spaces during the spring and summer
-of 2020. We estimate a park activity location choice model using location-based
-services (LBS) data obtained through StreetLight Data, Inc., a commercial data
-aggregator. The resulting model illuminates the degree to which constructed
-individuals living in U.S. Census block groups of varying sociodemographic
-characteristics value the travel distance between block group and parks, the
-size of the parks, and the amenities of parks including sport fields,
-playgrounds, and walking trails in Alameda county. We then apply this model to
-examine the inferred monetary benefit resulting from the street conversion
-policy, and its distribution among different sociodemographic groups.
+temporary conversion of streets to public open spaces during the spring and
+summer of 2020. We estimate a park activity location choice model using
+location-based services (LBS) data obtained through StreetLight Data, Inc., a
+commercial data aggregator. The resulting model illuminates the degree to which
+constructed individuals living in U.S. Census block groups of varying
+sociodemographic characteristics value the travel distance between block group
+and parks, the size of the parks, and the amenities of parks including sport
+fields, playgrounds, and walking trails in Alameda county. We then apply this
+model to examine the inferred monetary benefit resulting from the street
+conversion policy, and its distribution among different sociodemographic groups.
 
-The paper proceeds in the following manner: A \protect\hyperlink{literature}{discussion} of prior attempts to
-evaluate park accessibility and preferences is given directly. A \protect\hyperlink{methodology}{Methodology}
-section presents our data gathering and cleaning efforts as well as the
-econometric framework for the location choice model. A \protect\hyperlink{results}{Results} section
-presents the estimated choice model coefficients alongside a discussion of their
-implications, followed by an analysis of the implied benefits resulting from the
-street conversion policy. After presenting \protect\hyperlink{limitations}{limitations} and associated avenues
-for future research, a final \protect\hyperlink{conclusions}{Conclusions} section outlines the contributions of
-this study for recreational trip modeling and location choice modeling more
-generally.
+The paper proceeds in the following manner: A \protect\hyperlink{literature}{discussion} of prior
+attempts to evaluate park accessibility and preferences is given directly. A
+\protect\hyperlink{methodology}{Methodology} section presents our data gathering and cleaning
+efforts, the econometric framework for the location choice model, and the
+approach taken to apply the results to analyze open streets projects. A
+\protect\hyperlink{results}{Results} section presents the estimated choice model coefficients
+alongside a discussion of their implications, including the implied benefits
+resulting from the street conversions in Alameda County. After presenting
+\protect\hyperlink{limitations}{limitations} and associated avenues for future research, a final
+\protect\hyperlink{conclusions}{Conclusions} section outlines the contributions of this study for
+recreational trip modeling and location choice modeling more generally.
 
 \hypertarget{literature}{%
 \section{Literature}\label{literature}}
 
-Understanding the equity benefit distribution of park access
-requires us to consider two integrated but rather distinct literatures.
-First, we consider the disparity in park utility perception among individuals of
-different backgrounds. We subsequently consider quantitative techniques to
-evaluate the access that individuals have to park facilities.
+Understanding the equity benefit distribution of park access requires us to
+consider two integrated but rather distinct literatures. First, we consider the
+disparity in park utility perception among different populations. We
+subsequently consider quantitative techniques to evaluate the access that
+individuals have to park facilities.
 
 \hypertarget{sociodemographic-variation-in-park-utility}{%
 \subsection{Sociodemographic variation in park utility}\label{sociodemographic-variation-in-park-utility}}
@@ -201,19 +200,20 @@ evaluate the access that individuals have to park facilities.
 The idea that different racial, ethnic, or cultural groups have different
 recreational styles, and might thus have different needs and preferences for
 parks and open space, has been thoroughly discussed in the leisure studies
-literature, and \citet{husbands1995ethnicity} offer a detailed review of that research
-as of the mid-1990s. In general, explanations for racial and ethnic differences
-in park use can be classified into two categories: those rooted in cultural and
-lifestyle differences, and those rooted in discrimination and marginalization.
+literature. \citet{husbands1995ethnicity} offer a detailed review of that research as
+of the mid-1990s. In general, explanations for racial and ethnic differences in
+park use can be classified into two categories: cultural and lifestyle
+differences on the one hand, and discrimination and marginalization on the
+other.
 
-\citet{byrne2009nature} summarize literature in the former category, noting that
-African Americans have been described as preferring more social,
-sports-oriented spaces, relative to white people who prefer secluded natural
-settings \citep{washburne1978black, hutchison1987ethnicity, floyd1999convergence, gobster2002managing, payne2002examination, ho2005gender}; Asians are
-described as valuing aesthetics over recreational spaces;
-\citep{gobster2002managing, payne2002examination, ho2005gender}, and Latinos are
-said to value group-oriented amenities like picnic tables and restrooms
-\citep{baas1993influence, hutchison1987ethnicity, irwin1990mexican}.
+\citet{byrne2009nature} summarize literature in the former category, noting that Black
+park users have been described as preferring more social, sports-oriented
+spaces, relative to white park users who prefer secluded natural settings
+\citep{washburne1978black, hutchison1987ethnicity, floyd1999convergence, gobster2002managing, payne2002examination, ho2005gender}; Asian park users
+are described as valuing aesthetics over recreational spaces
+\citep{gobster2002managing, payne2002examination, ho2005gender}; and Latino park
+users are said to value group-oriented amenities like picnic tables and
+restrooms \citep{baas1993influence, hutchison1987ethnicity, irwin1990mexican}.
 \citet{byrne2009nature} criticize such scholarship as having grossly exaggerated
 ethno-racial differences in park use and preferences, and suggest a model for
 explaining park use based on four elements: Sociodemographic characteristics;
@@ -224,34 +224,35 @@ sense of welcome).
 
 \citet{byrne2012green} applies a cultural politics theoretical frame to why people of
 color are underrepresented among visitors to some urban parks. Focus groups of
-Latino residents emphasized the importance of parks to children and childhood.
-Participants described visiting parks with their children and the positive and
-negatives associations that parks evoked of their own childhood memories of
-parks and wilderness. Participants described barriers to visiting parks
-including distance, inadequate or poorly maintained facilities, and fear of
-crime. They cited a lack of Spanish-language signage not only as a barrier to
-understanding but also as a signal that a park was not intended to serve
+Latino residents of Los Angeles emphasized the importance of parks to
+children. Participants described visiting parks with their children and the
+positive and negatives associations that parks evoked of their own childhood
+memories of parks and wilderness. Participants described barriers to visiting
+parks including distance, inadequate or poorly maintained facilities, and fear
+of crime. They cited a lack of Spanish-language signage not only as a barrier
+to understanding but also as a signal that a park was not intended to serve
 Spanish speakers. Participants also expressed that they did not feel welcome
-in parks located in high-income or predominantly white neighborhoods, either
-because they expected that other park users would have racist attitudes, or
-because they expected that a more boisterous Latino `recreational style' would
-not be tolerated or that there would be other behavioral norms they were not
-aware of.
+in parks located in high-income or predominantly white neighborhoods because
+they expected that other park users would have racist attitudes, that a more
+boisterous Latino `recreational style' would not be tolerated, or that there
+would be other behavioral norms they were not aware of.
 
 In an observational and survey-based study of park users in Los Angeles,
 \citet{loukaitou1995urban} found a high-level of enthusiasm for park use among Hispanic
-people. While she found, consistent with prior research \citep{baas1993influence, hutchison1987ethnicity, irwin1990mexican}, that Hispanic park users showed a
-preference for passive recreation, she found that to be the case for all other
-user groups as well. She also found that Hispanic park users were the most
-likely to actively appropriate and modify park space, for example, by bringing
-items from home. She found that Hispanic park users tended to visit parks as
-family groups; African American park users tended to visit parks as peer groups;
-Caucasian park users tended to visit parks alone; and Asian residents were least
-likely to visit parks, even in a predominantly Asian neighborhood. Interviews
-with local elderly Asian residents (Chinese immigrants) suggested that a lack of
-interest in American parks was rooted in perceptions of the ideal park as ``an
-aesthetic element of gorgeous design,'' leaving them unimpressed with poorly
-landscaped American parks emphasizing recreational functions.
+residents. While she found, consistent with prior research
+\citep{baas1993influence, hutchison1987ethnicity, irwin1990mexican}, that
+Hispanic park users showed a preference for passive recreation, she found that
+to be the case for all other user groups as well. She also found that Hispanic
+park users were the most likely to actively appropriate and modify park space,
+for example, by bringing items from home. She found that Hispanic park users
+tended to visit parks as family groups; African American park users tended to
+visit parks as peer groups; Caucasian park users tended to visit parks alone;
+and Asian residents were least likely to visit parks, even in a predominantly
+Asian neighborhood. Interviews with local elderly Asian residents (Chinese
+immigrants) suggested that a lack of interest in American parks was rooted in
+perceptions of the ideal park as ``an aesthetic element of gorgeous design,''
+leaving them unimpressed with poorly landscaped American parks emphasizing
+recreational functions.
 
 \hypertarget{defining-and-measuring-park-accessibility}{%
 \subsection{Defining and measuring park accessibility}\label{defining-and-measuring-park-accessibility}}
@@ -259,17 +260,16 @@ landscaped American parks emphasizing recreational functions.
 ``Accessibility'' is an abstract concept that describes how easily an individual
 can accomplish an activity at a particular space. Though not strictly
 quantifiable, the idea of quantifying this access is tempting and has been
-frequently attempted.
-\citet{Handy1997} identify three broad types of accessibility measures: cumulative
-opportunity or isochrone measures, gravity-based measures, and utility-based measures.
-\citet{Dong2006} follow the same basic classification approach as Handy and Neimeier,
-illustrating mathematically how the three different types of measures can be
-collapsed into each other.
-\citet{GEURS2004127} group cumulative opportunity and gravity-based measures into
-a single category that they refer to as location-based measures. In this,
-Geurs et al.~rely on the distinction that utility-based measures incorporate revealed
-preferences of individuals for particular destinations while location-based
-measures are entirely geo-spatial in their definition.
+frequently attempted. \citet{Handy1997} identify three broad types of accessibility
+measures: cumulative opportunity or isochrone measures, gravity-based measures,
+and utility-based measures. \citet{Dong2006} follow the same basic classification
+approach as Handy and Neimeier, illustrating mathematically how the three
+different types of measures can be collapsed into each other. \citet{GEURS2004127}
+group cumulative opportunity and gravity-based measures into a single category
+that they refer to as location-based measures. In this, \citet{GEURS2004127} rely on
+the distinction that utility-based measures incorporate revealed preferences of
+individuals for particular destinations while location-based measures are
+entirely geo-spatial in their definition.
 
 \hypertarget{location-based-measures-of-park-accessibility}{%
 \subsubsection{Location-based measures of park accessibility}\label{location-based-measures-of-park-accessibility}}
@@ -293,21 +293,21 @@ space) and adjusts this value based on the total city green space, investment,
 and amenities weighted against the socioeconomic characteristics of the
 population outside of the 10-minute walk threshold. The resulting score is a
 convenient quantitative tool in estimating the relative quality of green space
-access across cities \citep{Rigolon2018}. ParkScore may be less useful at identifying the
-comparative quality of access within a city, particularly since the vast majority
-of residents in dense areas like San Francisco (100\%) and New York City (99\%)
-may live within the binary 10-minute walk threshold. The Centers
-for Disease Control and Prevention (CDC) has developed an ``Accessibility to
-Parks Indicator'' along similar lines \citep{Ussery2016}, calculating the share of the
+access across cities \citep{Rigolon2018}. ParkScore may be less useful at identifying
+the comparative quality of access within a city, particularly since the vast
+majorityof residents in dense areas like San Francisco (100\%) and New York City
+(99\%) may live within the binary 10-minute walk threshold. The Centers for
+Disease Control and Prevention (CDC) has developed an ``Accessibility to Parks
+Indicator'' along similar lines \citep{Ussery2016}, calculating the share of the
 population living within a half-mile of a park for each county in the U.S.
 
 Gravity-based accessibility measures take a similar approach to cumulative
 opportunity measures, but theoretically include all possible destinations and
 weight them according to the travel cost that they impose, based on an impedance
-function (often a negative exponential calibrated to observed trip distributions).
-Cumulative opportunity measures may be considered a special case of
-gravity-based measures, where the impedance function takes the form of a binary
-step function that equals zero after a cutoff travel cost (which is why
+function (often a negative exponential calibrated to observed trip
+distributions). Cumulative opportunity measures may be considered a special case
+of gravity-based measures, where the impedance function takes the form of a
+binary step function that equals zero after a cutoff travel cost (which is why
 \citet{GEURS2004127} classify them both as location-based).
 
 A major advantage of gravity-based accessibility measures lies in their
@@ -340,26 +340,25 @@ populations.
 While traditional four-step travel demand models distribute zonal trips based on
 a gravity-based accessibility model, the travel demand modeling profession has
 shifted more recently towards a destination choice framework that distributes
-trips based on discrete-choice regression models. \citet{mcfadden1974measurement}
-first applied discrete choice models to urban travel demand to predict mode
-choice, and modern disaggregate activity-based models apply them to all travel
-behavior choices, including to select among alternative routes or alternative
-destinations \citep{de2011modelling}. Though the application of random utility models
-to destination choice is not new \citep[see][]{anas1983discrete}, the increasing
+trips based on discrete-choice regression models. \citet{mcfadden1974measurement} applied discrete
+choice models to urban travel demand to predict mode choice, and modern
+disaggregate activity-based models apply them to all travel behavior choices,
+including to select among alternative routes or alternative destinations
+\citep{de2011modelling}. Though the application of random utility models to
+destination choice is not new \citep[see][]{anas1983discrete}, the increasing
 availability of computing resources makes estimating and applying discrete
 choice models on large alternative sets in a practical context more feasible.
 
-Destination choice models estimate the
-probability of selecting a particular destination among a set of alternatives
-based on the relative attractiveness, or \emph{utility}, of each alternative. Utility
-may be function of distance or travel time alone (in which case, a utility-based
-accessibility measure might be quite similar to a location-based measure), but
-the function can also incorporate other destination characteristics that lead one
-destination to be more highly-utilized than another. For a utility-based measure
-of park accessibility, these might include park size, cleanliness,
-or the availability of particular amenities. The degree to which these park
-and trip attributes influence the destination utility can be estimated
-statistically using survey data.
+Destination choice models estimate the probability of selecting a particular
+destination among a set of alternatives based on the relative attractiveness, or
+\emph{utility}, of each alternative. Utility may be function of distance or travel
+time alone (in which case, a utility-based accessibility measure might be quite
+similar to a location-based measure), but the function can also incorporate
+other destination characteristics that lead one destination to be more
+highly-utilized than another. For a utility-based measure of park accessibility,
+these might include park size, cleanliness, or the availability of particular
+amenities. The degree to which these park and trip attributes influence the
+destination utility can be estimated statistically using survey data.
 
 Though destination choice utility models have not commonly been used to measure
 park accessibility, scholars have acknowledged that park accessibility metrics
@@ -369,8 +368,8 @@ comprehensive review of this literature; it is sufficient here to note that most
 studies find park use to depend on a complicated interplay between park size,
 maintenance, facilities, and travel distance. Many of these attributes are
 incorporated into ParkIndex \citep{Kaczynski2016}, which estimates the resident park
-use potential within small grid cells by applying utility preference coefficients
-estimated from a survey in Kansas City.
+use potential within small grid cells by applying utility preference
+coefficients estimated from a survey in Kansas City.
 
 There are limited examples of researchers using a destination choice model to
 predict recreation attractions. \citet{Kinnell2006} apply a choice model to a survey of
@@ -380,23 +379,22 @@ the travel disutility and the relative crime rate at the destination. In a
 similar study, \citet{Meyerhoff2010} model the urban swimming location choice for a
 surveyed sample. In both studies, the researchers were attempting to ascertain
 which attributes of a recreation generated the most positive utility, and
-therefore which attributes should be prioritized for improvement. Though
-neither was attempting to understand relative park accessibility,
-\citet{macfarlaneNYC} applied the \citet{Kinnell2006} estimates in an exploration of
-utility-based park accessibility and its relationship to aggregate health
-outcomes.
+therefore which attributes should be prioritized for improvement. Though neither
+was attempting to understand relative park accessibility, \citet{macfarlaneNYC} applied
+the \citet{Kinnell2006} estimates in an exploration of utility-based park accessibility
+and its relationship to aggregate health outcomes.
 
 One primary obstacle to estimating discrete-choice models on the park
 destination problem has been the lack of sufficiently detailed, trip-level data
-on park users. Most destination choice models in practice are estimated from household travel
-surveys that must focus on all trip purposes, and necessarily group multiple
-recreation and social trips together \citep{nchrp716}. However, the advent of large-scale
-mobile device networks and the perpetual association of unique devices with
-unique users has given researchers a new opportunity to observe the movements
-and activity location patterns for large subsets of the population
-\citep{Naboulsi2016}. Such passively collected location data --- sometimes referred
-to as ``Big Data'' --- is a by-product of other systems including cellular call
-data records \citep[e.g.,][]{Bolla2000, Calabrese2011}, probe GPS data \citep{Huang2015}, and more recently Location Based
+on park users. Most destination choice models in practice are estimated from
+household travel surveys that must focus on all trip purposes, and necessarily
+group multiple recreation and social trips together \citep{nchrp716}. However, the
+advent of large-scale mobile device networks and the perpetual association of
+unique devices with unique users has given researchers a new opportunity to
+observe the movements and activity location patterns for large subsets of the
+population \citep{Naboulsi2016}. Such passively collected location data --- sometimes
+referred to part of a larger category of ``Big Data'' --- is a by-product of other
+systems including cellular call data records \citep[e.g.,][]{Bolla2000, Calabrese2011}, probe GPS data \citep{Huang2015}, and more recently Location Based
 Services (LBS) \citep{Roll2019, Komanduri2017}. LBS use a network of mobile
 applications that obtain the users' physical location at different points in the
 day. Commercial vendors repackage, clean, and scale these data to population or
@@ -405,71 +403,91 @@ practitioners. \citet{Monz2019}, for example, demonstrate that passive device da
 accurately estimate trip flows to natural recreation areas.
 
 A number of methods have been proposed to develop destination choice
-information from these passive data.
-\citet{Bernardin2018} employs a passive origin-destination matrix as a shadow price
-reference in an activity-based location choice model, iteratively adjusting the
-calibration parameters of the choice
-utilities to minimize the observed error between the passive data and the modeled
-predictions.
-\citet{tf_idea} use the passive flow data
-as a probabilistic sampling frame to recreate individual trips through simulation
-A similar method developed by \citet{Zhu2018} uses the passive dataset
-directly, sampling 10,000 random trips from GPS traces of taxi trips in Shanghai
-and estimating a destination choice model. Employing the passive data set in
-this way provides the authors an opportunity to examine the choices of a large
-sample of a small population (taxi passengers). The \citet{Zhu2018} methodology could
-be extended to other situations where collecting a statistically relevant
-survey sample would be prohibitively difficult, but where passive device
-location data reveals which destinations people choose among many observable
-options.
+information from these passive data. \citet{Bernardin2018} employs a passive
+origin-destination matrix as a shadow price reference in an activity-based
+location choice model, iteratively adjusting the calibration parameters of the
+choice utilities to minimize the observed error between the passive data and the
+modeled predictions. \citet{tf_idea} use the passive flow data as a probabilistic
+sampling frame to recreate individual trips through simulation. A similar method
+developed by \citet{Zhu2018} uses the passive dataset directly, sampling 10,000 random
+trips from GPS traces of taxi trips in Shanghai and estimating a destination
+choice model. Employing the passive data set in this way provides the authors an
+opportunity to examine the choices of a large sample of a small population (taxi
+passengers). The \citet{Zhu2018} methodology could be extended to other situations
+where collecting a statistically relevant survey sample would be prohibitively
+difficult, but where passive device location data reveals which destinations
+people choose among many observable options.
 
 \hypertarget{street-conversion-equity-analysis}{%
 \subsection{Street Conversion Equity Analysis}\label{street-conversion-equity-analysis}}
 
-{[}placeholder for literature on COVID shifting streets - will draw heavily from
-Tab Combs' working paper. This could also go in the intro?{]}
+In their analysis of over one thousand reallocations of street space that
+occurred in response to the global COVID-19 pandemic, \citet{combs2021shifting} find
+that a plurality created additional space for walking, cycling, and recreation,
+although some reallocated space to commerce (e.g.~outdoor dining and shopping)
+or short-term parking to for urban freight or food delivery.
 
-The definition of an urban park is not well-established, though some might echo
-Justice Potter Stewart in arguing that we know one when we see one
-\citep{1964jacobellis}. If we define an urban park as a public space that is
-designated for the purpose of recreation, exercise, and social gathering, then
-the rapid reallocation of street space that occurred in response to the global
-COVID-19 pandemic in 2020 could be characterized as a proliferation of
-small urban parks.
+If we define an urban park as a public space that is designated for the purpose
+of recreation, exercise, and social gathering, then the rapid reallocation of
+street space to accommodate recreation and active travel could be characterized
+as a proliferation of small urban parks. Researchers at the Trust for Public
+Land have explicitly described the reallocation of street space from cars to
+pedestrians as a strategy to relieve pressure on parks \citep{hussain_parks_2020} and
+have suggested that these actions should (and, in New York, had failed to)
+prioritize areas that would otherwise have low access to parks
+\citep{compton_parks_2020}. \citet{fischer_covid-19_2021} have likewise done an equity
+analysis of street reallocation from vehicles to pedestrians in three mid-sized
+Canadian cities and found that interventions were generally more common in
+places with higher proportions of white residents and fewer children. The
+analyses by both \citet{compton_parks_2020} and \citet{fischer_covid-19_2021} were both based
+on proximity alone rather than on utility-based accessibility measures.
 
-Of course, these spaces do not have the amenities or general character of most
-parks, and classifying them as equivalent to their greener peers in an
-accessibility analysis would be erroneous for many reasons. But a utility-based
-accessibility framework would allow us to discount these street parks for the
-amenities they lack while also considering the benefits proffered by their
-availability and proximity. Further, we can model these tradeoffs with
-statistical weights determinable through observing park trip distribution
-patterns revealed through passive mobile device data.
+Of course, streets that reallocate space for active travel and recreation do not
+have the amenities or general character of most parks, and classifying them as
+equivalent to their greener peers in an accessibility analysis would be
+erroneous for many reasons. But a utility-based accessibility framework would
+allow us to discount these street parks for the amenities they lack while also
+considering the benefits proffered by their availability and proximity. Further,
+we can model these tradeoffs with statistical weights determinable through
+observing park trip distribution patterns revealed through passive mobile device
+data.
 
 \hypertarget{methodology}{%
 \section{Methodology}\label{methodology}}
 
-We constructed a dataset on which to estimate park activity location choices for
-a sample of observed trips in Alameda County, California. Alameda County is one
-of the seven counties that constitutes the San Francisco Bay Area metropolitan
-region in California. Alameda is the seventh most populous county in California
-with a population of 1.5 million \citep{alamedafacts}, and has 14 incorporated cities
-and several unincorporated communities. It is an economically and ethnically
-diverse county and hence it was an attractive area to use for this study. The
-racial makeup of Alameda County was (49.7\%) White, (11.2\%) African American,
-(1.0\%) Native American, (38.7\%) Asian, (1.0\%) Pacific Islander, and (22.4\%
-Hispanic or Latino (of any race). Alameda County has a diverse set of parks,
-ranging from local small community parks, urban and transit-accessible parks
-like the Lake Merritt Recreational area, accessible coastal access, and suburban
-recreational areas like Lake Chabot.
+In this section, we describe the methodology we follow for this analysis.
+We first describe how we created a dataset on which to estimate park activity location
+choices for a sample of observed trips in Alameda County, California. Then we
+provide an overview of destination choice modeling and using such models to derive
+utility-based accessibility.
+
+\hypertarget{study-area}{%
+\subsection{Study area}\label{study-area}}
+
+Alameda County is one of nine counties that constitute the San Francisco Bay
+Area metropolitan region in California. Alameda is the seventh most populous
+county in California with a population of 1.5 million \citep{alamedafacts}, and has
+14 incorporated cities and several unincorporated communities. It is an
+economically and ethnically diverse county and hence it was an attractive area
+to use for this study. The racial makeup of Alameda County was (49.7\%) White,
+(11.2\%) African American, (1.0\%) Native American, (38.7\%) Asian, (1.0\%) Pacific
+Islander, and (22.4\%) Hispanic or Latino (of any race). Alameda County has a
+diverse set of parks, ranging from local small community parks, urban and
+transit-accessible parks like the Lake Merritt Recreational area, accessible
+coastal access, and suburban recreational areas like Lake Chabot.
 
 \hypertarget{data}{%
 \subsection{Data}\label{data}}
 
-We constructed an analysis dataset from a publicly-available parks polygons
-layer, a commercially acquired passive device origin-destination table
-representing trips between the parks and home block groups, and American
-Community Survey data for the home block groups.
+We estimated a utility model using a dataset constructed from a
+publicly-available parks polygons layer, a commercially acquired passive device
+origin-destination table representing trips between the parks and home block
+groups, and American Community Survey data for the home block groups. We then
+applied that model to a dataset representing open street installations that were
+implemented in response to the COVID-19 pandemic.
+
+\hypertarget{model-estimation-data}{%
+\subsubsection{Model estimation data}\label{model-estimation-data}}
 
 We obtained a polygons shapefile layer representing open spaces in Alameda
 County, California from the California Protected Areas Database \citep{cpad2019}.
@@ -483,10 +501,10 @@ the passive origin-destination data.
 
 From this initial parks polygons dataset, we obtained park attribute information
 through OpenStreetMap (OSM) using the \texttt{osmdata} package for R \citep{osmdata}. Three
-attribute elements are considered in this analysis. First, we identify playgrounds
-using OSM facilities given a \texttt{leisure\ =\ playground} tag. The tagged facilities can
-be either polygon or point objects; in the former case we use the polygon centroid
-to determine the location of the playground.
+attribute elements are considered in this analysis. First, we identify
+playgrounds using OSM facilities given a \texttt{leisure\ =\ playground} tag. The tagged
+facilities can be either polygon or point objects; in the former case we use the
+polygon centroid to determine the location of the playground.
 
 Second, we consider sport fields of various kinds identified with the OSM
 \texttt{leisure\ =\ pitch} tag. This tag has an additional attribute describing the sport
@@ -499,17 +517,18 @@ field and court objects are converted into points at the polygon centroid.
 
 Finally, we identified trails and footpaths using the \texttt{path}, \texttt{cycleway}, and
 \texttt{footway} values of the \texttt{highway} tag. A visual inspection of the resulting data
-revealed that the large preponderance of sidewalks and cycling trails within parks
-in Alameda County are identified properly with these variables. Trails are
+revealed that the large preponderance of sidewalks and cycling trails within
+parks in Alameda County are identified properly with these variables. Trails are
 represented in OSM as polylines, or as polygons if they form a complete circle.
-In the latter case, we converted the polygon boundary into an explicit polyline object.
+In the latter case, we converted the polygon boundary into an explicit polyline
+object.
 
-It is possible for each of these facilities to exist outside the context of
-a public park. For example, many private apartment complexes have playgrounds
-and high schools will have sports facilities that are not necessarily open to
-the general public. We spatially matched the OSM amenities data and retained
-only those facilities that intersected with the CPAD open spaces database
-identified earlier.
+It is possible for each of these facilities to exist outside the context of a
+public park. For example, many private apartment complexes have playgrounds and
+high schools will have sports facilities that are not necessarily open to the
+general public. We spatially matched the OSM amenities data and retained only
+those facilities that intersected with the CPAD open spaces database identified
+earlier.
 
 \begin{figure}
 \centering
@@ -534,8 +553,8 @@ that it represented the weighted unique devices traveling between block groups
 and parks. We discarded home location block groups outside of Alameda County;
 the imputed home locations can be far away from the study area for a small
 amount of trips and are unlikely to represent common or repeated park
-activities. Table \ref{tab:park-attributes} presents descriptive statistics
-on the 500 parks assembled for this study, grouped according to the
+activities. Table \ref{tab:park-attributes} presents descriptive statistics on
+the 500 parks assembled for this study, grouped according to the
 park type as defined on CPAD. A little more than half of the parks have
 identified paths, while around 40\% of the identified parks have playgrounds and
 sport fields.
@@ -554,47 +573,46 @@ Acres &  & 59.8 & 370.5 & 125.6 & 505.1\\
 Mobile Devices &  & 1450.0 & 6685.4 & 2659.0 & 6161.0\\
 \midrule
  &  & N & \% & N & \%\\
-type & Local Park & 441 & 88.2 & 0 & 0.0\\
- & Local Recreation Area & 0 & 0.0 & 57 & 11.4\\
- & State Recreation Area & 0 & 0.0 & 2 & 0.4\\
-Access & Open Access & 441 & 88.2 & 59 & 11.8\\
+type & Local Park & 441 & 100.0 & 0 & 0.0\\
+ & Local Recreation Area & 0 & 0.0 & 57 & 96.6\\
+ & State Recreation Area & 0 & 0.0 & 2 & 3.4\\
+Access & Open Access & 441 & 100.0 & 59 & 100.0\\
  & No Public Access & 0 & 0.0 & 0 & 0.0\\
  & Restricted Access & 0 & 0.0 & 0 & 0.0\\
-Playground & FALSE & 224 & 44.8 & 44 & 8.8\\
- & TRUE & 217 & 43.4 & 15 & 3.0\\
-Any Sport Field & FALSE & 276 & 55.2 & 39 & 7.8\\
- & TRUE & 165 & 33.0 & 20 & 4.0\\
-Football / Soccer & FALSE & 415 & 83.0 & 51 & 10.2\\
- & TRUE & 26 & 5.2 & 8 & 1.6\\
-Baseball & FALSE & 364 & 72.8 & 45 & 9.0\\
- & TRUE & 77 & 15.4 & 14 & 2.8\\
-Basketball & FALSE & 341 & 68.2 & 52 & 10.4\\
- & TRUE & 100 & 20.0 & 7 & 1.4\\
-Tennis & FALSE & 387 & 77.4 & 53 & 10.6\\
- & TRUE & 54 & 10.8 & 6 & 1.2\\
-Volleyball & FALSE & 434 & 86.8 & 57 & 11.4\\
- & TRUE & 7 & 1.4 & 2 & 0.4\\
-Trail & FALSE & 155 & 31.0 & 22 & 4.4\\
- & TRUE & 286 & 57.2 & 37 & 7.4\\
+Playground & FALSE & 220 & 49.9 & 44 & 74.6\\
+ & TRUE & 221 & 50.1 & 15 & 25.4\\
+Any Sport Field & FALSE & 274 & 62.1 & 39 & 66.1\\
+ & TRUE & 167 & 37.9 & 20 & 33.9\\
+Football / Soccer & FALSE & 414 & 93.9 & 51 & 86.4\\
+ & TRUE & 27 & 6.1 & 8 & 13.6\\
+Baseball & FALSE & 363 & 82.3 & 45 & 76.3\\
+ & TRUE & 78 & 17.7 & 14 & 23.7\\
+Basketball & FALSE & 340 & 77.1 & 52 & 88.1\\
+ & TRUE & 101 & 22.9 & 7 & 11.9\\
+Tennis & FALSE & 387 & 87.8 & 53 & 89.8\\
+ & TRUE & 54 & 12.2 & 6 & 10.2\\
+Volleyball & FALSE & 433 & 98.2 & 57 & 96.6\\
+ & TRUE & 8 & 1.8 & 2 & 3.4\\
+Trail & FALSE & 155 & 35.1 & 22 & 37.3\\
+ & TRUE & 286 & 64.9 & 37 & 62.7\\
 \bottomrule
 \end{tabular}
 \end{table}
 
 In order to understand the demographic makeup of the home block groups and
 potentially the characteristics of the people who make each trip, we obtained
-2013-2017 five-year data aggregations from the American Community Survey
-using the \texttt{tidycensus} \citep{Walker2019} interface to the
-Census API for several key demographic and built environment variables: the
-share of individuals by race, the share of households by income level,
-household median income, the share of households with children under 6 years old,
-and the household density. An important attribute of
-the choice model is the distance from the home block group to the park boundary.
-Because we have no information on where in the block group a home is actually
-located, we use the population-weighted block group centroid published by the
-Census Bureau as the location for all homes in the block group. We then measured
-the network-based distance between the park and the home block group centroid
-using a walk network derived from OpenStreetMap using the \texttt{networkx} package
-for Python \citep{networkx},
+2013-2017 five-year data aggregations from the American Community Survey using
+the \texttt{tidycensus} \citep{Walker2019} interface to the Census API for several key
+demographic and built environment variables: the share of individuals by race,
+the share of households by income level, household median income, the share of
+households with children under 6 years old, and the household density. An
+important attribute of the choice model is the distance from the home block
+group to the park boundary. Because we have no information on where in the block
+group a home is actually located, we use the population-weighted block group
+centroid published by the Census Bureau as the location for all homes in the
+block group. We then measured the network-based distance between the park and
+the home block group centroid using a walk network derived from OpenStreetMap
+using the \texttt{networkx} package for Python \citep{networkx},
 
 \begin{table}
 
@@ -619,15 +637,36 @@ White: Share of population who is White & 1036 & 0 & 34.0 & 22.8 & 0.0 & 29.6 & 
 \end{tabular}}
 \end{table}
 
-\hypertarget{model}{%
-\subsection{Model}\label{model}}
+\hypertarget{model-application-data}{%
+\subsubsection{Model application data}\label{model-application-data}}
+
+We compiled a list of streets in Berkeley, Oakland, and Alameda that were
+converted to public open space from each city's respective websites
+\citep{city_of_alameda_slow_2020, city_of_oakland_oakland_2020, city_of_berkeley_berkeley_2020} and referred to the ``Shifting Streets'' COVID-19
+mobility dataset \citep{slowstreets} to determine whether other cities and places
+within Alameda County have similar Open Streets projects (as best as we could
+determine, they did not). Based on the information we gathered from these
+sources, 74 individual streets were converted; these streets
+represent 27.6 total miles across
+the cities of Berkeley, Oakland, and Alameda. For the purposes of this analysis,
+we represent each opened street as a single ``park'' without any sport facilities
+or playgrounds, but with a trail / walking path. The database provides the
+opened streets as polyline objects; we assert a 25-foot buffer around the line
+to represent a polygon with a measurable area. The 25-foot buffer effectively
+counts one vehicle lane and one shoulder parking lane in each direction as
+converted to ``park'' space. Finally, we measure the network-based distance from
+each population-weighted block group centroid to the nearest boundary of each
+new open space facility created by this policy.
+
+\hypertarget{model-estimation}{%
+\subsection{Model estimation}\label{model-estimation}}
 
 In random utility choice theory, if an individual living in block group \(n\)
-wishes to make a park trip, the probability that the individual will choose
-park \(i\) from the set of all parks \(J\) can be described as a ratio of the
-park's measurable utility \(V_{ni}\) to the sum of the utilities for all parks
-in the set. In the common destination choice framework we apply a
-multinomial logit model \citep[\citet{Recker1978}]{McFadden1974},
+wishes to make a park trip, the probability that the individual will choose park
+\(i\) from the set of all parks \(J\) can be described as a ratio of the park's
+measurable utility \(V_{ni}\) to the sum of the utilities for all parks in the
+set. In the common destination choice framework we apply a multinomial logit
+model \citep[\citet{Recker1978}]{McFadden1974},
 \begin{equation}\label{eq:p}
    P_{ni} = \frac{\exp(V_{ni})}{\sum_{j \in J}\exp(V_{nj})}
 \end{equation}
@@ -638,49 +677,48 @@ V_{ni} = X\beta
 \end{equation}
 where \(\beta\) is a vector of estimable coefficients giving the relative utility
 (or disutility) of that attribute to the choice maker, all else equal. It is
-possible to add amenities of the park or the journey to the utility
-equation. However, as the number of alternatives is large, it is impractical to
-consider alternative-specific constants or coefficients and therefore not
-possible to include attributes of the home block group or traveler \(n\) directly.
-We can, however, segment the data and estimate different distance and size
-parameters for different segments to observe heterogeneity in the utility
-parameters between different socioeconomic groups.
+possible to add amenities of the park or the journey to the utility equation.
+However, as the number of alternatives is large, it is impractical to consider
+alternative-specific constants or coefficients and therefore not possible to
+include attributes of the home block group or traveler \(n\) directly. We can,
+however, segment the data and estimate different distance and size parameters
+for different segments to observe heterogeneity in the utility parameters
+between different socioeconomic groups.
 
 The logarithm of the sum in the denominator of Equation \ref{eq:p} (called the
 logsum) provides a measure of the consumer surplus of the choice set enjoyed by
-person \(n\)
-\citep{Williams1977a},
+person \(n\) \citep{Williams1977a},
 \begin{equation}
 CS_n = \ln{{\sum_{j \in J}\exp(V_{nj})}} + C
   \label{eq:logsum}
 \end{equation}
 where \(C\) is a constant indicating an unknown absolute value; the difference of
-logsum values in two different scenarios eliminates \(C\). Additionally,
-dividing the difference in logsum from choice set \(J\) and choice set \(J'\) by a
-cost coefficient \(\beta\)
+logsum values in two different scenarios eliminates \(C\). Additionally, dividing
+the difference in logsum from choice set \(J\) and choice set \(J'\) by a cost
+coefficient \(\beta\)
 \begin{equation}
 \delta CS_n = (\ln{\sum_{j \in J'}\exp(V_{nj})} - \ln{\sum_{j \in J}\exp(V_{nj})})/\beta
   \label{eq:deltalogsum}
 \end{equation}
-gives an estimate of the benefit received by person \(n\) in monetary terms.
-Thus, such a ``utility-based'' accessibility term is continuously defined, contains
-multiple dimensions of the attributes of the choice, and can be evaluated
-in monetary terms \citep{Handy1997, Dong2006}.
+gives an estimate of the benefit received by person \(n\) in monetary terms. Thus,
+such a ``utility-based'' accessibility term is continuously defined, contains
+multiple dimensions of the attributes of the choice, and can be evaluated in
+monetary terms \citep{Handy1997, Dong2006}.
 
 In the most typical cases, researchers estimate the utility coefficients for
-destination choice models from household travel surveys. As we have no knowledge
-of an appropriate survey on park access, we need to synthesize a suitable
-estimation data set. We do this by sampling
-20,000 random discrete device origin-destination pairs from the commercial
-passive data matrix, weighted by the volume of the flows. This corresponds to a
-4.3\% sample of all the observed device
-origin-destination pairs.
+destination choice models from houzsehold travel surveys. For example, the
+California add-on to the 2017 National Household Travel Survey could be used for
+this purpose for frequent trips like commutes to work and school. However, as a
+24-hour trip diary, it is less useful for recreational trips that may take place
+less frequently. For better data on park access, we need to synthesize a
+suitable estimation data set. We do this by sampling 20,000 random discrete
+device origin-destination pairs from the commercial passive data matrix,
+weighted by the volume of the flows. This corresponds to a 4.3\% sample of all the observed device origin-destination pairs.
 
 The sampled origin-destination pair gives the home location as well as the
 ``chosen'' alternative for a synthetic person. In principle the individual's
 choice set contains all the parks in our dataset; in practice it can be
-difficult to estimate choice models with so many alternatives
-(\(|J| = 500\)). For this reason we randomly sample 10 additional parks
+difficult to estimate choice models with so many alternatives (\(|J| = `r nrow(parks)`\)). For this reason we randomly sample 10 additional parks
 to serve as the non-chosen alternatives for our synthetic choice maker. Such
 random sampling of alternatives reduces the efficiency of the estimated
 coefficients but the coefficients remain unbiased \citep{train2009}. As the model has
@@ -695,6 +733,48 @@ parks in the choice set; and the acreage of each park in the choice set. We use
 the \texttt{mlogit} package for R \citep{mlogit, R} to estimate the multinomial logit
 models.
 
+We estimate a series of models with different utility function definitions, each
+estimated on the complete set of synthetic choice makers. The first model ---
+named ``Network Distance'' --- only considers the distance to the park and the
+size of the park in the utility equation. The second and third models include a
+vector of park attributes. In the model labeled ``Park Attributes,'' the presence
+of any sport field is considered with a single dummy value, and in the ``Sport
+Detail'' model this variable is disaggregated into facilities for different
+sports. As described in the \protect\hyperlink{results}{Results} section, the ``Sport Detail''
+model proved to offer the best model fit.
+
+\hypertarget{model-application}{%
+\subsection{Model application}\label{model-application}}
+
+Using the full set of Alameda County parks --- including those added by street
+conversion --- we may apply a destination choice model to calculate the change in
+park choice utilities and utility-based accessibility values for each block
+group in Alameda County. As shown with Equation \eqref{eq:deltalogsum}, the
+difference in utility-based accessibility values with and without the opened
+streets is the consumer surplus provided by the policy, converted into a
+monetary value by a cost-utility coefficient. The dataset used for this research
+does not have any information on travel costs or entrance fees, and such data
+would likely not be relevant in the context of urban parks. As a result, there
+is no direct link between the utility and a monetary cost in our estimated
+models.
+
+As a substitution, we use an estimate of the cost coefficient obtained from the
+open-source activity-based travel demand model ActivitySim, which is itself
+based on the regional travel model employed by the Metropolitan Transportation
+Commission (MTC), the San Francisco Bay regional MPO. ActivitySim uses a cost
+coefficient of \(-0.6\) divided by the each simulated agent's value of time to
+determine destination choices for non-work trips.\footnote{To be precise, this is the
+  cost coefficient on the mode choice model for social, recreational, and other
+  trip purposes, which influences destination choice through a logsum-based
+  impedance term.} In ActivitySim, as in most activity-based travel models, the
+value of time is considered to vary with an individual's income, but in this
+aggregate destination choice model, an aggregate value of time will suffice. The
+average value of time in the synthetic population for the Bay Area is \$7.75 per
+hour, resulting in a cost coefficient on the destination choice utility of
+\(-0.215\). Dividing the difference in accessibility logsums by the negative of
+this value gives an initial estimate of the monetary value of the policy to each
+park user.
+
 \hypertarget{results}{%
 \section{Results}\label{results}}
 
@@ -706,36 +786,34 @@ transformation replicates the constant marginal elasticity of a logarithmic
 transformation while avoiding undefined values (e.g., \(YJ(0) = 0\)). For
 simplicity, we call this transformation \texttt{log()} in the model results tables.
 Using a constant marginal elasticity is better reflective of how people perceive
-distances and sizes; a one-mile increase to a trip distance matters more to
-a two-mile trip than a ten-mile trip.
+distances and sizes; a one-mile increase to a trip distance matters more to a
+two-mile trip than a ten-mile trip.
 
-Table \ref{tab:base-modelsummary} presents the model estimation results for a
-series of models with different utility function definitions, each estimated on the
-complete set of synthetic choice makers. The first model --- named ``Network
-Distance'' --- only considers the distance to the park and the size of the park
-in the utility equation. The estimated coefficients are significant and of the
-expected sign: That is, individuals will travel further distances to reach larger
-parks. The ratio of the estimated coefficients implies that on average, people
-will travel 3.41 times further to reach a park twice as large.
+Table \ref{tab:base-modelsummary} presents the model estimation results for
+each estimated model. The ``Network Distance'' model, which only considers the
+distance to the park and the size of the park results in significant estimated
+coefficients of the expected sign: That is, individuals will travel further
+distances to reach larger parks. The ratio of the estimated coefficients implies
+that on average, people will travel 3.41 times further to reach a
+park twice as large.
 
-The second and third models in Table \ref{tab:base-modelsummary} include a
-vector of park attributes. In the model labeled ``Park Attributes,'' the presence
-of any sport field is considered with a single dummy value, and in the ``Sport
-Detail'' model this variable is disaggregated into facilities for different
-sports. The value of the size and distance coefficients change modestly from
-the ``Network Distance'' model, with the implied size to distance trade-off rising
-to 4.09. Examining the two amenities models --- independently and in
-comparison with each other --- reveals a few surprising findings. First, it
-appears that playgrounds and sport fields in general contribute \emph{negatively} to
-the choice utility equation. This is both unintuitive and contradictory to
-previous findings in this space \citep[e.g.,][]{Kinnell2006}. Considering different
-sports separately, there is a wide variety of observed response with tennis and
-volleyball facilities attracting more trips, and football and basketball
-facilities attracting fewer, all else equal. Trails and walking paths give
-substantive positive utility in both models. The difference in likelihood statistics
-between the three models is significant (likelihood ratio test between Sport Detail
-and Park Attributes model has \(p\)-value 1.44e-28), and so in spite of the
-curious aggregate findings, we move forward with this utility specification.
+Table \ref{tab:base-modelsummary} also shows the results of the ``Park
+Attributes'' model, which represents the presence of any sport field with a
+single dummy variable, and the ``Sport Detail'' model, which disaggregates this
+variable into facilities for different sports. The value of the size and
+distance coefficients change modestly from the ``Network Distance'' model, with
+the implied size to distance trade-off rising to 4.1. Examining
+the two amenities models --- independently and in comparison with each other ---
+reveals a few surprising findings. First, it appears that playgrounds and sport
+fields in general contribute \emph{negatively} to the choice utility equation. This
+is both unintuitive and contradictory to previous findings in this space \citep[e.g.,][]{Kinnell2006}. Considering different sports separately, there is a wide variety
+of observed response with tennis and volleyball facilities attracting more
+trips, and football and basketball facilities attracting fewer, all else equal.
+Trails and walking paths give substantive positive utility in both models. The
+difference in likelihood statistics between the three models is significant
+(likelihood ratio test between Sport Detail and Park Attributes model has
+\(p\)-value 1.19e-31), and so in spite of the curious aggregate findings,
+we move forward with this utility specification.
 
 \begin{table}
 
@@ -745,54 +823,54 @@ curious aggregate findings, we move forward with this utility specification.
 \toprule
   & Network Distance & Park Attributes & Sport Detail\\
 \midrule
-log(Distance) & -1.375*** & -1.419*** & -1.414***\\
+log(Distance) & -1.375*** & -1.418*** & -1.414***\\
  & (0.010) & (0.010) & (0.010)\\
-log(Acres) & 0.403*** & 0.349*** & 0.346***\\
+log(Acres) & 0.403*** & 0.348*** & 0.345***\\
  & (0.005) & (0.005) & (0.005)\\
-Playground &  & -0.437*** & -0.537***\\
+Playground &  & -0.441*** & -0.550***\\
  &  & (0.022) & (0.022)\\
-Trail &  & 0.544*** & 0.553***\\
+Trail &  & 0.547*** & 0.557***\\
  &  & (0.023) & (0.024)\\
-Sport Field &  & -0.346*** & \\
+Sport Field &  & -0.352*** & \\
  &  & (0.022) & \\
-Basketball &  &  & -0.270***\\
+Basketball &  &  & -0.261***\\
  &  &  & (0.031)\\
-Baseball &  &  & 0.064**\\
+Baseball &  &  & 0.056*\\
  &  &  & \vphantom{1} (0.030)\\
-Football / Soccer &  &  & -0.515***\\
+Football / Soccer &  &  & -0.525***\\
  &  &  & (0.042)\\
-Tennis &  &  & 0.238***\\
+Tennis &  &  & 0.244***\\
  &  &  & (0.030)\\
-Volleyball &  &  & 0.601***\\
- &  &  & (0.061)\\
-Other Sport &  &  & -0.236***\\
+Volleyball &  &  & 0.568***\\
+ &  &  & (0.059)\\
+Other Sport &  &  & -0.241***\\
  &  &  & (0.040)\\
 \midrule
 Num.Obs. & 20000 & 20000 & 20000\\
-AIC & 58368.6 & 56836.4 & 56706.0\\
-Log.Lik. & -29182.289 & -28413.213 & -28342.989\\
+AIC & 58368.6 & 56793.5 & 56648.5\\
+Log.Lik. & -29182.289 & -28391.737 & -28314.271\\
 rho2 &  &  & \\
-rho20 & 0.392 & 0.408 & 0.409\\
+rho20 & 0.392 & 0.408 & 0.410\\
 \bottomrule
-\multicolumn{4}{l}{\textsuperscript{} * p < 0.1, ** p < 0.05, *** p < 0.01}\\
+\multicolumn{4}{l}{\textsuperscript{} * p $<$ 0.1, ** p $<$ 0.05, *** p $<$ 0.01}\\
 \end{tabular}
 \end{table}
 
 It is worth investigating the heterogeneity in preferences that exist among
-different demographic groups. Though the income and ethnicity of the synthetic
-park visitors is not known, we can segment the estimation dataset based on the
-socioeconomic makeup of the visitors' residence block group. The models presented in
-Table \ref{tab:grouped-modelsummary} were estimated on segments developed in
-this manner. Models under the ``Minority'' heading include a race- and ethnicity-
-based segmentation: simulated individuals living in block groups with more than
-thirty percent Black persons are included in the ``\textgreater30\% Black'' model, an
-analogous segmentation for block groups with high Asian and Hispanic populations
-are in the ``\textgreater30\% Asian'' and ``\textgreater30\% Hispanic'' models respectively, and the ``Other''
-model contains all other block groups. Another set of model segmentation relies
-on the share of the population in each block group with household incomes above
-or below certain thresholds, and a third relies on the share of households with
-children under 6 years old. Again, we use the threshold definitions largely
-informed by the distributions in \ref{tab:acs-table}.
+populations. Though the income and ethnicity of the synthetic park visitors is
+not known, we can segment the estimation dataset based on the socioeconomic
+makeup of the visitors' residence block group. The models presented in Table
+\ref{tab:grouped-modelsummary} were estimated on segments developed in this
+manner. Models under the ``Race/Ethnicity'' heading include a race- and
+ethnicity-based segmentation: simulated individuals living in block groups with
+more than thirty percent Black residents are included in the ``\textgreater30\% Black'' model,
+an analogous segmentation for block groups with high Asian and Hispanic
+populations are in the ``\textgreater30\% Asian'' and ``\textgreater30\% Hispanic'' models respectively, and
+the ``Other'' model contains all other block groups. Another set of model
+segmentation relies on the share of the population in each block group with
+household incomes above or below certain thresholds, and a third relies on the
+share of households with children under 6 years old. Again, we use the threshold
+definitions largely informed by the distributions in \ref{tab:acs-table}.
 
 \begin{landscape}\begin{table}
 
@@ -801,71 +879,70 @@ informed by the distributions in \ref{tab:acs-table}.
 \resizebox{\linewidth}{!}{
 \begin{tabular}[t]{lcccccccccc}
 \toprule
-\multicolumn{1}{c}{ } & \multicolumn{4}{c}{Minority} & \multicolumn{3}{c}{Income} & \multicolumn{3}{c}{Children} \\
+\multicolumn{1}{c}{ } & \multicolumn{4}{c}{Race/Ethnicity} & \multicolumn{3}{c}{Income} & \multicolumn{3}{c}{Children} \\
 \cmidrule(l{3pt}r{3pt}){2-5} \cmidrule(l{3pt}r{3pt}){6-8} \cmidrule(l{3pt}r{3pt}){9-11}
-  & > 30\% Asian & > 30\% Black & > 30\% Hispanic & Other & > 30\% Low income & > 50\% High income & Other  & > 25\% children & < 5\% children & Other  \\
+  & > 30\% Asian & > 30\% Black & > 30\% Hispanic & Other Eth. & > 30\% Low income & > 50\% High income & Other Inc. & > 25\% Children & < 5\% Children & Other Children\\
 \midrule
-\cellcolor{gray!6}{log(Distance)} & \cellcolor{gray!6}{-1.295***} & \cellcolor{gray!6}{-1.567***} & \cellcolor{gray!6}{-1.356***} & \cellcolor{gray!6}{-1.475***} & \cellcolor{gray!6}{-1.460***} & \cellcolor{gray!6}{-1.354***} & \cellcolor{gray!6}{-1.410***} & \cellcolor{gray!6}{-1.407***} & \cellcolor{gray!6}{-1.506***} & \cellcolor{gray!6}{-1.406***}\\
+\cellcolor{gray!6}{log(Distance)} & \cellcolor{gray!6}{-1.295***} & \cellcolor{gray!6}{-1.566***} & \cellcolor{gray!6}{-1.355***} & \cellcolor{gray!6}{-1.475***} & \cellcolor{gray!6}{-1.459***} & \cellcolor{gray!6}{-1.355***} & \cellcolor{gray!6}{-1.410***} & \cellcolor{gray!6}{-1.408***} & \cellcolor{gray!6}{-1.504***} & \cellcolor{gray!6}{-1.406***}\\
  & (0.017) & (0.031) & (0.023) & (0.018) & (0.025) & (0.021) & (0.013) & (0.028) & (0.036) & (0.012)\\
-\cellcolor{gray!6}{log(Acres)} & \cellcolor{gray!6}{0.387***} & \cellcolor{gray!6}{0.271***} & \cellcolor{gray!6}{0.326***} & \cellcolor{gray!6}{0.349***} & \cellcolor{gray!6}{0.309***} & \cellcolor{gray!6}{0.390***} & \cellcolor{gray!6}{0.342***} & \cellcolor{gray!6}{0.311***} & \cellcolor{gray!6}{0.410***} & \cellcolor{gray!6}{0.347***}\\
+\cellcolor{gray!6}{log(Acres)} & \cellcolor{gray!6}{0.386***} & \cellcolor{gray!6}{0.271***} & \cellcolor{gray!6}{0.325***} & \cellcolor{gray!6}{0.348***} & \cellcolor{gray!6}{0.308***} & \cellcolor{gray!6}{0.388***} & \cellcolor{gray!6}{0.341***} & \cellcolor{gray!6}{0.310***} & \cellcolor{gray!6}{0.410***} & \cellcolor{gray!6}{0.347***}\\
  & (0.009) & (0.016) & (0.011) & (0.010) & (0.013) & (0.011) & (0.007) & (0.014) & (0.020) & (0.006)\\
-\cellcolor{gray!6}{Playground} & \cellcolor{gray!6}{-0.447***} & \cellcolor{gray!6}{-0.598***} & \cellcolor{gray!6}{-0.271***} & \cellcolor{gray!6}{-0.787***} & \cellcolor{gray!6}{-0.571***} & \cellcolor{gray!6}{-0.563***} & \cellcolor{gray!6}{-0.518***} & \cellcolor{gray!6}{-0.483***} & \cellcolor{gray!6}{-0.812***} & \cellcolor{gray!6}{-0.519***}\\
+\cellcolor{gray!6}{Playground} & \cellcolor{gray!6}{-0.460***} & \cellcolor{gray!6}{-0.598***} & \cellcolor{gray!6}{-0.283***} & \cellcolor{gray!6}{-0.808***} & \cellcolor{gray!6}{-0.572***} & \cellcolor{gray!6}{-0.588***} & \cellcolor{gray!6}{-0.530***} & \cellcolor{gray!6}{-0.490***} & \cellcolor{gray!6}{-0.821***} & \cellcolor{gray!6}{-0.533***}\\
  & (0.039) & (0.060) & (0.046) & (0.041) & (0.050) & (0.049) & (0.029) & (0.059) & (0.079) & (0.025)\\
-\cellcolor{gray!6}{Trail} & \cellcolor{gray!6}{0.506***} & \cellcolor{gray!6}{0.482***} & \cellcolor{gray!6}{0.376***} & \cellcolor{gray!6}{0.857***} & \cellcolor{gray!6}{0.501***} & \cellcolor{gray!6}{0.677***} & \cellcolor{gray!6}{0.563***} & \cellcolor{gray!6}{0.362***} & \cellcolor{gray!6}{0.679***} & \cellcolor{gray!6}{0.577***}\\
- & (0.042) & (0.061) & (0.049) & (0.046) & (0.052) & (0.056) & (0.030) & (0.061) & (0.084) & (0.027)\\
-\cellcolor{gray!6}{Basketball} & \cellcolor{gray!6}{-0.137***} & \cellcolor{gray!6}{-0.242***} & \cellcolor{gray!6}{-0.399***} & \cellcolor{gray!6}{-0.385***} & \cellcolor{gray!6}{-0.313***} & \cellcolor{gray!6}{-0.163**} & \cellcolor{gray!6}{-0.307***} & \cellcolor{gray!6}{-0.297***} & \cellcolor{gray!6}{-0.307***} & \cellcolor{gray!6}{-0.265***}\\
- & (0.051) & (0.089) & (0.067) & (0.058) & (0.075) & (0.064) & (0.040) & (0.081) & (0.115) & (0.035)\\
-\cellcolor{gray!6}{Baseball} & \cellcolor{gray!6}{0.043} & \cellcolor{gray!6}{0.097} & \cellcolor{gray!6}{0.094} & \cellcolor{gray!6}{0.045} & \cellcolor{gray!6}{0.041} & \cellcolor{gray!6}{-0.165**} & \cellcolor{gray!6}{0.162***} & \cellcolor{gray!6}{0.048} & \cellcolor{gray!6}{0.055} & \cellcolor{gray!6}{0.064*}\\
- & (0.050) & (0.083) & (0.063) & (0.057) & (0.070) & (0.066) & (0.038) & (0.078) & (0.111) & (0.034)\\
-\cellcolor{gray!6}{Football / Soccer} & \cellcolor{gray!6}{-0.359***} & \cellcolor{gray!6}{-0.957***} & \cellcolor{gray!6}{-0.557***} & \cellcolor{gray!6}{-0.601***} & \cellcolor{gray!6}{-0.947***} & \cellcolor{gray!6}{-0.221**} & \cellcolor{gray!6}{-0.530***} & \cellcolor{gray!6}{-0.425***} & \cellcolor{gray!6}{-0.900***} & \cellcolor{gray!6}{-0.496***}\\
- & (0.068) & (0.135) & (0.097) & (0.079) & (0.109) & (0.089) & (0.055) & (0.115) & (0.157) & (0.048)\\
-\cellcolor{gray!6}{Tennis} & \cellcolor{gray!6}{0.449***} & \cellcolor{gray!6}{-0.535***} & \cellcolor{gray!6}{-0.060} & \cellcolor{gray!6}{0.436***} & \cellcolor{gray!6}{-0.202**} & \cellcolor{gray!6}{0.658***} & \cellcolor{gray!6}{0.188***} & \cellcolor{gray!6}{0.062} & \cellcolor{gray!6}{0.325***} & \cellcolor{gray!6}{0.261***}\\
- & (0.049) & (0.104) & (0.070) & (0.053) & (0.080) & (0.059) & (0.039) & (0.083) & (0.109) & (0.034)\\
-\cellcolor{gray!6}{Volleyball} & \cellcolor{gray!6}{0.575***} & \cellcolor{gray!6}{0.211} & \cellcolor{gray!6}{0.680***} & \cellcolor{gray!6}{0.337***} & \cellcolor{gray!6}{0.160} & \cellcolor{gray!6}{0.500***} & \cellcolor{gray!6}{0.567***} & \cellcolor{gray!6}{0.864***} & \cellcolor{gray!6}{0.174} & \cellcolor{gray!6}{0.573***}\\
- & (0.091) & (0.283) & (0.139) & (0.125) & (0.219) & (0.109) & (0.083) & (0.150) & (0.280) & (0.070)\\
-\cellcolor{gray!6}{Other Sport} & \cellcolor{gray!6}{-0.121*} & \cellcolor{gray!6}{-0.286**} & \cellcolor{gray!6}{-0.430***} & \cellcolor{gray!6}{-0.304***} & \cellcolor{gray!6}{-0.594***} & \cellcolor{gray!6}{-0.086} & \cellcolor{gray!6}{-0.242***} & \cellcolor{gray!6}{-0.116} & \cellcolor{gray!6}{-0.409***} & \cellcolor{gray!6}{-0.243***}\\
- & (0.064) & (0.127) & (0.095) & (0.072) & (0.110) & (0.078) & (0.052) & (0.108) & (0.141) & (0.045)\\
+\cellcolor{gray!6}{Trail} & \cellcolor{gray!6}{0.509***} & \cellcolor{gray!6}{0.485***} & \cellcolor{gray!6}{0.380***} & \cellcolor{gray!6}{0.868***} & \cellcolor{gray!6}{0.504***} & \cellcolor{gray!6}{0.686***} & \cellcolor{gray!6}{0.567***} & \cellcolor{gray!6}{0.364***} & \cellcolor{gray!6}{0.685***} & \cellcolor{gray!6}{0.581***}\\
+ & (0.042) & (0.061) & (0.049) & (0.046) & (0.052) & (0.056) & (0.030) & (0.061) & (0.085) & (0.027)\\
+\cellcolor{gray!6}{Basketball} & \cellcolor{gray!6}{-0.126**} & \cellcolor{gray!6}{-0.236***} & \cellcolor{gray!6}{-0.393***} & \cellcolor{gray!6}{-0.386***} & \cellcolor{gray!6}{-0.309***} & \cellcolor{gray!6}{-0.154**} & \cellcolor{gray!6}{-0.299***} & \cellcolor{gray!6}{-0.289***} & \cellcolor{gray!6}{-0.304***} & \cellcolor{gray!6}{-0.255***}\\
+ & (0.050) & (0.089) & (0.067) & (0.058) & (0.075) & (0.063) & (0.040) & (0.081) & (0.115) & (0.035)\\
+\cellcolor{gray!6}{Baseball} & \cellcolor{gray!6}{0.033} & \cellcolor{gray!6}{0.089} & \cellcolor{gray!6}{0.089} & \cellcolor{gray!6}{0.052} & \cellcolor{gray!6}{0.030} & \cellcolor{gray!6}{-0.164**} & \cellcolor{gray!6}{0.154***} & \cellcolor{gray!6}{0.041} & \cellcolor{gray!6}{0.051} & \cellcolor{gray!6}{0.056*}\\
+ & (0.050) & (0.083) & (0.063) & (0.056) & (0.070) & (0.066) & (0.038) & (0.078) & (0.111) & (0.034)\\
+\cellcolor{gray!6}{Football / Soccer} & \cellcolor{gray!6}{-0.372***} & \cellcolor{gray!6}{-0.983***} & \cellcolor{gray!6}{-0.553***} & \cellcolor{gray!6}{-0.614***} & \cellcolor{gray!6}{-0.967***} & \cellcolor{gray!6}{-0.228***} & \cellcolor{gray!6}{-0.540***} & \cellcolor{gray!6}{-0.428***} & \cellcolor{gray!6}{-0.910***} & \cellcolor{gray!6}{-0.506***}\\
+ & (0.068) & (0.135) & (0.097) & (0.079) & (0.109) & (0.088) & (0.055) & (0.115) & (0.157) & (0.048)\\
+\cellcolor{gray!6}{Tennis} & \cellcolor{gray!6}{0.454***} & \cellcolor{gray!6}{-0.531***} & \cellcolor{gray!6}{-0.059} & \cellcolor{gray!6}{0.452***} & \cellcolor{gray!6}{-0.196**} & \cellcolor{gray!6}{0.666***} & \cellcolor{gray!6}{0.194***} & \cellcolor{gray!6}{0.061} & \cellcolor{gray!6}{0.337***} & \cellcolor{gray!6}{0.267***}\\
+ & (0.049) & (0.104) & (0.070) & (0.054) & (0.080) & (0.060) & (0.039) & (0.083) & (0.109) & (0.034)\\
+\cellcolor{gray!6}{Volleyball} & \cellcolor{gray!6}{0.546***} & \cellcolor{gray!6}{0.174} & \cellcolor{gray!6}{0.624***} & \cellcolor{gray!6}{0.316***} & \cellcolor{gray!6}{0.117} & \cellcolor{gray!6}{0.485***} & \cellcolor{gray!6}{0.521***} & \cellcolor{gray!6}{0.846***} & \cellcolor{gray!6}{0.108} & \cellcolor{gray!6}{0.539***}\\
+ & (0.089) & (0.282) & (0.137) & (0.116) & (0.218) & (0.104) & (0.081) & (0.146) & (0.277) & (0.067)\\
+\cellcolor{gray!6}{Other Sport} & \cellcolor{gray!6}{-0.112*} & \cellcolor{gray!6}{-0.306**} & \cellcolor{gray!6}{-0.425***} & \cellcolor{gray!6}{-0.328***} & \cellcolor{gray!6}{-0.613***} & \cellcolor{gray!6}{-0.088} & \cellcolor{gray!6}{-0.244***} & \cellcolor{gray!6}{-0.133} & \cellcolor{gray!6}{-0.426***} & \cellcolor{gray!6}{-0.243***}\\
+ & (0.064) & (0.126) & (0.095) & (0.071) & (0.109) & (0.078) & (0.052) & (0.107) & (0.140) & (0.045)\\
 \midrule
 \cellcolor{gray!6}{Num.Obs.} & \cellcolor{gray!6}{6589} & \cellcolor{gray!6}{2546} & \cellcolor{gray!6}{3939} & \cellcolor{gray!6}{6926} & \cellcolor{gray!6}{3478} & \cellcolor{gray!6}{4839} & \cellcolor{gray!6}{11683} & \cellcolor{gray!6}{2703} & \cellcolor{gray!6}{1751} & \cellcolor{gray!6}{15546}\\
-AIC & 19313.0 & 7415.9 & 12602.1 & 16882.0 & 10438.7 & 12128.5 & 33900.3 & 8204.3 & 4571.7 & 43882.8\\
-\cellcolor{gray!6}{Log.Lik.} & \cellcolor{gray!6}{-9646.504} & \cellcolor{gray!6}{-3697.931} & \cellcolor{gray!6}{-6291.073} & \cellcolor{gray!6}{-8430.977} & \cellcolor{gray!6}{-5209.344} & \cellcolor{gray!6}{-6054.235} & \cellcolor{gray!6}{-16940.163} & \cellcolor{gray!6}{-4092.145} & \cellcolor{gray!6}{-2275.831} & \cellcolor{gray!6}{-21931.392}\\
+AIC & 19300.7 & 7407.2 & 12597.8 & 16843.6 & 10423.8 & 12112.5 & 33870.9 & 8198.8 & 4562.8 & 43838.4\\
+\cellcolor{gray!6}{Log.Lik.} & \cellcolor{gray!6}{-9640.326} & \cellcolor{gray!6}{-3693.609} & \cellcolor{gray!6}{-6288.879} & \cellcolor{gray!6}{-8411.797} & \cellcolor{gray!6}{-5201.882} & \cellcolor{gray!6}{-6046.232} & \cellcolor{gray!6}{-16925.433} & \cellcolor{gray!6}{-4089.399} & \cellcolor{gray!6}{-2271.383} & \cellcolor{gray!6}{-21909.192}\\
 rho2 &  &  &  &  &  &  &  &  &  & \\
-\cellcolor{gray!6}{rho20} & \cellcolor{gray!6}{0.389} & \cellcolor{gray!6}{0.394} & \cellcolor{gray!6}{0.334} & \cellcolor{gray!6}{0.492} & \cellcolor{gray!6}{0.375} & \cellcolor{gray!6}{0.478} & \cellcolor{gray!6}{0.395} & \cellcolor{gray!6}{0.369} & \cellcolor{gray!6}{0.458} & \cellcolor{gray!6}{0.412}\\
+\cellcolor{gray!6}{rho20} & \cellcolor{gray!6}{0.390} & \cellcolor{gray!6}{0.395} & \cellcolor{gray!6}{0.334} & \cellcolor{gray!6}{0.494} & \cellcolor{gray!6}{0.376} & \cellcolor{gray!6}{0.479} & \cellcolor{gray!6}{0.396} & \cellcolor{gray!6}{0.369} & \cellcolor{gray!6}{0.459} & \cellcolor{gray!6}{0.412}\\
 \bottomrule
-\multicolumn{11}{l}{\textsuperscript{} * p < 0.1, ** p < 0.05, *** p < 0.01}\\
+\multicolumn{11}{l}{\textsuperscript{} * p $<$ 0.1, ** p $<$ 0.05, *** p $<$ 0.01}\\
 \multicolumn{11}{l}{\textsuperscript{a} Simulated individuals segmented based on the share of households meeting the segmentation threshold in the residence block group.}\\
 \end{tabular}}
 \end{table}
 \end{landscape}
 
 The model estimates in Table \ref{tab:grouped-modelsummary} reveal noticeable
-heterogeneity in the park location choices among visitors from different
-block group segments. Park
-visitors living in block groups with a high proportion of Black and low-income
-residents show less affinity for trails and other walkways, but appear
-considerably more sensitive to the distance to a park. Park visitors living in
-high-income neighborhoods are less sensitive to the distance to a park, but
-receive more utility from certain amenities, in particular trails and tennis
-courts. Block groups with a high proportion of hispanic residents and residents
-with children under 6 show the least negative response to playgrounds of
-all the segments.
+heterogeneity in the park location choices among visitors from different block
+group segments. Park visitors living in block groups with a high proportion of
+Black and low-income residents show less affinity for trails and other walkways,
+but appear considerably more sensitive to the distance to a park. Park visitors
+living in high-income neighborhoods are less sensitive to the distance to a
+park, but receive more utility from certain amenities, in particular trails and
+tennis courts. Block groups with a high proportion of Hispanic residents and
+residents with children under 6 show the least negative response to playgrounds
+of all the segments.
 
-Seeing that there is a difference in the response in the model segmentation,
-it is also worth considering the role of our segmentation thresholds in these
+Seeing that there is a difference in the response in the model segmentation, it
+is also worth considering the role of our segmentation thresholds in these
 findings. Figure \ref{fig:split-plots} shows the estimated coefficients and
 confidence intervals for these different amenities at different threshold levels
-of segmentation. The threshold level means that at least that percent
-of the block group's population falls in that category. The confidence intervals
-widen as more observations are excluded from the model. The estimated coefficients
-for the different segmentations are identical when the share equals zero, and
-simply represent the ``Sport Detail'' model from Table \ref{tab:base-modelsummary}.
+of segmentation. The threshold level means that at least that percent of the
+block group's population falls in that category. The confidence intervals widen
+as more observations are excluded from the model. The estimated coefficients for
+the different segmentations are identical when the share equals zero, and simply
+represent the ``Sport Detail'' model from Table \ref{tab:base-modelsummary}.
 
-Overall, increasing the segmentation threshold level reveals some additional
-information about user preferences. First, it should be noted that there is
-some inconsistency: for instance, block groups with at least 40\% of low income
-households show a lower importance of distance than block groups with either
-30\% low income households. The increasing width of the confidence interval,
-however, means it is sometimes difficult to make generalized statements. Residents of
+Overall, increasing the segmentation threshold level reveals additional
+information about user preferences. First, it should be noted that there is some
+inconsistency: for instance, block groups with at least 40\% of low income
+households show a lower importance of distance than block groups with either 30\%
+low income households. The increasing width of the confidence interval, however,
+means it is sometimes difficult to make generalized statements. Residents of
 block groups with a higher share of Asian or high income households both show
 relatively more affinity for tennis courts and trails relative to other groups.
 Residents of block groups with increasing shares of Hispanic individuals show
@@ -875,61 +952,18 @@ sensitive to park size.
 
 \begin{figure}
 \centering
-\includegraphics{alameda_destinationchoice_files/figure-latex/split-plots-1.pdf}
-\caption{\label{fig:split-plots}Estimated utility coefficients and 95\% confidence intervals for park amenities at different socioeconomic threshold levels.}
+\includegraphics{alameda_destinationchoice_files/figure-latex/split-plots-orig-1.pdf}
+\caption{\label{fig:split-plots-orig}Estimated utility coefficients and 95\% confidence intervals for park amenities at different socioeconomic threshold levels.}
 \end{figure}
 
-\hypertarget{model-application-equity-analysis-of-covid-19-street-openings}{%
-\subsection{Model Application: Equity Analysis of COVID-19 Street Openings}\label{model-application-equity-analysis-of-covid-19-street-openings}}
+\hypertarget{equity-analysis-of-covid-19-street-openings}{%
+\subsection{Equity Analysis of COVID-19 Street Openings}\label{equity-analysis-of-covid-19-street-openings}}
 
 In this section, we apply the models estimated above to evaluate the benefits of
-the street conversion policy in terms of aggregate value determined by the change
-in accessibility logsum, as well as the equity of the policy with respect to
-different income and ethnic groups.
-
-We obtained the list of streets in Alameda County that were reported converted to
-public open space
-in the ``Shifting Streets'' COVID-19 mobility dataset \citep{slowstreets}. This dataset
-reports that 74 individual streets were converted; these streets represent
-27.6 total miles across the cities
-of Berkeley, Oakland, and Alameda. For the purposes of this analysis, we
-represent each opened street as a single ``park'' without any sport facilities or
-playgrounds, but with a trail / walking path. The database provides the opened
-streets as polyline objects; we assert a 25-foot buffer around the line to
-represent a polygon with a measurable area. The 25-foot buffer effectively counts
-one vehicle lane and one shoulder parking lane in each direction as converted to
-``park'' space. Finally, we measure the network-based distance from each
-population-weighted block group centroid to the nearest boundary of each new
-open space facility created by this policy.
-
-Using this new dataset --- augmented with parks added by street conversion --- we
-applied the ``Sport Detail'' non-segmented model to calculate park choice utilities
-and utility-based accessibility values for each block group in Alameda County.
-As shown with Equation \eqref{eq:deltalogsum}, the difference in utility-based
-accessibility values with and without the opened streets is the consumer
-surplus provided by the policy, converted into a monetary value by a
-cost-utility coefficient. The dataset used for this research does
-not have any information on travel costs or entrance fees, and such data would
-likely not be relevant in the context of urban parks. As a result, there is no
-direct link between the utility and a monetary cost in our estimated models.
-
-As a substitution, we use an estimate of the cost coefficient obtained from the
-open-source activity-based travel demand model ActivitySim, which is itself
-based on the regional travel model employed by the Metropolitan
-Transportation Commission (MTC), the San Francisco Bay regional MPO.
-ActivitySim uses a cost coefficient of
-\(-0.6\) divided by the each simulated agent's value of time to determine
-destination choices for non-work trips.\footnote{To be precise, this is the cost
-  coefficient on the mode choice model for social, recreational, and other trip
-  purposes, which influences destination choice through a logsum-based impedance
-  term.} In ActivitySim, as in most activity-based travel models, the value of
-time is considered to vary with an individual's income, but in this aggregate
-destination choice model, an aggregate value of time will suffice. The average
-value of time in the synthetic population for the Bay Area is \$7.75
-per hour, resulting in a cost coefficient on the destination choice utility of
-\(-0.215\). Dividing the difference in accessibility logsums by the negative of
-this value gives an initial estimate of the monetary value of the policy
-to each park user.
+the street conversion policy in terms of aggregate value determined by the
+change in accessibility logsum, as well as the equity of the policy with respect
+to different income and ethnic groups. In this analysis, we apply the ``Sport Detail''
+non-segmented model from Table \ref{tab:base-modelsummary}.
 
 Figure \ref{fig:logsumsmap} presents this monetary valuation spatially.
 Unsurprisingly, the benefits are concentrated in the block groups surrounding
@@ -946,13 +980,14 @@ for most block groups away from where the street openings occurred.
 \caption{\label{fig:logsumsmap}Monetary value of street opening to residents based on utility change. Streets converted to pedestrian plazas are shown in black.}
 \end{figure}
 
-More interesting than the total benefit or even its spatial distribution, however,
-is the social equity of its distribution among different population segments.
-If we assign the block-group level monetary benefit to each household in the block
-group, we can begin to allocate the distribution of benefits proportionally to
-households of different sociodemographic classifications. Specifically, if a block
-group with \(N\) total households has a measured consumer surplus \(\delta CS\), then the
-share of the total benefits going to a particular population segment \(k\) is
+More interesting than the total benefit or even its spatial distribution,
+however, is the social equity of its distribution among different population
+segments. If we assign the block-group level monetary benefit to each household
+in the block group, we can begin to allocate the distribution of benefits
+proportionally to households of different sociodemographic classifications.
+Specifically, if a block group with \(N\) total households has a measured consumer
+surplus \(\delta CS\), then the share of the total benefits going to a particular
+population segment \(k\) is
 
 \begin{equation}
   S_k = N * P_k * \delta CS
@@ -962,22 +997,23 @@ share of the total benefits going to a particular population segment \(k\) is
 where \(P_k\) is the proportion of the block group's population in segment \(k\).
 There is some opportunity for confusion when some demographic variables we use
 (share of households with children, household income) are defined at the
-household level and other (ethnicity) are defined at the person level. It is similarly
-not clear whether the benefits of improved park access should be assigned at
-the person level, the household level, or the number of total park trip makers in
-each block group. For consistency and simplicity, we assert that the benefit is
-assigned to each household, and that persons receive a proportional share of the
-household benefit. For example, a block group with 30\% Black individuals will
-receive 30\% of the benefits assigned to all the households in the block group.
+household level and other (ethnicity) are defined at the person level. It is
+similarly not clear whether the benefits of improved park access should be
+assigned at the person level, the household level, or the number of total park
+trip makers in each block group. For consistency and simplicity, we assert that
+the benefit is assigned to each household, and that persons receive a
+proportional share of the household benefit. For example, a block group with 30\%
+Black individuals will receive 30\% of the benefits assigned to all the
+households in the block group.
 
-Table \ref{tab:equity} shows the total benefit assigned to households in this way
-as well as the share of all monetary benefits in the region. In some cases, the
-policy of opening streets as public spaces had a pro-social benefit, as 18.7\%
-of benefits went to Black individuals, even though only 11.4\% of the population
-of Alameda County is Black. Similarly, roughly one-quarter of total benefits
-went to households making less than \$35,000 per year even though only one-fifth
-of the households are in this category. On the other hand, a smaller than
-expected share of benefits is allocated to Asian individuals and households
+Table \ref{tab:equity} shows the total benefit assigned to households in this
+way as well as the share of all monetary benefits in the region. In some cases,
+the policy of opening streets as public spaces had a pro-social benefit, as
+18.7\% of benefits went to Black individuals, even though only 11.4\% of the
+population of Alameda County is Black. Similarly, roughly one-quarter of total
+benefits went to households making less than \$35,000 per year even though only
+one-fifth of the households are in this category. On the other hand, a smaller
+than expected share of benefits is allocated to Asian individuals and households
 making more than \$125,000 per year.
 
 \begin{table}
@@ -989,15 +1025,15 @@ making more than \$125,000 per year.
 \toprule
 Group & Benefit & Percent* of Benefits & Households** & Percent of Households\\
 \midrule
-Households with Children under 6 & \$94,345 & 14.28 & 85,316 & 14.89\\
-Income < \$35k & \$148,082 & 22.42 & 95,683 & 16.70\\
-Income > \$125k & \$192,792 & 29.19 & 211,540 & 36.93\\
-Black & \$119,851 & 18.15 & 62,205 & 10.86\\
-Asian & \$126,887 & 19.21 & 162,378 & 28.34\\
+Households with Children under 6 & \$94,911 & 14.28 & 85,316 & 14.89\\
+Income < \$35k & \$148,998 & 22.42 & 95,683 & 16.70\\
+Income > \$125k & \$194,052 & 29.20 & 211,540 & 36.93\\
+Black & \$120,544 & 18.14 & 62,205 & 10.86\\
+Asian & \$127,771 & 19.22 & 162,378 & 28.34\\
 \addlinespace
-Hispanic & \$146,904 & 22.24 & 118,620 & 20.71\\
-White & \$225,699 & 34.17 & 195,626 & 34.15\\
-All Households & \$660,459 & 100.00 & 572,870 & 100.00\\
+Hispanic & \$147,766 & 22.23 & 118,620 & 20.71\\
+White & \$227,161 & 34.18 & 195,626 & 34.15\\
+All Households & \$664,628 & 100.00 & 572,870 & 100.00\\
 \bottomrule
 \multicolumn{5}{l}{\rule{0pt}{1em}\textsuperscript{*} As individuals and households will belong in multiple groups, the percents do not sum to 100.}\\
 \multicolumn{5}{l}{\rule{0pt}{1em}\textsuperscript{\dag} Race and ethnicity are person-level attributes; households are assumed to follow the same distribution.}\\
@@ -1009,40 +1045,39 @@ All Households & \$660,459 & 100.00 & 572,870 & 100.00\\
 
 The utility-based accessibility metrics we present and apply in this paper are
 evaluated from a discrete choice model estimated on simulate decision makers
-constructed from a third-party passive origin-destination matrix. This methodological
-choice has some strengths: Foremost among these is the ability to readily and
-affordably construct a large dataset on an infrequent trip purpose.
+constructed from a third-party passive origin-destination matrix. This
+methodological choice has some strengths: Foremost among these is the ability to
+readily and affordably construct a large dataset on an infrequent trip purpose.
 Most destination choice and activity location models are estimated on
 small-sample household travel surveys. Securing sufficient responses to estimate
 a rich behavioral model on a trip purpose as infrequent as parks has proven
-prohibitively expensive outside of extensive research activities
-\citep[e.g.,][]{Kaczynski2016}. Using passive data sets to increase the effective
-sampling rate possible in a discrete choice model is a potentially powerful strategy,
-and its application here is an important contribution of our work.
+prohibitively expensive outside of extensive research activities \citep[e.g.,][]{Kaczynski2016}. Using passive data sets to increase the effective sampling rate
+possible in a discrete choice model is a potentially powerful strategy,and its
+application here is an important contribution of our work.
 
 At the same time, passive data sets available from commercial providers do not
 reveal any details about the specific trip makers beyond what can be learned
 from their residence block group. In this research we were able to determine
 whether a device resided in a block group with a high proportion of low-income
-households, but could not have confidence that a particular device belonged
-to a member of such a household. Similarly, there is no information on what kind
-of trip the device-holder actually accomplished at each park. These limitations
+households, but could not have confidence that a particular device belonged to a
+member of such a household. Similarly, there is no information on what kind of
+trip the device-holder actually accomplished at each park. These limitations
 combined mean that it would likely be infeasible to directly observe devices
-that traveled to the converted streets during the COVID-19 lockdowns.
-The ideal dataset for estimating individual park activity location choices generally
-and in special situations would be a high-quality, large-sample household
-survey of real individuals.
+that traveled to the converted streets during the COVID-19 lockdowns. The ideal
+dataset for estimating individual park activity location choices generally and
+in special situations would be a high-quality, large-sample household survey of
+real individuals.
 
 The individual-level demographic data would also be valuable in understanding
 more clearly the observed heterogeneity in response among different income or
-ethnic groups. The trends and correlations revealed in the
-presented models may reflect situational inequities rather than true
-preferences. For example, the distinct observed parameters on size and distance
-for block groups with high minority populations may indicate that areas with
-large minority populations tend to have smaller parks that are more
-geographically distributed relative to other areas of the region. This
-interpretation could also explain some of the non-intuitive response observed in
-our models, especially in regards to playgrounds.
+ethnic groups. The trends and correlations revealed in the presented models may
+reflect situational inequities rather than true preferences. For example, the
+distinct observed parameters on size and distance for block groups with high
+minority populations may indicate that areas with large minority populations
+tend to have smaller parks that are more geographically distributed relative to
+other areas of the region. This interpretation could also explain some of the
+non-intuitive response observed in our models, especially in regards to
+playgrounds.
 
 We limited our analysis to home locations and parks in Alameda County,
 California. It is possible that some Alameda residents visit parks in
@@ -1050,54 +1085,55 @@ neighboring counties, just as it is possible that parks in Alameda County
 attract trips from outside the county borders. This is most likely for block
 groups and parks on the north and south borders of the county. The scope of this
 analysis was determined by the passive data set available for the research, but
-the county boundaries are not a general requirement for all studies of this kind.
+the county boundaries are not a general requirement for all studies of this
+kind.
 
-The distance to a park was represented in this study using a walk network retrieved
-from the OpenStreetMap project. Though perhaps superior to a Euclidean distance,
-this measure still has many limitations. First, we were unable to verify the
-integrity of the underlying network information; based on our prior experience,
-it is likely that some broken or improperly connected links artificially
-inflated the measured distance for an unknown number of park / block group
-pairs. A more serious limitation, however, is that experienced travel distances
-are a function of the transport mode employed by the traveler. Using bare
-distances does not provide any detail on how access to parks might be increased
-with improved transit service, for example. Using a mode-choice model logsum
-as a multi-modal impedance term in the activity location choice model would
-enable this kind of analysis.
+The distance to a park was represented in this study using a walk network
+retrieved from the OpenStreetMap project. Though perhaps superior to a Euclidean
+distance, this measure still has many limitations. First, we were unable to
+verify the integrity of the underlying network information; based on our prior
+experience, it is likely that some broken or improperly connected links
+artificially inflated the measured distance for an unknown number of park /
+block group pairs. A more serious limitation, however, is that experienced
+travel distances are a function of the transport mode employed by the traveler.
+Using bare distances does not provide any detail on how access to parks might be
+increased with improved transit service, for example. Using a mode-choice model
+logsum as a multi-modal impedance term in the activity location choice model
+would enable this kind of analysis.
 
 Of course, COVID-19 led to the closure of some park facilities --- playgrounds,
-pavilions, and in some cases entire parks --- that were not
-captured in this analysis. These closures would lead to a decrease in the consumer
-surplus for park access, which might overwhelm or at least change the distribution
-of positive benefits we measured here.
+pavilions, and in some cases entire parks --- that were not captured in this
+analysis. These closures would lead to a decrease in the consumer surplus for
+park access, which might overwhelm or at least change the distribution of
+positive benefits we measured here.
 
 \hypertarget{conclusions}{%
 \section{Conclusions}\label{conclusions}}
 
-Converting city roadways into pedestrian-oriented public spaces was in some
-ways an obvious response to the COVID-19 pandemic: Vehicle traffic demand was
-down, and there was a also critical need for pedestrian-oriented open spaces in
-many communities. The research we present here suggests that this policy had
-measurable and meaningful benefits to neighborhoods in Alameda County, California,
-and that these benefits were distributed in an equitable or even a pro-social
-manner. The total benefit to households in the community is estimated at over \$660,000,
-with higher-than-expected benefits going to Black, Hispanic and low-income
-individuals. There is, however, a less-than-expected benefit experienced
-Asian individuals that might be addressed were the policy to continue, be repeated,
-or made permanent in some way.
+Converting city roadways into pedestrian-oriented public spaces was in some ways
+an obvious response to the COVID-19 pandemic: Vehicle traffic demand was down,
+and there was a also critical need for pedestrian-oriented open spaces in many
+communities. The research we present here suggests that this policy had
+measurable and meaningful benefits to neighborhoods in Alameda County,
+California, and that these benefits were distributed in an equitable or even a
+pro-social manner. The total benefit to households in the community is estimated
+at over \$660,000, with disproportionately high benefits going to Black, Hispanic
+and low-income neighborhoods. There is, however, a disproportionately low
+benefit to neighborhoods with high Asian populations that might be addressed
+were the policy to continue, be repeated, or made permanent in some way.
 
 In estimating these benefits, we applied an emerging technique to estimate park
 choice preferences and utility from passive mobile device data. This technique
 allowed a more nuanced measure of access that allowed us to consider the
 converted streets as providing quantitatively different access than other city
-parks. A policy of permanently closing these streets to vehicle traffic would
-have potentially deleterious effects on transportation access that would need to
-be considered against the benefits we measured in this research. But
-utility-based access measures provide a mechanism to weigh the benefits of
-access against the costs of travel in a theoretically coherent manner. Adopting
-such flexible methods of measuring access will help transportation and land use
-planners better understand the nunces and tradeoffs inherent in a wide range of
-policy proposals.
+parks. A policy of permanently closing these streets to vehicle traffic may or
+may not have negative effects on transportation access that would need to be
+considered against the benefits we measured in this research. But utility-based
+access measures provide a mechanism to weigh the benefits of access against the
+costs of travel in a theoretically coherent manner. Adopting such flexible
+methods of measuring access will help transportation and land use planners
+better understand the nunces and tradeoffs inherent in a wide range of policy
+proposals.
 
 \hypertarget{acknowledgments}{%
 \section*{Acknowledgments}\label{acknowledgments}}
@@ -1110,5 +1146,4 @@ Graphics and tables were developed using several open-source R packages
 
 
 \end{document}
-
 
