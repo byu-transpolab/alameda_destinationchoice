@@ -32,12 +32,11 @@ options(dplyr.summarise.inform = FALSE)
 source("R/methods.R")
 ```
 
-
-
-We first constructed a dataset on which to estimate park activity location
+In this section, we describe the methodology we follow for this analysis.
+We first describe how we created a dataset on which to estimate park activity location
 choices for a sample of observed trips in Alameda County, California. Then we
-estimated a set of models... Finally, we applied the results of those models to
-estimated the change in consumer surplus...
+provide an overview of destination choice modeling and using such models to derive 
+utility-based accessibility.
 
 ## Study area
 
@@ -468,7 +467,7 @@ converted to public open space from each city's respective websites
 [@city_of_alameda_slow_2020; @city_of_oakland_oakland_2020;
 @city_of_berkeley_berkeley_2020] and referred to the "Shifting Streets" COVID-19
 mobility dataset [@slowstreets] to determine whether other cities and places
-within Alameda County has similar Open Streets projects (as best as we could
+within Alameda County have similar Open Streets projects (as best as we could
 determine, they did not). Based on the information we gathered from these
 sources, `r nrow(street_parks)` individual streets were converted; these streets
 represent `r as.numeric(sum(st_length(slowstreets))) / 5280` total miles across
