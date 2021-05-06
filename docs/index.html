@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>If you build it who will come? Equity analysis of park system changes using passive origin-destination data</title>
   <meta name="description" content="Alameda Park Choice" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="If you build it who will come? Equity analysis of park system changes using passive origin-destination data" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2021-04-30" />
+<meta name="date" content="2021-05-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -42,6 +42,7 @@ div.abstract{
   width: 90%;
 }
 </style>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -59,34 +60,41 @@ div.abstract{
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
-<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script>
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
 <script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
-<script src="libs/leaflet-providers-plugin-2.0.4.1/leaflet-providers-plugin.js"></script>
+<script src="libs/leaflet-providers-plugin-2.0.3/leaflet-providers-plugin.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -106,7 +114,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -139,6 +147,29 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
@@ -156,24 +187,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>2</b> Literature</a><ul>
+<li class="chapter" data-level="2" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>2</b> Literature</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="literature.html"><a href="literature.html#sociodemographic-variation-in-park-utility"><i class="fa fa-check"></i><b>2.1</b> Sociodemographic variation in park utility</a></li>
-<li class="chapter" data-level="2.2" data-path="literature.html"><a href="literature.html#defining-and-measuring-park-accessibility"><i class="fa fa-check"></i><b>2.2</b> Defining and measuring park accessibility</a><ul>
+<li class="chapter" data-level="2.2" data-path="literature.html"><a href="literature.html#defining-and-measuring-park-accessibility"><i class="fa fa-check"></i><b>2.2</b> Defining and measuring park accessibility</a>
+<ul>
 <li class="chapter" data-level="2.2.1" data-path="literature.html"><a href="literature.html#location-based-measures-of-park-accessibility"><i class="fa fa-check"></i><b>2.2.1</b> Location-based measures of park accessibility</a></li>
 <li class="chapter" data-level="2.2.2" data-path="literature.html"><a href="literature.html#utility-based-measures-of-park-accessibility"><i class="fa fa-check"></i><b>2.2.2</b> Utility-based measures of park accessibility</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="literature.html"><a href="literature.html#street-conversion-equity-analysis"><i class="fa fa-check"></i><b>2.3</b> Street Conversion Equity Analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="methodology.html"><a href="methodology.html"><i class="fa fa-check"></i><b>3</b> Methodology</a><ul>
+<li class="chapter" data-level="3" data-path="methodology.html"><a href="methodology.html"><i class="fa fa-check"></i><b>3</b> Methodology</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="methodology.html"><a href="methodology.html#study-area"><i class="fa fa-check"></i><b>3.1</b> Study area</a></li>
-<li class="chapter" data-level="3.2" data-path="methodology.html"><a href="methodology.html#data"><i class="fa fa-check"></i><b>3.2</b> Data</a><ul>
+<li class="chapter" data-level="3.2" data-path="methodology.html"><a href="methodology.html#data"><i class="fa fa-check"></i><b>3.2</b> Data</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="methodology.html"><a href="methodology.html#model-estimation-data"><i class="fa fa-check"></i><b>3.2.1</b> Model estimation data</a></li>
 <li class="chapter" data-level="3.2.2" data-path="methodology.html"><a href="methodology.html#model-application-data"><i class="fa fa-check"></i><b>3.2.2</b> Model application data</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="methodology.html"><a href="methodology.html#model-estimation"><i class="fa fa-check"></i><b>3.3</b> Model estimation</a></li>
 <li class="chapter" data-level="3.4" data-path="methodology.html"><a href="methodology.html#model-application"><i class="fa fa-check"></i><b>3.4</b> Model application</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a><ul>
+<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="results.html"><a href="results.html#equity-analysis-of-covid-19-street-openings"><i class="fa fa-check"></i><b>4.1</b> Equity Analysis of COVID-19 Street Openings</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="limitations.html"><a href="limitations.html"><i class="fa fa-check"></i><b>5</b> Limitations and Future Directions</a></li>
@@ -202,31 +238,87 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="header">
 <h1 class="title">If you build it who will come? Equity analysis of park system changes using passive origin-destination data</h1>
-<p class="author"><em>Gregory Macfarlane</em></p>
+<p class="author" style="margin: 0.5em 0 -0.5em 0;"><em>Gregory Macfarlane</em></p>
 <address class="author_afil">
-BYU<br><a class="author_email" href="mailto:#"><a href="mailto:gregmacfarlane@byu.edu" class="email">gregmacfarlane@byu.edu</a></a>
+BYU<br>
+<a class="author_email" href="mailto:#"><a href="mailto:gregmacfarlane@byu.edu" class="email">gregmacfarlane@byu.edu</a></a>
 </address>
-<p class="author"><em>Teresa Tapia</em></p>
+<p class="author" style="margin: 0.5em 0 -0.5em 0;"><em>Teresa Tapia</em></p>
 <address class="author_afil">
-StreetLight<br><a class="author_email" href="mailto:#"><a href="mailto:teresa.tapia@streetlightdata.com" class="email">teresa.tapia@streetlightdata.com</a></a>
+StreetLight<br>
+<a class="author_email" href="mailto:#"><a href="mailto:teresa.tapia@streetlightdata.com" class="email">teresa.tapia@streetlightdata.com</a></a>
 </address>
-<p class="author"><em>Carole Turley Voulgaris</em></p>
+<p class="author" style="margin: 0.5em 0 -0.5em 0;"><em>Carole Turley Voulgaris</em></p>
 <address class="author_afil">
-Harvard<br><a class="author_email" href="mailto:#"><a href="mailto:cvoulgaris@gsd.harvard.edu" class="email">cvoulgaris@gsd.harvard.edu</a></a>
+Harvard<br>
+<a class="author_email" href="mailto:#"><a href="mailto:cvoulgaris@gsd.harvard.edu" class="email">cvoulgaris@gsd.harvard.edu</a></a>
 </address>
-<p class="date"><em>2021-04-30</em></p>
+<p class="date" style="margin-top: 1.5em;"><em>2021-05-05</em></p>
 <div class="abstract">
 <p class="abstract">Abstract</p>
 <p>During the spring and summer of 2020, cities across the world responded to the global COVID-19 pandemic by converting roadway facilities into open pedestrian spaces. These conversions improved access to public open space, but measuring the variation in that improvement among different populations requires clear definitions of access and methods for measuring it. In this study, we evaluate the change in a utility-based park accessibility measure resulting from street conversions in Alameda County, California. Our utility-based accessibility measure is constructed from a park activity location choice model we estimate using mobile device data — supplied by StreetLight Data, Inc. — representing trips to parks in that county. The estimated model reveals heterogeneity in inferred affinity for park attributes among different sociodemographic groups. We find, for example, that residents of lower-income neighborhoods and those with more residents of color show a greater preference for park proximty while residents of higher-income neighborhods and those with more white residents show a greater preference for park size and amenities. Thus, the closure of streets to create a set of small park-like open spaces has been a pro-social policy in that Black, Hispanic, and low-income households receive a disproportionate share of the benefit, relative to the population distribution.</p>
 </div>
 </div>
-<div id="intro" class="section level1">
+<div id="intro" class="section level1" number="1">
 <h1><span class="header-section-number"> 1</span> Introduction</h1>
-<p>Parks and other open spaces generate immense value for the public who are able to access them. The <span class="citation">City Parks Alliance (2019)</span> categorizes the observed benefits of urban parks as encouraging active lifestyles <span class="citation">(Bancroft et al. 2015)</span>, contributing to local economies, aiding in stormwater management and flood mitigation, improving local air quality, increasing community engagement <span class="citation">(Madzia et al. 2018)</span>, and enhancing public equity.</p>
-<p>For many, the value of public parks and open public spaces increased during the widespread lockdowns enacted in 2020 to slow the transmission of COVID-19. With other entertainment venues shuttered and people otherwise confined to their homes, periodic use of public space provided an opportunity physical and emotional relief unavailable in other forms. Paired with this increased demand for public open space — and the with the epidemiological requirement to leave sufficient space between other users — was the related collapse in demand for vehicular travel. As a result, cities around the world began closing select streets to automobile travel, thereby opening them as pedestrian plazas, open streets, or slow streets <span class="citation">(Glaser and Krizek 2021; Schlossberg et al. 2021; Combs and Pardo 2021)</span>. The effective result of this policy was to create a number of “parks” in urban areas that may have had poor access previously. Understanding the equitable distribution of these benefits is an important land use policy issue. The potential for non-emergency temporary or permanent street conversions also brings up interesting problems for land use and transportation policy; indeed, the possibility for transportation infrastructure to <em>become</em> a socially beneficial land use that goes beyond serving mobility needs is a tantalizing proposition.</p>
-<p>Unfortunately, quantifying the benefits derived from access to parks in general is a complicated problem. Many previous attempts at quantifying access in terms of isochronal distances or open space concentration have resulted in a frustrating lack of clarity on the relationship between measured access and measures of physical and emotional health <span class="citation">(Bancroft et al. 2015)</span>. Central to this confusion is the fact that people do not always use the nearest park, especially if it does not have qualities that they find attractive. A better methodology would be to evaluate the park activity location choices of people in a metropolitan area to identify which features of parks — distance, amenities, size, etc. — are valued and which are less valued. The resulting activity location choice model would enable the evaluation of utility benefits via the choice model logsum <span class="citation">(Handy and Niemeier 1997; Jong et al. 2007)</span>.</p>
-<p>In this study, we seek to evaluate the socio-spatial distribution of benefits received by residents of Alameda County, California resulting from the temporary conversion of streets to public open spaces during the spring and summer of 2020. We estimate a park activity location choice model using location-based services (LBS) data obtained through StreetLight Data, Inc., a commercial data aggregator. The resulting model illuminates the degree to which constructed individuals living in U.S. Census block groups of varying sociodemographic characteristics value the travel distance between block group and parks, the size of the parks, and the amenities of parks including sport fields, playgrounds, and walking trails in Alameda county. We then apply this model to examine the inferred monetary benefit resulting from the street conversion policy, and its distribution among different sociodemographic groups.</p>
-<p>The paper proceeds in the following manner: A <a href="literature.html#literature">discussion</a> of prior attempts to evaluate park accessibility and preferences is given directly. A <a href="methodology.html#methodology">Methodology</a> section presents our data gathering and cleaning efforts, the econometric framework for the location choice model, and the approach taken to apply the results to analyze open streets projects. A <a href="results.html#results">Results</a> section presents the estimated choice model coefficients alongside a discussion of their implications, including the implied benefits resulting from the street conversions in Alameda County. After presenting <a href="limitations.html#limitations">limitations</a> and associated avenues for future research, a final <a href="conclusions.html#conclusions">Conclusions</a> section outlines the contributions of this study for recreational trip modeling and location choice modeling more generally.</p>
+<p>Parks and other open spaces generate immense value for the public who are able
+to access them. The <span class="citation">City Parks Alliance (2019)</span> categorizes the observed benefits of
+urban parks as encouraging active lifestyles <span class="citation">(Bancroft et al. 2015)</span>, contributing to
+local economies, aiding in stormwater management and flood mitigation, improving
+local air quality, increasing community engagement <span class="citation">(Madzia et al. 2018)</span>, and enhancing
+public equity.</p>
+<p>For many, the value of public parks and open public spaces increased during the
+widespread lockdowns enacted in 2020 to slow the transmission of COVID-19. With
+other entertainment venues shuttered and people otherwise confined to their
+homes, periodic use of public space provided an opportunity physical and
+emotional relief unavailable in other forms. Paired with this increased demand
+for public open space — and the with the epidemiological requirement to leave
+sufficient space between other users — was the related collapse in demand for
+vehicular travel. As a result, cities around the world began closing select
+streets to automobile travel, thereby opening them as pedestrian plazas, open
+streets, or slow streets <span class="citation">(Glaser and Krizek 2021; Schlossberg et al. 2021; T. S. Combs and Pardo 2021)</span>. The effective result of this policy was to create a number
+of “parks” in urban areas that may have had poor access previously.
+Understanding the equitable distribution of these benefits is an important land
+use policy issue. The potential for non-emergency temporary or permanent street
+conversions also brings up interesting problems for land use and transportation
+policy; indeed, the possibility for transportation infrastructure to <em>become</em> a
+socially beneficial land use that goes beyond serving mobility needs is a
+tantalizing proposition.</p>
+<p>Unfortunately, quantifying the benefits derived from access to parks in general
+is a complicated problem. Many previous attempts at quantifying access in terms
+of isochronal distances or open space concentration have resulted in a
+frustrating lack of clarity on the relationship between measured access and
+measures of physical and emotional health <span class="citation">(Bancroft et al. 2015)</span>. Central to this
+confusion is the fact that people do not always use the nearest park, especially
+if it does not have qualities that they find attractive. A better methodology
+would be to evaluate the park activity location choices of people in a
+metropolitan area to identify which features of parks — distance, amenities,
+size, etc. — are valued and which are less valued. The resulting activity
+location choice model would enable the evaluation of utility benefits via the
+choice model logsum <span class="citation">(Handy and Niemeier 1997; Jong et al. 2007)</span>.</p>
+<p>In this study, we seek to evaluate the socio-spatial distribution of benefits
+received by residents of Alameda County, California resulting from the
+temporary conversion of streets to public open spaces during the spring and
+summer of 2020. We estimate a park activity location choice model using
+location-based services (LBS) data obtained through StreetLight Data, Inc., a
+commercial data aggregator. The resulting model illuminates the degree to which
+constructed individuals living in U.S. Census block groups of varying
+sociodemographic characteristics value the travel distance between block group
+and parks, the size of the parks, and the amenities of parks including sport
+fields, playgrounds, and walking trails in Alameda county. We then apply this
+model to examine the inferred monetary benefit resulting from the street
+conversion policy, and its distribution among different sociodemographic groups.</p>
+<p>The paper proceeds in the following manner: A <a href="literature.html#literature">discussion</a> of prior
+attempts to evaluate park accessibility and preferences is given directly. A
+<a href="methodology.html#methodology">Methodology</a> section presents our data gathering and cleaning
+efforts, the econometric framework for the location choice model, and the
+approach taken to apply the results to analyze open streets projects. A
+<a href="results.html#results">Results</a> section presents the estimated choice model coefficients
+alongside a discussion of their implications, including the implied benefits
+resulting from the street conversions in Alameda County. After presenting
+<a href="limitations.html#limitations">limitations</a> and associated avenues for future research, a final
+<a href="conclusions.html#conclusions">Conclusions</a> section outlines the contributions of this study for
+recreational trip modeling and location choice modeling more generally.</p>
 
 </div>
             </section>
@@ -258,6 +350,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {

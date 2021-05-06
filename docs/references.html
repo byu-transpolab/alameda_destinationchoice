@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>References | If you build it who will come? Equity analysis of park system changes using passive origin-destination data</title>
   <meta name="description" content="Alameda Park Choice" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="References | If you build it who will come? Equity analysis of park system changes using passive origin-destination data" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2021-04-30" />
+<meta name="date" content="2021-05-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -42,6 +42,7 @@ div.abstract{
   width: 90%;
 }
 </style>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -59,34 +60,41 @@ div.abstract{
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
-<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script>
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
 <script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
-<script src="libs/leaflet-providers-plugin-2.0.4.1/leaflet-providers-plugin.js"></script>
+<script src="libs/leaflet-providers-plugin-2.0.3/leaflet-providers-plugin.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -106,7 +114,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -139,6 +147,29 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
@@ -156,24 +187,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>2</b> Literature</a><ul>
+<li class="chapter" data-level="2" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>2</b> Literature</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="literature.html"><a href="literature.html#sociodemographic-variation-in-park-utility"><i class="fa fa-check"></i><b>2.1</b> Sociodemographic variation in park utility</a></li>
-<li class="chapter" data-level="2.2" data-path="literature.html"><a href="literature.html#defining-and-measuring-park-accessibility"><i class="fa fa-check"></i><b>2.2</b> Defining and measuring park accessibility</a><ul>
+<li class="chapter" data-level="2.2" data-path="literature.html"><a href="literature.html#defining-and-measuring-park-accessibility"><i class="fa fa-check"></i><b>2.2</b> Defining and measuring park accessibility</a>
+<ul>
 <li class="chapter" data-level="2.2.1" data-path="literature.html"><a href="literature.html#location-based-measures-of-park-accessibility"><i class="fa fa-check"></i><b>2.2.1</b> Location-based measures of park accessibility</a></li>
 <li class="chapter" data-level="2.2.2" data-path="literature.html"><a href="literature.html#utility-based-measures-of-park-accessibility"><i class="fa fa-check"></i><b>2.2.2</b> Utility-based measures of park accessibility</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="literature.html"><a href="literature.html#street-conversion-equity-analysis"><i class="fa fa-check"></i><b>2.3</b> Street Conversion Equity Analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="methodology.html"><a href="methodology.html"><i class="fa fa-check"></i><b>3</b> Methodology</a><ul>
+<li class="chapter" data-level="3" data-path="methodology.html"><a href="methodology.html"><i class="fa fa-check"></i><b>3</b> Methodology</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="methodology.html"><a href="methodology.html#study-area"><i class="fa fa-check"></i><b>3.1</b> Study area</a></li>
-<li class="chapter" data-level="3.2" data-path="methodology.html"><a href="methodology.html#data"><i class="fa fa-check"></i><b>3.2</b> Data</a><ul>
+<li class="chapter" data-level="3.2" data-path="methodology.html"><a href="methodology.html#data"><i class="fa fa-check"></i><b>3.2</b> Data</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="methodology.html"><a href="methodology.html#model-estimation-data"><i class="fa fa-check"></i><b>3.2.1</b> Model estimation data</a></li>
 <li class="chapter" data-level="3.2.2" data-path="methodology.html"><a href="methodology.html#model-application-data"><i class="fa fa-check"></i><b>3.2.2</b> Model application data</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="methodology.html"><a href="methodology.html#model-estimation"><i class="fa fa-check"></i><b>3.3</b> Model estimation</a></li>
 <li class="chapter" data-level="3.4" data-path="methodology.html"><a href="methodology.html#model-application"><i class="fa fa-check"></i><b>3.4</b> Model application</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a><ul>
+<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="results.html"><a href="results.html#equity-analysis-of-covid-19-street-openings"><i class="fa fa-check"></i><b>4.1</b> Equity Analysis of COVID-19 Street Openings</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="limitations.html"><a href="limitations.html"><i class="fa fa-check"></i><b>5</b> Limitations and Future Directions</a></li>
@@ -203,222 +239,228 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="references" class="section level1 unnumbered">
 <h1>References</h1>
 
-<div id="refs" class="references">
-<div>
-<p>Anas, Alex. 1983. “Discrete Choice Theory, Information Theory and the Multinomial Logit and Gravity Models.” <em>Transportation Research Part B: Methodological</em> 17 (1): 13–23.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div class="csl-entry">
+Anas, Alex. 1983. <span>“Discrete Choice Theory, Information Theory and the Multinomial Logit and Gravity Models.”</span> <em>Transportation Research Part B: Methodological</em> 17 (1): 13–23.
 </div>
-<div>
-<p>Arel-Bundock, Vincent. 2020. “Modelsummary: Summary Tables and Plots for Statistical Models and Data: Beautiful, Customizable, and Publication-Ready.” <a href="https://vincentarelbundock.github.io/modelsummary/">https://vincentarelbundock.github.io/modelsummary/</a>.</p>
+<div class="csl-entry">
+Arel-Bundock, Vincent. 2020. <span>“Modelsummary: Summary Tables and Plots for Statistical Models and Data: Beautiful, Customizable, and Publication-Ready.”</span> <a href="https://vincentarelbundock.github.io/modelsummary/">https://vincentarelbundock.github.io/modelsummary/</a>.
 </div>
-<div>
-<p>Baas, John M, Alan Ewert, and Deborah J Chavez. 1993. “Influence of Ethnicity on Recreation and Natural Environment Use Patterns: Managing Recreation Sites for Ethnic and Racial Diversity.” <em>Environmental Management</em> 17 (4): 523.</p>
+<div class="csl-entry">
+Baas, John M, Alan Ewert, and Deborah J Chavez. 1993. <span>“Influence of Ethnicity on Recreation and Natural Environment Use Patterns: Managing Recreation Sites for Ethnic and Racial Diversity.”</span> <em>Environmental Management</em> 17 (4): 523.
 </div>
-<div>
-<p>Bancroft, Carolyn, Spruha Joshi, Andrew Rundle, Malo Hutson, Catherine Chong, Christopher C. Weiss, Jeanine Genkinger, Kathryn Neckerman, and Gina Lovasi. 2015. “Association of proximity and density of parks and objectively measured physical activity in the United States: A systematic review.” <em>Social Science &amp; Medicine</em> 138 (August): 22–30. <a href="https://doi.org/10.1016/j.socscimed.2015.05.034">https://doi.org/10.1016/j.socscimed.2015.05.034</a>.</p>
+<div class="csl-entry">
+Bancroft, Carolyn, Spruha Joshi, Andrew Rundle, Malo Hutson, Catherine Chong, Christopher C. Weiss, Jeanine Genkinger, Kathryn Neckerman, and Gina Lovasi. 2015. <span>“<span class="nocase">Association of proximity and density of parks and objectively measured physical activity in the United States: A systematic review</span>.”</span> <em>Social Science <span>&amp;</span> Medicine</em> 138 (August): 22–30. <a href="https://doi.org/10.1016/j.socscimed.2015.05.034">https://doi.org/10.1016/j.socscimed.2015.05.034</a>.
 </div>
-<div>
-<p>Bernardin, Vincent L, John L Bowman, Mark Bradley, Jason Chen, Nazneen Ferdous, and Yuen Lee. 2018. “Incorporating Big Data in an Activity-Based Travel Model: The Chattanooga Case Study.” In <em>TRB Annual Meeting</em>. Transportation Research Board. <a href="https://trid.trb.org/view/1495930">https://trid.trb.org/view/1495930</a>.</p>
+<div class="csl-entry">
+Bernardin, Vincent L, John L Bowman, Mark Bradley, Jason Chen, Nazneen Ferdous, and Yuen Lee. 2018. <span>“<span class="nocase">Incorporating Big Data in an Activity-Based Travel Model: The Chattanooga Case Study</span>.”</span> In <em>TRB Annual Meeting</em>. Transportation Research Board. <a href="https://trid.trb.org/view/1495930">https://trid.trb.org/view/1495930</a>.
 </div>
-<div>
-<p>Bolla, R., and F. Davoli. 2000. “Road traffic estimation from location tracking data in the mobile cellular network.” In <em>2000 Ieee Wireless Communications and Networking Conference. Conference Record (Cat. No.00TH8540)</em>, 1107–12. IEEE. <a href="https://doi.org/10.1109/WCNC.2000.904783">https://doi.org/10.1109/WCNC.2000.904783</a>.</p>
+<div class="csl-entry">
+Bolla, R., and F. Davoli. 2000. <span>“<span class="nocase">Road traffic estimation from location tracking data in the mobile cellular network</span>.”</span> In <em>2000 IEEE Wireless Communications and Networking Conference. Conference Record (Cat. No.00TH8540)</em>, 1107–12. IEEE. <a href="https://doi.org/10.1109/WCNC.2000.904783">https://doi.org/10.1109/WCNC.2000.904783</a>.
 </div>
-<div>
-<p>Bruton, Candice M, and Myron F Floyd. 2014. “Disparities in Built and Natural Features of Urban Parks: Comparisons by Neighborhood Level Race/Ethnicity and Income.” <em>Journal of Urban Health</em> 91 (5): 894–907.</p>
+<div class="csl-entry">
+Bruton, Candice M, and Myron F Floyd. 2014. <span>“Disparities in Built and Natural Features of Urban Parks: Comparisons by Neighborhood Level Race/Ethnicity and Income.”</span> <em>Journal of Urban Health</em> 91 (5): 894–907.
 </div>
-<div>
-<p>Byrne, Jason. 2012. “When Green Is White: The Cultural Politics of Race, Nature and Social Exclusion in a Los Angeles Urban National Park.” <em>Geoforum</em> 43 (3): 595–611.</p>
+<div class="csl-entry">
+Byrne, Jason. 2012. <span>“When Green Is White: The Cultural Politics of Race, Nature and Social Exclusion in a Los Angeles Urban National Park.”</span> <em>Geoforum</em> 43 (3): 595–611.
 </div>
-<div>
-<p>Byrne, Jason, and Jennifer Wolch. 2009. “Nature, Race, and Parks: Past Research and Future Directions for Geographic Research.” <em>Progress in Human Geography</em> 33 (6): 743–65.</p>
+<div class="csl-entry">
+Byrne, Jason, and Jennifer Wolch. 2009. <span>“Nature, Race, and Parks: Past Research and Future Directions for Geographic Research.”</span> <em>Progress in Human Geography</em> 33 (6): 743–65.
 </div>
-<div>
-<p>Calabrese, Francesco, Giusy Di Lorenzo, Liang Liu, and Carlo Ratti. 2011. “Estimating Origin-Destination Flows Using Mobile Phone Location Data.” <em>IEEE Pervasive Computing</em> 10 (4): 36–44. <a href="https://doi.org/10.1109/mprv.2011.41">https://doi.org/10.1109/mprv.2011.41</a>.</p>
+<div class="csl-entry">
+Calabrese, Francesco, Giusy Di Lorenzo, Liang Liu, and Carlo Ratti. 2011. <span>“<span>Estimating Origin-Destination Flows Using Mobile Phone Location Data</span>.”</span> <em>IEEE Pervasive Computing</em> 10 (4): 36–44. <a href="https://doi.org/10.1109/mprv.2011.41">https://doi.org/10.1109/mprv.2011.41</a>.
 </div>
-<div>
-<p>Chang, Hsueh-Sheng, and Chin-Hsien Liao. 2011. “Exploring an Integrated Method for Measuring the Relative Spatial Equity in Public Facilities in the Context of Urban Parks.” <em>Cities</em> 28 (5): 361–71.</p>
+<div class="csl-entry">
+Chang, Hsueh-Sheng, and Chin-Hsien Liao. 2011. <span>“Exploring an Integrated Method for Measuring the Relative Spatial Equity in Public Facilities in the Context of Urban Parks.”</span> <em>Cities</em> 28 (5): 361–71.
 </div>
-<div>
-<p>City of Alameda. 2020. “Slow Streets Alameda.” <a href="https://www.alamedaca.gov/ALERTS-COVID-19/Slow-Streets-Alameda">https://www.alamedaca.gov/ALERTS-COVID-19/Slow-Streets-Alameda</a>.</p>
+<div class="csl-entry">
+City of Alameda. 2020. <span>“Slow <span>Streets</span> <span>Alameda</span>.”</span> <a href="https://www.alamedaca.gov/ALERTS-COVID-19/Slow-Streets-Alameda">https://www.alamedaca.gov/ALERTS-COVID-19/Slow-Streets-Alameda</a>.
 </div>
-<div>
-<p>City of Berkeley. 2020. “Berkeley News Main Page.” <a href="https://www.cityofberkeley.info/City_Manager/Press_Releases/2020/2020-06-10_Healthy_Streets_will_support_outdoor_recreation_during_COVID-19.aspx">https://www.cityofberkeley.info/City_Manager/Press_Releases/2020/2020-06-10_Healthy_Streets_will_support_outdoor_recreation_during_COVID-19.aspx</a>.</p>
+<div class="csl-entry">
+City of Berkeley. 2020. <span>“Berkeley <span>News</span> <span>Main</span> <span>Page</span>.”</span> <a href="https://www.cityofberkeley.info/City_Manager/Press_Releases/2020/2020-06-10_Healthy_Streets_will_support_outdoor_recreation_during_COVID-19.aspx">https://www.cityofberkeley.info/City_Manager/Press_Releases/2020/2020-06-10_Healthy_Streets_will_support_outdoor_recreation_during_COVID-19.aspx</a>.
 </div>
-<div>
-<p>City of Oakland. 2020. “Oakland Slow Streets.” <em>City of Oakland</em>. <a href="https://www.oaklandca.gov/projects/oakland-slow-streets">https://www.oaklandca.gov/projects/oakland-slow-streets</a>.</p>
+<div class="csl-entry">
+City of Oakland. 2020. <span>“Oakland <span>Slow</span> <span>Streets</span>.”</span> <em>City of Oakland</em>. <a href="https://www.oaklandca.gov/projects/oakland-slow-streets">https://www.oaklandca.gov/projects/oakland-slow-streets</a>.
 </div>
-<div>
-<p>City Parks Alliance. 2019. “Why City Parks Matter.” <a href="https://cityparksalliance.org/about-us/why-city-parks-matter/">https://cityparksalliance.org/about-us/why-city-parks-matter/</a>.</p>
+<div class="csl-entry">
+City Parks Alliance. 2019. <span>“<span>Why City Parks Matter</span>.”</span> <a href="https://cityparksalliance.org/about-us/why-city-parks-matter/">https://cityparksalliance.org/about-us/why-city-parks-matter/</a>.
 </div>
-<div>
-<p>Combs, Tabitha, Carlos Felipe Pardo, Epiandes, MobilityWorks, and Datasketch. 2020. “The "Shifting Streets" Covid-19 Mobility Dataset.” <a href="http://pedbikeinfo.org/resources/resources_details.cfm?id=5235">http://pedbikeinfo.org/resources/resources_details.cfm?id=5235</a>.</p>
+<div class="csl-entry">
+Combs, Tabitha S, and Carlos F Pardo. 2021. <span>“Shifting Streets COVID-19 Mobility Data: Findings from a Global Dataset and a Research Agenda for Transport Planning and Policy.”</span> <em>Transportation Research Interdisciplinary Perspectives</em> 9: 100322.
 </div>
-<div>
-<p>Combs, Tabitha S, and Carlos F Pardo. 2021. “Shifting Streets Covid-19 Mobility Data: Findings from a Global Dataset and a Research Agenda for Transport Planning and Policy.” <em>Transportation Research Interdisciplinary Perspectives</em> 9: 100322.</p>
+<div class="csl-entry">
+Combs, Tabitha, Carlos Felipe Pardo, Epiandes, MobilityWorks, and Datasketch. 2020. <span>“The "Shifting Streets" Covid-19 Mobility Dataset.”</span> <a href="http://pedbikeinfo.org/resources/resources_details.cfm?id=5235">http://pedbikeinfo.org/resources/resources_details.cfm?id=5235</a>.
 </div>
-<div>
-<p>Compton, Nette. 2020. “Parks and the Future: Now Is the Moment to Transform Outdoor Equity Across the Nation.” In <em>Parks and the Pandemic: A Trust for Public Land Special Report</em>, 11–12. San Francisco, CA: The Trust for Public Land. <a href="https://www.tpl.org/sites/default/files/Parks%20and%20Pandemic%20-%20TPL%20special%20report.pdf">https://www.tpl.org/sites/default/files/Parks%20and%20Pandemic%20-%20TPL%20special%20report.pdf</a>.</p>
+<div class="csl-entry">
+Compton, Nette. 2020. <span>“Parks and the Future: <span>Now</span> Is the Moment to Transform Outdoor Equity Across the Nation.”</span> In <em>Parks and the <span>Pandemic</span>: <span>A</span> <span>Trust</span> for <span>Public</span> <span>Land</span> <span>Special</span> <span>Report</span></em>, 11–12. San Francisco, CA: The Trust for Public Land. <a href="https://www.tpl.org/sites/default/files/Parks%20and%20Pandemic%20-%20TPL%20special%20report.pdf">https://www.tpl.org/sites/default/files/Parks%20and%20Pandemic%20-%20TPL%20special%20report.pdf</a>.
 </div>
-<div>
-<p>Croissant, Yves. 2019. <em>mlogit: Multinomial Logit Models</em>. <a href="https://cran.r-project.org/package=mlogit">https://cran.r-project.org/package=mlogit</a>.</p>
+<div class="csl-entry">
+Croissant, Yves. 2019. <em><span class="nocase">mlogit: Multinomial Logit Models</span></em>. <a href="https://cran.r-project.org/package=mlogit">https://cran.r-project.org/package=mlogit</a>.
 </div>
-<div>
-<p>Dios Ortúzar, Juan de, and Luis G Willumsen. 2011. <em>Modelling Transport</em>. John wiley &amp; sons.</p>
+<div class="csl-entry">
+Dios Ortúzar, Juan de, and Luis G Willumsen. 2011. <em>Modelling Transport</em>. John wiley &amp; sons.
 </div>
-<div>
-<p>Dong, Xiaojing, Moshe E. Ben-Akiva, John L. Bowman, and Joan L. Walker. 2006. “Moving from trip-based to activity-based measures of accessibility.” <em>Transportation Research Part A: Policy and Practice</em> 40 (2): 163–80. <a href="https://doi.org/10.1016/J.TRA.2005.05.002">https://doi.org/10.1016/J.TRA.2005.05.002</a>.</p>
+<div class="csl-entry">
+Dong, Xiaojing, Moshe E. Ben-Akiva, John L. Bowman, and Joan L. Walker. 2006. <span>“<span class="nocase">Moving from trip-based to activity-based measures of accessibility</span>.”</span> <em>Transportation Research Part A: Policy and Practice</em> 40 (2): 163–80. <a href="https://doi.org/10.1016/J.TRA.2005.05.002">https://doi.org/10.1016/J.TRA.2005.05.002</a>.
 </div>
-<div>
-<p>Fischer, Jaimy, and Meghan Winters. 2021. “COVID-19 Street Reallocation in Mid-Sized Canadian Cities: Socio-Spatial Equity Patterns.” <em>Canadian Journal of Public Health</em> 112 (3): 376–90. <a href="https://doi.org/10.17269/s41997-020-00467-3">https://doi.org/10.17269/s41997-020-00467-3</a>.</p>
+<div class="csl-entry">
+Fischer, Jaimy, and Meghan Winters. 2021. <span>“<span>COVID</span>-19 Street Reallocation in Mid-Sized <span>Canadian</span> Cities: Socio-Spatial Equity Patterns.”</span> <em>Canadian Journal of Public Health</em> 112 (3): 376–90. <a href="https://doi.org/10.17269/s41997-020-00467-3">https://doi.org/10.17269/s41997-020-00467-3</a>.
 </div>
-<div>
-<p>Floyd, Myron F, and Kimberly J Shinew. 1999. “Convergence and Divergence in Leisure Style Among Whites and African Americans: Toward an Interracial Contact Hypothesis.” <em>Journal of Leisure Research</em> 31 (4): 359–84.</p>
+<div class="csl-entry">
+Floyd, Myron F, and Kimberly J Shinew. 1999. <span>“Convergence and Divergence in Leisure Style Among Whites and African Americans: Toward an Interracial Contact Hypothesis.”</span> <em>Journal of Leisure Research</em> 31 (4): 359–84.
 </div>
-<div>
-<p>Friedrich, Markus, Katrin Immisch, Prokop Jehlicka, Thomas Otterstätter, and Johannes Schlaich. 2010. “Generating Origin-Destination Matrices from Mobile Phone Trajectories.” <em>Transportation Research Record: Journal of the Transportation Research Board</em> 2196: 93–101. <a href="https://doi.org/10.3141/2196-10">https://doi.org/10.3141/2196-10</a>.</p>
+<div class="csl-entry">
+Friedrich, Markus, Katrin Immisch, Prokop Jehlicka, Thomas Otterstätter, and Johannes Schlaich. 2010. <span>“<span class="nocase">Generating Origin-Destination Matrices from Mobile Phone Trajectories</span>.”</span> <em>Transportation Research Record: Journal of the Transportation Research Board</em> 2196: 93–101. <a href="https://doi.org/10.3141/2196-10">https://doi.org/10.3141/2196-10</a>.
 </div>
-<div>
-<p>Geurs, Karst T., and Bert van Wee. 2004. “Accessibility Evaluation of Land-Use and Transport Strategies: Review and Research Directions.” <em>Journal of Transport Geography</em> 12 (2): 127–40. <a href="https://doi.org/https://doi.org/10.1016/j.jtrangeo.2003.10.005">https://doi.org/https://doi.org/10.1016/j.jtrangeo.2003.10.005</a>.</p>
+<div class="csl-entry">
+Geurs, Karst T., and Bert van Wee. 2004. <span>“Accessibility Evaluation of Land-Use and Transport Strategies: Review and Research Directions.”</span> <em>Journal of Transport Geography</em> 12 (2): 127–40. https://doi.org/<a href="https://doi.org/10.1016/j.jtrangeo.2003.10.005">https://doi.org/10.1016/j.jtrangeo.2003.10.005</a>.
 </div>
-<div>
-<p>Glaser, Meredith, and Kevin J. Krizek. 2021. “Can Street-Focused Emergency Response Measures Trigger a Transition to New Transport Systems? Exploring Evidence and Lessons from 55 US Cities.” <em>Transport Policy</em> 103 (March): 146–55. <a href="https://doi.org/10.1016/j.tranpol.2021.01.015">https://doi.org/10.1016/j.tranpol.2021.01.015</a>.</p>
+<div class="csl-entry">
+Glaser, Meredith, and Kevin J. Krizek. 2021. <span>“Can Street-Focused Emergency Response Measures Trigger a Transition to New Transport Systems? <span>Exploring</span> Evidence and Lessons from 55 <span>US</span> Cities.”</span> <em>Transport Policy</em> 103 (March): 146–55. <a href="https://doi.org/10.1016/j.tranpol.2021.01.015">https://doi.org/10.1016/j.tranpol.2021.01.015</a>.
 </div>
-<div>
-<p>Gobster, Paul H. 2002. “Managing Urban Parks for a Racially and Ethnically Diverse Clientele.” <em>Leisure Sciences</em> 24 (2): 143–59.</p>
+<div class="csl-entry">
+Gobster, Paul H. 2002. <span>“Managing Urban Parks for a Racially and Ethnically Diverse Clientele.”</span> <em>Leisure Sciences</em> 24 (2): 143–59.
 </div>
-<div>
-<p>GreenInfo Network. 2019. “California Protected Areas Database.” <a href="https://www.calands.org/cpad/">https://www.calands.org/cpad/</a>.</p>
+<div class="csl-entry">
+GreenInfo Network. 2019. <span>“<span>California Protected Areas Database</span>.”</span> <a href="https://www.calands.org/cpad/">https://www.calands.org/cpad/</a>.
 </div>
-<div>
-<p>Hagberg, Aric A., Daniel A. Schult, and Pieter J. Swart. 2008. “Exploring Network Structure, Dynamics, and Function Using Networkx.” In <em>Proceedings of the 7th Python in Science Conference</em>, edited by Gaël Varoquaux, Travis Vaught, and Jarrod Millman, 11–15. Pasadena, CA USA.</p>
+<div class="csl-entry">
+Hagberg, Aric A., Daniel A. Schult, and Pieter J. Swart. 2008. <span>“Exploring Network Structure, Dynamics, and Function Using NetworkX.”</span> In <em>Proceedings of the 7th Python in Science Conference</em>, edited by Gaël Varoquaux, Travis Vaught, and Jarrod Millman, 11–15. Pasadena, CA USA.
 </div>
-<div>
-<p>Handy, S L, and D A Niemeier. 1997. “Measuring Accessibility: An Exploration of Issues and Alternatives.” <em>Environment and Planning A</em> 29 (7): 1175–94. <a href="https://doi.org/10.1068/a291175">https://doi.org/10.1068/a291175</a>.</p>
+<div class="csl-entry">
+Handy, S L, and D A Niemeier. 1997. <span>“<span class="nocase">Measuring Accessibility: An Exploration of Issues and Alternatives</span>.”</span> <em>Environment and Planning A</em> 29 (7): 1175–94. <a href="https://doi.org/10.1068/a291175">https://doi.org/10.1068/a291175</a>.
 </div>
-<div>
-<p>Ho, Ching-hua, Vinod Sasidharan, William Elmendorf, Fern K Willits, Alan Graefe, and Geoffrey Godbey. 2005. “Gender and Ethnic Variations in Urban Park Preferences, Visitation, and Perceived Benefits.” <em>Journal of Leisure Research</em> 37 (3): 281–306.</p>
+<div class="csl-entry">
+Ho, Ching-hua, Vinod Sasidharan, William Elmendorf, Fern K Willits, Alan Graefe, and Geoffrey Godbey. 2005. <span>“Gender and Ethnic Variations in Urban Park Preferences, Visitation, and Perceived Benefits.”</span> <em>Journal of Leisure Research</em> 37 (3): 281–306.
 </div>
-<div>
-<p>Huang, Arthur, and David Levinson. 2015. “Axis of travel: Modeling non-work destination choice with GPS data.” <em>Transportation Research Part C: Emerging Technologies</em> 58 (September): 208–23. <a href="https://doi.org/10.1016/J.TRC.2015.03.022">https://doi.org/10.1016/J.TRC.2015.03.022</a>.</p>
+<div class="csl-entry">
+Huang, Arthur, and David Levinson. 2015. <span>“<span class="nocase">Axis of travel: Modeling non-work destination choice with GPS data</span>.”</span> <em>Transportation Research Part C: Emerging Technologies</em> 58 (September): 208–23. <a href="https://doi.org/10.1016/J.TRC.2015.03.022">https://doi.org/10.1016/J.TRC.2015.03.022</a>.
 </div>
-<div>
-<p>Husbands, Winston, and Paul Idahosa. 1995. “Ethnicity and Recreation Behaviour: A Review and Critique of the Literature.” <em>Canadian Ethnic Studies= Études Ethniques Au Canada</em> 27 (1): 84.</p>
+<div class="csl-entry">
+Husbands, Winston, and Paul Idahosa. 1995. <span>“Ethnicity and Recreation Behaviour: A Review and Critique of the Literature.”</span> <em>Canadian Ethnic Studies= <span>É</span>tudes Ethniques Au Canada</em> 27 (1): 84.
 </div>
-<div>
-<p>Hussain, Benita. 2020. “Parks and Policy: As Park Officials Reimagine Policy in Real Time, Equitalble Access Must Drive Decision-Making.” In <em>Parks and the Pandemic: A Trust for Public Land Special Report</em>, 7–8. San Francisco, CA: The Trust for Public Land. <a href="https://www.tpl.org/sites/default/files/Parks%20and%20Pandemic%20-%20TPL%20special%20report.pdf">https://www.tpl.org/sites/default/files/Parks%20and%20Pandemic%20-%20TPL%20special%20report.pdf</a>.</p>
+<div class="csl-entry">
+Hussain, Benita. 2020. <span>“Parks and Policy: <span>As</span> Park Officials Reimagine Policy in Real Time, Equitalble Access Must Drive Decision-Making.”</span> In <em>Parks and the <span>Pandemic</span>: <span>A</span> <span>Trust</span> for <span>Public</span> <span>Land</span> <span>Special</span> <span>Report</span></em>, 7–8. San Francisco, CA: The Trust for Public Land. <a href="https://www.tpl.org/sites/default/files/Parks%20and%20Pandemic%20-%20TPL%20special%20report.pdf">https://www.tpl.org/sites/default/files/Parks%20and%20Pandemic%20-%20TPL%20special%20report.pdf</a>.
 </div>
-<div>
-<p>Hutchison, Ray. 1987. “Ethnicity and Urban Recreation: Whites, Blacks, and Hispanics in Chicago’s Public Parks.” <em>Journal of Leisure Research</em> 19 (3): 205–22.</p>
+<div class="csl-entry">
+Hutchison, Ray. 1987. <span>“Ethnicity and Urban Recreation: Whites, Blacks, and Hispanics in Chicago’s Public Parks.”</span> <em>Journal of Leisure Research</em> 19 (3): 205–22.
 </div>
-<div>
-<p>Irwin, Patricia Noonan, William C Gartner, and Carolyn C Phelps. 1990. “Mexican-American/Anglo Cultural Differences as Recreation Style Determinants.” <em>Leisure Sciences</em> 12 (4): 335–48.</p>
+<div class="csl-entry">
+Irwin, Patricia Noonan, William C Gartner, and Carolyn C Phelps. 1990. <span>“Mexican-American/Anglo Cultural Differences as Recreation Style Determinants.”</span> <em>Leisure Sciences</em> 12 (4): 335–48.
 </div>
-<div>
-<p>Jong, Gerard de, Andrew Daly, Marits Pieters, and Toon van der Hoorn. 2007. “The logsum as an evaluation measure: Review of the literature and new results.” <em>Transportation Research Part A: Policy and Practice</em> 41 (9): 874–89. <a href="https://doi.org/10.1016/J.TRA.2006.10.002">https://doi.org/10.1016/J.TRA.2006.10.002</a>.</p>
+<div class="csl-entry">
+Jong, Gerard de, Andrew Daly, Marits Pieters, and Toon van der Hoorn. 2007. <span>“<span class="nocase">The logsum as an evaluation measure: Review of the literature and new results</span>.”</span> <em>Transportation Research Part A: Policy and Practice</em> 41 (9): 874–89. <a href="https://doi.org/10.1016/J.TRA.2006.10.002">https://doi.org/10.1016/J.TRA.2006.10.002</a>.
 </div>
-<div>
-<p>Kabisch, Nadja, and Dagmar Haase. 2014. “Green Justice or Just Green? Provision of Urban Green Spaces in Berlin, Germany.” <em>Landscape and Urban Planning</em> 122: 129–39.</p>
+<div class="csl-entry">
+Kabisch, Nadja, and Dagmar Haase. 2014. <span>“Green Justice or Just Green? Provision of Urban Green Spaces in Berlin, Germany.”</span> <em>Landscape and Urban Planning</em> 122: 129–39.
 </div>
-<div>
-<p>Kaczynski, Andrew T., Jasper Schipperijn, J. Aaron Hipp, Gina M. Besenyi, Sonja A. Wilhelm Stanis, S. Morgan Hughey, and Sara Wilcox. 2016. “ParkIndex: Development of a standardized metric of park access for research and planning.” <em>Preventive Medicine</em> 87 (June): 110–14. <a href="https://doi.org/10.1016/J.YPMED.2016.02.012">https://doi.org/10.1016/J.YPMED.2016.02.012</a>.</p>
+<div class="csl-entry">
+Kaczynski, Andrew T., Jasper Schipperijn, J. Aaron Hipp, Gina M. Besenyi, Sonja A. Wilhelm Stanis, S. Morgan Hughey, and Sara Wilcox. 2016. <span>“<span class="nocase">ParkIndex: Development of a standardized metric of park access for research and planning</span>.”</span> <em>Preventive Medicine</em> 87 (June): 110–14. <a href="https://doi.org/10.1016/J.YPMED.2016.02.012">https://doi.org/10.1016/J.YPMED.2016.02.012</a>.
 </div>
-<div>
-<p>Kahle, David, and Hadley Wickham. 2013. “Ggmap: Spatial Visualization with Ggplot2.” <em>The R Journal</em>. <a href="https://journal.r-project.org/archive/2013-1/kahle-wickham.pdf">https://journal.r-project.org/archive/2013-1/kahle-wickham.pdf</a>.</p>
+<div class="csl-entry">
+Kahle, David, and Hadley Wickham. 2013. <span>“Ggmap: Spatial Visualization with Ggplot2.”</span> <em>The R Journal</em>. <a href="https://journal.r-project.org/archive/2013-1/kahle-wickham.pdf">https://journal.r-project.org/archive/2013-1/kahle-wickham.pdf</a>.
 </div>
-<div>
-<p>Kinnell, J. C., M. F. Bingham, A. F. Mohamed, W. H. Desvousges, T. B. Kiler, E. K. Hastings, and K. T. Kuhns. 2006. “Estimating Site Choice Decisions for Urban Recreators.” <em>Land Economics</em> 82 (2): 257–72. <a href="https://doi.org/10.3368/le.82.2.257">https://doi.org/10.3368/le.82.2.257</a>.</p>
+<div class="csl-entry">
+Kinnell, J. C., M. F. Bingham, A. F. Mohamed, W. H. Desvousges, T. B. Kiler, E. K. Hastings, and K. T. Kuhns. 2006. <span>“<span class="nocase">Estimating Site Choice Decisions for Urban Recreators</span>.”</span> <em>Land Economics</em> 82 (2): 257–72. <a href="https://doi.org/10.3368/le.82.2.257">https://doi.org/10.3368/le.82.2.257</a>.
 </div>
-<div>
-<p>Komanduri, Anurag, Laura Schewel, Dan Beagan, and Dale Wong. 2017. “Using Big Data to Develop Comparative Commercial Vehicle Metrics for Port Traffic at Major Ports in the U.S.” In <em>TRB Annual Meeting</em>. Transportation Research Board. <a href="https://trid.trb.org/View/1438797">https://trid.trb.org/View/1438797</a>.</p>
+<div class="csl-entry">
+Komanduri, Anurag, Laura Schewel, Dan Beagan, and Dale Wong. 2017. <span>“<span class="nocase">Using Big Data to Develop Comparative Commercial Vehicle Metrics for Port Traffic at Major Ports in the U.S.</span>”</span> In <em>TRB Annual Meeting</em>. Transportation Research Board. <a href="https://trid.trb.org/View/1438797">https://trid.trb.org/View/1438797</a>.
 </div>
-<div>
-<p>Kressner, Josephine D. 2017. “Synthetic Household Travel Data Using Consumer and Mobile Phone Data.” Transportation Research Board.</p>
+<div class="csl-entry">
+Kressner, Josephine D. 2017. <span>“<span class="nocase">Synthetic Household Travel Data Using Consumer and Mobile Phone Data</span>.”</span> Transportation Research Board.
 </div>
-<div>
-<p>Loukaitou-Sideris, Anastasia. 1995. “Urban Form and Social Context: Cultural Differentiation in the Uses of Urban Parks.” <em>Journal of Planning Education and Research</em> 14 (2): 89–102.</p>
+<div class="csl-entry">
+Loukaitou-Sideris, Anastasia. 1995. <span>“Urban Form and Social Context: Cultural Differentiation in the Uses of Urban Parks.”</span> <em>Journal of Planning Education and Research</em> 14 (2): 89–102.
 </div>
-<div>
-<p>Macfarlane, Gregory S, Nico Boyd, John E Taylor, and Kari Watkins. 2020. “Modeling the Impacts of Park Access on Health Outcomes: A Utility-Based Accessibility Approach.” <em>Environment and Planning B: Urban Analytics and City Science</em>. <a href="https://doi.org/10.1177/2399808320974027">https://doi.org/10.1177/2399808320974027</a>.</p>
+<div class="csl-entry">
+Macfarlane, Gregory S, Nico Boyd, John E Taylor, and Kari Watkins. 2020. <span>“Modeling the Impacts of Park Access on Health Outcomes: A Utility-Based Accessibility Approach.”</span> <em>Environment and Planning B: Urban Analytics and City Science</em>. <a href="https://doi.org/10.1177/2399808320974027">https://doi.org/10.1177/2399808320974027</a>.
 </div>
-<div>
-<p>Madzia, Juliana, Patrick Ryan, Kimberly Yolton, Zana Percy, Nick Newman, Grace LeMasters, and Cole Brokamp. 2018. “Residential Greenspace Association with Childhood Behavioral Outcomes.” <em>The Journal of Pediatrics</em>, December. <a href="https://doi.org/10.1016/J.JPEDS.2018.10.061">https://doi.org/10.1016/J.JPEDS.2018.10.061</a>.</p>
+<div class="csl-entry">
+Madzia, Juliana, Patrick Ryan, Kimberly Yolton, Zana Percy, Nick Newman, Grace LeMasters, and Cole Brokamp. 2018. <span>“<span class="nocase">Residential Greenspace Association with Childhood Behavioral Outcomes</span>.”</span> <em>The Journal of Pediatrics</em>, December. <a href="https://doi.org/10.1016/J.JPEDS.2018.10.061">https://doi.org/10.1016/J.JPEDS.2018.10.061</a>.
 </div>
-<div>
-<p>McCormack, Gavin R., Melanie Rock, Ann M. Toohey, and Danica Hignell. 2010. “Characteristics of urban parks associated with park use and physical activity: A review of qualitative research.” <em>Health &amp; Place</em> 16 (4): 712–26. <a href="https://doi.org/10.1016/J.HEALTHPLACE.2010.03.003">https://doi.org/10.1016/J.HEALTHPLACE.2010.03.003</a>.</p>
+<div class="csl-entry">
+McCormack, Gavin R., Melanie Rock, Ann M. Toohey, and Danica Hignell. 2010. <span>“<span class="nocase">Characteristics of urban parks associated with park use and physical activity: A review of qualitative research</span>.”</span> <em>Health <span>&amp;</span> Place</em> 16 (4): 712–26. <a href="https://doi.org/10.1016/J.HEALTHPLACE.2010.03.003">https://doi.org/10.1016/J.HEALTHPLACE.2010.03.003</a>.
 </div>
-<div>
-<p>McFadden, Daniel L. 1974. “Conditional Logit Analysis of Qualitative Choice Behavior.” In <em>Frontiers in Econometrics</em>, edited by Paul Zarembka, 105–42. New York: Academic Press.</p>
+<div class="csl-entry">
+McFadden, Daniel. 1974. <span>“The Measurement of Urban Travel Demand.”</span> <em>Journal of Public Economics</em> 3 (4): 303–28.
 </div>
-<div>
-<p>Meyerhoff, Jürgen, Alexandra Dehnhardt, and Volkmar Hartje. 2010. “Take your swimsuit along: the value of improving urban bathing sites in the metropolitan area of Berlin.” <em>Journal of Environmental Planning and Management</em> 53 (1): 107–24. <a href="https://doi.org/10.1080/09640560903399863">https://doi.org/10.1080/09640560903399863</a>.</p>
+<div class="csl-entry">
+McFadden, Daniel L. 1974. <span>“<span class="nocase">Conditional Logit Analysis of Qualitative Choice Behavior</span>.”</span> In <em>Frontiers in Econometrics</em>, edited by Paul Zarembka. New York: Academic Press.
 </div>
-<div>
-<p>Monz, Christopher, Milan Mitrovich, Ashley D’Antonio, and Abigail Sisneros-Kidd. 2019. “Using Mobile Device Data to Estimate Visitation in Parks and Protected Areas: An Example from the Nature Reserve of Orange County, California.” <em>Journal of Park and Recreation Administration</em> 0 (0). <a href="https://doi.org/10.18666/JPRA-2019-9899">https://doi.org/10.18666/JPRA-2019-9899</a>.</p>
+<div class="csl-entry">
+Meyerhoff, Jürgen, Alexandra Dehnhardt, and Volkmar Hartje. 2010. <span>“<span class="nocase">Take your swimsuit along: the value of improving urban bathing sites in the metropolitan area of Berlin</span>.”</span> <em>Journal of Environmental Planning and Management</em> 53 (1): 107–24. <a href="https://doi.org/10.1080/09640560903399863">https://doi.org/10.1080/09640560903399863</a>.
 </div>
-<div>
-<p>Naboulsi, Diala, Marco Fiore, Stephane Ribot, and Razvan Stanica. 2016. “Large-Scale Mobile Traffic Analysis: A Survey.” <em>IEEE Communications Surveys &amp; Tutorials</em> 18 (1): 124–61. <a href="https://doi.org/10.1109/COMST.2015.2491361">https://doi.org/10.1109/COMST.2015.2491361</a>.</p>
+<div class="csl-entry">
+Monz, Christopher, Milan Mitrovich, Ashley D’Antonio, and Abigail Sisneros-Kidd. 2019. <span>“<span class="nocase">Using Mobile Device Data to Estimate Visitation in Parks and Protected Areas: An Example from the Nature Reserve of Orange County, California</span>.”</span> <em>Journal of Park and Recreation Administration</em> 0 (0). <a href="https://doi.org/10.18666/JPRA-2019-9899">https://doi.org/10.18666/JPRA-2019-9899</a>.
 </div>
-<div>
-<p>National Academies of Sciences Engineering and Medicine. 2012. <em>Travel Demand Forecasting: Parameters and Techniques</em>. NCHRP 716. Washington, D.C.: Transportation Research Board; National Academies Press. <a href="https://doi.org/10.17226/14665">https://doi.org/10.17226/14665</a>.</p>
+<div class="csl-entry">
+Naboulsi, Diala, Marco Fiore, Stephane Ribot, and Razvan Stanica. 2016. <span>“<span>Large-Scale Mobile Traffic Analysis: A Survey</span>.”</span> <em>IEEE Communications Surveys <span>&amp;</span> Tutorials</em> 18 (1): 124–61. <a href="https://doi.org/10.1109/COMST.2015.2491361">https://doi.org/10.1109/COMST.2015.2491361</a>.
 </div>
-<div>
-<p>Padgham, Mark, Bob Rudis, Robin Lovelace, and Maëlle Salmon. 2017. “Osmdata.” <em>The Journal of Open Source Software</em> 2 (14). <a href="https://doi.org/10.21105/joss.00305">https://doi.org/10.21105/joss.00305</a>.</p>
+<div class="csl-entry">
+National Academies of Sciences Engineering and Medicine. 2012. <em><span class="nocase">Travel Demand Forecasting: Parameters and Techniques</span></em>. NCHRP 716. Washington, D.C.: Transportation Research Board; National Academies Press. <a href="https://doi.org/10.17226/14665">https://doi.org/10.17226/14665</a>.
 </div>
-<div>
-<p>Pan, Changxuan, Jiangang Lu, Shan Di, and Bin Ran. 2006. “Cellular-Based Data-Extracting Method for Trip Distribution.” <em>Transportation Research Record: Journal of the Transportation Research Board</em> 1945 (1): 33–39. <a href="https://doi.org/10.1177/0361198106194500105">https://doi.org/10.1177/0361198106194500105</a>.</p>
+<div class="csl-entry">
+Padgham, Mark, Bob Rudis, Robin Lovelace, and Maëlle Salmon. 2017. <span>“Osmdata.”</span> <em>The Journal of Open Source Software</em> 2 (14). <a href="https://doi.org/10.21105/joss.00305">https://doi.org/10.21105/joss.00305</a>.
 </div>
-<div>
-<p>Payne, Laura L, Andrew J Mowen, and Elizabeth Orsega-Smith. 2002. “An Examination of Park Preferences and Behaviors Among Urban Residents: The Role of Residential Location, Race, and Age.” <em>Leisure Sciences</em> 24 (2): 181–98.</p>
+<div class="csl-entry">
+Pan, Changxuan, Jiangang Lu, Shan Di, and Bin Ran. 2006. <span>“<span class="nocase">Cellular-Based Data-Extracting Method for Trip Distribution</span>.”</span> <em>Transportation Research Record: Journal of the Transportation Research Board</em> 1945 (1): 33–39. <a href="https://doi.org/10.1177/0361198106194500105">https://doi.org/10.1177/0361198106194500105</a>.
 </div>
-<div>
-<p>Ram, Karthik, and Hadley Wickham. 2018. “Wesanderson: A Wes Anderson Palette Generator.” <a href="https://CRAN.R-project.org/package=wesanderson">https://CRAN.R-project.org/package=wesanderson</a>.</p>
+<div class="csl-entry">
+Payne, Laura L, Andrew J Mowen, and Elizabeth Orsega-Smith. 2002. <span>“An Examination of Park Preferences and Behaviors Among Urban Residents: The Role of Residential Location, Race, and Age.”</span> <em>Leisure Sciences</em> 24 (2): 181–98.
 </div>
-<div>
-<p>R Core Team. 2020. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.</p>
+<div class="csl-entry">
+R Core Team. 2020. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
 </div>
-<div>
-<p>Recker, Wilfred W., and Lidia P. Kostyniuk. 1978. “Factors influencing destination choice for the urban grocery shopping trip.” <em>Transportation</em> 7 (1): 19–33. <a href="https://doi.org/10.1007/BF00148369">https://doi.org/10.1007/BF00148369</a>.</p>
+<div class="csl-entry">
+Ram, Karthik, and Hadley Wickham. 2018. <span>“Wesanderson: A Wes Anderson Palette Generator.”</span> <a href="https://CRAN.R-project.org/package=wesanderson">https://CRAN.R-project.org/package=wesanderson</a>.
 </div>
-<div>
-<p>Rigolon, Alessandro, Matthew Browning, and Viniece Jennings. 2018. “Inequities in the quality of urban park systems: An environmental justice investigation of cities in the United States.” <em>Landscape and Urban Planning</em> 178 (October): 156–69. <a href="https://doi.org/10.1016/J.LANDURBPLAN.2018.05.026">https://doi.org/10.1016/J.LANDURBPLAN.2018.05.026</a>.</p>
+<div class="csl-entry">
+Recker, Wilfred W., and Lidia P. Kostyniuk. 1978. <span>“<span class="nocase">Factors influencing destination choice for the urban grocery shopping trip</span>.”</span> <em>Transportation</em> 7 (1): 19–33. <a href="https://doi.org/10.1007/BF00148369">https://doi.org/10.1007/BF00148369</a>.
 </div>
-<div>
-<p>Roll, Josh. 2019. “Evaluating Streetlight Estimates of Annual Average Daily Traffic in Oregon.” Oregon Department of Transportation; Oregon Department of Transportation. <a href="https://trid.trb.org/View/1630252">https://trid.trb.org/View/1630252</a>.</p>
+<div class="csl-entry">
+Rigolon, Alessandro, Matthew Browning, and Viniece Jennings. 2018. <span>“<span class="nocase">Inequities in the quality of urban park systems: An environmental justice investigation of cities in the United States</span>.”</span> <em>Landscape and Urban Planning</em> 178 (October): 156–69. <a href="https://doi.org/10.1016/J.LANDURBPLAN.2018.05.026">https://doi.org/10.1016/J.LANDURBPLAN.2018.05.026</a>.
 </div>
-<div>
-<p>Schlossberg, Marc, Rebecca Lewis, Aliza Whalen, Clare Haley, Danielle Lewis, Natalie Kataoka, and John Larson-Friend. 2021. <em>Rethinking Streets During COVID-19: An Evidence-Based Guide to 25 Quick Redesigns for Physical Distancing, Public Use and Spatial Equity</em>. Portland, Oregon: Transportation Research; Education Center (TREC).</p>
+<div class="csl-entry">
+Roll, Josh. 2019. <span>“<span class="nocase">Evaluating Streetlight Estimates of Annual Average Daily Traffic in Oregon</span>.”</span> Oregon Department of Transportation; Oregon Department of Transportation. <a href="https://trid.trb.org/View/1630252">https://trid.trb.org/View/1630252</a>.
 </div>
-<div>
-<p>Train, Kenneth E. 2009. <em>Discrete Choice Methods with Simulation, 2nd Edition</em>. Cambridge: Cambridge University Press. <a href="https://doi.org/10.1016/S0898-1221(04)90100-9">https://doi.org/10.1016/S0898-1221(04)90100-9</a>.</p>
+<div class="csl-entry">
+Schlossberg, Marc, Rebecca Lewis, Aliza Whalen, Clare Haley, Danielle Lewis, Natalie Kataoka, and John Larson-Friend. 2021. <em>Rethinking <span>Streets</span> <span>During</span> <span>COVID</span>-19: <span>An</span> <span>Evidence</span>-<span>Based</span> <span>Guide</span> to 25 <span>Quick</span> <span>Redesigns</span> for <span>Physical</span> <span>Distancing</span>, <span>Public</span> <span>Use</span> and <span>Spatial</span> <span>Equity</span></em>. Portland, Oregon: Transportation Research; Education Center (TREC).
 </div>
-<div>
-<p>Trust for Public Land. 2019. “2019 ParkScore Index.” <a href="https://www.tpl.org/parkscore">https://www.tpl.org/parkscore</a>.</p>
+<div class="csl-entry">
+Train, Kenneth E. 2009. <em><span class="nocase">Discrete Choice Methods with Simulation, 2nd Edition</span></em>. Cambridge: Cambridge University Press. <a href="https://doi.org/10.1016/S0898-1221(04)90100-9">https://doi.org/10.1016/S0898-1221(04)90100-9</a>.
 </div>
-<div>
-<p>U.S. Census Bureau. 2019. “QuickFacts: Alameda County, California.” <a href="https://www.census.gov/quickfacts/fact/table/alamedacountycalifornia/PST045218">https://www.census.gov/quickfacts/fact/table/alamedacountycalifornia/PST045218</a>.</p>
+<div class="csl-entry">
+Trust for Public Land. 2019. <span>“<span>2019 ParkScore Index</span>.”</span> <a href="https://www.tpl.org/parkscore">https://www.tpl.org/parkscore</a>.
 </div>
-<div>
-<p>Ussery, Emily Neusel, Leah Yngve, Dee Merriam, Geoffrey Whitfield, Stephanie Foster, Arthur Wendel, and Tegan Boehmer. 2016. “The National Environmental Public Health Tracking Network Access to Parks Indicator: A National County-Level Measure of Park Proximity.” <em>Journal of Park and Recreation Administration</em> 34 (3): 52. <a href="https://doi.org/10.18666/JPRA-2016-V34-I3-7119">https://doi.org/10.18666/JPRA-2016-V34-I3-7119</a>.</p>
+<div class="csl-entry">
+U.S. Census Bureau. 2019. <span>“<span>QuickFacts: Alameda County, California</span>.”</span> <a href="https://www.census.gov/quickfacts/fact/table/alamedacountycalifornia/PST045218">https://www.census.gov/quickfacts/fact/table/alamedacountycalifornia/PST045218</a>.
 </div>
-<div>
-<p>Walker, Kyle. 2019. <em>tidycensus: Load US Census Boundary and Attribute Data as ’tidyverse’ and ’sf’-Ready Data Frames</em>. <a href="https://cran.r-project.org/package=tidycensus">https://cran.r-project.org/package=tidycensus</a>.</p>
+<div class="csl-entry">
+Ussery, Emily Neusel, Leah Yngve, Dee Merriam, Geoffrey Whitfield, Stephanie Foster, Arthur Wendel, and Tegan Boehmer. 2016. <span>“<span class="nocase">The National Environmental Public Health Tracking Network Access to Parks Indicator: A National County-Level Measure of Park Proximity</span>.”</span> <em>Journal of Park and Recreation Administration</em> 34 (3): 52. <a href="https://doi.org/10.18666/JPRA-2016-V34-I3-7119">https://doi.org/10.18666/JPRA-2016-V34-I3-7119</a>.
 </div>
-<div>
-<p>Washburne, Randel F. 1978. “Black Under-Participation in Wildland Recreation: Alternative Explanations.” <em>Leisure Sciences</em> 1 (2): 175–89.</p>
+<div class="csl-entry">
+Walker, Kyle. 2019. <em><span class="nocase">tidycensus: Load US Census Boundary and Attribute Data as ’tidyverse’ and ’sf’-Ready Data Frames</span></em>. <a href="https://cran.r-project.org/package=tidycensus">https://cran.r-project.org/package=tidycensus</a>.
 </div>
-<div>
-<p>Williams, H C W L. 1977. “On the Formation of Travel Demand Models and Economic Evaluation Measures of User Benefit.” <em>Environment and Planning A: Economy and Space</em> 9 (3): 285–344. <a href="https://doi.org/10.1068/a090285">https://doi.org/10.1068/a090285</a>.</p>
+<div class="csl-entry">
+Washburne, Randel F. 1978. <span>“Black Under-Participation in Wildland Recreation: Alternative Explanations.”</span> <em>Leisure Sciences</em> 1 (2): 175–89.
 </div>
-<div>
-<p>Wu, Chao, Xinyue Ye, Qingyun Du, and Ping Luo. 2017. “Spatial Effects of Accessibility to Parks on Housing Prices in Shenzhen, China.” <em>Habitat International</em> 63: 45–54.</p>
+<div class="csl-entry">
+Williams, H C W L. 1977. <span>“<span class="nocase">On the Formation of Travel Demand Models and Economic Evaluation Measures of User Benefit</span>.”</span> <em>Environment and Planning A: Economy and Space</em> 9 (3): 285–344. <a href="https://doi.org/10.1068/a090285">https://doi.org/10.1068/a090285</a>.
 </div>
-<div>
-<p>Yeo, In-Kwon, and Richard A Johnson. 2000. “A New Family of Power Transformations to Improve Normality or Symmetry.” <em>Biometrika</em> 87 (4): 954–59. <a href="https://www.jstor.org/stable/pdf/2673623.pdf?refreqid=excelsior%3A7f84252acd9abceb732e404db81fe53f">https://www.jstor.org/stable/pdf/2673623.pdf?refreqid=excelsior%3A7f84252acd9abceb732e404db81fe53f</a>.</p>
+<div class="csl-entry">
+Wu, Chao, Xinyue Ye, Qingyun Du, and Ping Luo. 2017. <span>“Spatial Effects of Accessibility to Parks on Housing Prices in Shenzhen, China.”</span> <em>Habitat International</em> 63: 45–54.
 </div>
-<div>
-<p>Zhu, Jiayu, and Xin Ye. 2018. “Development of destination choice model with pairwise district-level constants using taxi GPS data.” <em>Transportation Research Part C: Emerging Technologies</em> 93 (August): 410–24. <a href="https://doi.org/10.1016/J.TRC.2018.06.016">https://doi.org/10.1016/J.TRC.2018.06.016</a>.</p>
+<div class="csl-entry">
+Yeo, In-Kwon, and Richard A Johnson. 2000. <span>“A New Family of Power Transformations to Improve Normality or Symmetry.”</span> <em>Biometrika</em> 87: 954–59. <a href="https://www.jstor.org/stable/pdf/2673623.pdf?refreqid=excelsior%3A7f84252acd9abceb732e404db81fe53f">https://www.jstor.org/stable/pdf/2673623.pdf?refreqid=excelsior%3A7f84252acd9abceb732e404db81fe53f</a>.
 </div>
+<div class="csl-entry">
+Zhu, Jiayu, and Xin Ye. 2018. <span>“<span class="nocase">Development of destination choice model with pairwise district-level constants using taxi GPS data</span>.”</span> <em>Transportation Research Part C: Emerging Technologies</em> 93 (August): 410–24. <a href="https://doi.org/10.1016/J.TRC.2018.06.016">https://doi.org/10.1016/J.TRC.2018.06.016</a>.
 </div>
 </div>
+</div>
+
+
+
 
 
 
@@ -454,6 +496,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {

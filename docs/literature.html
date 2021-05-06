@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title> 2 Literature | If you build it who will come? Equity analysis of park system changes using passive origin-destination data</title>
   <meta name="description" content="Alameda Park Choice" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content=" 2 Literature | If you build it who will come? Equity analysis of park system changes using passive origin-destination data" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2021-04-30" />
+<meta name="date" content="2021-05-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -42,6 +42,7 @@ div.abstract{
   width: 90%;
 }
 </style>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -59,34 +60,41 @@ div.abstract{
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
-<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script>
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
 <script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
-<script src="libs/leaflet-providers-plugin-2.0.4.1/leaflet-providers-plugin.js"></script>
+<script src="libs/leaflet-providers-plugin-2.0.3/leaflet-providers-plugin.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -106,7 +114,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -139,6 +147,29 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
@@ -156,24 +187,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>2</b> Literature</a><ul>
+<li class="chapter" data-level="2" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>2</b> Literature</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="literature.html"><a href="literature.html#sociodemographic-variation-in-park-utility"><i class="fa fa-check"></i><b>2.1</b> Sociodemographic variation in park utility</a></li>
-<li class="chapter" data-level="2.2" data-path="literature.html"><a href="literature.html#defining-and-measuring-park-accessibility"><i class="fa fa-check"></i><b>2.2</b> Defining and measuring park accessibility</a><ul>
+<li class="chapter" data-level="2.2" data-path="literature.html"><a href="literature.html#defining-and-measuring-park-accessibility"><i class="fa fa-check"></i><b>2.2</b> Defining and measuring park accessibility</a>
+<ul>
 <li class="chapter" data-level="2.2.1" data-path="literature.html"><a href="literature.html#location-based-measures-of-park-accessibility"><i class="fa fa-check"></i><b>2.2.1</b> Location-based measures of park accessibility</a></li>
 <li class="chapter" data-level="2.2.2" data-path="literature.html"><a href="literature.html#utility-based-measures-of-park-accessibility"><i class="fa fa-check"></i><b>2.2.2</b> Utility-based measures of park accessibility</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="literature.html"><a href="literature.html#street-conversion-equity-analysis"><i class="fa fa-check"></i><b>2.3</b> Street Conversion Equity Analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="methodology.html"><a href="methodology.html"><i class="fa fa-check"></i><b>3</b> Methodology</a><ul>
+<li class="chapter" data-level="3" data-path="methodology.html"><a href="methodology.html"><i class="fa fa-check"></i><b>3</b> Methodology</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="methodology.html"><a href="methodology.html#study-area"><i class="fa fa-check"></i><b>3.1</b> Study area</a></li>
-<li class="chapter" data-level="3.2" data-path="methodology.html"><a href="methodology.html#data"><i class="fa fa-check"></i><b>3.2</b> Data</a><ul>
+<li class="chapter" data-level="3.2" data-path="methodology.html"><a href="methodology.html#data"><i class="fa fa-check"></i><b>3.2</b> Data</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="methodology.html"><a href="methodology.html#model-estimation-data"><i class="fa fa-check"></i><b>3.2.1</b> Model estimation data</a></li>
 <li class="chapter" data-level="3.2.2" data-path="methodology.html"><a href="methodology.html#model-application-data"><i class="fa fa-check"></i><b>3.2.2</b> Model application data</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="methodology.html"><a href="methodology.html#model-estimation"><i class="fa fa-check"></i><b>3.3</b> Model estimation</a></li>
 <li class="chapter" data-level="3.4" data-path="methodology.html"><a href="methodology.html#model-application"><i class="fa fa-check"></i><b>3.4</b> Model application</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a><ul>
+<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="results.html"><a href="results.html#equity-analysis-of-covid-19-street-openings"><i class="fa fa-check"></i><b>4.1</b> Equity Analysis of COVID-19 Street Openings</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="limitations.html"><a href="limitations.html"><i class="fa fa-check"></i><b>5</b> Limitations and Future Directions</a></li>
@@ -200,43 +236,251 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="literature" class="section level1">
+<div id="literature" class="section level1" number="2">
 <h1><span class="header-section-number"> 2</span> Literature</h1>
-<p>Understanding the equity benefit distribution of park access requires us to consider two integrated but rather distinct literatures. First, we consider the disparity in park utility perception among different populations. We subsequently consider quantitative techniques to evaluate the access that individuals have to park facilities.</p>
-<div id="sociodemographic-variation-in-park-utility" class="section level2">
+<p>Understanding the equity benefit distribution of park access requires us to
+consider two integrated but rather distinct literatures. First, we consider the
+disparity in park utility perception among different populations. We
+subsequently consider quantitative techniques to evaluate the access that
+individuals have to park facilities.</p>
+<div id="sociodemographic-variation-in-park-utility" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> Sociodemographic variation in park utility</h2>
-<p>The idea that different racial, ethnic, or cultural groups have different recreational styles, and might thus have different needs and preferences for parks and open space, has been thoroughly discussed in the leisure studies literature. <span class="citation">Husbands and Idahosa (1995)</span> offer a detailed review of that research as of the mid-1990s. In general, explanations for racial and ethnic differences in park use can be classified into two categories: cultural and lifestyle differences on the one hand, and discrimination and marginalization on the other.</p>
-<p><span class="citation">Byrne and Wolch (2009)</span> summarize literature in the former category, noting that Black park users have been described as preferring more social, sports-oriented spaces, relative to white park users who prefer secluded natural settings <span class="citation">(Washburne 1978; Hutchison 1987; Floyd and Shinew 1999; Gobster 2002; Payne, Mowen, and Orsega-Smith 2002; Ho et al. 2005)</span>; Asian park users are described as valuing aesthetics over recreational spaces <span class="citation">(Gobster 2002; Payne, Mowen, and Orsega-Smith 2002; Ho et al. 2005)</span>; and Latino park users are said to value group-oriented amenities like picnic tables and restrooms <span class="citation">(Baas, Ewert, and Chavez 1993; Hutchison 1987; Irwin, Gartner, and Phelps 1990)</span>. <span class="citation">Byrne and Wolch (2009)</span> criticize such scholarship as having grossly exaggerated ethno-racial differences in park use and preferences, and suggest a model for explaining park use based on four elements: Sociodemographic characteristics; park amenities and surrounding land uses; historical/cultural context of park provision (including development politics and discriminatory land-use policies); and individual perceptions of park space (including safety and sense of welcome).</p>
-<p><span class="citation">Byrne (2012)</span> applies a cultural politics theoretical frame to why people of color are underrepresented among visitors to some urban parks. Focus groups of Latino residents of Los Angeles emphasized the importance of parks to children. Participants described visiting parks with their children and the positive and negatives associations that parks evoked of their own childhood memories of parks and wilderness. Participants described barriers to visiting parks including distance, inadequate or poorly maintained facilities, and fear of crime. They cited a lack of Spanish-language signage not only as a barrier to understanding but also as a signal that a park was not intended to serve Spanish speakers. Participants also expressed that they did not feel welcome in parks located in high-income or predominantly white neighborhoods because they expected that other park users would have racist attitudes, that a more boisterous Latino ‘recreational style’ would not be tolerated, or that there would be other behavioral norms they were not aware of.</p>
+<p>The idea that different racial, ethnic, or cultural groups have different
+recreational styles, and might thus have different needs and preferences for
+parks and open space, has been thoroughly discussed in the leisure studies
+literature. <span class="citation">Husbands and Idahosa (1995)</span> offer a detailed review of that research as
+of the mid-1990s. In general, explanations for racial and ethnic differences in
+park use can be classified into two categories: cultural and lifestyle
+differences on the one hand, and discrimination and marginalization on the
+other.</p>
+<p><span class="citation">Byrne and Wolch (2009)</span> summarize literature in the former category, noting that Black
+park users have been described as preferring more social, sports-oriented
+spaces, relative to white park users who prefer secluded natural settings
+<span class="citation">(Washburne 1978; Hutchison 1987; Floyd and Shinew 1999; Gobster 2002; Payne, Mowen, and Orsega-Smith 2002; Ho et al. 2005)</span>; Asian park users
+are described as valuing aesthetics over recreational spaces
+<span class="citation">(Gobster 2002; Payne, Mowen, and Orsega-Smith 2002; Ho et al. 2005)</span>; and Latino park
+users are said to value group-oriented amenities like picnic tables and
+restrooms <span class="citation">(Baas, Ewert, and Chavez 1993; Hutchison 1987; Irwin, Gartner, and Phelps 1990)</span>.
+<span class="citation">Byrne and Wolch (2009)</span> criticize such scholarship as having grossly exaggerated
+ethno-racial differences in park use and preferences, and suggest a model for
+explaining park use based on four elements: Sociodemographic characteristics;
+park amenities and surrounding land uses; historical/cultural context of park
+provision (including development politics and discriminatory land-use
+policies); and individual perceptions of park space (including safety and
+sense of welcome).</p>
+<p><span class="citation">Byrne (2012)</span> applies a cultural politics theoretical frame to why people of
+color are underrepresented among visitors to some urban parks. Focus groups of
+Latino residents of Los Angeles emphasized the importance of parks to
+children. Participants described visiting parks with their children and the
+positive and negatives associations that parks evoked of their own childhood
+memories of parks and wilderness. Participants described barriers to visiting
+parks including distance, inadequate or poorly maintained facilities, and fear
+of crime. They cited a lack of Spanish-language signage not only as a barrier
+to understanding but also as a signal that a park was not intended to serve
+Spanish speakers. Participants also expressed that they did not feel welcome
+in parks located in high-income or predominantly white neighborhoods because
+they expected that other park users would have racist attitudes, that a more
+boisterous Latino ‘recreational style’ would not be tolerated, or that there
+would be other behavioral norms they were not aware of.</p>
 <p>In an observational and survey-based study of park users in Los Angeles,
-<span class="citation">Loukaitou-Sideris (1995)</span> found a high-level of enthusiasm for park use among Hispanic residents. While she found, consistent with prior research <span class="citation">(Baas, Ewert, and Chavez 1993; Hutchison 1987; Irwin, Gartner, and Phelps 1990)</span>, that Hispanic park users showed a preference for passive recreation, she found that to be the case for all other user groups as well. She also found that Hispanic park users were the most likely to actively appropriate and modify park space, for example, by bringing items from home. She found that Hispanic park users tended to visit parks as family groups; African American park users tended to visit parks as peer groups; Caucasian park users tended to visit parks alone; and Asian residents were least likely to visit parks, even in a predominantly Asian neighborhood. Interviews with local elderly Asian residents (Chinese immigrants) suggested that a lack of interest in American parks was rooted in perceptions of the ideal park as “an aesthetic element of gorgeous design,” leaving them unimpressed with poorly landscaped American parks emphasizing recreational functions.</p>
+<span class="citation">Loukaitou-Sideris (1995)</span> found a high-level of enthusiasm for park use among Hispanic
+residents. While she found, consistent with prior research
+<span class="citation">(Baas, Ewert, and Chavez 1993; Hutchison 1987; Irwin, Gartner, and Phelps 1990)</span>, that
+Hispanic park users showed a preference for passive recreation, she found that
+to be the case for all other user groups as well. She also found that Hispanic
+park users were the most likely to actively appropriate and modify park space,
+for example, by bringing items from home. She found that Hispanic park users
+tended to visit parks as family groups; African American park users tended to
+visit parks as peer groups; Caucasian park users tended to visit parks alone;
+and Asian residents were least likely to visit parks, even in a predominantly
+Asian neighborhood. Interviews with local elderly Asian residents (Chinese
+immigrants) suggested that a lack of interest in American parks was rooted in
+perceptions of the ideal park as “an aesthetic element of gorgeous design,”
+leaving them unimpressed with poorly landscaped American parks emphasizing
+recreational functions.</p>
 </div>
-<div id="defining-and-measuring-park-accessibility" class="section level2">
+<div id="defining-and-measuring-park-accessibility" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> Defining and measuring park accessibility</h2>
-<p>“Accessibility” is an abstract concept that describes how easily an individual can accomplish an activity at a particular space. Though not strictly quantifiable, the idea of quantifying this access is tempting and has been frequently attempted. <span class="citation">Handy and Niemeier (1997)</span> identify three broad types of accessibility measures: cumulative opportunity or isochrone measures, gravity-based measures, and utility-based measures. <span class="citation">Dong et al. (2006)</span> follow the same basic classification approach as Handy and Neimeier, illustrating mathematically how the three different types of measures can be collapsed into each other. <span class="citation">Geurs and van Wee (2004)</span> group cumulative opportunity and gravity-based measures into a single category that they refer to as location-based measures. In this, <span class="citation">Geurs and van Wee (2004)</span> rely on the distinction that utility-based measures incorporate revealed preferences of individuals for particular destinations while location-based measures are entirely geo-spatial in their definition.</p>
-<div id="location-based-measures-of-park-accessibility" class="section level3">
+<p>“Accessibility” is an abstract concept that describes how easily an individual
+can accomplish an activity at a particular space. Though not strictly
+quantifiable, the idea of quantifying this access is tempting and has been
+frequently attempted. <span class="citation">Handy and Niemeier (1997)</span> identify three broad types of accessibility
+measures: cumulative opportunity or isochrone measures, gravity-based measures,
+and utility-based measures. <span class="citation">Dong et al. (2006)</span> follow the same basic classification
+approach as Handy and Neimeier, illustrating mathematically how the three
+different types of measures can be collapsed into each other. <span class="citation">Geurs and van Wee (2004)</span>
+group cumulative opportunity and gravity-based measures into a single category
+that they refer to as location-based measures. In this, <span class="citation">Geurs and van Wee (2004)</span> rely on
+the distinction that utility-based measures incorporate revealed preferences of
+individuals for particular destinations while location-based measures are
+entirely geo-spatial in their definition.</p>
+<div id="location-based-measures-of-park-accessibility" class="section level3" number="2.2.1">
 <h3><span class="header-section-number">2.2.1</span> Location-based measures of park accessibility</h3>
-<p>Cumulative opportunity measures are calculated by counting the number of origins or destinations within a threshold travel cost of a location (where cost might be some combination of distance, travel time, and/or monetary cost of travel). A strength of cumulative opportunity measures lies in their simplicity and intuitive interpretation. However, they may be too simple, especially with regard to trip costs near the threshold. An example of a cumulative opportunity measure might be the number of parks within a ten-minute walk of a person’s home, or the number of households living within ten minutes of a park. This measure would imply that a household living immediately adjacent to a park has the same access to it as one that lives nine minutes away, but that a household living eleven minutes away has no access to it.</p>
-<p>ParkScore <span class="citation">(Trust for Public Land 2019)</span>, developed by the Trust for Public Land, is a popular measure of park accessibility that starts from a cumulative opportunity measure (the share of the population that resides within a 10-minute walk of a green space) and adjusts this value based on the total city green space, investment, and amenities weighted against the socioeconomic characteristics of the population outside of the 10-minute walk threshold. The resulting score is a convenient quantitative tool in estimating the relative quality of green space access across cities <span class="citation">(Rigolon, Browning, and Jennings 2018)</span>. ParkScore may be less useful at identifying the comparative quality of access within a city, particularly since the vast majorityof residents in dense areas like San Francisco (100%) and New York City (99%) may live within the binary 10-minute walk threshold. The Centers for Disease Control and Prevention (CDC) has developed an “Accessibility to Parks Indicator” along similar lines <span class="citation">(Ussery et al. 2016)</span>, calculating the share of the population living within a half-mile of a park for each county in the U.S.</p>
-<p>Gravity-based accessibility measures take a similar approach to cumulative opportunity measures, but theoretically include all possible destinations and weight them according to the travel cost that they impose, based on an impedance function (often a negative exponential calibrated to observed trip distributions). Cumulative opportunity measures may be considered a special case of gravity-based measures, where the impedance function takes the form of a binary step function that equals zero after a cutoff travel cost (which is why <span class="citation">Geurs and van Wee (2004)</span> classify them both as location-based).</p>
-<p>A major advantage of gravity-based accessibility measures lies in their consistency with travel behavior theory: Gravity-based measures have their roots in the trip distribution step of the traditional four-step travel demand forecasting method, where trips originating in a particular zone are distributed among destination zones, proportionate to each zone’s gravity-based accessibility. Urban scholars have used gravity-based measures to explore the spatial distribution of park access across Tainan City, Taiwan <span class="citation">(Chang and Liao 2011)</span> and to estimate the relationship between park access and housing prices in Shenzhen, China <span class="citation">(Wu et al. 2017)</span>.</p>
-<p>Some scholars have used location-based measures of park accessibility to evaluate equity in park access. <span class="citation">Chang and Liao (2011)</span> use a gravity-based measure to determine that low-income neighborhoods have less access to parks than higher-income neighborhoods in Tainan City, Taiwan. <span class="citation">Bruton and Floyd (2014)</span> conduct a neighborhood-level analysis of park amenities in Greensboro, North Carolina, and find that low-income neighborhoods tend to have parks with more picnic areas, more trash cans, and fewer wooded areas, but they do not address the question of the extent to which different populations might value these different amenities. <span class="citation">Kabisch and Haase (2014)</span> find that neighborhoods in Berlin with high immigrant populations and older populations likewise had less access to parks, and they pair these findings with survey results suggesting that these disparities are not consistent with the preferences expressed by those populations.</p>
+<p>Cumulative opportunity measures are calculated by counting the number of origins
+or destinations within a threshold travel cost of a location (where cost might
+be some combination of distance, travel time, and/or monetary cost of travel). A
+strength of cumulative opportunity measures lies in their simplicity and
+intuitive interpretation. However, they may be too simple, especially with
+regard to trip costs near the threshold. An example of a cumulative opportunity
+measure might be the number of parks within a ten-minute walk of a person’s
+home, or the number of households living within ten minutes of a park. This
+measure would imply that a household living immediately adjacent to a park has
+the same access to it as one that lives nine minutes away, but that a household
+living eleven minutes away has no access to it.</p>
+<p>ParkScore <span class="citation">(Trust for Public Land 2019)</span>, developed by the Trust for Public Land, is a popular
+measure of park accessibility that starts from a cumulative opportunity measure
+(the share of the population that resides within a 10-minute walk of a green
+space) and adjusts this value based on the total city green space, investment,
+and amenities weighted against the socioeconomic characteristics of the
+population outside of the 10-minute walk threshold. The resulting score is a
+convenient quantitative tool in estimating the relative quality of green space
+access across cities <span class="citation">(Rigolon, Browning, and Jennings 2018)</span>. ParkScore may be less useful at identifying
+the comparative quality of access within a city, particularly since the vast
+majorityof residents in dense areas like San Francisco (100%) and New York City
+(99%) may live within the binary 10-minute walk threshold. The Centers for
+Disease Control and Prevention (CDC) has developed an “Accessibility to Parks
+Indicator” along similar lines <span class="citation">(Ussery et al. 2016)</span>, calculating the share of the
+population living within a half-mile of a park for each county in the U.S.</p>
+<p>Gravity-based accessibility measures take a similar approach to cumulative
+opportunity measures, but theoretically include all possible destinations and
+weight them according to the travel cost that they impose, based on an impedance
+function (often a negative exponential calibrated to observed trip
+distributions). Cumulative opportunity measures may be considered a special case
+of gravity-based measures, where the impedance function takes the form of a
+binary step function that equals zero after a cutoff travel cost (which is why
+<span class="citation">Geurs and van Wee (2004)</span> classify them both as location-based).</p>
+<p>A major advantage of gravity-based accessibility measures lies in their
+consistency with travel behavior theory: Gravity-based measures have their roots
+in the trip distribution step of the traditional four-step travel demand
+forecasting method, where trips originating in a particular zone are distributed
+among destination zones, proportionate to each zone’s gravity-based
+accessibility. Urban scholars have used gravity-based measures to explore the
+spatial distribution of park access across Tainan City, Taiwan
+<span class="citation">(Chang and Liao 2011)</span> and to estimate the relationship between park access and
+housing prices in Shenzhen, China <span class="citation">(Wu et al. 2017)</span>.</p>
+<p>Some scholars have used location-based measures of park accessibility to
+evaluate equity in park access. <span class="citation">Chang and Liao (2011)</span> use a gravity-based measure
+to determine that low-income neighborhoods have less access to parks than
+higher-income neighborhoods in Tainan City, Taiwan. <span class="citation">Bruton and Floyd (2014)</span>
+conduct a neighborhood-level analysis of park amenities in Greensboro, North
+Carolina, and find that low-income neighborhoods tend to have parks with more
+picnic areas, more trash cans, and fewer wooded areas, but they do not address
+the question of the extent to which different populations might value these
+different amenities. <span class="citation">Kabisch and Haase (2014)</span> find that neighborhoods in Berlin with
+high immigrant populations and older populations likewise had less access to
+parks, and they pair these findings with survey results suggesting that these
+disparities are not consistent with the preferences expressed by those
+populations.</p>
 </div>
-<div id="utility-based-measures-of-park-accessibility" class="section level3">
+<div id="utility-based-measures-of-park-accessibility" class="section level3" number="2.2.2">
 <h3><span class="header-section-number">2.2.2</span> Utility-based measures of park accessibility</h3>
-<p>While traditional four-step travel demand models distribute zonal trips based on a gravity-based accessibility model, the travel demand modeling profession has shifted more recently towards a destination choice framework that distributes trips based on discrete-choice regression models. <span class="citation">(<span class="citeproc-not-found" data-reference-id="mcfadden1974"><strong>???</strong></span>)</span> applied discrete choice models to urban travel demand to predict mode choice, and modern disaggregate activity-based models apply them to all travel behavior choices, including to select among alternative routes or alternative destinations <span class="citation">(Dios Ortúzar and Willumsen 2011)</span>. Though the application of random utility models to destination choice is not new <span class="citation">(see Anas 1983)</span>, the increasing availability of computing resources makes estimating and applying discrete choice models on large alternative sets in a practical context more feasible.</p>
-<p>Destination choice models estimate the probability of selecting a particular destination among a set of alternatives based on the relative attractiveness, or <em>utility</em>, of each alternative. Utility may be function of distance or travel time alone (in which case, a utility-based accessibility measure might be quite similar to a location-based measure), but the function can also incorporate other destination characteristics that lead one destination to be more highly-utilized than another. For a utility-based measure of park accessibility, these might include park size, cleanliness, or the availability of particular amenities. The degree to which these park and trip attributes influence the destination utility can be estimated statistically using survey data.</p>
-<p>Though destination choice utility models have not commonly been used to measure park accessibility, scholars have acknowledged that park accessibility metrics should be linked with park use, since a park that has many visitors must by definition be accessible to those visitors. <span class="citation">McCormack et al. (2010)</span> provide a comprehensive review of this literature; it is sufficient here to note that most studies find park use to depend on a complicated interplay between park size, maintenance, facilities, and travel distance. Many of these attributes are incorporated into ParkIndex <span class="citation">(Kaczynski et al. 2016)</span>, which estimates the resident park use potential within small grid cells by applying utility preference coefficients estimated from a survey in Kansas City.</p>
-<p>There are limited examples of researchers using a destination choice model to predict recreation attractions. <span class="citation">Kinnell et al. (2006)</span> apply a choice model to a survey of park visitors in New Jersey, and estimate the relative attractiveness of park attributes including playgrounds, picnic areas, and park acreage weighed against the travel disutility and the relative crime rate at the destination. In a similar study, <span class="citation">Meyerhoff, Dehnhardt, and Hartje (2010)</span> model the urban swimming location choice for a surveyed sample. In both studies, the researchers were attempting to ascertain which attributes of a recreation generated the most positive utility, and therefore which attributes should be prioritized for improvement. Though neither was attempting to understand relative park accessibility, <span class="citation">Macfarlane et al. (2020)</span> applied the <span class="citation">Kinnell et al. (2006)</span> estimates in an exploration of utility-based park accessibility and its relationship to aggregate health outcomes.</p>
-<p>One primary obstacle to estimating discrete-choice models on the park destination problem has been the lack of sufficiently detailed, trip-level data on park users. Most destination choice models in practice are estimated from household travel surveys that must focus on all trip purposes, and necessarily group multiple recreation and social trips together <span class="citation">(National Academies of Sciences Engineering and Medicine 2012)</span>. However, the advent of large-scale mobile device networks and the perpetual association of unique devices with unique users has given researchers a new opportunity to observe the movements and activity location patterns for large subsets of the population <span class="citation">(Naboulsi et al. 2016)</span>. Such passively collected location data — sometimes referred to part of a larger category of “Big Data” — is a by-product of other systems including cellular call data records <span class="citation">(e.g., Bolla and Davoli 2000; Calabrese et al. 2011)</span>, probe GPS data <span class="citation">(Huang and Levinson 2015)</span>, and more recently Location Based Services (LBS) <span class="citation">(Roll 2019; Komanduri et al. 2017)</span>. LBS use a network of mobile applications that obtain the users’ physical location at different points in the day. Commercial vendors repackage, clean, and scale these data to population or traffic targets and provide origin-destination flows to researchers and practitioners. <span class="citation">Monz et al. (2019)</span>, for example, demonstrate that passive device data can accurately estimate trip flows to natural recreation areas.</p>
-<p>A number of methods have been proposed to develop destination choice information from these passive data. <span class="citation">Bernardin et al. (2018)</span> employs a passive origin-destination matrix as a shadow price reference in an activity-based location choice model, iteratively adjusting the calibration parameters of the choice utilities to minimize the observed error between the passive data and the modeled predictions. <span class="citation">Kressner (2017)</span> use the passive flow data as a probabilistic sampling frame to recreate individual trips through simulation. A similar method developed by <span class="citation">Zhu and Ye (2018)</span> uses the passive dataset directly, sampling 10,000 random trips from GPS traces of taxi trips in Shanghai and estimating a destination choice model. Employing the passive data set in this way provides the authors an opportunity to examine the choices of a large sample of a small population (taxi passengers). The <span class="citation">Zhu and Ye (2018)</span> methodology could be extended to other situations where collecting a statistically relevant survey sample would be prohibitively difficult, but where passive device location data reveals which destinations people choose among many observable options.</p>
+<p>While traditional four-step travel demand models distribute zonal trips based on
+a gravity-based accessibility model, the travel demand modeling profession has
+shifted more recently towards a destination choice framework that distributes
+trips based on discrete-choice regression models. <span class="citation">D. McFadden (1974)</span> applied discrete
+choice models to urban travel demand to predict mode choice, and modern
+disaggregate activity-based models apply them to all travel behavior choices,
+including to select among alternative routes or alternative destinations
+<span class="citation">(Dios Ortúzar and Willumsen 2011)</span>. Though the application of random utility models to
+destination choice is not new <span class="citation">(see Anas 1983)</span>, the increasing
+availability of computing resources makes estimating and applying discrete
+choice models on large alternative sets in a practical context more feasible.</p>
+<p>Destination choice models estimate the probability of selecting a particular
+destination among a set of alternatives based on the relative attractiveness, or
+<em>utility</em>, of each alternative. Utility may be function of distance or travel
+time alone (in which case, a utility-based accessibility measure might be quite
+similar to a location-based measure), but the function can also incorporate
+other destination characteristics that lead one destination to be more
+highly-utilized than another. For a utility-based measure of park accessibility,
+these might include park size, cleanliness, or the availability of particular
+amenities. The degree to which these park and trip attributes influence the
+destination utility can be estimated statistically using survey data.</p>
+<p>Though destination choice utility models have not commonly been used to measure
+park accessibility, scholars have acknowledged that park accessibility metrics
+should be linked with park use, since a park that has many visitors must by
+definition be accessible to those visitors. <span class="citation">McCormack et al. (2010)</span> provide a
+comprehensive review of this literature; it is sufficient here to note that most
+studies find park use to depend on a complicated interplay between park size,
+maintenance, facilities, and travel distance. Many of these attributes are
+incorporated into ParkIndex <span class="citation">(Kaczynski et al. 2016)</span>, which estimates the resident park
+use potential within small grid cells by applying utility preference
+coefficients estimated from a survey in Kansas City.</p>
+<p>There are limited examples of researchers using a destination choice model to
+predict recreation attractions. <span class="citation">Kinnell et al. (2006)</span> apply a choice model to a survey of
+park visitors in New Jersey, and estimate the relative attractiveness of park
+attributes including playgrounds, picnic areas, and park acreage weighed against
+the travel disutility and the relative crime rate at the destination. In a
+similar study, <span class="citation">Meyerhoff, Dehnhardt, and Hartje (2010)</span> model the urban swimming location choice for a
+surveyed sample. In both studies, the researchers were attempting to ascertain
+which attributes of a recreation generated the most positive utility, and
+therefore which attributes should be prioritized for improvement. Though neither
+was attempting to understand relative park accessibility, <span class="citation">Macfarlane et al. (2020)</span> applied
+the <span class="citation">Kinnell et al. (2006)</span> estimates in an exploration of utility-based park accessibility
+and its relationship to aggregate health outcomes.</p>
+<p>One primary obstacle to estimating discrete-choice models on the park
+destination problem has been the lack of sufficiently detailed, trip-level data
+on park users. Most destination choice models in practice are estimated from
+household travel surveys that must focus on all trip purposes, and necessarily
+group multiple recreation and social trips together <span class="citation">(National Academies of Sciences Engineering and Medicine 2012)</span>. However, the
+advent of large-scale mobile device networks and the perpetual association of
+unique devices with unique users has given researchers a new opportunity to
+observe the movements and activity location patterns for large subsets of the
+population <span class="citation">(Naboulsi et al. 2016)</span>. Such passively collected location data — sometimes
+referred to part of a larger category of “Big Data” — is a by-product of other
+systems including cellular call data records <span class="citation">(e.g., Bolla and Davoli 2000; Calabrese et al. 2011)</span>, probe GPS data <span class="citation">(Huang and Levinson 2015)</span>, and more recently Location Based
+Services (LBS) <span class="citation">(Roll 2019; Komanduri et al. 2017)</span>. LBS use a network of mobile
+applications that obtain the users’ physical location at different points in the
+day. Commercial vendors repackage, clean, and scale these data to population or
+traffic targets and provide origin-destination flows to researchers and
+practitioners. <span class="citation">Monz et al. (2019)</span>, for example, demonstrate that passive device data can
+accurately estimate trip flows to natural recreation areas.</p>
+<p>A number of methods have been proposed to develop destination choice
+information from these passive data. <span class="citation">Bernardin et al. (2018)</span> employs a passive
+origin-destination matrix as a shadow price reference in an activity-based
+location choice model, iteratively adjusting the calibration parameters of the
+choice utilities to minimize the observed error between the passive data and the
+modeled predictions. <span class="citation">Kressner (2017)</span> use the passive flow data as a probabilistic
+sampling frame to recreate individual trips through simulation. A similar method
+developed by <span class="citation">Zhu and Ye (2018)</span> uses the passive dataset directly, sampling 10,000 random
+trips from GPS traces of taxi trips in Shanghai and estimating a destination
+choice model. Employing the passive data set in this way provides the authors an
+opportunity to examine the choices of a large sample of a small population (taxi
+passengers). The <span class="citation">Zhu and Ye (2018)</span> methodology could be extended to other situations
+where collecting a statistically relevant survey sample would be prohibitively
+difficult, but where passive device location data reveals which destinations
+people choose among many observable options.</p>
 </div>
 </div>
-<div id="street-conversion-equity-analysis" class="section level2">
+<div id="street-conversion-equity-analysis" class="section level2" number="2.3">
 <h2><span class="header-section-number">2.3</span> Street Conversion Equity Analysis</h2>
-<p>In their analysis of over one thousand reallocations of street space that occurred in response to the global COVID-19 pandemic, <span class="citation">Combs and Pardo (2021)</span> find that a plurality created additional space for walking, cycling, and recreation, although some reallocated space to commerce (e.g. outdoor dining and shopping) or short-term parking to for urban freight or food delivery.</p>
-<p>If we define an urban park as a public space that is designated for the purpose of recreation, exercise, and social gathering, then the rapid reallocation of street space to accommodate recreation and active travel could be characterized as a proliferation of small urban parks. Researchers at the Trust for Public Land have explicitly described the reallocation of street space from cars to pedestrians as a strategy to relieve pressure on parks <span class="citation">(Hussain 2020)</span> and have suggested that these actions should (and, in New York, had failed to) prioritize areas that would otherwise have low access to parks <span class="citation">(Compton 2020)</span>. <span class="citation">Fischer and Winters (2021)</span> have likewise done an equity analysis of street reallocation from vehicles to pedestrians in three mid-sized Canadian cities and found that interventions were generally more common in places with higher proportions of white residents and fewer children. The analyses by both <span class="citation">Compton (2020)</span> and <span class="citation">Fischer and Winters (2021)</span> were both based on proximity alone rather than on utility-based accessibility measures.</p>
-<p>Of course, streets that reallocate space for active travel and recreation do not have the amenities or general character of most parks, and classifying them as equivalent to their greener peers in an accessibility analysis would be erroneous for many reasons. But a utility-based accessibility framework would allow us to discount these street parks for the amenities they lack while also considering the benefits proffered by their availability and proximity. Further, we can model these tradeoffs with statistical weights determinable through observing park trip distribution patterns revealed through passive mobile device data.</p>
+<p>In their analysis of over one thousand reallocations of street space that
+occurred in response to the global COVID-19 pandemic, <span class="citation">T. S. Combs and Pardo (2021)</span> find
+that a plurality created additional space for walking, cycling, and recreation,
+although some reallocated space to commerce (e.g. outdoor dining and shopping)
+or short-term parking to for urban freight or food delivery.</p>
+<p>If we define an urban park as a public space that is designated for the purpose
+of recreation, exercise, and social gathering, then the rapid reallocation of
+street space to accommodate recreation and active travel could be characterized
+as a proliferation of small urban parks. Researchers at the Trust for Public
+Land have explicitly described the reallocation of street space from cars to
+pedestrians as a strategy to relieve pressure on parks <span class="citation">(Hussain 2020)</span> and
+have suggested that these actions should (and, in New York, had failed to)
+prioritize areas that would otherwise have low access to parks
+<span class="citation">(Compton 2020)</span>. <span class="citation">Fischer and Winters (2021)</span> have likewise done an equity
+analysis of street reallocation from vehicles to pedestrians in three mid-sized
+Canadian cities and found that interventions were generally more common in
+places with higher proportions of white residents and fewer children. The
+analyses by both <span class="citation">Compton (2020)</span> and <span class="citation">Fischer and Winters (2021)</span> were both based
+on proximity alone rather than on utility-based accessibility measures.</p>
+<p>Of course, streets that reallocate space for active travel and recreation do not
+have the amenities or general character of most parks, and classifying them as
+equivalent to their greener peers in an accessibility analysis would be
+erroneous for many reasons. But a utility-based accessibility framework would
+allow us to discount these street parks for the amenities they lack while also
+considering the benefits proffered by their availability and proximity. Further,
+we can model these tradeoffs with statistical weights determinable through
+observing park trip distribution patterns revealed through passive mobile device
+data.</p>
 
 </div>
 </div>
@@ -269,6 +513,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
