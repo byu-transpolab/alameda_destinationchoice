@@ -328,7 +328,9 @@ if(knitr::is_latex_output()) {
 In this section, we apply the models estimated above to evaluate the benefits of
 the street conversion policy in terms of aggregate value determined by the
 change in accessibility logsum, as well as the equity of the policy with respect
-to different income and ethnic groups.
+to different income and ethnic groups. In this analysis, we apply the "Sport Detail"
+non-segmented model from Table \@ref(tab:base-modelsummary).
+
 
 ```{r street_distances}
 # distances computed in py/shortest_paths.py

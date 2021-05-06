@@ -620,7 +620,7 @@ model proved to offer the best model fit.
 ## Model application
 
 Using the full set of Alameda County parks --- including those added by street
-conversion --- we applied the "Sport Detail" non-segmented model to calculate
+conversion --- we may apply a destination choice model to calculate the change in
 park choice utilities and utility-based accessibility values for each block
 group in Alameda County. As shown with Equation \@ref(eq:deltalogsum), the
 difference in utility-based accessibility values with and without the opened
