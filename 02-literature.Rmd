@@ -149,7 +149,7 @@ populations.
 While traditional four-step travel demand models distribute zonal trips based on
 a gravity-based accessibility model, the travel demand modeling profession has
 shifted more recently towards a destination choice framework that distributes
-trips based on discrete-choice regression models. @mcfadden1974 applied discrete
+trips based on discrete-choice regression models. @mcfadden1974measurement applied discrete
 choice models to urban travel demand to predict mode choice, and modern
 disaggregate activity-based models apply them to all travel behavior choices,
 including to select among alternative routes or alternative destinations
