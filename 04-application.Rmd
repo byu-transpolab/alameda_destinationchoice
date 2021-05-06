@@ -189,20 +189,14 @@ grouped_models_clean <- list(
   "> 30% Asian" = grouped_models$asian,
   "> 30% Black" = grouped_models$black,
   "> 30% Hispanic" = grouped_models$hispanic,
-  "Other" = grouped_models$othermin,
+  "Other Eth." = grouped_models$othermin,
   "> 30% Low income" = grouped_models$lowincome,
   "> 50% High income" = grouped_models$highincome,
-  "Other" = grouped_models$otherinc,
-  "> 25% children" = grouped_models$children,
-  "< 5% children" = grouped_models$`few children`,
-  "Other" = grouped_models$otherch
+  "Other Inc." = grouped_models$otherinc,
+  "> 25% Children" = grouped_models$children,
+  "< 5% Children" = grouped_models$`few children`,
+  "Other Children" = grouped_models$otherch
 )
-
-#CTV: Commented out scroll_box() because I get an error I can't
-# explain when it's in there ("attempt to select less than one 
-# element in integerOneIndex"). The other way to get rid of that error
-# is to get rid of the add_footnote() line - but that seems more 
-# important to leave in than the the scroll box.
 
 modelsummary(
   grouped_models_clean, stars = TRUE, output = "kableExtra",
@@ -210,7 +204,7 @@ modelsummary(
   title = "Estimated Model Coefficients with Block Group Segmentations"
 ) %>%
   add_header_above(c(" " = 1, "Race/Ethnicity" = 4, "Income" = 3, "Children" = 3)) %>%
-#  scroll_box(width = "100%", box_css = "border: 0px;") %>%
+  scroll_box(width = "100%", box_css = "border: 0px;") %>%
   landscape() %>%
   kable_styling(latex_options = c("striped", "scale_down")) %>%
    add_footnote(
@@ -278,12 +272,6 @@ Residents of block groups with increasing shares of Hispanic individuals show
 the highest affinity for playgrounds, and park goers from neighborhoods with a
 greater share of Black individuals are most sensitive to distance and least
 sensitive to park size.
-
-```{r split-plots-knit, fig.cap="Estimated utility coefficients and 95% confidence intervals for park amenities at different socioeconomic threshold levels.", fig.height=7.5}
-
-knitr::include_graphics("images/split_plot.png")
-
-```
 
 ```{r split-plots-orig, fig.cap="Estimated utility coefficients and 95% confidence intervals for park amenities at different socioeconomic threshold levels.", fig.height=7.5, cache = FALSE}
 # extract the coefficients you need to plot
@@ -377,10 +365,6 @@ street_choices <-  left_join(
 ```
 
 
-```{r logsums_knit}
-blockgroups <- read_rds("data/blockgroups_logsum.rds")
-```
-
 ```{r logsums_orig}
 logsums <- lapply(list("Base" = base_choices, "Streets" = street_choices), function(df){
   u <- predict(base_models$`Sport Detail`, newdata = df, type = "linpred")
@@ -431,7 +415,7 @@ if(knitr::is_latex_output()) {
 } else {
   diff_pal <- colorBin(palette = mypal, domain = blockgroups$diff_ls, bins = bins )
   
-  leaflet(data = blockgroups %>% st_transform(4326)) %>%
+  leaflet(blockgroups %>% st_transform(4326)) %>%
     addProviderTiles(providers$Esri.WorldGrayCanvas) %>%
     addPolygons(fillColor = ~diff_pal(diff_ls), 
                 stroke = FALSE, fillOpacity = 1) %>%
