@@ -562,8 +562,8 @@ origin-destination pairs.
 The sampled origin-destination pair gives the home location as well as the
 "chosen" alternative for a synthetic person. In principle the individual's
 choice set contains all the parks in our dataset; in practice it can be
-difficult to estimate choice models with so many alternatives  
-($|J| =  `r nrow(parks)`$). For this reason we randomly sample `r n_alts` additional parks
+difficult to estimate choice models with so many alternatives ($|J| =  `r nrow(parks)`$). 
+For this reason we randomly sample `r n_alts` additional parks
 to serve as the non-chosen alternatives for our synthetic choice maker. Such
 random sampling of alternatives reduces the efficiency of the estimated
 coefficients but the coefficients remain unbiased [@train2009]. As the model has
