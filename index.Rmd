@@ -1,16 +1,16 @@
 ---
-title: "If you build it who will come? Equity analysis of park system changes using passive origin-destination data"
+title: "If you build it who will come? Equity analysis of park system changes during COVID-19 using passive origin-destination data"
 author:
-  - name: Gregory Macfarlane
+  - name: Gregory S. Macfarlane
     email: gregmacfarlane@byu.edu
     affiliation: BYU
     footnote: 1
-  - name: Teresa Tapia
-    email: teresa.tapia@streetlightdata.com
-    affiliation: StreetLight
   - name: Carole Turley Voulgaris
     email: cvoulgaris@gsd.harvard.edu
     affiliation: Harvard
+  - name: Teresa Tapia
+    email: teresa.tapia@streetlightdata.com
+    affiliation: StreetLight
 address:
   - code: BYU
     address: Brigham Young University, Civil and Environmental Engineering Department, 430 Engineering Building, Provo, Utah 84602
@@ -33,7 +33,7 @@ keywords:
   - Location Choice
   - Parks
 abstract: |
- During the spring and summer of 2020, cities across the world responded to the global COVID-19 pandemic by converting roadway facilities into open pedestrian spaces. These conversions improved access to public open space, but measuring the variation in that improvement among different populations requires clear definitions of access and methods for measuring it. In this study, we evaluate the change in a utility-based park accessibility measure resulting from street conversions in Alameda County, California. Our utility-based accessibility measure is constructed from a park activity location choice model we estimate using mobile device data --- supplied by StreetLight Data, Inc. --- representing trips to parks in that county. The estimated model reveals heterogeneity in inferred affinity for park attributes among different sociodemographic groups. We find, for example, that residents of lower-income neighborhoods and those with more residents of color show a greater preference for park proximty while residents of higher-income neighborhods and those with more white residents show a greater preference for park size and amenities. Thus, the closure of streets to create a set of small park-like open spaces has been a pro-social policy in that Black, Hispanic, and low-income households receive a disproportionate share of the benefit, relative to the population distribution. 
+ During the spring and summer of 2020, cities across the world responded to the global COVID-19 pandemic by converting roadway facilities into open pedestrian spaces. These conversions improved access to public open space, but measuring the variation in that improvement among different populations requires clear definitions of access and methods for measuring it. In this study, we evaluate the change in a utility-based park accessibility measure resulting from street conversions in Alameda County, California. Our utility-based accessibility measure is constructed from a park activity location choice model we estimate using mobile device data --- supplied by StreetLight Data, Inc. --- representing trips to parks in that county. The estimated model reveals heterogeneity in inferred affinity for park attributes among different sociodemographic groups. We find, for example, that neighborhoods with more lower-income residents and those with more residents of color show a greater preference for park proximty while neighborhods with higher incomes and those with more white residents show a greater preference for park size and amenities. We then apply this model to examine the accessibility benefits resulting from COVID-19 street conversionsto create a set of small park-like open spaces; we find that this has been a pro-social policy in that Black, Hispanic, and low-income households receive a disproportionate share of the policy benefits, relative to the population distribution. 
 description: "Alameda Park Choice"
 ---
 
@@ -48,7 +48,7 @@ public equity.
 For many, the value of public parks and open public spaces increased during the
 widespread lockdowns enacted in 2020 to slow the transmission of COVID-19. With
 other entertainment venues shuttered and people otherwise confined to their
-homes, periodic use of public space provided an opportunity physical and
+homes, periodic use of public space provided an opportunity for physical and
 emotional relief unavailable in other forms. Paired with this increased demand
 for public open space --- and the with the epidemiological requirement to leave
 sufficient space between other users --- was the related collapse in demand for
@@ -83,8 +83,8 @@ temporary conversion of streets to public open spaces during the spring and
 summer of 2020. We estimate a park activity location choice model using
 location-based services (LBS) data obtained through StreetLight Data, Inc., a
 commercial data  aggregator. The resulting model illuminates the degree to which
-constructed individuals living in U.S. Census block groups of varying
-sociodemographic characteristics value the travel distance between block group
+simulated individuals living in U.S. Census block groups of varying
+sociodemographic characteristics value the walking distance between their residence
 and parks, the size of the parks, and the amenities of parks including sport
 fields, playgrounds, and walking trails in Alameda county. We then apply this
 model to examine the inferred monetary benefit resulting from the street
@@ -94,7 +94,7 @@ The paper proceeds in the following manner: A [discussion](#literature) of prior
 attempts to evaluate park accessibility and preferences is given directly. A
 [Methodology](#methodology) section presents our data gathering and cleaning
 efforts, the econometric framework for the location choice model, and the
-approach taken to apply the results to analyze open streets projects. A
+approach taken to apply the models to analyze open streets projects. A
 [Results](#results) section presents the estimated choice model coefficients
 alongside a discussion of their implications, including the implied benefits
 resulting from the street conversions in Alameda County. After presenting

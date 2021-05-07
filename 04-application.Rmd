@@ -65,7 +65,7 @@ estim <- dfi
 
 We estimated multinomial logit park activity location choice models on the
 datset described in the previous section. We applied a Yeo-Johnson
-transformation [@Yeo2000] to both distance the distance (in meters) between the
+transformation [@Yeo2000] to both the walk distance (in meters) between the
 park and the block group centroid, and to the park acreage. The Yeo-Johnson
 transformation replicates the constant marginal elasticity of a logarithmic
 transformation while avoiding undefined values (e.g., $YJ(0) = 0$). For
@@ -95,8 +95,8 @@ d_ratio_sport <- -1 * coefficients(base_models$`Sport Detail`)[1] /
 
 Table \@ref(tab:base-modelsummary) presents the model estimation results for
 each estimated model. The "Network Distance" model, which only considers the
-distance to the park and the size of the park results in significant estimated
-coefficients of the expected sign: That is, individuals will travel further
+distance to the park and the size of the park. results in significant estimated
+coefficients of the expected sign. That is, individuals will travel further
 distances to reach larger parks. The ratio of the estimated coefficients implies
 that on average, people will travel `r d_ratio_base` times further to reach a
 park twice as large.
@@ -182,7 +182,7 @@ the "Other" model contains all other block groups. Another set of model
 segmentation relies on the share of the population in each block group with
 household incomes above or below certain thresholds, and a third relies on the
 share of households with children under 6 years old. Again, we use the threshold
-definitions largely informed by the distributions in \@ref(tab:acs-table).
+definitions largely informed by the distributions in Table \@ref(tab:acs-table).
 
 ```{r grouped-modelsummary}
 grouped_models_clean <- list(
@@ -262,18 +262,19 @@ represent the "Sport Detail" model from Table \@ref(tab:base-modelsummary).
 
 Overall, increasing the segmentation threshold level reveals additional
 information about user preferences. First, it should be noted that there is some
-inconsistency: for instance, block groups with at least 40% of low income
-households show a lower importance of distance than block groups with either 30%
-low income households. The increasing width of the confidence interval, however,
-means it is sometimes difficult to make generalized statements. Residents of
-block groups with a higher share of Asian or high income households both show
+inconsistency: for instance, block groups with at least 30% of low income
+households show a lower importance of distance than block groups with either 20%
+or 40% low income households, though all three estimates are within the same 
+confidence intervals. The increasing width of the confidence interval, however,
+means it is sometimes difficult to make robust statements. Residents of
+block groups with a higher share of Asian individuals or high income households both show
 relatively more affinity for tennis courts and trails relative to other groups.
 Residents of block groups with increasing shares of Hispanic individuals show
 the highest affinity for playgrounds, and park goers from neighborhoods with a
 greater share of Black individuals are most sensitive to distance and least
 sensitive to park size.
 
-```{r split-plots-orig, fig.cap="Estimated utility coefficients and 95% confidence intervals for park amenities at different socioeconomic threshold levels.", fig.height=7.5, cache = FALSE}
+```{r split-plots, fig.cap="Estimated utility coefficients and 95% confidence intervals for park amenities at different socioeconomic threshold levels.", fig.height=7.5, cache = FALSE}
 # extract the coefficients you need to plot
 dat <- modelplot(split_models$mnl %>% 
             setNames(str_c(split_models$Segmentation, split_models$share, sep = "_")),
@@ -317,7 +318,8 @@ In this section, we apply the models estimated above to evaluate the benefits of
 the street conversion policy in terms of aggregate value determined by the
 change in accessibility logsum, as well as the equity of the policy with respect
 to different income and ethnic groups. In this analysis, we apply the "Sport Detail"
-non-segmented model from Table \@ref(tab:base-modelsummary).
+non-segmented model from Table \@ref(tab:base-modelsummary), as it had the best
+fit of these models. 
 
 
 ```{r street_distances}
@@ -441,7 +443,7 @@ population segment $k$ is
 where $P_k$ is the proportion of the block group's population in segment $k$.
 There is some opportunity for confusion when some demographic variables we use
 (share of households with children, household income) are defined at the
-household level and other (ethnicity) are defined at the person level. It is
+household level and others (specifically ethnicity) are defined at the person level. It is
 similarly not clear whether the benefits of improved park access should be
 assigned at the person level, the household level, or the number of total park
 trip makers in each block group. For consistency and simplicity, we assert that

@@ -45,19 +45,20 @@ Area metropolitan region in California. Alameda is the seventh most populous
 county in California with a population of 1.5 million [@alamedafacts], and has
 14 incorporated cities and several unincorporated communities. It is an
 economically and ethnically diverse county and hence it was an attractive area
-to use for this study. The racial makeup of Alameda County was (49.7%) White,
-(11.2%) African American, (1.0%) Native American, (38.7%) Asian, (1.0%) Pacific
-Islander, and (22.4%) Hispanic or Latino (of any race). Alameda County has a
+to use for this study. The racial makeup of Alameda County was 49.7% White,
+11.2% African American, 1.0% Native American, 38.7% Asian, 1.0% Pacific
+Islander, and 22.4% Hispanic or Latino of any race. Alameda County has a
 diverse set of parks, ranging from local small community parks, urban and
-transit-accessible parks like the Lake Merritt Recreational area, accessible
-coastal access, and suburban recreational areas like Lake Chabot.
+transit-accessible parks like the Lake Merritt Recreational area, 
+coastal access points, and suburban recreational areas like Lake Chabot.
 
 ## Data
-We estimated a utility model using a dataset constructed from a
+We constructed an estimation data set from a
 publicly-available parks polygons layer, a commercially acquired passive device
-origin-destination table representing trips between the parks and home block
-groups, and American Community Survey data for the home block groups. We then
-applied that model to a dataset representing open street installations that were
+origin-destination table representing visitors to parks and inferred residential
+block groups for these visitors,
+and American Community Survey data for the residence block groups. We also
+constructed a dataset representing open street installations that were
 implemented in response to the COVID-19 pandemic.
 
 ### Model estimation data
@@ -92,7 +93,7 @@ through OpenStreetMap (OSM) using the `osmdata` package for R [@osmdata]. Three
 attribute elements are considered in this analysis. First, we identify
 playgrounds using OSM facilities given a `leisure = playground` tag. The tagged
 facilities can be either polygon or point objects; in the former case we use the
-polygon centroid to determine the location of the playground.
+polygon centroid to determine the point location of the playground.
 
 ```{r playgrounds, warning = FALSE, echo= FALSE}
 playground_osm <- opq(bb) %>% # specify boundary for query
@@ -339,7 +340,7 @@ group a home is actually located, we use the population-weighted block group
 centroid published by the Census Bureau as the location for all homes in the
 block group. We then measured the network-based distance between the park and
 the home block group centroid using a walk network derived from OpenStreetMap
-using the `networkx` package for Python [@networkx],
+via the `networkx` package for Python [@networkx],
 
 ```{r acs, message = FALSE}
 variables <- c(
@@ -488,14 +489,14 @@ wishes to make a park trip, the probability that the individual will choose park
 $i$ from the set of all parks $J$ can be described as a ratio of the park's
 measurable utility $V_{ni}$ to the sum of the utilities for all parks in the
 set. In the common destination choice framework we apply a multinomial logit
-model [@McFadden1974, @Recker1978],
+model [@McFadden1974; @Recker1978],
 \begin{equation}\label{eq:p}
    P_{ni} = \frac{\exp(V_{ni})}{\sum_{j \in J}\exp(V_{nj})}
 \end{equation}
 where the measurable utility $V_{ni}$ is a linear-in-parameters function of 
 the destination attributes. 
 \begin{equation}\label{eq:V}
-V_{ni} = X\beta
+V_{ni} = X_{ni}\beta
 \end{equation}
 where $\beta$ is a vector of estimable coefficients giving the relative utility
 (or disutility) of that attribute to the choice maker, all else equal. It is
@@ -503,7 +504,7 @@ possible to add amenities of the park or the journey to the utility equation.
 However, as the number of alternatives is large, it is impractical to consider
 alternative-specific constants or coefficients and therefore not possible to
 include attributes of the home block group or traveler $n$ directly. We can,
-however, segment the data and estimate different distance and size parameters
+however, segment the data and estimate distinct distance and size parameters
 for different segments to observe heterogeneity in the utility parameters
 between different socioeconomic groups.
 
@@ -547,21 +548,22 @@ mydata <- park_flows %>%
 ```
 
 In the most typical cases, researchers estimate the utility coefficients for
-destination choice models from houzsehold travel surveys. For example, the
+destination choice models from household travel surveys. For example, the
 California add-on to the 2017 National Household Travel Survey could be used for
 this purpose for frequent trips like commutes to work and school. However, as a
 24-hour trip diary, it is less useful for recreational trips that may take place
 less frequently. For better data on park access, we need to synthesize a
 suitable estimation data set. We do this by sampling `r n_obs` random discrete
 device origin-destination pairs from the commercial passive data matrix,
-weighted by the volume of the flows. This corresponds to a `r round(n_obs /
-n_flow * 100, 1)`\% sample of all the observed device origin-destination pairs.
+weighted by the volume of the flows. This corresponds to a 
+`r round(n_obs / n_flow * 100, 1)`\% sample of all the observed device
+origin-destination pairs.
 
 The sampled origin-destination pair gives the home location as well as the
 "chosen" alternative for a synthetic person. In principle the individual's
 choice set contains all the parks in our dataset; in practice it can be
-difficult to estimate choice models with so many alternatives  ($|J| = `r
-nrow(parks)`$). For this reason we randomly sample `r n_alts` additional parks
+difficult to estimate choice models with so many alternatives  
+($|J| =  `r nrow(parks)`$). For this reason we randomly sample `r n_alts` additional parks
 to serve as the non-chosen alternatives for our synthetic choice maker. Such
 random sampling of alternatives reduces the efficiency of the estimated
 coefficients but the coefficients remain unbiased [@train2009]. As the model has
@@ -606,24 +608,16 @@ parks in the choice set; and the acreage of each park in the choice set.  We use
 the `mlogit` package for R [@mlogit; @R] to estimate the multinomial logit
 models.
 
-We estimate a series of models with different utility function definitions, each
-estimated on the complete set of synthetic choice makers. The first model  ---
-named "Network Distance" --- only considers the distance to the park and the
-size of the park in the utility equation. The second and third models include a
-vector of park attributes. In the model labeled "Park Attributes," the presence
-of any sport field is considered with a single dummy value, and in the "Sport
-Detail" model this variable is disaggregated into facilities for different
-sports. As described in the [Results](#results) section, the "Sport Detail"
-model proved to offer the best model fit.
+
 
 ## Model application
 
 Using the full set of Alameda County parks --- including those added by street
-conversion --- we may apply a destination choice model to calculate the change in
+conversion --- we can apply a destination choice model to calculate the change in
 park choice utilities and utility-based accessibility values for each block
 group in Alameda County. As shown with Equation \@ref(eq:deltalogsum), the
 difference in utility-based accessibility values with and without the opened
-streets is the consumer surplus provided by the policy, converted into a
+streets is the additional consumer surplus provided by the policy, converted into a
 monetary value by a cost-utility coefficient. The dataset used for this research
 does not have any information on travel costs or entrance fees, and such data
 would likely not be relevant in the context of urban parks. As a result, there
@@ -631,7 +625,7 @@ is no direct link between the utility and a monetary cost in our estimated
 models.
 
 As a substitution, we use an estimate of the cost coefficient obtained from the
-open-source activity-based travel demand model ActivitySim, which is itself
+open-source activity-based travel demand model ActivitySim [@activitysim], which is itself
 based on the regional travel model employed by the Metropolitan Transportation
 Commission (MTC), the San Francisco Bay regional MPO. ActivitySim uses a cost
 coefficient of $-0.6$ divided by the each simulated agent's value of time to

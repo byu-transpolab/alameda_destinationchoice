@@ -1,6 +1,7 @@
 # Limitations and Future Directions {#limitations}
+
 The utility-based accessibility metrics we present and apply in this paper are
-evaluated from a discrete choice model estimated on simulate decision makers
+evaluated from a discrete choice model estimated on simulated decision makers
 constructed from a third-party passive origin-destination matrix. This
 methodological choice has some strengths: Foremost among these is the ability to
 readily and affordably construct a large dataset on an infrequent trip purpose.
@@ -9,7 +10,7 @@ small-sample household travel surveys. Securing sufficient responses to estimate
 a rich behavioral model on a trip purpose as infrequent as parks has proven
 prohibitively expensive outside of extensive research activities [e.g.,
 @Kaczynski2016]. Using passive data sets to increase the effective sampling rate
-possible in a discrete choice model is a potentially powerful strategy,and its
+possible in a discrete choice model is a potentially powerful strategy, and its
 application here is an important contribution of our work.
 
 At the same time, passive data sets available from commercial providers do not
@@ -88,7 +89,7 @@ considered against the benefits we measured in this research. But utility-based
 access measures provide a mechanism to weigh the benefits of access against the
 costs of travel in a theoretically coherent manner. Adopting such flexible
 methods of measuring access will help transportation and land use planners
-better understand the nunces and tradeoffs inherent in a wide range of policy
+better understand the nuances and tradeoffs inherent in a wide range of policy
 proposals.
 
 

@@ -26,6 +26,24 @@ are described as valuing aesthetics over recreational spaces
 [@gobster2002managing; @payne2002examination; @ho2005gender]; and Latino park
 users are said to value group-oriented amenities like picnic tables and
 restrooms [@baas1993influence; @hutchison1987ethnicity; @irwin1990mexican].
+
+In an observational and survey-based study of park users in Los Angeles,
+@loukaitou1995urban found a high-level of enthusiasm for park use among Hispanic
+residents. While she found, consistent with prior research
+[@baas1993influence; @hutchison1987ethnicity; @irwin1990mexican], that
+Hispanic park users showed a preference for passive recreation, she found that
+to be the case for all other user groups as well. She also found that Hispanic
+park users were the most likely to actively appropriate and modify park space,
+for example, by bringing items from home. She found that Hispanic park users
+tended to visit parks as family groups; African American park users tended to
+visit parks as peer groups; Caucasian park users tended to visit parks alone;
+and Asian residents were least likely to visit parks, even in a predominantly
+Asian neighborhood. Interviews with local elderly Asian residents (Chinese
+immigrants) suggested that a lack of interest in American parks was rooted in
+perceptions of the ideal park as "an aesthetic element of gorgeous design,"
+leaving them unimpressed with poorly landscaped American parks emphasizing
+recreational functions.
+
 @byrne2009nature criticize such scholarship as having grossly exaggerated
 ethno-racial differences in park use and preferences, and suggest a model for
 explaining park use based on four elements: Sociodemographic characteristics;
@@ -49,22 +67,6 @@ they expected that other park users would have racist attitudes, that a more
 boisterous Latino 'recreational style' would not be tolerated, or that there
 would be other behavioral norms they were not aware of.
 
-In an observational and survey-based study of park users in Los Angeles,
-@loukaitou1995urban found a high-level of enthusiasm for park use among Hispanic
-residents. While she found, consistent with prior research
-[@baas1993influence; @hutchison1987ethnicity; @irwin1990mexican], that
-Hispanic park users showed a preference for passive recreation, she found that
-to be the case for all other user groups as well. She also found that Hispanic
-park users were the most likely to actively appropriate and modify park space,
-for example, by bringing items from home. She found that Hispanic park users
-tended to visit parks as family groups; African American park users tended to
-visit parks as peer groups; Caucasian park users tended to visit parks alone;
-and Asian residents were least likely to visit parks, even in a predominantly
-Asian neighborhood. Interviews with local elderly Asian residents (Chinese
-immigrants) suggested that a lack of interest in American parks was rooted in
-perceptions of the ideal park as "an aesthetic element of gorgeous design,"
-leaving them unimpressed with poorly landscaped American parks emphasizing
-recreational functions.
 
 ## Defining and measuring park accessibility
 
@@ -85,7 +87,7 @@ entirely geo-spatial in their definition.
 ### Location-based measures of park accessibility
 
 Cumulative opportunity measures are calculated by counting the number of origins
-or destinations within a threshold travel cost of a location (where cost might
+or destinations within a threshold travel cost of a location (where "cost" might
 be some combination of distance, travel time, and/or monetary cost of travel). A
 strength of cumulative opportunity measures lies in their simplicity and
 intuitive interpretation. However, they may be too simple, especially with
@@ -105,7 +107,7 @@ population outside of the 10-minute walk threshold. The resulting score is a
 convenient quantitative tool in estimating the relative quality of green space
 access across cities [@Rigolon2018]. ParkScore may be less useful at identifying
 the comparative quality of access within a city, particularly since the vast
-majorityof residents in dense areas like San Francisco (100\%) and New York City
+majority of residents in dense areas like San Francisco (100\%) and New York City
 (99%) may live within the binary 10-minute walk threshold. The Centers for
 Disease Control and Prevention (CDC) has developed an "Accessibility to Parks
 Indicator" along similar lines [@Ussery2016], calculating the share of the
@@ -160,11 +162,11 @@ choice models on large alternative sets in a practical context more feasible.
 
 Destination choice models estimate the probability of selecting a particular
 destination among a set of alternatives based on the relative attractiveness, or
-_utility_, of each alternative. Utility may be function of distance or travel
+_utility_, of each alternative. Utility may be a function of distance or travel
 time alone (in which case, a utility-based accessibility measure might be quite
 similar to a location-based measure), but the function can also incorporate
 other destination characteristics that lead one destination to be more
-highly-utilized than another. For a utility-based measure of park accessibility,
+highly-valued and used than another. For a utility-based measure of park accessibility,
 these might include park size, cleanliness, or the availability of particular
 amenities. The degree to which these park and trip attributes influence the
 destination utility can be estimated statistically using survey data.
@@ -202,7 +204,7 @@ advent of large-scale mobile device networks and the perpetual association of
 unique devices with unique users has given researchers a new opportunity to
 observe the movements and activity location patterns for large subsets of the
 population [@Naboulsi2016]. Such passively collected location data --- sometimes
-referred to part of a larger category of “Big Data” --- is a by-product of other
+referred to as part of a larger category of “Big Data” --- is a by-product of other
 systems including cellular call data records  [e.g., @Bolla2000;
 @Calabrese2011], probe GPS data [@Huang2015], and more recently Location Based
 Services (LBS) [@Roll2019; @Komanduri2017]. LBS use a network of mobile
@@ -217,7 +219,7 @@ information from these passive data. @Bernardin2018 employs a passive
 origin-destination matrix as a shadow price reference in an activity-based
 location choice model, iteratively adjusting the calibration parameters of the
 choice utilities to minimize the observed error between the passive data and the
-modeled predictions. @tf_idea use the passive flow data as a probabilistic
+modeled predictions. @tf_idea uses the passive flow data as a probabilistic
 sampling frame to recreate individual trips through simulation. A similar method
 developed by @Zhu2018 uses the passive dataset directly, sampling 10,000 random
 trips from GPS traces of taxi trips in Shanghai and estimating a destination
@@ -234,7 +236,7 @@ In their analysis of over one thousand reallocations of street space that
 occurred in response to the global COVID-19 pandemic, @combs2021shifting find
 that a plurality created additional space for walking, cycling, and recreation,
 although some reallocated space to commerce (e.g. outdoor dining and shopping)
-or short-term parking to for urban freight or food delivery.
+or converted short-term parking to urban freight or food delivery.
 
 If we define an urban park as a public space that is designated for the purpose
 of recreation, exercise, and social gathering, then the rapid reallocation of
