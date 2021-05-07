@@ -51,7 +51,13 @@ this_map = c(
     "volleyballTRUE" = "Volleyball",
     "other_pitchTRUE" = "Other Sport"
   )
-
+f <- function(x) format(round(x, 1), big.mark=",")
+gm <-  list(
+  list("raw" = "nobs",  "clean" = "Num.Obs.", "fmt" = f),
+  list("raw" = "AIC",   "clean" = "AIC",      "fmt" = f),
+  list("raw" = "logLik","clean" = "Log Likelihood", "fmt" = f),
+  list("raw" = "rho20", "clean" = "$\\rho^2_0$", "fmt" = 3)
+)
 this_crs <- 2227 # EPSG:2227 – NAD83 / California zone 3 (ftUS)
 ```
 
@@ -123,10 +129,13 @@ we move forward with this utility specification.
 ```{r base-modelsummary}
 modelsummary(
   base_models, stars = TRUE, output = "kableExtra",
-  coef_map = this_map, gof_omit = "BIC",
-  title = "Estimated Model Coefficients"
+  coef_map = this_map, gof_map = gm,
+  estimate = "{estimate} {stars}", 
+  statistic = "({std.error})",
+  title = "Estimated Model Coefficients",
+  note = "Standard errors in parentheses."
 ) %>%
-  scroll_box(width = "100%", box_css = "border: 0px;")
+  scroll_box(width = "100%", box_css = "border: 0px;") 
 ```
 
 
@@ -200,8 +209,11 @@ grouped_models_clean <- list(
 
 modelsummary(
   grouped_models_clean, stars = TRUE, output = "kableExtra",
-  coef_map = this_map, gof_omit = "BIC", 
-  title = "Estimated Model Coefficients with Block Group Segmentations"
+  coef_map = this_map, gof_map = gm,
+  estimate = "{estimate} {stars}", 
+  statistic = "({std.error})",
+  title = "Estimated Model Coefficients with Block Group Segmentations",
+  note = "Standard errors in parentheses."
 ) %>%
   add_header_above(c(" " = 1, "Race/Ethnicity" = 4, "Income" = 3, "Children" = 3)) %>%
   scroll_box(width = "100%", box_css = "border: 0px;") %>%
