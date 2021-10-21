@@ -18,7 +18,7 @@ library(here)
 library(osmdata)
 library(sf)
 library(tidyverse)
-library(ggmap)
+library(ggspatial)
 library(leaflet)
 library(tidycensus)
 library(modelsummary)
@@ -245,20 +245,20 @@ attributed_parks <- parks %>%
 ```{r parks-map, fig.cap="Location of parks in Alameda County.", warning=FALSE, cache = FALSE}
 dj1 <- wesanderson::wes_palette("Darjeeling1")
 if(knitr::is_latex_output()) {
-  pbox <- st_bbox(st_transform(parks, 4326))
-  alameda_back <- get_map(c(lon = mean(pbox[c(1, 3)]), 
-                            lat = mean(pbox[c(2, 4)]) ), 
-                          zoom = 10, source = "stamen", color = "bw")
-  alameda_back <- ggmap_bbox(alameda_back)
-  
-  ggmap(alameda_back, extent = "device") + 
+  ggplot() +
+    annotation_map_tile("cartolight", zoom = 11) + 
     coord_sf(crs = st_crs(3857), 
              xlim = c(-122.29674 , -122.16358), 
              ylim = c( 37.74098, 37.87028), expand = FALSE) + 
     geom_sf(data = parks %>% st_transform(3857), inherit.aes = FALSE,
-            fill = dj1[2], lwd = 0)  + 
-    theme(axis.line = element_line(color = NA))  + 
-    xlab("") + ylab("")
+            fill = dj1[2], lwd = 0)  +
+    theme(axis.line = element_line(color = NA),
+          axis.title.x=element_blank(),
+          axis.text.x=element_blank(),
+          axis.ticks.x=element_blank(),
+          axis.title.y=element_blank(),
+          axis.text.y=element_blank(),
+          axis.ticks.y=element_blank())
 } else {
   leaflet() %>%
     addProviderTiles(providers$Esri.WorldGrayCanvas) %>%

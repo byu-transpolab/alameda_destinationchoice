@@ -411,20 +411,22 @@ bins <- c(0, 0.1, 0.25, 0.5, 1, 2, 10, 35)
 mypal <- as.character(wesanderson::wes_palette("Zissou1", n = 7, type = "continuous"))
 
 if(knitr::is_latex_output()) {
-  alameda_back <- get_map(c(lon = -122.1300334, lat = 37.69427), 
-                                zoom = 11, source = "stamen", color = "bw")
-  alameda_back <- ggmap_bbox(alameda_back)
-  
-  ggmap(alameda_back, extent = "device") + 
+  ggplot() +
+    annotation_map_tile("cartolight", zoom = 11) +
     coord_sf(crs = st_crs(3857), 
              xlim = c(-122.29674 , -122.16358), 
              ylim = c( 37.74098, 37.87028), expand = FALSE) + 
-    geom_sf(data = blockgroups %>% st_transform(3857), inherit.aes = FALSE,
+    geom_sf(data = logsums %>% st_transform(3857), inherit.aes = FALSE,
             aes(fill = cut(diff_ls, breaks = bins)), lwd = 0) + 
     scale_fill_manual("Monetary Benefit ($)", values = mypal) +
-    geom_sf(data = slowstreets, color = "black", inherit.aes = FALSE) + 
-    theme(axis.line = element_line(color = NA))  + 
-    xlab("") + ylab("")
+    geom_sf(data = street_parks,  color = "black", inherit.aes = FALSE) + 
+    theme(axis.line = element_line(color = NA),
+          axis.title.x=element_blank(),
+          axis.text.x=element_blank(),
+          axis.ticks.x=element_blank(),
+          axis.title.y=element_blank(),
+          axis.text.y=element_blank(),
+          axis.ticks.y=element_blank())
     
 } else {
   diff_pal <- colorBin(palette = mypal, domain = blockgroups$diff_ls, bins = bins )

@@ -97,4 +97,4 @@ proposals.
 # Acknowledgments {-}
 
 Graphics and tables were developed using several open-source R packages 
-[@ggmap; @modelsummary;@wesanderson].
+[@ggspatial; @modelsummary; @wesanderson].
