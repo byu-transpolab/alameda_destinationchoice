@@ -23,3 +23,9 @@ alameda_destinationchoice_cache/*
 rosm.cache/
 
 _targets/
+
+*.fls
+
+*.fdb_latexmk
+
+*.xdv
