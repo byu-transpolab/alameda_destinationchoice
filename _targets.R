@@ -62,8 +62,8 @@ list(
   tar_target(estim, make_estim(logitdata)),
   tar_target(base_models, estimate_base_models(estim)),
   tar_target(grouped_models, estimate_grouped_models(estim)),
-  #tar_target(split_models, estimate_all_splits(estim)),
-  #tar_target(split_dat, make_split_dat(split_models)),
+  tar_target(split_models, estimate_all_splits(estim)),
+  tar_target(split_dat, make_split_dat(split_models)),
   
   
   tar_target(logsums, make_logsums(distance_df, attributed_parks, street_distances, street_parks, 

@@ -185,11 +185,12 @@ the highest affinity for playgrounds, and park goers from neighborhoods with a
 greater share of Black individuals are most sensitive to distance and least
 sensitive to park size.
 
-```{r split-plots, eval=FALSE, fig.cap="Estimated utility coefficients and 95% confidence intervals for park amenities at different socioeconomic threshold levels.", fig.height=7.5, cache = FALSE}
+```{r split-plots, fig.cap="Estimated utility coefficients and 95% confidence intervals for park amenities at different socioeconomic threshold levels.", fig.height=7.5, cache = FALSE}
+tar_load(split_dat)
 
 # make the plot
 these_colors <- c(wesanderson::wes_palettes$Darjeeling1, "#046C9A")
-split_plots <- ggplot(dat, aes(x = share, y = estimate, 
+split_plots <- ggplot(split_dat, aes(x = share, y = estimate, 
                                ymin = conf.low, ymax = conf.high, 
                 color = Segmentation, fill = Segmentation)) + 
   theme_minimal() +

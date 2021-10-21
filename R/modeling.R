@@ -110,6 +110,20 @@ estimate_all_splits <- function(estim){
 
 
 make_split_dat <- function(split_models){
+  
+  this_map = c(
+    "yj_distance" = "log(Distance)",
+    "yj_acres" = "log(Acres)",
+    "playgroundTRUE" = "Playground",
+    "trailTRUE" = "Trail",
+    "pitchTRUE" = "Sport Field",
+    "basketballTRUE" = "Basketball",
+    "baseballTRUE" = "Baseball",
+    "`football / soccer`TRUE" = "Football / Soccer",
+    "tennisTRUE" = "Tennis",
+    "volleyballTRUE" = "Volleyball",
+    "other_pitchTRUE" = "Other Sport"
+  )
   # extract the coefficients you need to plot
   modelplot(split_models$mnl %>% 
                      setNames(str_c(split_models$Segmentation, split_models$share, sep = "_")),
