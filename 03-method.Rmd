@@ -1,8 +1,6 @@
 # Methodology {#methodology}
 
 ```{r setup, include = FALSE}
-knitr::opts_chunk$set(cache = TRUE)
-
 inline_hook <- function(x) {
   if (is.numeric(x)) {
     format(x, digits = 3, big.mark = ",")
@@ -11,7 +9,7 @@ inline_hook <- function(x) {
 knitr::knit_hooks$set(inline = inline_hook)
 
 if(knitr::is_latex_output()){
-  knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, cache = TRUE)
+  knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 }
 
 library(targets)
@@ -24,6 +22,7 @@ library(leaflet)
 library(tidycensus)
 library(modelsummary)
 library(knitrProgressBar)
+
 basetiles <- providers$CartoDB.Positron
 this_crs <- 2227 # EPSG:2227 – NAD83 / California zone 3 (ftUS)
 bb <- getbb("Alameda County, California", format_out = "polygon")

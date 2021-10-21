@@ -1,15 +1,14 @@
 # Results {#results}
 
-```{r estimation-setup, message=FALSE, warning=FALSE, cache = FALSE}
+```{r estimation-setup, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(mlogit)
 library(modelsummary)
 library(broom)
 library(kableExtra)
 library(sf)
-library(ggmap)
+library(ggspatial)
 library(leaflet)
-knitr::opts_chunk$set(cache = TRUE)
 
 inline_hook <- function(x) {
   if (is.numeric(x)) {
