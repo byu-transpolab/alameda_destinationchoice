@@ -17,26 +17,6 @@ inline_hook <- function(x) {
   } else x
 }
 knitr::knit_hooks$set(inline = inline_hook)
-# overloaded methods for doing prediction with mlogit objects
-source("R/methods.R")
-
-# function to index a tibble for mnl estimation
-logit_converter <- function(df) {
-  dfidx(df, idx = list("id", "alt"), shape = "long",  
-      choice = "chosen", idnames = "id", drop.index = FALSE)
-}
-
-# function to estimate the mnl model on a subset of data
-group_mnl <- function(df){
-  tryCatch({
-    mlogit(chosen ~ yj_distance + yj_acres + playground + baseball +  basketball +
-             `football / soccer` + other_pitch + volleyball + tennis + trail | -1,
-           data = df)
-  }, error = function(e){
-    warning(e, "could not estimate mnl")
-    return(NA)
-  })
-}
 
 this_map = c(
     "yj_distance" = "log(Distance)",
@@ -62,13 +42,6 @@ this_crs <- 2227 # EPSG:2227 – NAD83 / California zone 3 (ftUS)
 ```
 
 
-```{r load}
-logitdata <- read_rds("data/logitdata.rds")
-dfi <- logit_converter(logitdata)
-valid <- filter(dfi, validation)
-estim <- dfi
-```
-
 We estimated multinomial logit park activity location choice models on the
 datset described in the previous section. We applied a Yeo-Johnson
 transformation [@Yeo2000] to both the walk distance (in meters) between the
@@ -81,17 +54,8 @@ distances and sizes; a one-mile increase to a trip distance matters more to a
 two-mile trip than a ten-mile trip.
 
 ```{r base_models}
-base_models <- list(
-  "Network Distance"   = mlogit(
-    chosen ~ yj_distance + yj_acres | -1 ,  data = estim),
-  "Park Attributes"    = mlogit(
-    chosen ~ yj_distance + yj_acres +  playground + trail + pitch | -1 , 
-    data = estim),
-  "Sport Detail"    = mlogit(
-    chosen ~ yj_distance + yj_acres + playground + baseball +  basketball +
-      `football / soccer` + other_pitch + volleyball + tennis + trail | -1 , 
-    data = estim)
-)
+tar_load(base_models)
+
 detail_lrt <- lrtest(base_models[[2]], base_models[[3]])$`Pr(>Chisq)`[2]
 d_ratio_base <- -1 * coefficients(base_models$`Network Distance`)[1] / 
   coefficients(base_models$`Network Distance`)[2] 
@@ -139,43 +103,6 @@ modelsummary(
 ```
 
 
-```{r grouped_models}
-minority_models <- estim %>%
-  mutate(group = case_when( black > 30 ~ "black", asian > 30 ~ "asian", 
-                            hispanic > 30 ~ "hispanic", TRUE ~ "othermin"
-  )) %>%
-  filter(!is.na(group)) %>%
-  group_by(group) %>% nest() %>% ungroup() %>%
-  mutate(
-    data = map(data, logit_converter),
-    mnl = map(data, group_mnl)
-  ) 
-income_models <- estim %>%
-  mutate(group = case_when(lowincome > 30 ~ "lowincome", 
-                           highincome > 50 ~ "highincome", TRUE ~ "otherinc")) %>%
-  filter(!is.na(group)) %>%
-  group_by(group) %>% nest() %>% ungroup() %>%
-  mutate(
-    data = map(data, logit_converter),
-    mnl = map(data, group_mnl)
-  )
-child_models <- estim %>%
-  mutate(group = case_when(children > 25 ~ "children", 
-                           children < 5 ~ "few children", TRUE ~ "otherch")) %>%
-  filter(!is.na(group)) %>%
-  group_by(group) %>% nest() %>% ungroup() %>%
-  mutate(
-    data = map(data, logit_converter),
-    mnl = map(data, group_mnl)
-  )
-
-grouped_models <- lapply(list(child_models, income_models, minority_models), 
-                       function(df){
-  lapply(df$mnl, function(x) x) %>% 
-    set_names(nm = c(df$group)) 
-}) %>%
-  unlist(recursive = FALSE)
-```
 
 It is worth investigating the heterogeneity in preferences that exist among
 populations. Though the income and ethnicity of the synthetic park visitors is
@@ -194,6 +121,7 @@ share of households with children under 6 years old. Again, we use the threshold
 definitions largely informed by the distributions in Table \@ref(tab:acs-table).
 
 ```{r grouped-modelsummary}
+tar_load(grouped_models)
 grouped_models_clean <- list(
   "> 30% Asian" = grouped_models$asian,
   "> 30% Black" = grouped_models$black,
@@ -219,8 +147,7 @@ modelsummary(
   scroll_box(width = "100%", box_css = "border: 0px;") %>%
   landscape() %>%
   kable_styling(latex_options = c("striped", "scale_down")) %>%
-   add_footnote(
-  "Simulated individuals segmented based on the share of households meeting the segmentation threshold in the residence block group.")
+  add_footnote("Simulated individuals segmented based on the share of households meeting the segmentation threshold in the residence block group.")
 
 ```
 
@@ -234,34 +161,7 @@ park, but receive more utility from certain amenities, in particular trails and
 tennis courts. Block groups with a high proportion of Hispanic residents and
 residents with children under 6 show the least negative response to playgrounds
 of all the segments.
-
   
-```{r split_models, cache.lazy = FALSE}
-# write a function to estimate multiple MNL models on different 
-# segments of the estimation data
-estimate_split_models <- function(data, var, splits) {
-  #print(var)
-  lapply(splits, function(p){
-    #print(p)
-    data %>% 
-      filter(.data[[var]] > p) %>% tibble() %>%
-      mutate(share = p)
-  }) %>%
-    bind_rows() %>% group_by(share) %>% nest() %>%
-    mutate(
-      data = map(data, logit_converter),
-      mnl = map(data, group_mnl),
-      coef = map(mnl, tidy)
-    )
-}
-
-splits <- c(0, 5, 10, 15, 20, 30, 40)
-split_models <- lapply(c("black", "asian", "hispanic", "lowincome", "highincome", "children"), function(var) {
-  estimate_split_models(estim, var, splits) %>%
-    mutate(Segmentation = var)
-}) %>% bind_rows() 
-```
-
 Seeing that there is a difference in the response in the model segmentation, it
 is also worth considering the role of our segmentation thresholds in these
 findings. Figure \@ref(fig:split-plots) shows the estimated coefficients and
@@ -286,22 +186,7 @@ the highest affinity for playgrounds, and park goers from neighborhoods with a
 greater share of Black individuals are most sensitive to distance and least
 sensitive to park size.
 
-```{r split-plots, fig.cap="Estimated utility coefficients and 95% confidence intervals for park amenities at different socioeconomic threshold levels.", fig.height=7.5, cache = FALSE}
-# extract the coefficients you need to plot
-dat <- modelplot(split_models$mnl %>% 
-            setNames(str_c(split_models$Segmentation, split_models$share, sep = "_")),
-          coef_map = this_map, draw = FALSE) %>%
-  separate(model, into = c("Segmentation", "share"), convert = TRUE, sep = "_") %>%
-  mutate(
-    Segmentation = case_when(
-      Segmentation == "black" ~ "Black",
-      Segmentation == "asian" ~ "Asian",
-      Segmentation == "hispanic" ~ "Hispanic",
-      Segmentation == "lowincome" ~ "Income < $35k",
-      Segmentation == "highincome" ~ "Income > $125k",
-      Segmentation == "children" ~ "Children under 6"
-    )
-  )
+```{r split-plots, eval=FALSE, fig.cap="Estimated utility coefficients and 95% confidence intervals for park amenities at different socioeconomic threshold levels.", fig.height=7.5, cache = FALSE}
 
 # make the plot
 these_colors <- c(wesanderson::wes_palettes$Darjeeling1, "#046C9A")
@@ -333,70 +218,6 @@ to different income and ethnic groups. In this analysis, we apply the "Sport Det
 non-segmented model from Table \@ref(tab:base-modelsummary), as it had the best
 fit of these models. 
 
-
-```{r street_distances}
-# distances computed in py/shortest_paths.py
-shortest_path_dir <- "data/shortest_paths_street"
-if(!dir.exists(shortest_path_dir)) {
-  system2("7z", args = c("x", "data/shortest_paths_street.7z", "-odata/"))
-}
-path_files <- dir("data/shortest_paths_street/", full.names = TRUE)
-street_distances <- lapply(path_files, function(file) {
-  read_csv(file, col_types = list(geoid = col_character(), park_id = col_character())) %>%
-  mutate(
-    yj_distance = VGAM::yeo.johnson(distance, lambda = 0),
-    yj_euc_dist = VGAM::yeo.johnson(euc_dist, lambda = 0)
-  )
-}) %>%
-  bind_rows() %>%
-  rename(home = geoid, park = park_id) %>%
-  mutate(home = str_pad(home, width = 12, side = "left", pad = "0"))
-```
-
-
-```{r choices}
-# read data on streets and distances
-distance_df <- read_rds("data/distances.rds")
-street_parks <- read_rds("data/street_parks.rds")
-attributed_parks <- read_rds("data/attributed_parks.rds") %>%
-  mutate(chosen = FALSE) %>% ungroup()
-attributed_parks$chosen[55] <- TRUE
-
-# create base situation prediction dataset
-base_choices <- distance_df %>%
-  left_join(attributed_parks, by = c("park" = "id")) %>% 
-  rename(id = home, alt = park) %>%
-  logit_converter()
-
-# create streets situation prediction dataset, augmented by street parks
-street_choices <-  left_join(
-  bind_rows(street_distances, distance_df),
-  bind_rows(street_parks %>% mutate(chosen = FALSE, attractions = FALSE), 
-            attributed_parks),
-  by = c("park" = "id")) %>%
-  rename(id = home, alt = park) %>%
-  logit_converter()
-```
-
-
-```{r logsums_orig}
-logsums <- lapply(list("Base" = base_choices, "Streets" = street_choices), function(df){
-  u <- predict(base_models$`Sport Detail`, newdata = df, type = "linpred")
-  logsum <- log(rowSums(exp(u)))
-  list( u = u, logsum = logsum )
-})
-
-logsums_tibble <- tibble(
-  geoid = names(logsums$Base$logsum),
-  base = logsums$Base$logsum,
-  streets = logsums$Streets$logsum
-)
-
-blockgroups <- read_rds("data/blockgroups.rds") %>%
-  left_join(logsums_tibble, by = "geoid") %>%
-  mutate(diff_ls = (streets - base) / 0.215)
-```
-
 Figure \@ref(fig:logsumsmap) presents this monetary valuation spatially.
 Unsurprisingly, the benefits are concentrated in the block groups surrounding
 the opened streets. Most residents of central Oakland see a benefit of somewhere
@@ -409,6 +230,8 @@ for most block groups away from where the street openings occurred.
 ```{r logsumsmap, fig.cap="Monetary value of street opening to residents based on utility change. Streets converted to pedestrian plazas are shown in black.", cache=FALSE}
 bins <- c(0, 0.1, 0.25, 0.5, 1, 2, 10, 35)
 mypal <- as.character(wesanderson::wes_palette("Zissou1", n = 7, type = "continuous"))
+tar_load(logsums)
+tar_load(street_parks)
 
 if(knitr::is_latex_output()) {
   ggplot() +
@@ -477,42 +300,8 @@ than expected share of benefits is allocated to Asian individuals and households
 making more than $125,000 per year.
 
 ```{r equity}
-# percent of households / individuals in each group
-demovars <- c("children", "lowincome", "highincome", "black", 
-              "asian", "hispanic", "white", "all")
-demonames <- c("Households with Children under 6", "Income < $35k",
-               "Income > $125k", "Black", "Asian", "Hispanic", "White", 
-               "All Households")
-
-# Raw demographic totals
-pop_dist <- blockgroups %>% st_set_geometry(NULL) %>% as_tibble()  %>%
-  mutate(all = 100) %>%
-  mutate_at( demovars, (~ ./100 * households)) %>%
-  select(all_of(demovars)) %>%
-  summarise_all(~sum(., na.rm = TRUE)) %>%
-  gather("group", "population") %>%
-  mutate(
-    `pct_pop` = population / population[length(demonames)] * 100 
-  )
-
-bene_dist <- blockgroups %>% st_set_geometry(NULL) %>% as_tibble()  %>%
-  # benefit is the choice benefit * households * proportion of category 
-  mutate(all = 100) %>%
-  mutate_at( demovars, (~ ./100 * households * diff_ls)) %>%
-  select(all_of(demovars)) %>%
-  summarise_all(~sum(., na.rm = TRUE)) %>%
-  gather("group", "benefit")    %>% 
-  mutate(
-    pct_benefit = benefit / benefit[length(demonames)] * 100 
-  ) 
-
-left_join( bene_dist, pop_dist, by = "group" ) %>%
-  mutate(
-    group = demonames,
-    group = fct_relevel(group, "All Households", after = 1),
-    benefit = scales::dollar(benefit),
-    population = scales::comma(population)
-  ) %>%
+tar_load(benefits)
+benefits %>%
   kbl(caption = "Equity Distribution of Street Opening Benefits", booktabs = TRUE, 
       col.names = c("Group", "Benefit", "Percent* of Benefits", "Households**", 
                     "Percent of Households"),

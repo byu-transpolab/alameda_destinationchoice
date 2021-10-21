@@ -21,3 +21,5 @@ data/streets/
 alameda_destinationchoice_files/*
 alameda_destinationchoice_cache/*
 rosm.cache/
+
+_targets/
