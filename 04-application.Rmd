@@ -128,11 +128,11 @@ modelsummary(
   title = "Estimated Model Coefficients with Block Group Segmentations",
   note = "Standard errors in parentheses."
 ) %>%
+  add_footnote("Simulated individuals segmented based on the share of households meeting the segmentation threshold in the residence block group.") %>%
   add_header_above(c(" " = 1, "Race/Ethnicity" = 4, "Income" = 3, "Children" = 3)) %>%
   scroll_box(width = "100%", box_css = "border: 0px;") %>%
   landscape() %>%
-  kable_styling(latex_options = c("striped", "scale_down")) %>%
-  add_footnote("Simulated individuals segmented based on the share of households meeting the segmentation threshold in the residence block group.")
+  kable_styling(latex_options = c("striped", "scale_down")) 
 
 ```
 
