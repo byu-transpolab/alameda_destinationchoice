@@ -246,7 +246,7 @@ if(knitr::is_latex_output()) {
           text = element_text(size=8))
     
 } else {
-  diff_pal <- colorBin(palette = mypal, domain = blockgroups$diff_ls, bins = bins )
+  diff_pal <- colorBin(palette = mypal, domain = logsums$diff_ls, bins = bins )
   
   leaflet(logsums %>% st_transform(4326)) %>%
     addProviderTiles(providers$Esri.WorldGrayCanvas) %>%
