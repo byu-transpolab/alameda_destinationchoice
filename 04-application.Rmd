@@ -248,11 +248,11 @@ if(knitr::is_latex_output()) {
 } else {
   diff_pal <- colorBin(palette = mypal, domain = blockgroups$diff_ls, bins = bins )
   
-  leaflet(blockgroups %>% st_transform(4326)) %>%
+  leaflet(logsums %>% st_transform(4326)) %>%
     addProviderTiles(providers$Esri.WorldGrayCanvas) %>%
     addPolygons(fillColor = ~diff_pal(diff_ls), 
                 stroke = FALSE, fillOpacity = 1) %>%
-    addPolylines(data = slowstreets %>% st_transform(4326), color = "grey") %>%
+    addPolylines(data = street_parks %>% st_transform(4326), color = "grey") %>%
     addLegend("bottomleft", pal = diff_pal, values = ~diff_ls, title = "Value of Street Opening")
 }
 ```
