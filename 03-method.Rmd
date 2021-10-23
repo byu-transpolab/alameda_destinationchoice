@@ -156,7 +156,7 @@ that it represented the weighted unique devices traveling between block groups
 and parks. We discarded home location block groups outside of Alameda County;
 the imputed home locations can be far away from the study area for a small
 amount of trips and are unlikely to represent common or repeated park
-activities. Table \@ref(tab:park-attributes) presents descriptive statistics on
+activities. Table \@ref(tab:parkstable) presents descriptive statistics on
 the `r nrow(parks)` parks assembled for this study, grouped according to the
 park type as defined on CPAD. A little more than half of the parks have
 identified paths, while around 40% of the identified parks have playgrounds and
