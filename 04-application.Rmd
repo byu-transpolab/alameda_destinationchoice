@@ -187,6 +187,8 @@ sensitive to park size.
 
 ```{r split-plots, fig.cap="Estimated utility coefficients and 95% confidence intervals for park amenities at different socioeconomic threshold levels.", fig.height=7.5, cache = FALSE}
 tar_load(split_dat)
+tex_labels = c("Asian", "Black", "Children under 6", "Hispanic",  
+               "Income $<$ \\$ 35k", "Income $>$ \\$ 125k" )
 
 # make the plot
 these_colors <- c(wesanderson::wes_palettes$Darjeeling1, "#046C9A")
@@ -197,15 +199,20 @@ split_plots <- ggplot(split_dat, aes(x = share, y = estimate,
   geom_line() + 
   geom_ribbon(alpha = 0.05, size = 0.1, lty = "dotted") + 
   facet_wrap(~ fct_rev(term), scales = "free_y", ncol = 3)  + 
-  scale_color_manual(values = these_colors) + 
-  scale_fill_manual(values = these_colors) + 
   xlab("Percent of Block Group Population") + 
-  ylab("Estimated coefficient and 95% confidence interval")
+  ylab("Estimated coefficient and 95\\% confidence interval")
 
 if(knitr::is_latex_output()) {
+  split_plots <- split_plots + 
+    scale_color_manual(values = these_colors,labels = tex_labels) +
+    scale_fill_manual(values = these_colors, labels = tex_labels) + 
+    theme(text = element_text(size=8))
+    
   lemon::reposition_legend(split_plots, position = 'top left', panel = "panel-3-4")
 } else {
-  plotly::ggplotly(split_plots)
+  plotly::ggplotly(split_plots +
+                     scale_color_manual(values = these_colors) + 
+                     scale_fill_manual(values = these_colors) )
 }
 ```
 
@@ -241,7 +248,7 @@ if(knitr::is_latex_output()) {
              ylim = c( 37.74098, 37.87028), expand = FALSE) + 
     geom_sf(data = logsums %>% st_transform(3857), inherit.aes = FALSE,
             aes(fill = cut(diff_ls, breaks = bins)), lwd = 0) + 
-    scale_fill_manual("Monetary Benefit ($)", values = mypal) +
+    scale_fill_manual("Monetary Benefit (\\$)", values = mypal) +
     geom_sf(data = street_parks,  color = "black", inherit.aes = FALSE) + 
     theme(axis.line = element_line(color = NA),
           axis.title.x=element_blank(),
@@ -249,7 +256,8 @@ if(knitr::is_latex_output()) {
           axis.ticks.x=element_blank(),
           axis.title.y=element_blank(),
           axis.text.y=element_blank(),
-          axis.ticks.y=element_blank())
+          axis.ticks.y=element_blank(),
+          text = element_text(size=8))
     
 } else {
   diff_pal <- colorBin(palette = mypal, domain = blockgroups$diff_ls, bins = bins )
