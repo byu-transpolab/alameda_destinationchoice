@@ -14,23 +14,18 @@ if(knitr::is_latex_output()){
 }
 
 library(targets)
-library(here)
-library(osmdata)
 library(sf)
 library(tidyverse)
 library(ggspatial)
 library(leaflet)
-library(tidycensus)
 library(modelsummary)
-library(knitrProgressBar)
+library(mlogit)
+library(kableExtra)
 
 basetiles <- providers$CartoDB.Positron
 this_crs <- 2227 # EPSG:2227 – NAD83 / California zone 3 (ftUS)
-bb <- getbb("Alameda County, California", format_out = "polygon")
 options(tigris_use_cache = TRUE)
 options(dplyr.summarise.inform = FALSE)
-
-source("R/methods.R")
 ```
 
 In this section, we describe the methodology we follow for this analysis.

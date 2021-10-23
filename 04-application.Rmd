@@ -1,21 +1,7 @@
 # Results {#results}
 
 ```{r estimation-setup, message=FALSE, warning=FALSE}
-library(tidyverse)
-library(mlogit)
-library(modelsummary)
-library(broom)
-library(kableExtra)
-library(sf)
-library(ggspatial)
-library(leaflet)
 
-inline_hook <- function(x) {
-  if (is.numeric(x)) {
-    format(x, digits = 3, big.mark = ",")
-  } else x
-}
-knitr::knit_hooks$set(inline = inline_hook)
 
 this_map = c(
     "yj_distance" = "log(Distance)",
