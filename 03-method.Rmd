@@ -69,6 +69,7 @@ Oakland Zoo) and facilities whose boundaries conflated with freeway right-of-way
 – this prevents trips through the park from being conflated with park trips in
 the passive origin-destination data.
 
+From this initial parks polygon dataset, we obtained park attribute information 
 through OpenStreetMap (OSM) using the `osmdata` package for R [@osmdata]. Three
 attribute elements are considered in this analysis. First, we identify
 playgrounds using OSM facilities given a `leisure = playground` tag. The tagged
