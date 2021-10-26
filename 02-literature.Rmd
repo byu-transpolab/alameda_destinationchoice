@@ -1,10 +1,12 @@
 # Literature {#literature}
 
 Understanding the equity benefit distribution of park access requires us to
-consider two integrated but rather distinct literatures. First, we consider the
+consider multiple literatures. First, we consider the
 disparity in park utility perception among different populations. We
 subsequently consider quantitative techniques to evaluate the access that
-individuals have to park facilities.
+individuals have to park facilities. Finally, we consider recent research 
+documenting and analyzing street conversions instigated by the COVID-19
+pandemic.
 
 ## Sociodemographic variation in park utility
 
