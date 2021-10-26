@@ -323,9 +323,13 @@ The sampled origin-destination pair gives the home location as well as the
 choice set contains all the parks in our dataset; in practice it can be
 difficult to estimate choice models with so many alternatives ($|J| =  `r nrow(parks)`$). 
 For this reason we randomly sample `r n_alts` additional parks
-to serve as the non-chosen alternatives for our synthetic choice maker. Such
+to serve as the non-chosen alternatives, with a different set of 10 parks for 
+each synthetic choice maker. Such
 random sampling of alternatives reduces the efficiency of the estimated
-coefficients but the coefficients remain unbiased [@train2009]. As the model has
+coefficients but the coefficients remain unbiased [@train2009]; a more elegant 
+sampling approach might have resulted in smaller estimated standard errors, 
+but the estimation results (presented below) suggest this is not a concern in 
+this application. As the model has
 no alternative-specific constants, the standard likelihood comparison statistic
 against the market shares model $\rho^2$ is not computable. We instead use the
 likelihood comparison against the equal shares model $\rho_0^2$.

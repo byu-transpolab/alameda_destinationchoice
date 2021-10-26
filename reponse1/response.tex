@@ -45,7 +45,35 @@ pandemic.
 
 \RC First, it is unclear to me whether the same 10 additional parks are used for each synthetic choice maker’s choice set, or whether a new random selection of 10 additional parks is done for each choice maker.
 
+\AR It is a different set of 10 parks for each synthetic choice maker. We have clarified this in the manuscript as
+
+\begin{quote}
+	For this reason we randomly sample 10 additional parks
+	to serve as the non-chosen alternatives\DIFdelbegin \DIFdel{for our }\DIFdelend \DIFaddbegin \DIFadd{, with a different set of 10 parks for
+	each }\DIFaddend synthetic choice maker.
+\end{quote}
+
 \RC Second, the authors should discuss how reasonable their selection of choice sets is. I understand that it’s impractical to estimate a choice model with 500 alternatives. But how realistic are the choice sets of 10 randomly selected parks? Is there a way to generate more realistic choice sets without biasing the model results?
+
+\AR The estimates of a choice model with random sampling of alternatives are
+known to be unbiased but inefficient relative to either  a complete choice set
+or a more carefully constructed sampling scheme \citep{train2009}. In this case,
+we observe that it would be difficult to create a realistically weighted
+alternative set (the ten  nearest parks? The three nearest parks, two major
+regional parks, and five at random? Something else?) that is itself unbiased. We
+also observe that the problem of efficiency is not a challenge in this analysis;
+virtually all estimated parameters would not change their level of significance
+or interpretation with marginally more precise estimates. We have added the following
+to the methodology discussion:
+
+\begin{quote}
+	Such
+ random sampling of alternatives reduces the efficiency of the estimated
+ coefficients but the coefficients remain unbiased \citep{train2009}\DIFaddbegin \DIFadd{; a more elegant
+ sampling approach might have resulted in smaller estimated standard errors,
+ but the estimation results (presented below) suggest this is not a concern in
+ this application}\DIFaddend .
+\end{quote}
 
 \RC Third, the authors should provide more justification for their choice of cost coefficient since there are no cost variables in their model. Why is the chosen cost coefficient reasonable and not arbitrary? Did the authors explore other options?
 
