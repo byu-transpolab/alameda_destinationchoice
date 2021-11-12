@@ -181,10 +181,12 @@ recreational trip modeling and location choice modeling more generally.
 \section{Literature}\label{literature}}
 
 Understanding the equity benefit distribution of park access requires us to
-consider two integrated but rather distinct literatures. First, we consider the
+consider multiple literatures. First, we consider the
 disparity in park utility perception among different populations. We
 subsequently consider quantitative techniques to evaluate the access that
-individuals have to park facilities.
+individuals have to park facilities. Finally, we consider recent research
+documenting and analyzing street conversions instigated by the COVID-19
+pandemic.
 
 \hypertarget{sociodemographic-variation-in-park-utility}{%
 \subsection{Sociodemographic variation in park utility}\label{sociodemographic-variation-in-park-utility}}
@@ -493,6 +495,7 @@ Oakland Zoo) and facilities whose boundaries conflated with freeway right-of-way
 -- this prevents trips through the park from being conflated with park trips in
 the passive origin-destination data.
 
+From this initial parks polygon dataset, we obtained park attribute information
 through OpenStreetMap (OSM) using the \texttt{osmdata} package for R \citep{osmdata}. Three
 attribute elements are considered in this analysis. First, we identify
 playgrounds using OSM facilities given a \texttt{leisure\ =\ playground} tag. The tagged
@@ -696,7 +699,10 @@ coefficient \(\beta\)
 gives an estimate of the benefit received by person \(n\) in monetary terms. Thus,
 such a ``utility-based'' accessibility term is continuously defined, contains
 multiple dimensions of the attributes of the choice, and can be evaluated in
-monetary terms \citep{Handy1997, Dong2006}.
+monetary terms \citep{Handy1997, Dong2006}. Note also that the logsum increases
+with the size of the choice set: if a new alternative \(q\) is added to \(J\), then
+\(\ln\sum_{j\in J}\exp(V_j) < \ln(\sum_{j\in J}\exp(V_j) + \exp(V_q))\) for
+any value of \(V_q\).
 
 In the most typical cases, researchers estimate the utility coefficients for
 destination choice models from household travel surveys. For example, the
@@ -715,9 +721,13 @@ The sampled origin-destination pair gives the home location as well as the
 choice set contains all the parks in our dataset; in practice it can be
 difficult to estimate choice models with so many alternatives (\(|J| = 500\)).
 For this reason we randomly sample 10 additional parks
-to serve as the non-chosen alternatives for our synthetic choice maker. Such
+to serve as the non-chosen alternatives, with a different set of 10 parks for
+each synthetic choice maker. Such
 random sampling of alternatives reduces the efficiency of the estimated
-coefficients but the coefficients remain unbiased \citep{train2009}. As the model has
+coefficients but the coefficients remain unbiased \citep{train2009}; a more elegant
+sampling approach might have resulted in smaller estimated standard errors,
+but the estimation results (presented below) suggest this is not a concern in
+this application. As the model has
 no alternative-specific constants, the standard likelihood comparison statistic
 against the market shares model \(\rho^2\) is not computable. We instead use the
 likelihood comparison against the equal shares model \(\rho_0^2\).
@@ -738,28 +748,25 @@ park choice utilities and utility-based accessibility values for each block
 group in Alameda County. As shown with Equation \eqref{eq:deltalogsum}, the
 difference in utility-based accessibility values with and without the opened
 streets is the additional consumer surplus provided by the policy, converted into a
-monetary value by a cost-utility coefficient. The dataset used for this research
+monetary value by a cost-utility coefficient. The purpose of converting the logsum
+into a monetary value is to scale the benefits in terms that analysts and
+policy makers can compare
+more easily than raw utility values. The dataset used for this research
 does not have any information on travel costs or entrance fees, and such data
 would likely not be relevant in the context of urban parks. As a result, there
 is no direct link between the utility and a monetary cost in our estimated
 models.
 
 As a substitution, we use an estimate of the cost coefficient obtained from the
-open-source activity-based travel demand model ActivitySim \citep{activitysim}, which is itself
-based on the regional travel model employed by the Metropolitan Transportation
-Commission (MTC), the San Francisco Bay regional MPO. ActivitySim uses a cost
-coefficient of \(-0.6\) divided by the each simulated agent's value of time to
-determine destination choices for non-work trips.\footnote{To be precise, this is the
-  cost coefficient on the mode choice model for social, recreational, and other
-  trip purposes, which influences destination choice through a logsum-based
-  impedance term.} In ActivitySim, as in most activity-based travel models, the
-value of time is considered to vary with an individual's income, but in this
-aggregate destination choice model, an aggregate value of time will suffice. The
-average value of time in the synthetic population for the Bay Area is \$7.75 per
-hour, resulting in a cost coefficient on the destination choice utility of
-\(-0.215\). Dividing the difference in accessibility logsums by the negative of
-this value gives an initial estimate of the monetary value of the policy to each
-park user.
+Metropolitan Transportation Commission (MTC, San Francisco Bay regional MPO)
+``Travel Model One'' activity-based travel demand model \citep{mtctm1}. In this model,
+the utility of destination choice for social and recreational trips uses
+the mode choice model logsum as an impedance measure.
+The mode choice model cost coefficient varies with each individual's value of time.
+The average value of time in the synthetic population for the calibration
+scenario is \$7.75 per hour. Dividing that value of time by the in-vehicle
+travel time parameter of \(-0.018\) results in an implied mode choice cost coefficient of
+\((-0.018 /min * 60 min / hr)/ (7.75 \$/hr) = -0.139 / \$\).
 
 \hypertarget{results}{%
 \section{Results}\label{results}}
@@ -770,7 +777,7 @@ transformation \citep{Yeo2000} to both the walk distance (in meters) between the
 park and the block group centroid, and to the park acreage. The Yeo-Johnson
 transformation replicates the constant marginal elasticity of a logarithmic
 transformation while avoiding undefined values (e.g., \(YJ(0) = 0\)). For
-simplicity, we call this transformation \texttt{log()} in the model results tables.
+simplicity, we call this transformation \(\log()\) in the model results tables.
 Using a constant marginal elasticity is better reflective of how people perceive
 distances and sizes; a one-mile increase to a trip distance matters more to a
 two-mile trip than a ten-mile trip.
@@ -780,8 +787,8 @@ each estimated model. The ``Network Distance'' model, which only considers the
 distance to the park and the size of the park. results in significant estimated
 coefficients of the expected sign. That is, individuals will travel further
 distances to reach larger parks. The ratio of the estimated coefficients implies
-that on average, people will travel 3.47 times further to reach a
-park twice as large.
+that on average, people will travel twice as far to reach a park 3.47
+times as large.
 
 Table \ref{tab:base-modelsummary} also shows the results of the ``Park
 Attributes'' model, which represents the presence of any sport field with a
@@ -1011,15 +1018,15 @@ making more than \$125,000 per year.
 \toprule
 Group & Benefit & Percent* of Benefits & Households** & Percent of Households\\
 \midrule
-Households with Children under 6 & \$94,135 & 14.10 & 83,868 & 14.53\\
-Income < \$35k & \$144,723 & 21.68 & 90,762 & 15.73\\
-Income > \$125k & \$212,981 & 31.91 & 229,963 & 39.84\\
-Black & \$121,210 & 18.16 & 61,971 & 10.74\\
-Asian & \$128,677 & 19.28 & 167,135 & 28.96\\
+Households with Children under 6 & \$145,604 & 14.10 & 83,868 & 14.53\\
+Income < \$35k & \$223,853 & 21.68 & 90,762 & 15.73\\
+Income > \$125k & \$329,431 & 31.91 & 229,963 & 39.84\\
+Black & \$187,483 & 18.16 & 61,971 & 10.74\\
+Asian & \$199,032 & 19.28 & 167,135 & 28.96\\
 \addlinespace
-Hispanic & \$149,134 & 22.34 & 119,013 & 20.62\\
-White & \$227,410 & 34.07 & 194,263 & 33.66\\
-All Households & \$667,441 & 100.00 & 577,177 & 100.00\\
+Hispanic & \$230,674 & 22.34 & 119,013 & 20.62\\
+White & \$351,749 & 34.07 & 194,263 & 33.66\\
+All Households & \$1,032,372 & 100.00 & 577,177 & 100.00\\
 \bottomrule
 \multicolumn{5}{l}{\rule{0pt}{1em}\textsuperscript{*} As individuals and households will belong in multiple groups, the percents do not sum to 100.}\\
 \multicolumn{5}{l}{\rule{0pt}{1em}\textsuperscript{\dag} Race and ethnicity are person-level attributes; households are assumed to follow the same distribution.}\\
@@ -1051,7 +1058,7 @@ trip the device-holder actually accomplished at each park. These limitations
 combined mean that it would likely be infeasible to directly observe devices
 that traveled to the converted streets during the COVID-19 lockdowns. The ideal
 dataset for estimating individual park activity location choices generally and
-in special situations would be a high-quality, large-sample household survey of
+in special situations remains a high-quality, large-sample household survey of
 real individuals.
 
 The individual-level demographic data would also be valuable in understanding
@@ -1087,6 +1094,18 @@ increased with improved transit service, for example. Using a mode-choice model
 logsum as a multi-modal impedance term in the activity location choice model
 would enable this kind of analysis.
 
+The monetary benefits we present in this analysis are heavily dependent on
+two separate assumptions. First, reasonable researchers might have selected
+different values of time or cost coefficients. Second, the decision to assign
+one benefit to each household could also have been made
+differently. A change in either assumption would lead to a highly different
+total benefits estimate, but it would not change the distribution of the
+benefits, which is the objective of this study. At some level, converting the
+esoteric measure of choice model logsums into a unit that can be conveniently
+compared against other policies is desirable to help the public and policy
+makers evaluate such decisions. Further research should establish guidelines and
+practices for applying accessibility logsums in monetary cost-benefit analyses.
+
 Of course, COVID-19 led to the closure of some park facilities --- playgrounds,
 pavilions, and in some cases entire parks --- that were not captured in this
 analysis. These closures would lead to a decrease in the consumer surplus for
@@ -1111,7 +1130,7 @@ were the policy to continue, be repeated, or made permanent in some way.
 In estimating these benefits, we applied an emerging technique to estimate park
 choice preferences and utility from passive mobile device data. This technique
 allowed a more nuanced measure of access that allowed us to consider the
-converted streets as providing quantitatively different access than other city
+converted streets as providing quantitatively different amenities than other city
 parks. A policy of permanently closing these streets to vehicle traffic may or
 may not have negative effects on transportation access that would need to be
 considered against the benefits we measured in this research. But utility-based
