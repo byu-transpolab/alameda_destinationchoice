@@ -80,9 +80,50 @@ to the methodology discussion:
 
 \RC Third, the authors should provide more justification for their choice of cost coefficient since there are no cost variables in their model. Why is the chosen cost coefficient reasonable and not arbitrary? Did the authors explore other options?
 
+\AR Because we are only using the cost coefficient to scale the logsum utility
+benefits and not to do rigorous cost-benefit analysis, any reasonable scalar would be sufficient.
+That said, we suggest that using the cost coefficient present in the region's
+activity-based travel model for relevant trips could hardly be characterized as
+arbitrary. Nevertheless, we have re-written the relevant paragraph to be more clear. In
+doing so, we have adopted the MTC model documentation directly, which differs
+modestly from the ActivitySim open-source model derived from it. This results in
+a new parameter value, and consequently scaled changes to the user benefits estimates.
+Though the numerical benefits have changed, our central finding related to benefit
+distribution has not been affected. The methodology to review
+
+\begin{quote}
+	As a substitution, we use an estimate of the cost coefficient obtained from the
+	\DIFdelbegin \DIFdel{open-source activity-based travel demand model ActivitySim \mbox{%DIFAUXCMD
+	\citep{activitysim}}\hspace{0pt}%DIFAUXCMD
+	, which is itself
+	based on the regional travel model employed by the }\DIFdelend Metropolitan Transportation Commission (MTC\DIFdelbegin \DIFdel{), the }\DIFdelend \DIFaddbegin \DIFadd{, }\DIFaddend San Francisco Bay regional MPO\DIFdelbegin \DIFdel{. ActivitySim uses a cost
+	coefficient of \(-0.6\) divided by the each simulated agent's value of time to
+	determine destination choices for non-work trips .}\footnote{\DIFdel{To be precise, this is the
+	  cost coefficient on the mode choice model for social, recreational, and other
+	  trip purposes, which influences destination choice through a logsum-based
+	  impedance term.}} %DIFAUXCMD
+	\addtocounter{footnote}{-1}%DIFAUXCMD
+	\DIFdel{In ActivitySim, as in most }\DIFdelend \DIFaddbegin \DIFadd{)
+	``Travel Model One'' }\DIFaddend activity-based \DIFdelbegin \DIFdel{travel models, the value of time is considered to vary with an }\DIFdelend \DIFaddbegin \DIFadd{travel demand model \mbox{%DIFAUXCMD
+	\citep{mtctm1}}\hspace{0pt}%DIFAUXCMD
+	. In this model,
+	the utility of destination choice for social and recreational trips uses
+	the mode choice model logsum as an impedance measure.
+	The mode choice model cost coefficient varies with each }\DIFaddend individual's \DIFdelbegin \DIFdel{income, but in this
+	aggregate destination choice model, an aggregate }\DIFdelend value of time\DIFdelbegin \DIFdel{will suffice}\DIFdelend .
+	The average value of time in the synthetic population for the \DIFdelbegin \DIFdel{Bay Area }\DIFdelend \DIFaddbegin \DIFadd{calibration
+	scenario }\DIFaddend is \$7.75 per hour\DIFdelbegin \DIFdel{, resulting in a cost coefficient on the destination choice utility of
+	\(-0.215\). Dividing the difference in accessibility logsums by the negative of this value gives an initial estimate of
+	the monetary value of the policy to each
+	park user}\DIFdelend . \DIFaddbegin \DIFadd{Dividing that value of time by the in-vehicle
+	travel time parameter of \(-0.018\) results in an implied mode choice cost coefficient of
+	\((-0.018 /min * 60 min / hr)/ (7.75 \$/hr) = -0.139 / \$\).
+	}\DIFaddend
+\end{quote}
+
 \subsection{Results}
 
-\RC Should the ratio of coefficients be reversed (p. 16)? Shouldn’t the coefficient for the desired amenity (in this case increased park acreage) be the numerator, divided by the coefficient for the cost (in this case distance)? Using the ratios reported in the manuscript would imply that park visitors living in block groups with a high proportion of Black and low-income residents would be willing to travel farther for bigger parks than others, contrary to the authors’ conclusion that they are “considerably more sensitive to the distance to a park” (p. 20).
+\RC Should the ratio of coefficients be reversed (p. 16)? Shouldn't the coefficient for the desired amenity (in this case increased park acreage) be the numerator, divided by the coefficient for the cost (in this case distance)? Using the ratios reported in the manuscript would imply that park visitors living in block groups with a high proportion of Black and low-income residents would be willing to travel farther for bigger parks than others, contrary to the authors’ conclusion that they are “considerably more sensitive to the distance to a park” (p. 20).
 
 \RC In the equity analysis, the authors should explain how they calculated the benefit ``for simply having more options'' (p. 20). They should also provide a citation for the proposition that ``[o]ne property of logsum-based accessibility terms is that there is some benefit for simply having more options'' (p. 20).
 
