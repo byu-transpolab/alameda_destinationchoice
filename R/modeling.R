@@ -180,7 +180,7 @@ make_logsums <- function(distance_df, attributed_parks, street_distances, street
   
   acs %>%
     left_join(logsums_tibble, by = "geoid") %>%
-    mutate(diff_ls = (streets - base) / 0.215)
+    mutate(diff_ls = (streets - base) / 0.139)
 }
 
 

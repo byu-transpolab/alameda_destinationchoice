@@ -352,25 +352,22 @@ park choice utilities and utility-based accessibility values for each block
 group in Alameda County. As shown with Equation \@ref(eq:deltalogsum), the
 difference in utility-based accessibility values with and without the opened
 streets is the additional consumer surplus provided by the policy, converted into a
-monetary value by a cost-utility coefficient. The dataset used for this research
+monetary value by a cost-utility coefficient. The purpose of converting the logsum
+into a monetary value is to scale the benefits in terms that analysts and 
+policy makers can compare
+more easily than raw utility values. The dataset used for this research
 does not have any information on travel costs or entrance fees, and such data
 would likely not be relevant in the context of urban parks. As a result, there
 is no direct link between the utility and a monetary cost in our estimated
 models.
 
 As a substitution, we use an estimate of the cost coefficient obtained from the
-open-source activity-based travel demand model ActivitySim [@activitysim], which is itself
-based on the regional travel model employed by the Metropolitan Transportation
-Commission (MTC), the San Francisco Bay regional MPO. ActivitySim uses a cost
-coefficient of $-0.6$ divided by the each simulated agent's value of time to
-determine destination choices for non-work trips.^[To be precise, this is the
-cost coefficient on the mode choice model for social, recreational, and other
-trip purposes, which influences destination choice through a logsum-based
-impedance term.] In ActivitySim, as in most activity-based travel models, the
-value of time is considered to vary with an individual's income, but in this
-aggregate destination choice model, an aggregate value of time will suffice. The
-average value of time in the synthetic population for the Bay Area is $7.75 per
-hour, resulting in a cost coefficient on the destination choice utility of
-$-0.215$. Dividing the difference in accessibility logsums by the negative of
-this value gives an initial estimate of the monetary value of the policy to each
-park user.
+Metropolitan Transportation Commission (MTC, San Francisco Bay regional MPO) 
+"Travel Model One" activity-based travel demand model [@mtctm1]. In this model,
+the utility of destination choice for social and recreational trips uses
+the mode choice model logsum as an impedance measure.
+The mode choice model cost coefficient varies with each individual's value of time.
+The average value of time in the synthetic population for the calibration 
+scenario is \$7.75 per hour. Dividing that value of time by the in-vehicle 
+travel time parameter of $-0.018$ results in an implied mode choice cost coefficient of 
+$(-0.018 /min * 60  min / hr)/ (7.75 \$/hr) = -0.139 / \$$.  
