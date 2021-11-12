@@ -95,7 +95,7 @@ were the policy to continue, be repeated, or made permanent in some way.
 In estimating these benefits, we applied an emerging technique to estimate park
 choice preferences and utility from passive mobile device data. This technique
 allowed a more nuanced measure of access that allowed us to consider the
-converted streets as providing quantitatively different access than other city
+converted streets as providing quantitatively different amenities than other city
 parks. A policy of permanently closing these streets to vehicle traffic may or
 may not have negative effects on transportation access that would need to be
 considered against the benefits we measured in this research. But utility-based
