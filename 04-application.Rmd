@@ -53,8 +53,8 @@ each estimated model. The "Network Distance" model, which only considers the
 distance to the park and the size of the park. results in significant estimated
 coefficients of the expected sign. That is, individuals will travel further
 distances to reach larger parks. The ratio of the estimated coefficients implies
-that on average, people will travel `r d_ratio_base` times further to reach a
-park twice as large.
+that on average, people will travel twice as far to reach a park `r d_ratio_base` 
+times as large.
 
 Table \@ref(tab:base-modelsummary) also shows the results of the "Park
 Attributes" model, which represents the presence of any sport field with a
