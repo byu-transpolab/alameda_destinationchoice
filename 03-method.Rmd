@@ -294,7 +294,12 @@ coefficient $\beta$
 gives an estimate of the benefit received by person $n$ in monetary terms. Thus,
 such a "utility-based" accessibility term is continuously defined, contains
 multiple dimensions of the attributes of the choice, and can be evaluated in
-monetary terms [@Handy1997;@Dong2006].
+monetary terms [@Handy1997;@Dong2006]. Note also that the logsum increases
+with the size of the choice set: if a new alternative $q$ is added to $J$, then 
+$\ln\sum_{j\in J}\exp(V_j) < \ln(\sum_{j\in J}\exp(V_j) + \exp(V_q))$ for 
+any value of $V_q$. 
+
+
 
 
 ```{r params}

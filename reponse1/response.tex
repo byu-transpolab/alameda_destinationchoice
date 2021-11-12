@@ -127,6 +127,22 @@ distribution has not been affected. The methodology to review
 
 \RC In the equity analysis, the authors should explain how they calculated the benefit ``for simply having more options'' (p. 20). They should also provide a citation for the proposition that ``[o]ne property of logsum-based accessibility terms is that there is some benefit for simply having more options'' (p. 20).
 
+\AR We are unaware of a specific citation for this claim, but the assertion is trivially derived from the logsum equation.
+If one new alternative $q$ is added to the choice set, then the logsum becomes
+ $\ln\left(\sum_{j \in J}e^{u_j} + e^{u_q}\right)$; because $e^x > 0$ everywhere,
+and because $\ln(x)$ is monotonically increasing, then it is always true that
+$\ln\sum_{j \in J}e^{u_j} < \ln\left(\sum_{j \in J}e^{u_j} + e^{u_q}\right)$. We
+have added the following sentence to the mathematical description,
+
+\begin{quote}
+	\DIFaddbegin \DIFadd{Note also that the logsum increases
+ with the size of the choice set: if a new alternative \(q\) is added to \(J\), then
+ \(\ln\sum_{j\in J}\exp(V_j) < \ln(\sum_{j\in J}\exp(V_j) + \exp(V_q))\) for
+ any value of \(V_q\).
+ }\DIFaddend
+
+\end{quote}
+
 \RC I suggest caveating the presentation of monetary benefits. Many readers might find these numbers difficult to understand and/or arbitrary (despite the preceding explanation of calculating consumer surplus in the methods section). How real are these dollar values? Do they suggest that the total value of the street closures is just \$664,628? From my perspective, the strength of the consumer surplus analysis is not in presenting dollar values. The strength is that it allows an estimation of the distribution of benefits, which could be done regardless of the value of the cost coefficient.
 
 \RC The block group segmentations indicate that the utility equations could be different for different groups. That also affects the equity analysis. It is likely that not all residents of each block group will benefit similarly from the COVID-19 street closures. This would affect the distributional equities. I suggest mentioning this caveat.
