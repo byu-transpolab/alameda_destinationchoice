@@ -23,7 +23,7 @@ trip the device-holder actually accomplished at each park. These limitations
 combined mean that it would likely be infeasible to directly observe devices
 that traveled to the converted streets during the COVID-19 lockdowns. The ideal
 dataset for estimating individual park activity location choices generally and
-in special situations would be a high-quality, large-sample household survey of
+in special situations remains a high-quality, large-sample household survey of
 real individuals.
 
 The individual-level demographic data would also be valuable in understanding
@@ -58,6 +58,19 @@ Using bare distances does not provide any detail on how access to parks might be
 increased with improved transit service, for example. Using a mode-choice model
 logsum as a multi-modal impedance term in the activity location choice model
 would enable this kind of analysis.
+
+The monetary benefits we present in this analysis are heavily dependent on
+two separate assumptions. First, reasonable researchers might have selected 
+different values of time or cost coefficients. Second, the decision to assign
+one benefit to each household could also have been made
+differently. A change in either assumption would lead to a highly different 
+total benefits estimate, but it would not change the distribution of the 
+benefits, which is the objective of this study. At some level, converting the
+esoteric measure of choice model logsums into a unit that can be conveniently
+compared against other policies is desirable to help the public and policy
+makers evaluate such decisions. Further research should establish guidelines and
+practices for applying accessibility logsums in monetary cost-benefit analyses.
+
 
 Of course, COVID-19 led to the closure of some park facilities --- playgrounds,
 pavilions, and in some cases entire parks --- that were not captured in this

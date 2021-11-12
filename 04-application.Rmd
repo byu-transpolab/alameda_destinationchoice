@@ -33,7 +33,7 @@ transformation [@Yeo2000] to both the walk distance (in meters) between the
 park and the block group centroid, and to the park acreage. The Yeo-Johnson
 transformation replicates the constant marginal elasticity of a logarithmic
 transformation while avoiding undefined values (e.g., $YJ(0) = 0$). For
-simplicity, we call this transformation `log()` in the model results tables.
+simplicity, we call this transformation $\log()$ in the model results tables.
 Using a constant marginal elasticity is better reflective of how people perceive
 distances and sizes; a one-mile increase to a trip distance matters more to a
 two-mile trip than a ten-mile trip.
