@@ -192,6 +192,35 @@ reviewer provided.
 
 \RC Another strong assumption that also poses a tread to the research's internal validity is that residents who visit open spaces, including the ones the authors focus on, is that they will travel to these places by foot, and therefore penalizing all individuals by distance instead of travel time. Of course, accounting for travel times requires access to mode choice, which some travel behaviour and physical activity mobile applications can detect. One alternative to mitigate this problem, assuming that there is no information about mode choice, is to subset from the dataset those who had a higher likelihood of had conducted their trip by foot. If this was neither an alternative, it is imperative to include a paragraph discussing how the assumption that all walked to their destinations may compromise the analysis and conclusions.
 
+\AR It is not true that we assumed that all people travelled to their
+destination on foot. We required a measure of distance between home block group
+and park, and we chose to use the distance of the walk path. This might be modestly
+longer or shorter than the drive or transit path distance. We could have used the  Euclidean
+distance instead, but in other research \citet{nycparks} saw no
+meaningful difference between the two measures.  To do as the reviwer suggests
+by incorporating the observed mode of travel would
+require not just information on how the person accessed the park that they
+chose, but \textbf{also how they would have reached their alternative park
+destinations}, which is not available other than as a probability. We include a
+paragraph in the limitations discussing the limits of this assumption, and call
+for future research (now underway) to use the mode choice model logsum instead
+of travel time by any single mode.
+
+\begin{quote}
+	The distance to a park was represented in this study using a walk network
+	retrieved from the OpenStreetMap project. Though perhaps superior to a Euclidean
+	distance, this measure still has many limitations. First, we were unable to
+	verify the integrity of the underlying network information; based on our prior
+	experience, it is likely that some broken or improperly connected links
+	artificially inflated the measured distance for an unknown number of park /
+	block group pairs. A more serious limitation, however, is that experienced
+	travel distances are a function of the transport mode employed by the traveler.
+	Using bare distances does not provide any detail on how access to parks might be
+	increased with improved transit service, for example. Using a mode-choice model
+	logsum as a multi-modal impedance term in the activity location choice model
+	would enable this kind of analysis.
+\end{quote}
+
 \subsection{Causal Effects}
 
 \RC Although the motivation is a particular policy and the word 'change' is in the title, it caught my attention that the authors' research design overlooks the time dimension. While cross-sectional analyses like the one presented can contribute to the academic literature, the paper does not account for time. For instance, classifying trips by whether they occurred before and after streets were banned to cars and open to only pedestrians and cyclists will provide results more attuned to the paper's motivation. Since the research design employed prevents authors from linking the policy in question with particular behaviours and preferences, any language suggesting cause-and-effect must be edited to reflect the nature of the research design employed.
