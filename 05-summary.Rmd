@@ -71,7 +71,6 @@ compared against other policies is desirable to help the public and policy
 makers evaluate such decisions. Further research should establish guidelines and
 practices for applying accessibility logsums in monetary cost-benefit analyses.
 
-
 Of course, COVID-19 led to the closure of some park facilities --- playgrounds,
 pavilions, and in some cases entire parks --- that were not captured in this
 analysis. These closures would lead to a decrease in the consumer surplus for
@@ -85,8 +84,7 @@ an obvious response to the COVID-19 pandemic: Vehicle traffic demand was down,
 and there was a also critical need for pedestrian-oriented open spaces in many
 communities. The research we present here suggests that this policy had
 measurable and meaningful benefits to neighborhoods in Alameda County,
-California, and that these benefits were distributed in an equitable or even a
-pro-social manner. The total benefit to households in the community is estimated
+California, and that these benefits were distributed in an equitable manner in the sense that the distributin favored marginalized populations. The total benefit to households in the community is estimated
 at over $660,000, with disproportionately high benefits going to Black, Hispanic
 and low-income neighborhoods. There is, however, a disproportionately low
 benefit to neighborhoods with high Asian populations that might be addressed
