@@ -1,7 +1,11 @@
-\documentclass[3p, authoryear, review]{elsarticle} %review=doublespace preprint=single 5p=2 column
+%DIF 1c1
 %DIF LATEXDIFF DIFFERENCE FILE
 %DIF DEL alameda_destinationchoice_submitted.tex   Tue May 11 15:21:55 2021
-%DIF ADD alameda_destinationchoice.tex             Wed Nov 17 20:53:28 2021
+%DIF ADD alameda_destinationchoice.tex             Wed Nov 17 21:09:55 2021
+%DIF < \documentclass[3p, authoryear, review]{elsarticle} %review=doublespace preprint=single 5p=2 column
+%DIF -------
+\documentclass[3p, authoryear, review, doubleblind]{elsarticle} %review=doublespace preprint=single 5p=2 column %DIF > 
+%DIF -------
 %%% Begin My package additions %%%%%%%%%%%%%%%%%%%
 \usepackage[hyphens]{url}
 
@@ -1417,8 +1421,8 @@ proposals.
 \section*{Acknowledgments}\label{acknowledgments}}
 \addcontentsline{toc}{section}{Acknowledgments}
 
-Graphics and tables were developed using several open-source R packages
-\DIFdelbegin \DIFdel{\mbox{%DIFAUXCMD
+\DIFaddbegin \DIFadd{We are grateful for the comments of two anonymous reviewers. }\DIFaddend Graphics and tables
+were developed using several open-source R packages \DIFdelbegin \DIFdel{\mbox{%DIFAUXCMD
 \citep{ggmap, modelsummary, wesanderson}}\hspace{0pt}%DIFAUXCMD
 }\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
 \citep{ggspatial, modelsummary, wesanderson}}\hspace{0pt}%DIFAUXCMD
