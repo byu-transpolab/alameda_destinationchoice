@@ -31,14 +31,15 @@ literature  and the accessibility literature. We agree that the  paragraph is
 unnecessarily confusing. It now reads:
 
 \begin{quote}
-	Understanding the equity benefit distribution of park access requires us to
-consider \DIFdelbegin \DIFdel{two integrated but rather distinct }\DIFdelend \DIFaddbegin \DIFadd{multiple }\DIFaddend literatures. First, we consider the
+Understanding the equity benefit distribution of park access requires us to
+consider \DIFdelbegin \DIFdel{two integrated but rather distinct }\DIFdelend \DIFaddbegin \DIFadd{multiple }\DIFaddend literatures. First, we \DIFaddbegin \DIFadd{discuss theories of justice as they have been applied to transportation policy to introduce our conceptualization of equity. Next, we }\DIFaddend consider the
 disparity in park utility perception among different populations. We
 subsequently consider quantitative techniques to evaluate the access that
 individuals have to park facilities. \DIFaddbegin \DIFadd{Finally, we consider recent research
 documenting and analyzing street conversions instigated by the COVID-19
 pandemic.
-}\DIFaddend
+}\DIFaddend 
+
 
 \end{quote}
 
@@ -89,7 +90,7 @@ doing so, we have adopted the MTC model documentation directly, which differs
 modestly from the ActivitySim open-source model derived from it. This results in
 a new parameter value, and consequently scaled changes to the user benefits estimates.
 Though the numerical benefits have changed, our central finding related to benefit
-distribution has not been affected. The methodology to review
+distribution has not been affected. 
 
 \begin{quote}
 	As a substitution, we use an estimate of the cost coefficient obtained from the
@@ -187,6 +188,8 @@ following caveat to the limitations section:
 
 \RC The block group segmentations indicate that the utility equations could be different for different groups. That also affects the equity analysis. It is likely that not all residents of each block group will benefit similarly from the COVID-19 street closures. This would affect the distributional equities. I suggest mentioning this caveat.
 
+\AR We feel the previous addition has also addressed this caveat, which we agree
+is important to mention.
 
 \section{Reviewer E}
 
@@ -277,13 +280,102 @@ limitations,
 \end{quote}
 
 
-\subsection{Accessibility Theory}
+\subsection{Literature}
 
 \RC Regarding the concept of accessibility and the particular ways scholars have attempted to operationalize it, the authors need to explain better why cumulative opportunities measures are inferior in the context of the research question the manuscript attempts to answer. It is not enough to say: "However, they [cumulative opportunity measures] may be too simple, especially concerning trip costs near the threshold." For example, a person living in front of the park may have the same accessibility level that another living 9 minutes away from the same park if the objective of the analysis is to measure how many parks can be accessed within a predefined (or normative) travel time threshold. I recommend expanding this section of the literature review to other works that move from pure methodological discussions to more theoretical ones. One start point could be the paper titled "Measuring accessibility: positive and normative implementations of various accessibility indicators" by \citet{paez2012measuring}. The work of transportation scholars Rafael Pereira or Ahmed El-Geneidy on accessibility may be of help as well.
 
-\subsection{Equity Evaluation}
-
 \RC Another significant omission is the definition of equity that guides the analysis. Please refer to the paper titled "Distributive justice and equity in transportation" by \citet{pereira2017distributive} for a thorough discussion on the issue. Other two relevant sources are the \citet{taylor2009paying} article "Paying for Transportation: What's a Fair Price?" and "Environmental Injustice and Transportation: The Claims and the Evidence" by \citet{schweitzer2004environmental}.
+
+\AR We agree that our positioning of the equity analysis and its relationship to accessibility
+would benefit from a firmer grounding in the literature. We are grateful for the 
+references the reviewer provided, which have allowed us to strengthen these 
+discussions in the literature review.
+
+
+\begin{quote}
+
+\DIFaddbegin \hypertarget{equity-and-theories-of-justice}{%
+\subsection{Equity and theories of justice}\label{equity-and-theories-of-justice}}
+
+\DIFadd{The pursuit of equity, as it pertains to distributions of costs and benefits, is
+necessary, though insufficient, to the pursuit of justice, which
+\mbox{%DIFAUXCMD
+\citet{fainstein_just_2010} }\hspace{0pt}%DIFAUXCMD
+argues should be a central pursuit of urban policy and
+planning. \mbox{%DIFAUXCMD
+\citet{fainstein_just_2010} }\hspace{0pt}%DIFAUXCMD
+draws on theories of justice to propose that a
+just city is one that is equitable, diverse, and democratic.
+\mbox{%DIFAUXCMD
+\citet{schweitzer_environmental_2004} }\hspace{0pt}%DIFAUXCMD
+discuss the literature on environmental justice
+and transportation in terms of cost- and benefits-based claims of injustice
+(both of which relate to equity under Fainstein's framework of the
+just city) and process-based claims (which relate to democracy under
+Fainstein's framework).
+}
+
+\DIFadd{\mbox{%DIFAUXCMD
+\citet{taylor_paying_2009} }\hspace{0pt}%DIFAUXCMD
+apply theories of justice to categorize equity-based
+arguments in support of various transportation finance mechanisms.
+\mbox{%DIFAUXCMD
+\citet{pereira_distributive_2017} }\hspace{0pt}%DIFAUXCMD
+similarly survey the moral philosophy literature
+and apply it to transportation policy evaluation. Both papers emphasize that
+claims of distributional (in)justice must specify }\emph{\DIFadd{what}} \DIFadd{is being distributed
+in addition to what that distribution should be be. Taylor and Norton (2009)
+argue that the distributions of revenue collection, expenditures, and benefits
+from use of transportation infrastructure must be considered together.
+\mbox{%DIFAUXCMD
+\citet{pereira_distributive_2017} }\hspace{0pt}%DIFAUXCMD
+apply Rawlsian egalitariansim \mbox{%DIFAUXCMD
+\citep{rawls2001justice}
+}\hspace{0pt}%DIFAUXCMD
+and capabilities approaches \mbox{%DIFAUXCMD
+\citep{sen2014development, nussbaum2001women} }\hspace{0pt}%DIFAUXCMD
+to argue
+that the transportation policy should focus on the distribution of
+accessibility, broadly defined as the ability to both access the
+transportation system and use it to access destinations. They join
+\mbox{%DIFAUXCMD
+\citet{martens_justice-theoretic_2012} }\hspace{0pt}%DIFAUXCMD
+in calling for further research to arrive at a
+operational definition of accessibility that best aligns with a
+justice-theoretic approach.
+}
+
+\DIFadd{In this study, we follow \mbox{%DIFAUXCMD
+\citet{pereira_distributive_2017} }\hspace{0pt}%DIFAUXCMD
+in focusing on accessibility
+and adopt a utility-based accessibility measure, as we discuss in the following
+sections. While our analysis does not rely on a strict definition of an ideal
+distribution of accessibility, we start from a proposition rooted in both
+Marxian ethics \mbox{%DIFAUXCMD
+\citep{heller_theory_1976} }\hspace{0pt}%DIFAUXCMD
+and liberation theology
+\mbox{%DIFAUXCMD
+\citep{john_paul_ii_centesimus_1991} }\hspace{0pt}%DIFAUXCMD
+that an equitable distribution is one that
+favors vulnerable and marginalized populations.
+}
+
+\DIFaddend
+\end{quote}
+
+
+\AR We have also rephrased our abstract and concluding paragraph in response 
+to this criticism as follows:
+
+\begin{quote}
+
+ We then apply this model to examine the accessibility benefits resulting from COVID-19 street conversions to create a set of small park-like open spaces; we find that this \DIFdelbegin \DIFdel{has been a pro-social policy in that }\DIFdelend \DIFaddbegin \DIFadd{policy has improved equity in that maginalized communities including }\DIFaddend Black, Hispanic, and low-income households receive a disproportionate share of the policy benefits, relative to the population distribution.
+
+The research we present here suggests that this policy had
+measurable and meaningful benefits to neighborhoods in Alameda County,
+California, and that these benefits were distributed in an equitable \DIFdelbegin \DIFdel{or even a
+pro-social manner }\DIFdelend \DIFaddbegin \DIFadd{manner in the sense that the distributin favored marginalized populations}\DIFaddend .
+\end{quote}
 
 \bibliography{library}
 \bibliographystyle{abbrvnat}
