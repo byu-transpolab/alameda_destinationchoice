@@ -10,11 +10,41 @@ pandemic.
 
 ## Equity and theories of justice
 
-The pursuit of equity, as it pertains to distributions of costs and benefits, is necessary, though insufficient, to the pursuit of justice, which @fainstein_just_2010 argues should be a central pursuit of urban policy and planning. @fainstein_just_2010 draws on theories of justice to propose that a just city is one that is equitable, diverse, and democratic. @schweitzer_environmental_2004 discuss the literature on environmental justice and transportation in terms of cost- and benefits-based claims of injustice (both of which relate to equity under @fainstein_just_2010's framework of the just city) and process-based claims (which relate to democracy under @fainstein_just_2010's framework). 
+The pursuit of equity, as it pertains to distributions of costs and benefits, is
+necessary, though insufficient, to the pursuit of justice, which
+@fainstein_just_2010 argues should be a central pursuit of urban policy and
+planning. @fainstein_just_2010 draws on theories of justice to propose that a
+just city is one that is equitable, diverse, and democratic.
+@schweitzer_environmental_2004 discuss the literature on environmental justice
+and transportation in terms of cost- and benefits-based claims of injustice
+(both of which relate to equity under Fainstein's framework of the
+just city) and process-based claims (which relate to democracy under
+Fainstein's framework).
 
-@taylor_paying_2009 apply theories of justice to categorize equity-based arguments in support of various transportation finance mechanisms. @pereira_distributive_2017 similarly survey the moral philosophy literature and apply it to transportation policy evaluation. Both papers emphasize that claims of distributional (in)justice must specify _what_ is being distributed in addition to what that distribution should be be. Taylor and Norton (2009) argue that the distributions of revenue collection, expenditures, and benefits from use of transportation infrastructure must be considered together. @pereira_distributive_2017 apply Rawlsian egalitariansim [@rawls2001justice] and capabilities approaches [@sen2014development; @nussbaum2001women] to argue that the transportation policy should focus on the distribution of accessibility, broadly defined as the ability to both access the transportation system and use it to access destinations. They join @martens_justice-theoretic_2012 in calling for further research to arrive at a operational definition of accessibility that best aligns with a justice-theoretic approach.
+@taylor_paying_2009 apply theories of justice to categorize equity-based
+arguments in support of various transportation finance mechanisms.
+@pereira_distributive_2017 similarly survey the moral philosophy literature
+and apply it to transportation policy evaluation. Both papers emphasize that
+claims of distributional (in)justice must specify _what_ is being distributed
+in addition to what that distribution should be be. Taylor and Norton (2009)
+argue that the distributions of revenue collection, expenditures, and benefits
+from use of transportation infrastructure must be considered together.
+@pereira_distributive_2017 apply Rawlsian egalitariansim [@rawls2001justice]
+and capabilities approaches [@sen2014development; @nussbaum2001women] to argue
+that the transportation policy should focus on the distribution of
+accessibility, broadly defined as the ability to both access the
+transportation system and use it to access destinations. They join
+@martens_justice-theoretic_2012 in calling for further research to arrive at a
+operational definition of accessibility that best aligns with a
+justice-theoretic approach.
 
-In this study, we follow @pereira_distributive_2017 in focusing on accessibility and adopt a utility-based accessibility measure, as we discuss in the following sections. While our analysis does not rely on a strict definition of an ideal distribution of accessibility, we start from a proposition rooted in both Marxian ethics [@heller_theory_1976] and liberation theology [@john_paul_ii_centesimus_1991] that an equitable distribution is one that favors vulnerable and marginalized populations.
+In this study, we follow @pereira_distributive_2017 in focusing on accessibility
+and adopt a utility-based accessibility measure, as we discuss in the following
+sections. While our analysis does not rely on a strict definition of an ideal
+distribution of accessibility, we start from a proposition rooted in both
+Marxian ethics [@heller_theory_1976] and liberation theology
+[@john_paul_ii_centesimus_1991] that an equitable distribution is one that
+favors vulnerable and marginalized populations.
 
 ## Sociodemographic variation in park utility
 
