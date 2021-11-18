@@ -1,3 +1,14 @@
+fig:parks-map
+tab:parkstable
+tab:acs-table
+eq:logsum
+eq:deltalogsum
+tab:base-modelsummary
+tab:grouped-modelsummary
+fig:split-plots
+fig:logsumsmap
+eq:cs-alloc
+tab:equity
 intro
 literature
 equity-and-theories-of-justice
@@ -16,3 +27,4 @@ model-application
 results
 equity-analysis-of-covid-19-street-openings
 limitations
+conclusions
