@@ -221,7 +221,7 @@ any way. In this application, these benefits are small, on the order of 10 cents
 for most block groups away from where the street openings occurred.
 
 ```{r logsumsmap, fig.cap="Monetary value of street opening to residents based on utility change. Streets converted to pedestrian plazas are shown in black.", cache=FALSE}
-bins <- c(0, 0.1, 0.25, 0.5, 1, 2, 10, 35)
+bins <- c(0, 0.1, 0.25, 0.5, 1, 2, 10, 50)
 mypal <- as.character(wesanderson::wes_palette("Zissou1", n = 7, type = "continuous"))
 tar_load(logsums)
 tar_load(street_parks)
