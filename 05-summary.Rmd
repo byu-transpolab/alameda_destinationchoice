@@ -85,10 +85,11 @@ and there was a also critical need for pedestrian-oriented open spaces in many
 communities. The research we present here suggests that this policy had
 measurable and meaningful benefits to neighborhoods in Alameda County,
 California, and that these benefits were distributed in an equitable manner in the sense that the distributin favored marginalized populations. The total benefit to households in the community is estimated
-at over $660,000, with disproportionately high benefits going to Black, Hispanic
-and low-income neighborhoods. There is, however, a disproportionately low
-benefit to neighborhoods with high Asian populations that might be addressed
-were the policy to continue, be repeated, or made permanent in some way.
+at approximately \$1 million with disproportionately high benefits going to
+Black, Hispanic and low-income neighborhoods. There is, however, a
+disproportionately low benefit to neighborhoods with high Asian populations that
+might be addressed were the policy to continue, be repeated, or made permanent
+in some way.
 
 In estimating these benefits, we applied an emerging technique to estimate park
 choice preferences and utility from passive mobile device data. This technique
