@@ -1,7 +1,7 @@
 \documentclass[3p, authoryear, review]{elsarticle} %review=doublespace preprint=single 5p=2 column
 %DIF LATEXDIFF DIFFERENCE FILE
 %DIF DEL alameda_destinationchoice_submitted.tex   Tue May 11 15:21:55 2021
-%DIF ADD alameda_destinationchoice.tex             Fri Nov 12 14:02:36 2021
+%DIF ADD alameda_destinationchoice.tex             Wed Nov 17 20:53:28 2021
 %%% Begin My package additions %%%%%%%%%%%%%%%%%%%
 \usepackage[hyphens]{url}
 
@@ -210,7 +210,7 @@
       \DIFaddend \cortext[1]{Corresponding Author}
 
   \begin{abstract}
-  During the spring and summer of 2020, cities across the world responded to the global COVID-19 pandemic by converting roadway facilities into open pedestrian spaces. These conversions improved access to public open space, but measuring the variation in that improvement among different populations requires clear definitions of access and methods for measuring it. In this study, we evaluate the change in a utility-based park accessibility measure resulting from street conversions in Alameda County, California. Our utility-based accessibility measure is constructed from a park activity location choice model we estimate using mobile device data --- supplied by StreetLight Data, Inc.~--- representing trips to parks in that county. The estimated model reveals heterogeneity in inferred affinity for park attributes among different sociodemographic groups. We find, for example, that neighborhoods with more lower-income residents and those with more residents of color show a greater preference for park proximty while neighborhods with higher incomes and those with more white residents show a greater preference for park size and amenities. We then apply this model to examine the accessibility benefits resulting from COVID-19 street conversions to create a set of small park-like open spaces; we find that this has been a pro-social policy in that Black, Hispanic, and low-income households receive a disproportionate share of the policy benefits, relative to the population distribution.
+  During the spring and summer of 2020, cities across the world responded to the global COVID-19 pandemic by converting roadway facilities into open pedestrian spaces. These conversions improved access to public open space, but measuring the variation in that improvement among different populations requires clear definitions of access and methods for measuring it. In this study, we evaluate the change in a utility-based park accessibility measure resulting from street conversions in Alameda County, California. Our utility-based accessibility measure is constructed from a park activity location choice model we estimate using mobile device data --- supplied by StreetLight Data, Inc.~--- representing trips to parks in that county. The estimated model reveals heterogeneity in inferred affinity for park attributes among different sociodemographic groups. We find, for example, that neighborhoods with more lower-income residents and those with more residents of color show a greater preference for park proximty while neighborhods with higher incomes and those with more white residents show a greater preference for park size and amenities. We then apply this model to examine the accessibility benefits resulting from COVID-19 street conversions to create a set of small park-like open spaces; we find that this \DIFdelbegin \DIFdel{has been a pro-social policy in that }\DIFdelend \DIFaddbegin \DIFadd{policy has improved equity in that maginalized communities including }\DIFaddend Black, Hispanic, and low-income households receive a disproportionate share of the policy benefits, relative to the population distribution.
   \end{abstract}
    \begin{keyword} Accessibility \DIFdelbegin %DIFDELCMD < \sep %%%
 \DIFdel{Passive Data }%DIFDELCMD < \sep %%%
@@ -288,7 +288,7 @@ recreational trip modeling and location choice modeling more generally.
 \section{Literature}\label{literature}}
 
 Understanding the equity benefit distribution of park access requires us to
-consider \DIFdelbegin \DIFdel{two integrated but rather distinct }\DIFdelend \DIFaddbegin \DIFadd{multiple }\DIFaddend literatures. First, we consider the
+consider \DIFdelbegin \DIFdel{two integrated but rather distinct }\DIFdelend \DIFaddbegin \DIFadd{multiple }\DIFaddend literatures. First, we \DIFaddbegin \DIFadd{discuss theories of justice as they have been applied to transportation policy to introduce our conceptualization of equity. Next, we }\DIFaddend consider the
 disparity in park utility perception among different populations. We
 subsequently consider quantitative techniques to evaluate the access that
 individuals have to park facilities. \DIFaddbegin \DIFadd{Finally, we consider recent research
@@ -296,7 +296,73 @@ documenting and analyzing street conversions instigated by the COVID-19
 pandemic.
 }\DIFaddend 
 
-\hypertarget{sociodemographic-variation-in-park-utility}{%
+\DIFaddbegin \hypertarget{equity-and-theories-of-justice}{%
+\subsection{Equity and theories of justice}\label{equity-and-theories-of-justice}}
+
+\DIFadd{The pursuit of equity, as it pertains to distributions of costs and benefits, is
+necessary, though insufficient, to the pursuit of justice, which
+\mbox{%DIFAUXCMD
+\citet{fainstein_just_2010} }\hspace{0pt}%DIFAUXCMD
+argues should be a central pursuit of urban policy and
+planning. \mbox{%DIFAUXCMD
+\citet{fainstein_just_2010} }\hspace{0pt}%DIFAUXCMD
+draws on theories of justice to propose that a
+just city is one that is equitable, diverse, and democratic.
+\mbox{%DIFAUXCMD
+\citet{schweitzer_environmental_2004} }\hspace{0pt}%DIFAUXCMD
+discuss the literature on environmental justice
+and transportation in terms of cost- and benefits-based claims of injustice
+(both of which relate to equity under Fainstein's framework of the
+just city) and process-based claims (which relate to democracy under
+Fainstein's framework).
+}
+
+\DIFadd{\mbox{%DIFAUXCMD
+\citet{taylor_paying_2009} }\hspace{0pt}%DIFAUXCMD
+apply theories of justice to categorize equity-based
+arguments in support of various transportation finance mechanisms.
+\mbox{%DIFAUXCMD
+\citet{pereira_distributive_2017} }\hspace{0pt}%DIFAUXCMD
+similarly survey the moral philosophy literature
+and apply it to transportation policy evaluation. Both papers emphasize that
+claims of distributional (in)justice must specify }\emph{\DIFadd{what}} \DIFadd{is being distributed
+in addition to what that distribution should be be. Taylor and Norton (2009)
+argue that the distributions of revenue collection, expenditures, and benefits
+from use of transportation infrastructure must be considered together.
+\mbox{%DIFAUXCMD
+\citet{pereira_distributive_2017} }\hspace{0pt}%DIFAUXCMD
+apply Rawlsian egalitariansim \mbox{%DIFAUXCMD
+\citep{rawls2001justice}
+}\hspace{0pt}%DIFAUXCMD
+and capabilities approaches \mbox{%DIFAUXCMD
+\citep{sen2014development, nussbaum2001women} }\hspace{0pt}%DIFAUXCMD
+to argue
+that the transportation policy should focus on the distribution of
+accessibility, broadly defined as the ability to both access the
+transportation system and use it to access destinations. They join
+\mbox{%DIFAUXCMD
+\citet{martens_justice-theoretic_2012} }\hspace{0pt}%DIFAUXCMD
+in calling for further research to arrive at a
+operational definition of accessibility that best aligns with a
+justice-theoretic approach.
+}
+
+\DIFadd{In this study, we follow \mbox{%DIFAUXCMD
+\citet{pereira_distributive_2017} }\hspace{0pt}%DIFAUXCMD
+in focusing on accessibility
+and adopt a utility-based accessibility measure, as we discuss in the following
+sections. While our analysis does not rely on a strict definition of an ideal
+distribution of accessibility, we start from a proposition rooted in both
+Marxian ethics \mbox{%DIFAUXCMD
+\citep{heller_theory_1976} }\hspace{0pt}%DIFAUXCMD
+and liberation theology
+\mbox{%DIFAUXCMD
+\citep{john_paul_ii_centesimus_1991} }\hspace{0pt}%DIFAUXCMD
+that an equitable distribution is one that
+favors vulnerable and marginalized populations.
+}
+
+\DIFaddend \hypertarget{sociodemographic-variation-in-park-utility}{%
 \subsection{Sociodemographic variation in park utility}\label{sociodemographic-variation-in-park-utility}}
 
 The idea that different racial, ethnic, or cultural groups have different
@@ -1326,12 +1392,13 @@ an obvious response to the COVID-19 pandemic: Vehicle traffic demand was down,
 and there was a also critical need for pedestrian-oriented open spaces in many
 communities. The research we present here suggests that this policy had
 measurable and meaningful benefits to neighborhoods in Alameda County,
-California, and that these benefits were distributed in an equitable or even a
-pro-social manner. The total benefit to households in the community is estimated
-at over \$660,000, with disproportionately high benefits going to Black, Hispanic
-and low-income neighborhoods. There is, however, a disproportionately low
-benefit to neighborhoods with high Asian populations that might be addressed
-were the policy to continue, be repeated, or made permanent in some way.
+California, and that these benefits were distributed in an equitable \DIFdelbegin \DIFdel{or even a
+pro-social manner }\DIFdelend \DIFaddbegin \DIFadd{manner in the sense that the distributin favored marginalized populations}\DIFaddend . The total benefit to households in the community is estimated
+at \DIFdelbegin \DIFdel{over \$660,000, }\DIFdelend \DIFaddbegin \DIFadd{approximately \$1 million }\DIFaddend with disproportionately high benefits going to
+Black, Hispanic and low-income neighborhoods. There is, however, a
+disproportionately low benefit to neighborhoods with high Asian populations that
+might be addressed were the policy to continue, be repeated, or made permanent
+in some way.
 
 In estimating these benefits, we applied an emerging technique to estimate park
 choice preferences and utility from passive mobile device data. This technique
