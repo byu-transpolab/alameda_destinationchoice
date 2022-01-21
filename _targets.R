@@ -1,4 +1,5 @@
 library(targets)
+library(tarchetypes)
 # This is an example _targets.R file. Every
 # {targets} pipeline needs one.
 # Use tar_script() to create _targets.R and tar_edit()
@@ -8,13 +9,6 @@ library(targets)
 source("R/datamaker.R")
 source("R/methods.R")
 source("R/modeling.R")
-
-# Define custom functions and other global objects.
-# This is where you write source(\"R/functions.R\")
-# if you keep your functions in external scripts.
-summ <- function(dataset) {
-  summarize(dataset, mean_x = mean(x))
-}
 
 # Set target-specific options such as packages.
 tar_option_set(packages = c(
@@ -30,7 +24,7 @@ n_obs <- 20000
 n_alts <- 10
 
 # End this file with a list of target objects.
-list(
+data_plan <- tar_plan(
   # get parks and attributes
   tar_target(parksfile, "data/bayarea_parks.geojson", format = "file"),
   tar_target(parks, get_parks(parksfile, this_crs)),
@@ -72,3 +66,13 @@ list(
   
   
 )
+
+
+# Targets necessary to build the book / article
+book_targets <- tar_plan(
+  report = bookdown::render_book(input = ".", output_yaml = "_output.yml", 
+                                 config_file = "_bookdown.yml")
+)
+
+
+tar_plan(data_plan, book_targets)
