@@ -121,31 +121,21 @@ different types of measures can be collapsed into each other. @GEURS2004127
 group cumulative opportunity and gravity-based measures into a single category
 that they refer to as location-based measures. In this, @GEURS2004127 rely on
 the distinction that utility-based measures incorporate revealed preferences of
-<<<<<<< HEAD
-individuals for particular destination characteristics (including but not limited to distance and location) while location-based measures are entirely geo-spatial in their definition.
-=======
-individuals for particular destinations while location-based measures are
-entirely geo-spatial in their definition.
-
-@paez2012measuring distinguish between positive and normative accessibility indicators...
-
-
-
-@siddiq_tools_2021 review 54 different accessibility tools utilizing a variety of different accessibility metrics and classify accessibility measures as either people-based or place-based. They define people-based measures as those that account for individual traveler characteristics, perceptions, and constraints. This includes all utility-based measures, as well as variations on cumulative opportunity measures that 
-
-### Location-based measures of park accessibility
->>>>>>> 3bd31bf3c6a0ffcb648643c2854e4aeae93a2e5c
+individuals for particular destination characteristics (including but not limited
+to distance and location) while location-based measures are entirely geo-spatial 
+in their definition.
 
 Cumulative opportunity measures are calculated by counting the number of origins
 or destinations within a threshold travel cost of a location (where "cost" might
 be some combination of distance, travel time, and/or monetary cost of travel). A
 strength of cumulative opportunity measures lies in their simplicity and
-intuitive interpretation. However, they may be too simple, especially with
-regard to trip costs near the threshold. An example of a cumulative opportunity
-measure might be the number of parks within a ten-minute walk of a person's
-home, or the number of households living within ten minutes of a park. This
-measure would imply that a household living immediately adjacent to a park has
-the same access to it as one that lives nine minutes away, but that a household
+intuitive interpretation, and this may explain why @boisjoly2017get have found that
+it is universally used in published metropolitan transportation plans. However, they may
+be too simple, especially with regard to trip costs near the threshold. An example 
+of a cumulative opportunity measure might be the number of parks within a ten-minute
+walk of a person's home, or the number of households living within ten minutes of a
+park. This measure would imply that a household living immediately adjacent to a park
+has the same access to it as one that lives nine minutes away, but that a household
 living eleven minutes away has no access to it.
 
 Gravity-based accessibility measures take a similar approach to cumulative
@@ -162,20 +152,32 @@ consistency with travel behavior theory: Gravity-based measures have their roots
 in the trip distribution step of the traditional four-step travel demand
 forecasting method, where trips originating in a particular zone are distributed
 among destination zones, proportionate to each zone's gravity-based
-accessibility. 
+accessibility. In spite of their theoretical advantages over cumulative-opportunity
+measures, the practical advantages of gravity-based measures are less clear. Based on
+their finding that cumulative-opportunity measures and gravity-based measures area
+highly correlated, @boisjoly2016daily argue that the greater simplicity of
+cumulative-opportunity measures makes them appropriate for transportation planning
+applications.
 
-@paez2012measuring distinguish between positive and normative accessibility indicators, where positive indicators are based on information about the degree to which destinations are observed to be accessible and normative indicators also incorporate a normative judgment of the degree to which destinations _ought to be_ accessible. They develop a normative location-based accessibility measure incorporating average trip lengths into a cumulative opportunities measure, varying the isochrone threshold by socioeconomic characteristics. 
+@paez2012measuring distinguish between positive and normative accessibility indicators,
+where positive indicators are based on information about the degree to which
+destinations are observed to be accessible and normative indicators also incorporate a
+normative judgment of the degree to which destinations _ought to be_ accessible. They
+develop a normative location-based accessibility measure incorporating average trip
+lengths into a cumulative opportunities measure, varying the isochrone threshold by
+socioeconomic characteristics. 
 
 While traditional four-step travel demand models distribute zonal trips based on
 a gravity-based accessibility model, the travel demand modeling profession has
 shifted more recently towards a destination choice framework that distributes
-trips based on discrete-choice regression models. @mcfadden1974measurement applied discrete choice models to urban travel demand to predict mode choice, and modern
+trips based on discrete-choice regression models. @mcfadden1974measurement applied
+discrete choice models to urban travel demand to predict mode choice, and modern
 disaggregate activity-based models apply them to all travel behavior choices,
-including to select among alternative routes or alternative destinations
-[@de2011modelling]. Though the application of random utility models to
-destination choice is not new [see @anas1983discrete], the increasing
-availability of computing resources makes estimating and applying discrete
-choice models on large alternative sets in a practical context more feasible.
+including to select among alternative routes or alternative destinations 
+[@de2011modelling]. Though the application of random utility models to destination
+choice is not new [see @anas1983discrete], the increasing availability of computing
+resources makes estimating and applying discrete choice models on large alternative sets
+in a practical context more feasible.
 
 Destination choice models estimate the probability of selecting a particular
 destination among a set of alternatives based on the relative attractiveness, or
@@ -185,9 +187,22 @@ similar to a location-based measure), but the function can also incorporate
 other destination characteristics that lead one destination to be more
 highly-valued and used than another. 
 
-Although @paez2012measuring focus on classifying location-based accessibility measures as positive or normative, they also describe utility-based measures as "essentially positivistic" (p. 143) and critique them in terms of practicality, noting that, in order to limit the size of the choice set to be computationally manageable, the analyst must either aggregate destinations to a higher spatial resolution or calculate utility based on a randomly-selected subset of all available alternatives.
+Although @paez2012measuring focus on location-based measures in classifying
+accessibility metrics as positive or normative, they also describe utility-based
+measures as "essentially positivistic" (p. 143) and critique them in terms of
+practicality, noting that, in order to limit the size of the choice set to be
+computationally manageable, the analyst must either aggregate destinations to a higher
+spatial resolution or calculate utility based on a randomly-selected subset of all
+available alternatives.
 
-@siddiq_tools_2021 review 54 different accessibility tools utilizing a variety of different accessibility metrics and classify accessibility measures as either people-based or place-based. They define people-based measures as those that account for individual traveler characteristics, perceptions, and constraints. This includes all utility-based measures, as well as variations on cumulative opportunity measures (such as those proposed by @paez2012measuring) that incorporate socioeconomic data on travelers. They argue that people-based measures are most appropriate for equity analysis.
+@siddiq_tools_2021 review 54 different accessibility tools utilizing a variety of
+different accessibility metrics and classify accessibility measures as either
+people-based or place-based. They define people-based measures as those that account for
+individual traveler characteristics, perceptions, and constraints. This includes all
+utility-based measures, as well as variations on cumulative opportunity measures (such
+as those proposed by @paez2012measuring) that incorporate socioeconomic data on
+travelers. They argue that people-based measures are most appropriate for equity
+analysis.
 
 ### Location-based measures of park accessibility
 
