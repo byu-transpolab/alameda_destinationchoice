@@ -124,6 +124,12 @@ the distinction that utility-based measures incorporate revealed preferences of
 individuals for particular destinations while location-based measures are
 entirely geo-spatial in their definition.
 
+@paez2012measuring distinguish between positive and normative accessibility indicators...
+
+
+
+@siddiq_tools_2021 review 54 different accessibility tools utilizing a variety of different accessibility metrics and classify accessibility measures as either people-based or place-based. They define people-based measures as those that account for individual traveler characteristics, perceptions, and constraints. This includes all utility-based measures, as well as variations on cumulative opportunity measures that 
+
 ### Location-based measures of park accessibility
 
 Cumulative opportunity measures are calculated by counting the number of origins
