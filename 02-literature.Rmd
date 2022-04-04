@@ -121,7 +121,20 @@ different types of measures can be collapsed into each other. @GEURS2004127
 group cumulative opportunity and gravity-based measures into a single category
 that they refer to as location-based measures. In this, @GEURS2004127 rely on
 the distinction that utility-based measures incorporate revealed preferences of
+<<<<<<< HEAD
 individuals for particular destination characteristics (including but not limited to distance and location) while location-based measures are entirely geo-spatial in their definition.
+=======
+individuals for particular destinations while location-based measures are
+entirely geo-spatial in their definition.
+
+@paez2012measuring distinguish between positive and normative accessibility indicators...
+
+
+
+@siddiq_tools_2021 review 54 different accessibility tools utilizing a variety of different accessibility metrics and classify accessibility measures as either people-based or place-based. They define people-based measures as those that account for individual traveler characteristics, perceptions, and constraints. This includes all utility-based measures, as well as variations on cumulative opportunity measures that 
+
+### Location-based measures of park accessibility
+>>>>>>> 3bd31bf3c6a0ffcb648643c2854e4aeae93a2e5c
 
 Cumulative opportunity measures are calculated by counting the number of origins
 or destinations within a threshold travel cost of a location (where "cost" might
