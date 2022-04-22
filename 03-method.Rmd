@@ -278,7 +278,7 @@ between different socioeconomic groups.
 
 The logarithm of the sum in the denominator of Equation \ref{eq:p} (called the
 logsum) provides a measure of the consumer surplus of the choice set enjoyed by
-person $n$ [@Williams1977a],
+person $n$ [@Williams1977a, @benakiva],
 \begin{equation}
 CS_n = \ln{{\sum_{j \in J}\exp(V_{nj})}} + C
   (\#eq:logsum)
@@ -297,7 +297,7 @@ multiple dimensions of the attributes of the choice, and can be evaluated in
 monetary terms [@Handy1997;@Dong2006]. Note also that the logsum increases
 with the size of the choice set: if a new alternative $q$ is added to $J$, then 
 $\ln\sum_{j\in J}\exp(V_j) < \ln(\sum_{j\in J}\exp(V_j) + \exp(V_q))$ for 
-any value of $V_q$. 
+any value of $V_q$ [@benakiva, p. 300]. 
 
 
 
