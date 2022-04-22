@@ -2,6 +2,7 @@
 diff: docs/diff.pdf
 
 docs/diff.pdf: docs/diff.tex figs
+	cp book.bib docs/book.bib
 	pdflatex -output-directory=docs/ -job-name=$@ $<
 	bibtex docs/diff
 	pdflatex -output-directory=docs/ -job-name=$@ $<
