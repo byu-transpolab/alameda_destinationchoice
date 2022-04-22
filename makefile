@@ -25,8 +25,9 @@ site:
 response: response2/response.pdf
 	
 response2/response.pdf: response2/response.tex
-	cp book.bib response/book.bib
-	pdflatex -output-directory=response/ -job-name=$@ $<
+	cp book.bib response2/book.bib
+	pdflatex -output-directory=response2/ -job-name=$@ $<
 	bibtex response2/response
-	pdflatex -output-directory=response/ -job-name=$@ $<
+	pdflatex -output-directory=response2/ -job-name=$@ $<
+	pdflatex -output-directory=response2/ -job-name=$@ $<
 	
