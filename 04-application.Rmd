@@ -277,11 +277,13 @@ There is some opportunity for confusion when some demographic variables we use
 household level and others (specifically ethnicity) are defined at the person level. It is
 similarly not clear whether the benefits of improved park access should be
 assigned at the person level, the household level, or the number of total park
-trip makers in each block group. For consistency and simplicity, we assert that
-the benefit is assigned to each household, and that persons receive a
-proportional share of the household benefit. For example, a block group with 30%
-Black individuals will receive 30% of the benefits assigned to all the
-households in the block group.
+trip makers in each block group. In theory, the benefits would accrue each time
+a person chose to make a trip to a park or closed street, but to estimate this
+would require a trip propensity or generation model, which we have not attempted
+here. For consistency and simplicity, we assert that the benefit is assigned to
+each household, and that persons receive a proportional share of the household
+benefit. For example, a block group with 30% Black individuals will receive 30%
+of the benefits assigned to all the households in the block group.
 
 Table \@ref(tab:equity) shows the total benefit assigned to households in this
 way as well as the share of all monetary benefits in the region. In some cases,
