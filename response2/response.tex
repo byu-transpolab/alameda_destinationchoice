@@ -21,10 +21,42 @@ changes resulting from this revision, and not since the initial manuscript submi
 \RC First, I agree with the authors’ interpretation of the segmented modeling results, i.e. that residents of block groups with high proportions of Black individuals are more sensitive to distance. However, I think the textual description (p. 17) of the marginal rate of substitution for distance and size from Table 3 (p. 18) might still be incorrect. Wouldn’t visitors be willing to travel 29\% farther to reach parks twice as big (0.391/1.358 from the Network Distance model)? See Yves Croissant’s (2010) “Estimation of Multinomial Logit Models in R: The mlogit Packages": \url{http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.303.7401&rep=rep1&type=pdf}
 
 
+\AR We believe the reviewer is correct. Consider the "Network Distance" model alternative utility equation,
+\begin{equation}
+V_{ij} = -1.358 \ln(\mathrm{miles}_{ij}) + 0.391 \ln(\mathrm{acres}_j)
+\end{equation}
+A unit analysis of this equation implies that the coefficient on distance is 
+(for practical considerations) $1/\mathrm{\%\ miles}$ and the coefficient on 
+size is $1/\mathrm{\%\ acres}$, so that $V_{ij}$ might be a unitless utility.
+Thus, the rate at which individuals exchange area for distance would be
+\begin{equation}
+\frac{0.391\ 1/\mathrm{\%\ acres}}{-1.358 \ 1/\mathrm{\%\ miles}} = -0.288 \frac{\mathrm{\%\ miles}}{\mathrm{\%\ acres}}
+\end{equation}
+implying that a 29 percent increase in distance will be equivalent to a 100 percent
+increase in park size. This has been corrected in the manuscript.
+
+\begin{quote}
+That is, individuals will travel further
+distances to reach larger parks. The ratio of the estimated coefficients implies
+that on average, people will travel \DIFdelbegin \DIFdel{twice as far }\DIFdelend \DIFaddbegin \DIFadd{0.288 times further }\DIFaddend to reach a park
+\DIFdelbegin \DIFdel{3.47
+times }\DIFdelend \DIFaddbegin \DIFadd{twice }\DIFaddend as large.
+
+Table 3 also shows the results of the ``Park
+Attributes'' model, which represents the presence of any sport field with a
+single dummy variable, and the ``Sport Detail'' model, which disaggregates this
+variable into facilities for different sports. The value of the size and
+distance coefficients change modestly from the ``Network Distance'' model, with
+the implied \DIFdelbegin \DIFdel{size to distance }\DIFdelend \DIFaddbegin \DIFadd{distance to size }\DIFaddend trade-off \DIFdelbegin \DIFdel{rising to 4.16}\DIFdelend \DIFaddbegin \DIFadd{changing to 0.243}\DIFaddend .
+\end{quote}
+
+
 \subsection{Additional Utility}
 
 
 \RC Second, I appreciate the authors’ explanation for why there is some additional utility simply from having more options. However, the authors should explain in the text of the manuscript how they calculated that benefit (p. 21 in section 4.1). Specifically, it would be useful for less modelling-savvy readers to understand how the authors calculate the portion of the increased consumer surplus that comes just from having additional choices versus the portion that comes from the characteristics of the additional choices.
+
+\AR 
 
 \subsection{Impacts Caveats}
 
@@ -63,6 +95,9 @@ Therefore, the authors must provide empirical evidence supporting the claim that
 The authors must acknowledge the limitations the data impose on the research and fine-tune the manuscript language avoiding any causal claims, starting by title.
 
 The authors must reflect on their research design choice, and provide a recommendation for other researchers interested in harnessing the potential of Streetlight data, or the like.
+
+
+\AR Thank you for these clarifying statements. I think 
 
 \subsection{Contribution}
 

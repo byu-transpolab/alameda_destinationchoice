@@ -42,10 +42,10 @@ two-mile trip than a ten-mile trip.
 tar_load(base_models)
 
 detail_lrt <- lrtest(base_models[[2]], base_models[[3]])$`Pr(>Chisq)`[2]
-d_ratio_base <- -1 * coefficients(base_models$`Network Distance`)[1] / 
-  coefficients(base_models$`Network Distance`)[2] 
-d_ratio_sport <- -1 * coefficients(base_models$`Sport Detail`)[1] / 
-  coefficients(base_models$`Sport Detail`)[2] 
+d_ratio_base <- (-1 * coefficients(base_models$`Network Distance`)[1] / 
+  coefficients(base_models$`Network Distance`)[2] )^( -1)
+d_ratio_sport <- ( -1 * coefficients(base_models$`Sport Detail`)[1] / 
+  coefficients(base_models$`Sport Detail`)[2]  )^( -1)
 ```
 
 Table \@ref(tab:base-modelsummary) presents the model estimation results for
@@ -53,15 +53,15 @@ each estimated model. The "Network Distance" model, which only considers the
 distance to the park and the size of the park. results in significant estimated
 coefficients of the expected sign. That is, individuals will travel further
 distances to reach larger parks. The ratio of the estimated coefficients implies
-that on average, people will travel twice as far to reach a park `r d_ratio_base` 
-times as large.
+that on average, people will travel  `r d_ratio_base` times further to reach a park
+twice as large.
 
 Table \@ref(tab:base-modelsummary) also shows the results of the "Park
 Attributes" model, which represents the presence of any sport field with a
 single dummy variable, and the "Sport Detail" model, which disaggregates this
 variable into facilities for different sports. The value of the size and
 distance coefficients change modestly from the "Network Distance" model, with
-the implied size to distance trade-off rising to `r d_ratio_sport`. Examining
+the implied distance to size trade-off changing to `r d_ratio_sport`. Examining
 the two amenities models --- independently and in comparison with each other ---
 reveals a few surprising findings. First, it appears that playgrounds and sport
 fields in general contribute *negatively* to the choice utility equation. This
