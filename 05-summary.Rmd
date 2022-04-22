@@ -35,7 +35,10 @@ minority populations may indicate that areas with large minority populations
 tend to have smaller parks that are more geographically distributed relative to
 other areas of the region. This interpretation could also explain some of the
 non-intuitive response observed in our models, especially in regards to
-playgrounds.
+playgrounds. Similarly, the use of individual-level estimation data would enable 
+heterogeneity in the benefits calculation: individuals could receive benefits for
+the choice attributes they are observed to care most about, rather than an average
+effect for all people as used in this research.
 
 We limited our analysis to home locations and parks in Alameda County,
 California. It is possible that some Alameda residents visit parks in
