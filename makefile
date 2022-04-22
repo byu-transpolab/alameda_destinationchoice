@@ -20,3 +20,13 @@ doc:
 	
 site: 
 	Rscript -e 'bookdown::render_book("index.Rmd", "bookdown::gitbook")'
+	
+	
+response: response2/response.pdf
+	
+response2/response.pdf: response2/response.tex
+	cp book.bib response/book.bib
+	pdflatex -output-directory=response/ -job-name=$@ $<
+	bibtex response2/response
+	pdflatex -output-directory=response/ -job-name=$@ $<
+	
