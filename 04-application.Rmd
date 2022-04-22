@@ -215,10 +215,10 @@ Figure \@ref(fig:logsumsmap) presents this monetary valuation spatially.
 Unsurprisingly, the benefits are concentrated in the block groups surrounding
 the opened streets. Most residents of central Oakland see a benefit of somewhere
 around \$1, while some zones see an equivalent benefit of as much as \$30. One
-property of logsum-based accessibility terms is that there is some benefit given
-for simply having more options, whether or not those options are attractive in
-any way. In this application, these benefits are small, on the order of 10 cents
-for most block groups away from where the street openings occurred.
+property of logsum-based accessibility terms is that additional options 
+will always increase the total logsum, whether or not those options are realistic
+[@benakiva, p. 300]. In this application, these benefits are apparently small, on the order
+of 10 cents for most block groups away from where the street openings occurred.
 
 ```{r logsumsmap, fig.cap="Monetary value of street opening to residents based on utility change. Streets converted to pedestrian plazas are shown in black.", cache=FALSE}
 bins <- c(0, 0.1, 0.25, 0.5, 1, 2, 10, 50)
