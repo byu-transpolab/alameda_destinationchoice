@@ -63,7 +63,6 @@ It might be possible to restrict the scope of these benefits, for instance asser
 that closed streets more than $x$ miles from a home are not in the choice set, but
 this would on some level undermine the purpose of logsum-based accessibility models
 in the first place.
-
 We have tried to explain this more strictly in the revised manuscript, 
 including a citation to a common reference work.
 
@@ -136,6 +135,66 @@ Therefore, the authors must provide empirical evidence supporting the claim that
 \subsection{Travel Mode of Access}
 
 \RC On mode choice. The fact that authors required a measure of distance between home block group and park (or closed street) and chose to use the length of the walking path does not necessarily mean people in the data set provided by Streetlights include only people walking. Or does it? If it does, please clarify that; however, if it does not, please explain how the analysis inferred mode, or if any of the latter, then the research is seriously flawed. Again, my comment has nothing to do with estimated distances – Euclidian versus walking network distances.
+
+\AR This research design is explicitly non-modal. The data provided by Streetlight Data
+for this analyshis included all trips, not segmented by mode. 
+We strongly disagree, however, that this decision must inevitably result in a flawed analysis. \\
+\\
+In some passive data sets, mode is inferred by the data provider. Consider that
+we observe individuals in a neighborhood choose between two parks, $A$ and $B$. The 
+passive data can tell us that of the 15 who chose park $A$, 5 drove and 10 walked,
+and that of the 30 who chose park $B$, 15 drove and 15 walked. This data, however,
+does not say anything about how those 45 individuals might have chosen to reach 
+a new park $C$. It also does not reveal any information on what mode people who
+chose park $A$ would have used if they had chosen park $B$.\\
+\\
+In our research, we present empirical evidence that people choose to visit 
+parks that are closer to their home, regardless of the mode used to reach those 
+parks. \\
+\\
+Do people choose modes first, and then destinations that can be reached by those 
+modes? Or do they choose destinations first, and then choose the best to get there?
+At some level this is a chicken-and-egg proposition, but in modern travel models, 
+the issue is somewhat obviated by using the mode choice logsum as the travel impedance, 
+replacing either a distance measure or, more commonly, a single-mode impedance. 
+This allows people who are likely to walk to choose parks within walking distance, and
+vice versa. But implementing this requires a mode choice model in addition to the
+destination choice presented here, which we regard as beyond the question of this research.\\
+\\
+It is certainly not a valueless question. In other research currently under 
+review, we have done precisely this. Table \ref{tab:park-models} presents estimates 
+obtained in the same manner as the present research, but for a different metropolitan area.
+The findings suggest that the mode choice logsum is marginally more predictive
+than a single mode distance, as represented by the increased log-likelihood value
+(which is significant in a Horowitz non-nested likelihood ratio test). It is 
+possible that in a highly multi-modal scenario such as parts of Alameda county, 
+the improvement would be even more substantial. But we believe the central findings
+of the present study would remain inherently unchanged.
+
+\begin{table}
+
+\caption{\label{tab:park-models}Park Destination Choice Utilities - Other Research}
+\centering
+\begin{tabular}{lccccc}
+\toprule
+  & Car & MCLS & Attributes & All - Car & All - Logsum\\
+\midrule
+log(Network Distance) & -0.215(-95.949)** &  &  & -0.209(-69.212)** & \\
+Mode Choice Logsum &  & 7.678(95.958)** &  &  & 7.450(69.216)**\\
+log(Acres) &  &  & 1.308(77.120)** & 1.300(46.869)** & 1.301(46.858)**\\
+Playground &  &  & 4.567(33.939)** & 4.476(30.127)** & 4.477(30.118)**\\
+Volleyball &  &  & -0.369(-9.580)** & -0.663(-11.065)** & -0.664(-11.067)**\\
+Basketball &  &  & -0.669(-15.625)** & -0.534(-7.632)** & -0.535(-7.642)**\\
+Tennis &  &  & -0.549(-13.065)** & -0.884(-14.678)** & -0.886(-14.693)**\\
+\midrule
+Num.Obs. & 8,984 & 8,984 & 8,984 & 8,984 & 8,984\\
+Log Likelihood & -9288.8 & -9284.7 & -11822.1 & -4774.9 & -4772.2\\
+McFadden Rho-Sq & 0.569 & 0.569 & 0.451 & 0.778 & 0.778\\
+\bottomrule
+\multicolumn{6}{l}{\rule{0pt}{1em}t-statistics in parentheses. * p $<$ 0.5, ** p $<$ 0.1}\\
+\end{tabular}
+\end{table}
+
 
 
 \subsection{Causal Effects}
