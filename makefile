@@ -1,8 +1,11 @@
 # Make a differenced document 
 diff: docs/diff.pdf
 
-docs/diff.pdf: docs/diff.tex
-	pdflatex $< -job-name=$@
+docs/diff.pdf: docs/diff.tex figs
+	pdflatex -output-directory=docs/ -job-name=$@ $<
+	bibtex docs/diff
+	pdflatex -output-directory=docs/ -job-name=$@ $<
+	
 
 docs/diff.tex: docs/alameda_destinationchoice.tex
 	latexdiff docs/alameda_destinationchoice_submitted.tex $< > $@

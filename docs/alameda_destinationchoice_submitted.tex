@@ -34,7 +34,16 @@
 \IfFileExists{microtype.sty}{\usepackage{microtype}}{}
 \usepackage{natbib}
 \bibliographystyle{plainnat}
-\usepackage{longtable}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
 \usepackage{graphicx}
 \ifxetex
   \usepackage[setpagesize=false, % page size defined by xetex
@@ -73,6 +82,8 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
+\usepackage{siunitx}
+\sisetup{parse-numbers = false}
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
@@ -87,6 +98,8 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
+\usepackage{siunitx}
+\newcolumntype{d}{S[input-symbols = ()]}
 
 
 
@@ -598,7 +611,7 @@ sport fields.
 
 \caption{\label{tab:parkstable}Park Summary Statistics}
 \centering
-\begin{tabular}[t]{llllll}
+\begin{tabular}[t]{llrrrr}
 \toprule
 \multicolumn{2}{c}{ } & \multicolumn{2}{c}{Local Park (N=441)} & \multicolumn{2}{c}{Recreation Area (N=59)} \\
 \cmidrule(l{3pt}r{3pt}){3-4} \cmidrule(l{3pt}r{3pt}){5-6}
@@ -607,7 +620,7 @@ sport fields.
 Acres &  & 59.8 & 370.5 & 125.6 & 505.1\\
 Mobile Devices &  & 1450.0 & 6685.4 & 2659.0 & 6161.0\\
 \midrule
- &  & N & \% & N & \%\\
+ &  & N & Pct. & N & Pct.\\
 type & Local Park & 441 & 100.0 & 0 & 0.0\\
  & Local Recreation Area & 0 & 0.0 & 57 & 96.6\\
  & State Recreation Area & 0 & 0.0 & 2 & 3.4\\
@@ -628,8 +641,8 @@ Tennis & FALSE & 387 & 87.8 & 52 & 88.1\\
  & TRUE & 54 & 12.2 & 7 & 11.9\\
 Volleyball & FALSE & 433 & 98.2 & 57 & 96.6\\
  & TRUE & 8 & 1.8 & 2 & 3.4\\
-Trail & FALSE & 147 & 33.3 & 21 & 35.6\\
- & TRUE & 294 & 66.7 & 38 & 64.4\\
+Trail & FALSE & 143 & 32.4 & 21 & 35.6\\
+ & TRUE & 298 & 67.6 & 38 & 64.4\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -658,15 +671,15 @@ via the \texttt{networkx} package for Python \citep{networkx},
 \toprule
   & Unique (\#) & Missing (\%) & Mean & SD & Min & Median & Max\\
 \midrule
-Density: Households per square kilometer & 1040 & 0 & 1726.3 & 1576.8 & 0.0 & 1373.3 & 21930.9\\
-Income: Median tract income & 978 & 3 & 106026.7 & 48909.9 & 13472.0 & 98206.5 & 250001.0\\
-Low Income: Share of households making less than \$35k & 977 & 0 & 16.2 & 13.2 & 0.0 & 12.9 & 100.0\\
-High Income: Share of households making more than \$125k & 1022 & 0 & 38.6 & 20.8 & 0.0 & 36.9 & 89.2\\
-Children: Share of households with children under 6 & 976 & 0 & 14.5 & 8.7 & 0.0 & 13.2 & 48.7\\
-Black: Share of population who is Black & 914 & 0 & 11.6 & 14.0 & 0.0 & 6.3 & 80.8\\
-Asian: Share of population who is Asian & 1022 & 0 & 26.7 & 20.6 & 0.0 & 20.8 & 93.9\\
-Hispanic: Share of population who is Hispanic* & 1031 & 0 & 22.2 & 18.7 & 0.0 & 16.0 & 88.2\\
-White: Share of population who is White & 1030 & 0 & 33.5 & 22.5 & 0.0 & 28.8 & 93.6\\
+Density: Households per square kilometer & 1040 & 0 & \num{1727.2} & \num{1577.7} & \num{0.0} & \num{1374.0} & \num{21943.1}\\
+Income: Median tract income & 978 & 3 & \num{106026.7} & \num{48909.9} & \num{13472.0} & \num{98206.5} & \num{250001.0}\\
+Low Income: Share of households making less than \$35k & 977 & 0 & \num{16.2} & \num{13.2} & \num{0.0} & \num{12.9} & \num{100.0}\\
+High Income: Share of households making more than \$125k & 1022 & 0 & \num{38.6} & \num{20.8} & \num{0.0} & \num{36.9} & \num{89.2}\\
+Children: Share of households with children under 6 & 976 & 0 & \num{14.5} & \num{8.7} & \num{0.0} & \num{13.2} & \num{48.7}\\
+Black: Share of population who is Black & 914 & 0 & \num{11.6} & \num{14.0} & \num{0.0} & \num{6.3} & \num{80.8}\\
+Asian: Share of population who is Asian & 1022 & 0 & \num{26.7} & \num{20.6} & \num{0.0} & \num{20.8} & \num{93.9}\\
+Hispanic: Share of population who is Hispanic* & 1031 & 0 & \num{22.2} & \num{18.7} & \num{0.0} & \num{16.0} & \num{88.2}\\
+White: Share of population who is White & 1030 & 0 & \num{33.5} & \num{22.5} & \num{0.0} & \num{28.8} & \num{93.6}\\
 \bottomrule
 \multicolumn{8}{l}{\rule{0pt}{1em}\textsuperscript{*} Hispanic indicates Hispanic individuals of all races; non-Hispanic individuals report a single race alone.}\\
 \end{tabular}}
@@ -855,35 +868,35 @@ we move forward with this utility specification.
 \toprule
   & Network Distance & Park Attributes & Sport Detail\\
 \midrule
-log(Distance) & -1.358 *** & -1.397 *** & -1.389 ***\\
- & (0.010) & (0.010) & (0.010)\\
-log(Acres) & 0.391 *** & 0.337 *** & 0.334 ***\\
- & (0.005) & (0.005) & (0.005)\\
-Playground &  & -0.448 *** & -0.556 ***\\
- &  & (0.022) & (0.022)\\
-Trail &  & 0.576 *** & 0.592 ***\\
- &  & (0.024) & (0.024)\\
-Sport Field &  & -0.381 *** & \\
- &  & (0.023) & \\
-Basketball &  &  & -0.293 ***\\
- &  &  & \vphantom{2} (0.030)\\
-Baseball &  &  & 0.130 ***\\
- &  &  & \vphantom{1} (0.030)\\
-Football / Soccer &  &  & -0.467 ***\\
- &  &  & (0.042)\\
-Tennis &  &  & 0.202 ***\\
- &  &  & (0.030)\\
-Volleyball &  &  & 0.125 *\\
- &  &  & (0.061)\\
-Other Sport &  &  & -0.249 ***\\
- &  &  & (0.039)\\
+log(Distance) & \num{-1.358} *** & \num{-1.397} *** & \num{-1.389} ***\\
+ & (\num{0.010}) & (\num{0.010}) & (\num{0.010})\\
+log(Acres) & \num{0.391} *** & \num{0.339} *** & \num{0.337} ***\\
+ & (\num{0.005}) & (\num{0.005}) & (\num{0.005})\\
+Playground &  & \num{-0.445} *** & \num{-0.554} ***\\
+ &  & (\num{0.022}) & (\num{0.022})\\
+Trail &  & \num{0.551} *** & \num{0.568} ***\\
+ &  & (\num{0.024}) & (\num{0.024})\\
+Sport Field &  & \num{-0.380} *** & \\
+ &  & (\num{0.023}) & \\
+Basketball &  &  & \num{-0.294} ***\\
+ &  &  & \vphantom{2} (\num{0.030})\\
+Baseball &  &  & \num{0.130} ***\\
+ &  &  & \vphantom{1} (\num{0.030})\\
+Football / Soccer &  &  & \num{-0.465} ***\\
+ &  &  & (\num{0.042})\\
+Tennis &  &  & \num{0.207} ***\\
+ &  &  & (\num{0.030})\\
+Volleyball &  &  & \num{0.127} *\\
+ &  &  & (\num{0.061})\\
+Other Sport &  &  & \num{-0.249} ***\\
+ &  &  & (\num{0.039})\\
 \midrule
-Num.Obs. & 20,000 & 20,000 & 20,000\\
-AIC & 58,736.3 & 57,014.9 & 56,991.2\\
-Log Likelihood & -29,366.1 & -28,502.5 & -28,485.6\\
-\$\textbackslash{}rho\textasciicircum{}2\_0\$ & 0.388 & 0.406 & 0.406\\
+Num.Obs. & \num{20,000} & \num{20,000} & \num{20,000}\\
+AIC & \num{58,736.3} & \num{57,069.6} & \num{57,043.2}\\
+Log Likelihood & \num{-29,366.1} & \num{-28,529.8} & \num{-28,511.6}\\
+$\rho^2_0$ & \num{0.388} & \num{0.405} & \num{0.405}\\
 \bottomrule
-\multicolumn{4}{l}{\textsuperscript{} Standard errors in parentheses.}\\
+\multicolumn{4}{l}{\rule{0pt}{1em}Standard errors in parentheses.}\\
 \end{tabular}
 \end{table}
 
@@ -914,33 +927,33 @@ definitions largely informed by the distributions in Table \ref{tab:acs-table}.
 \cmidrule(l{3pt}r{3pt}){2-5} \cmidrule(l{3pt}r{3pt}){6-8} \cmidrule(l{3pt}r{3pt}){9-11}
   & > 30\% Asian & > 30\% Black & > 30\% Hispanic & Other Eth. & > 30\% Low income & > 50\% High income & Other Inc. & > 25\% Children & < 5\% Children & Other Children\\
 \midrule
-\cellcolor{gray!6}{log(Distance)} & \cellcolor{gray!6}{-1.278 ***} & \cellcolor{gray!6}{-1.515 ***} & \cellcolor{gray!6}{-1.268 ***} & \cellcolor{gray!6}{-1.492 ***} & \cellcolor{gray!6}{-1.418 ***} & \cellcolor{gray!6}{-1.392 ***} & \cellcolor{gray!6}{-1.360 ***} & \cellcolor{gray!6}{-1.271 ***} & \cellcolor{gray!6}{-1.561 ***} & \cellcolor{gray!6}{-1.387 ***}\\
- & (0.017) & (0.030) & (0.022) & (0.019) & (0.026) & (0.020) & (0.013) & (0.029) & (0.037) & (0.011)\\
-\cellcolor{gray!6}{log(Acres)} & \cellcolor{gray!6}{0.368 ***} & \cellcolor{gray!6}{0.262 ***} & \cellcolor{gray!6}{0.323 ***} & \cellcolor{gray!6}{0.340 ***} & \cellcolor{gray!6}{0.310 ***} & \cellcolor{gray!6}{0.360 ***} & \cellcolor{gray!6}{0.329 ***} & \cellcolor{gray!6}{0.339 ***} & \cellcolor{gray!6}{0.366 ***} & \cellcolor{gray!6}{0.332 ***}\\
- & (0.009) & (0.015) & (0.011) & (0.010) & (0.014) & (0.010) & (0.007) & (0.014) & (0.020) & (0.006)\\
-\cellcolor{gray!6}{Playground} & \cellcolor{gray!6}{-0.458 ***} & \cellcolor{gray!6}{-0.639 ***} & \cellcolor{gray!6}{-0.327 ***} & \cellcolor{gray!6}{-0.780 ***} & \cellcolor{gray!6}{-0.593 ***} & \cellcolor{gray!6}{-0.621 ***} & \cellcolor{gray!6}{-0.520 ***} & \cellcolor{gray!6}{-0.344 ***} & \cellcolor{gray!6}{-0.670 ***} & \cellcolor{gray!6}{-0.579 ***}\\
- & (0.038) & (0.060) & (0.047) & (0.042) & (0.055) & (0.045) & (0.029) & (0.062) & (0.078) & (0.025)\\
-\cellcolor{gray!6}{Trail} & \cellcolor{gray!6}{0.533 ***} & \cellcolor{gray!6}{0.574 ***} & \cellcolor{gray!6}{0.280 ***} & \cellcolor{gray!6}{0.970 ***} & \cellcolor{gray!6}{0.573 ***} & \cellcolor{gray!6}{0.840 ***} & \cellcolor{gray!6}{0.527 ***} & \cellcolor{gray!6}{0.360 ***} & \cellcolor{gray!6}{0.731 ***} & \cellcolor{gray!6}{0.610 ***}\\
- & (0.041) & (0.062) & (0.049) & (0.049) & (0.058) & (0.054) & (0.031) & (0.064) & (0.087) & (0.027)\\
-\cellcolor{gray!6}{Basketball} & \cellcolor{gray!6}{-0.170 ***} & \cellcolor{gray!6}{-0.255 **} & \cellcolor{gray!6}{-0.503 ***} & \cellcolor{gray!6}{-0.411 ***} & \cellcolor{gray!6}{-0.230 **} & \cellcolor{gray!6}{-0.193 ***} & \cellcolor{gray!6}{-0.390 ***} & \cellcolor{gray!6}{-0.445 ***} & \cellcolor{gray!6}{-0.359 **} & \cellcolor{gray!6}{-0.261 ***}\\
- & (0.049) & (0.085) & (0.067) & (0.060) & (0.077) & (0.058) & (0.041) & (0.083) & (0.110) & (0.034)\\
-\cellcolor{gray!6}{Baseball} & \cellcolor{gray!6}{0.097 *} & \cellcolor{gray!6}{0.200 *} & \cellcolor{gray!6}{0.148 *} & \cellcolor{gray!6}{0.163 **} & \cellcolor{gray!6}{0.226 **} & \cellcolor{gray!6}{-0.023} & \cellcolor{gray!6}{0.187 ***} & \cellcolor{gray!6}{0.162 *} & \cellcolor{gray!6}{0.153} & \cellcolor{gray!6}{0.125 ***}\\
- & (0.049) & (0.080) & (0.063) & (0.058) & (0.073) & (0.060) & (0.039) & (0.080) & (0.107) & (0.033)\\
-\cellcolor{gray!6}{Football / Soccer} & \cellcolor{gray!6}{-0.282 ***} & \cellcolor{gray!6}{-0.731 ***} & \cellcolor{gray!6}{-0.595 ***} & \cellcolor{gray!6}{-0.630 ***} & \cellcolor{gray!6}{-0.689 ***} & \cellcolor{gray!6}{-0.178 *} & \cellcolor{gray!6}{-0.588 ***} & \cellcolor{gray!6}{-0.357 **} & \cellcolor{gray!6}{-0.514 ***} & \cellcolor{gray!6}{-0.482 ***}\\
- & (0.065) & (0.125) & (0.100) & (0.084) & (0.104) & (0.080) & (0.058) & (0.116) & (0.147) & (0.048)\\
-\cellcolor{gray!6}{Tennis} & \cellcolor{gray!6}{0.417 ***} & \cellcolor{gray!6}{-0.428 ***} & \cellcolor{gray!6}{-0.067} & \cellcolor{gray!6}{0.305 ***} & \cellcolor{gray!6}{-0.211 **} & \cellcolor{gray!6}{0.560 ***} & \cellcolor{gray!6}{0.120 **} & \cellcolor{gray!6}{0.162 +} & \cellcolor{gray!6}{0.131} & \cellcolor{gray!6}{0.213 ***}\\
- & (0.047) & (0.096) & (0.070) & (0.056) & (0.082) & (0.055) & (0.040) & (0.084) & (0.107) & (0.033)\\
-\cellcolor{gray!6}{Volleyball} & \cellcolor{gray!6}{0.080} & \cellcolor{gray!6}{-0.222} & \cellcolor{gray!6}{0.122} & \cellcolor{gray!6}{0.244 *} & \cellcolor{gray!6}{-0.184} & \cellcolor{gray!6}{0.286 **} & \cellcolor{gray!6}{0.009} & \cellcolor{gray!6}{-0.116} & \cellcolor{gray!6}{0.121} & \cellcolor{gray!6}{0.163 *}\\
- & (0.096) & (0.225) & (0.141) & (0.106) & (0.195) & (0.100) & (0.087) & (0.173) & (0.247) & (0.068)\\
-\cellcolor{gray!6}{Other Sport} & \cellcolor{gray!6}{-0.171 **} & \cellcolor{gray!6}{-0.297 *} & \cellcolor{gray!6}{-0.418 ***} & \cellcolor{gray!6}{-0.303 ***} & \cellcolor{gray!6}{-0.521 ***} & \cellcolor{gray!6}{-0.170 *} & \cellcolor{gray!6}{-0.250 ***} & \cellcolor{gray!6}{-0.220 *} & \cellcolor{gray!6}{-0.353 *} & \cellcolor{gray!6}{-0.244 ***}\\
- & (0.061) & (0.116) & (0.095) & (0.073) & (0.107) & (0.073) & (0.052) & (0.109) & (0.139) & (0.044)\\
+\cellcolor{gray!6}{log(Distance)} & \cellcolor{gray!6}{\num{-1.277} ***} & \cellcolor{gray!6}{\num{-1.515} ***} & \cellcolor{gray!6}{\num{-1.267} ***} & \cellcolor{gray!6}{\num{-1.493} ***} & \cellcolor{gray!6}{\num{-1.419} ***} & \cellcolor{gray!6}{\num{-1.392} ***} & \cellcolor{gray!6}{\num{-1.360} ***} & \cellcolor{gray!6}{\num{-1.270} ***} & \cellcolor{gray!6}{\num{-1.562} ***} & \cellcolor{gray!6}{\num{-1.387} ***}\\
+ & (\num{0.017}) & (\num{0.030}) & (\num{0.022}) & (\num{0.019}) & (\num{0.026}) & (\num{0.020}) & (\num{0.013}) & (\num{0.029}) & (\num{0.037}) & (\num{0.011})\\
+\cellcolor{gray!6}{log(Acres)} & \cellcolor{gray!6}{\num{0.371} ***} & \cellcolor{gray!6}{\num{0.264} ***} & \cellcolor{gray!6}{\num{0.325} ***} & \cellcolor{gray!6}{\num{0.343} ***} & \cellcolor{gray!6}{\num{0.312} ***} & \cellcolor{gray!6}{\num{0.364} ***} & \cellcolor{gray!6}{\num{0.331} ***} & \cellcolor{gray!6}{\num{0.341} ***} & \cellcolor{gray!6}{\num{0.369} ***} & \cellcolor{gray!6}{\num{0.335} ***}\\
+ & (\num{0.009}) & (\num{0.015}) & (\num{0.011}) & (\num{0.010}) & (\num{0.014}) & (\num{0.010}) & (\num{0.007}) & (\num{0.014}) & (\num{0.020}) & (\num{0.006})\\
+\cellcolor{gray!6}{Playground} & \cellcolor{gray!6}{\num{-0.455} ***} & \cellcolor{gray!6}{\num{-0.635} ***} & \cellcolor{gray!6}{\num{-0.324} ***} & \cellcolor{gray!6}{\num{-0.777} ***} & \cellcolor{gray!6}{\num{-0.590} ***} & \cellcolor{gray!6}{\num{-0.617} ***} & \cellcolor{gray!6}{\num{-0.518} ***} & \cellcolor{gray!6}{\num{-0.342} ***} & \cellcolor{gray!6}{\num{-0.669} ***} & \cellcolor{gray!6}{\num{-0.576} ***}\\
+ & (\num{0.038}) & (\num{0.060}) & (\num{0.047}) & (\num{0.042}) & (\num{0.055}) & (\num{0.045}) & (\num{0.029}) & (\num{0.062}) & (\num{0.078}) & (\num{0.025})\\
+\cellcolor{gray!6}{Trail} & \cellcolor{gray!6}{\num{0.509} ***} & \cellcolor{gray!6}{\num{0.551} ***} & \cellcolor{gray!6}{\num{0.259} ***} & \cellcolor{gray!6}{\num{0.943} ***} & \cellcolor{gray!6}{\num{0.550} ***} & \cellcolor{gray!6}{\num{0.812} ***} & \cellcolor{gray!6}{\num{0.506} ***} & \cellcolor{gray!6}{\num{0.340} ***} & \cellcolor{gray!6}{\num{0.720} ***} & \cellcolor{gray!6}{\num{0.584} ***}\\
+ & (\num{0.042}) & (\num{0.061}) & (\num{0.049}) & (\num{0.049}) & (\num{0.058}) & (\num{0.054}) & (\num{0.031}) & (\num{0.064}) & (\num{0.088}) & (\num{0.027})\\
+\cellcolor{gray!6}{Basketball} & \cellcolor{gray!6}{\num{-0.170} ***} & \cellcolor{gray!6}{\num{-0.256} **} & \cellcolor{gray!6}{\num{-0.504} ***} & \cellcolor{gray!6}{\num{-0.413} ***} & \cellcolor{gray!6}{\num{-0.232} **} & \cellcolor{gray!6}{\num{-0.194} ***} & \cellcolor{gray!6}{\num{-0.392} ***} & \cellcolor{gray!6}{\num{-0.445} ***} & \cellcolor{gray!6}{\num{-0.362} ***} & \cellcolor{gray!6}{\num{-0.262} ***}\\
+ & (\num{0.049}) & (\num{0.085}) & (\num{0.067}) & (\num{0.060}) & (\num{0.077}) & (\num{0.058}) & (\num{0.041}) & (\num{0.083}) & (\num{0.110}) & (\num{0.034})\\
+\cellcolor{gray!6}{Baseball} & \cellcolor{gray!6}{\num{0.097} *} & \cellcolor{gray!6}{\num{0.198} *} & \cellcolor{gray!6}{\num{0.147} *} & \cellcolor{gray!6}{\num{0.163} **} & \cellcolor{gray!6}{\num{0.224} **} & \cellcolor{gray!6}{\num{-0.022}} & \cellcolor{gray!6}{\num{0.187} ***} & \cellcolor{gray!6}{\num{0.161} *} & \cellcolor{gray!6}{\num{0.154}} & \cellcolor{gray!6}{\num{0.124} ***}\\
+ & (\num{0.049}) & (\num{0.080}) & (\num{0.063}) & (\num{0.058}) & (\num{0.073}) & (\num{0.060}) & (\num{0.039}) & (\num{0.080}) & (\num{0.108}) & (\num{0.033})\\
+\cellcolor{gray!6}{Football / Soccer} & \cellcolor{gray!6}{\num{-0.280} ***} & \cellcolor{gray!6}{\num{-0.726} ***} & \cellcolor{gray!6}{\num{-0.593} ***} & \cellcolor{gray!6}{\num{-0.627} ***} & \cellcolor{gray!6}{\num{-0.685} ***} & \cellcolor{gray!6}{\num{-0.175} *} & \cellcolor{gray!6}{\num{-0.586} ***} & \cellcolor{gray!6}{\num{-0.356} **} & \cellcolor{gray!6}{\num{-0.513} ***} & \cellcolor{gray!6}{\num{-0.479} ***}\\
+ & (\num{0.065}) & (\num{0.125}) & (\num{0.100}) & (\num{0.084}) & (\num{0.104}) & (\num{0.080}) & (\num{0.058}) & (\num{0.116}) & (\num{0.147}) & (\num{0.048})\\
+\cellcolor{gray!6}{Tennis} & \cellcolor{gray!6}{\num{0.422} ***} & \cellcolor{gray!6}{\num{-0.423} ***} & \cellcolor{gray!6}{\num{-0.062}} & \cellcolor{gray!6}{\num{0.310} ***} & \cellcolor{gray!6}{\num{-0.205} *} & \cellcolor{gray!6}{\num{0.565} ***} & \cellcolor{gray!6}{\num{0.126} **} & \cellcolor{gray!6}{\num{0.166} *} & \cellcolor{gray!6}{\num{0.135}} & \cellcolor{gray!6}{\num{0.219} ***}\\
+ & (\num{0.047}) & (\num{0.096}) & (\num{0.070}) & (\num{0.056}) & (\num{0.082}) & (\num{0.055}) & (\num{0.040}) & (\num{0.084}) & (\num{0.107}) & (\num{0.033})\\
+\cellcolor{gray!6}{Volleyball} & \cellcolor{gray!6}{\num{0.082}} & \cellcolor{gray!6}{\num{-0.223}} & \cellcolor{gray!6}{\num{0.125}} & \cellcolor{gray!6}{\num{0.245} *} & \cellcolor{gray!6}{\num{-0.184}} & \cellcolor{gray!6}{\num{0.288} **} & \cellcolor{gray!6}{\num{0.012}} & \cellcolor{gray!6}{\num{-0.112}} & \cellcolor{gray!6}{\num{0.120}} & \cellcolor{gray!6}{\num{0.165} *}\\
+ & (\num{0.096}) & (\num{0.225}) & (\num{0.141}) & (\num{0.106}) & (\num{0.195}) & (\num{0.100}) & (\num{0.087}) & (\num{0.173}) & (\num{0.247}) & (\num{0.068})\\
+\cellcolor{gray!6}{Other Sport} & \cellcolor{gray!6}{\num{-0.172} **} & \cellcolor{gray!6}{\num{-0.298} *} & \cellcolor{gray!6}{\num{-0.417} ***} & \cellcolor{gray!6}{\num{-0.303} ***} & \cellcolor{gray!6}{\num{-0.523} ***} & \cellcolor{gray!6}{\num{-0.172} *} & \cellcolor{gray!6}{\num{-0.249} ***} & \cellcolor{gray!6}{\num{-0.219} *} & \cellcolor{gray!6}{\num{-0.353} *} & \cellcolor{gray!6}{\num{-0.244} ***}\\
+ & (\num{0.061}) & (\num{0.116}) & (\num{0.095}) & (\num{0.073}) & (\num{0.107}) & (\num{0.073}) & (\num{0.052}) & (\num{0.109}) & (\num{0.139}) & (\num{0.044})\\
 \midrule
-\cellcolor{gray!6}{Num.Obs.} & \cellcolor{gray!6}{6,861} & \cellcolor{gray!6}{2,600} & \cellcolor{gray!6}{3,790} & \cellcolor{gray!6}{6,749} & \cellcolor{gray!6}{2,982} & \cellcolor{gray!6}{5,759} & \cellcolor{gray!6}{11,259} & \cellcolor{gray!6}{2,365} & \cellcolor{gray!6}{1,769} & \cellcolor{gray!6}{15,866}\\
-AIC & 20,513.9 & 7,675.8 & 12,386.6 & 15,939.9 & 9,070.6 & 14,438.9 & 33,286.6 & 7,646.5 & 4,526.1 & 44,789.2\\
-\cellcolor{gray!6}{Log Likelihood} & \cellcolor{gray!6}{-10,247} & \cellcolor{gray!6}{-3,827.9} & \cellcolor{gray!6}{-6,183.3} & \cellcolor{gray!6}{-7,960} & \cellcolor{gray!6}{-4,525.3} & \cellcolor{gray!6}{-7,209.5} & \cellcolor{gray!6}{-16,633.3} & \cellcolor{gray!6}{-3,813.3} & \cellcolor{gray!6}{-2,253} & \cellcolor{gray!6}{-22,384.6}\\
-\$\textbackslash{}rho\textasciicircum{}2\_0\$ & 0.377 & 0.386 & 0.320 & 0.508 & 0.367 & 0.478 & 0.384 & 0.328 & 0.469 & 0.412\\
+\cellcolor{gray!6}{Num.Obs.} & \cellcolor{gray!6}{\num{6,861}} & \cellcolor{gray!6}{\num{2,600}} & \cellcolor{gray!6}{\num{3,790}} & \cellcolor{gray!6}{\num{6,749}} & \cellcolor{gray!6}{\num{2,982}} & \cellcolor{gray!6}{\num{5,759}} & \cellcolor{gray!6}{\num{11,259}} & \cellcolor{gray!6}{\num{2,365}} & \cellcolor{gray!6}{\num{1,769}} & \cellcolor{gray!6}{\num{15,866}}\\
+AIC & \num{20,530.5} & \num{7,682.8} & \num{12,391.7} & \num{15,964.7} & \num{9,078.8} & \num{14,458.8} & \num{33,312.1} & \num{7,650} & \num{4,528.8} & \num{44,834.7}\\
+\cellcolor{gray!6}{Log Likelihood} & \cellcolor{gray!6}{\num{-10,255.3}} & \cellcolor{gray!6}{\num{-3,831.4}} & \cellcolor{gray!6}{\num{-6,185.8}} & \cellcolor{gray!6}{\num{-7,972.3}} & \cellcolor{gray!6}{\num{-4,529.4}} & \cellcolor{gray!6}{\num{-7,219.4}} & \cellcolor{gray!6}{\num{-16,646.1}} & \cellcolor{gray!6}{\num{-3,815}} & \cellcolor{gray!6}{\num{-2,254.4}} & \cellcolor{gray!6}{\num{-22,407.4}}\\
+$\rho^2_0$ & \num{0.377} & \num{0.385} & \num{0.319} & \num{0.507} & \num{0.367} & \num{0.477} & \num{0.383} & \num{0.327} & \num{0.469} & \num{0.411}\\
 \bottomrule
-\multicolumn{11}{l}{\textsuperscript{} Standard errors in parentheses.}\\
+\multicolumn{11}{l}{\rule{0pt}{1em}Standard errors in parentheses.}\\
 \multicolumn{11}{l}{\textsuperscript{a} Simulated individuals segmented based on the share of households meeting the segmentation threshold in the residence block group.}\\
 \end{tabular}}
 \end{table}
@@ -1057,15 +1070,15 @@ making more than \$125,000 per year.
 \toprule
 Group & Benefit & Percent* of Benefits & Households** & Percent of Households\\
 \midrule
-Households with Children under 6 & \$145,604 & 14.10 & 83,868 & 14.53\\
-Income < \$35k & \$223,853 & 21.68 & 90,762 & 15.73\\
-Income > \$125k & \$329,431 & 31.91 & 229,963 & 39.84\\
-Black & \$187,483 & 18.16 & 61,971 & 10.74\\
-Asian & \$199,032 & 19.28 & 167,135 & 28.96\\
+Households with Children under 6 & \$144,477 & 14.11 & 83,868 & 14.53\\
+Income < \$35k & \$222,130 & 21.69 & 90,762 & 15.73\\
+Income > \$125k & \$326,618 & 31.90 & 229,963 & 39.84\\
+Black & \$186,064 & 18.17 & 61,971 & 10.74\\
+Asian & \$197,307 & 19.27 & 167,135 & 28.96\\
 \addlinespace
-Hispanic & \$230,674 & 22.34 & 119,013 & 20.62\\
-White & \$351,749 & 34.07 & 194,263 & 33.66\\
-All Households & \$1,032,372 & 100.00 & 577,177 & 100.00\\
+Hispanic & \$228,810 & 22.35 & 119,013 & 20.62\\
+White & \$348,834 & 34.07 & 194,263 & 33.66\\
+All Households & \$1,023,915 & 100.00 & 577,177 & 100.00\\
 \bottomrule
 \multicolumn{5}{l}{\rule{0pt}{1em}\textsuperscript{*} As individuals and households will belong in multiple groups, the percents do not sum to 100.}\\
 \multicolumn{5}{l}{\rule{0pt}{1em}\textsuperscript{\dag} Race and ethnicity are person-level attributes; households are assumed to follow the same distribution.}\\
