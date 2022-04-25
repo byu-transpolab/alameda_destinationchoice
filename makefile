@@ -16,10 +16,14 @@ figs:
 	cp -r _bookdown_files/alameda_destinationchoice_files/ alameda_destinationchoice_files/
 	
 doc:
-	Rscript -e 'bookdown::render_book("index.Rmd", "bookdown::pdf_book", output_yaml = "_output.yml")'
+	Rscript -e '\
+	Sys.setenv(RSTUDIO_PANDOC="Applications/RStudio.app/Contents/MacOS/quarto/bin");\
+	bookdown::render_book("index.Rmd", "bookdown::pdf_book", output_yaml = "_output.yml")'
 	
 site: 
-	Rscript -e 'bookdown::render_book("index.Rmd", "bookdown::gitbook")'
+	Rscript -e '\
+	Sys.setenv(RSTUDIO_PANDOC="Applications/RStudio.app/Contents/MacOS/quarto/bin");
+	bookdown::render_book("index.Rmd", "bookdown::gitbook")'
 	
 	
 response: response2/response.pdf
