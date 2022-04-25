@@ -10,7 +10,6 @@
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
 \usepackage{graphicx}
-\usepackage{booktabs} % book-quality tables
 %%%%%%%%%%%%%%%% end my additions to header
 
 \usepackage[T1]{fontenc}
@@ -55,7 +54,7 @@
 \hypersetup{breaklinks=true,
             bookmarks=true,
             pdfauthor={},
-            pdftitle={If you build it who will come? Equity analysis of park system changes during COVID-19 using passive origin-destination data},
+            pdftitle={City parks and slow streets: a utility-based access and equity analysis},
             colorlinks=false,
             urlcolor=blue,
             linkcolor=magenta,
@@ -106,7 +105,7 @@
 \begin{document}
 \begin{frontmatter}
 
-  \title{If you build it who will come? Equity analysis of park system changes during COVID-19 using passive origin-destination data}
+  \title{City parks and slow streets: a utility-based access and equity analysis}
     \author[BYU]{Gregory S. Macfarlane\corref{1}}
    \ead{gregmacfarlane@byu.edu} 
     \author[Harvard]{Carole Turley Voulgaris}
@@ -119,7 +118,7 @@
       \cortext[1]{Corresponding Author}
   
   \begin{abstract}
-  During the spring and summer of 2020, cities across the world responded to the global COVID-19 pandemic by converting roadway facilities into open pedestrian spaces. These conversions improved access to public open space, but measuring the variation in that improvement among different populations requires clear definitions of access and methods for measuring it. In this study, we evaluate the change in a utility-based park accessibility measure resulting from street conversions in Alameda County, California. Our utility-based accessibility measure is constructed from a park activity location choice model we estimate using mobile device data --- supplied by StreetLight Data, Inc.~--- representing trips to parks in that county. The estimated model reveals heterogeneity in inferred affinity for park attributes among different sociodemographic groups. We find, for example, that neighborhoods with more lower-income residents and those with more residents of color show a greater preference for park proximty while neighborhods with higher incomes and those with more white residents show a greater preference for park size and amenities. We then apply this model to examine the accessibility benefits resulting from COVID-19 street conversions to create a set of small park-like open spaces; we find that this policy has improved equity in that maginalized communities including Black, Hispanic, and low-income households receive a disproportionate share of the policy benefits, relative to the population distribution.
+  During the spring and summer of 2020, cities across the world responded to the global COVID-19 pandemic by converting roadway facilities into open pedestrian spaces. These conversions improved access to public open space, but measuring the variation in that improvement among different populations requires clear definitions of access and methods for measuring it. In this study, we evaluate the change in a utility-based park accessibility measure resulting from street conversions in Alameda County, California. Our utility-based accessibility measure is constructed from a park activity location choice model we estimate using mobile device data --- supplied by StreetLight Data, Inc.~--- representing trips to parks in that county. The estimated model reveals heterogeneity in inferred affinity for park attributes among different sociodemographic groups. We find, for example, that neighborhoods with more lower-income residents and those with more residents of color show a greater preference for park proximity while neighborhods with higher incomes and those with more white residents show a greater preference for park size and amenities. We then apply this model to examine the accessibility benefits resulting from COVID-19 street conversions to create a set of small park-like open spaces; we find that this policy has improved equity in that maginalized communities including Black, Hispanic, and low-income households receive a disproportionate share of the policy benefits, relative to the population distribution.
   \end{abstract}
    \begin{keyword} Accessibility Passive Data Location Choice Parks\end{keyword}
  \end{frontmatter}
@@ -597,8 +596,7 @@ softball fields are combined as well. Basketball, tennis, and volleyball courts
 are kept as distinct categories, with all other sport-specific fields combined
 into a single ``other.'' Golf courses are discarded. As with playgrounds, polygon
 field and court objects are converted into points at the polygon centroid.
-
-Finally, we identified trails and footpaths using the \texttt{path}, \texttt{cycleway}, and
+We identified trails and footpaths using the \texttt{path}, \texttt{cycleway}, and
 \texttt{footway} values of the \texttt{highway} tag. A visual inspection of the resulting data
 revealed that the large preponderance of sidewalks and cycling trails within
 parks in Alameda County are identified properly with these variables. Trails are
@@ -612,6 +610,11 @@ high schools will have sports facilities that are not necessarily open to the
 general public. We spatially matched the OSM amenities data and retained only
 those facilities that intersected with the CPAD open spaces database identified
 earlier.
+
+An additional amenity of parks that may affect their attractiveness the land use
+that surrounds them \citep{clifton2016}. Accordingly, we counted the number of features
+in OpenStreetMap that are tagged with the amenities \texttt{bar}, \texttt{cafe}, \texttt{fast\_food},
+\texttt{restaurant}, \texttt{bank}, and \texttt{pharmacy} within 500 feet of the boundary of each park.
 
 \begin{figure}
 \centering
@@ -654,6 +657,7 @@ sport fields.
 \midrule
 Acres &  & 59.8 & 370.5 & 125.6 & 505.1\\
 Mobile Devices &  & 1450.0 & 6685.4 & 2659.0 & 6161.0\\
+Shops &  & 1.9 & 6.2 & 0.9 & 2.6\\
 \midrule
  &  & N & Pct. & N & Pct.\\
 type & Local Park & 441 & 100.0 & 0 & 0.0\\
@@ -770,7 +774,7 @@ between different socioeconomic groups.
 
 The logarithm of the sum in the denominator of Equation \ref{eq:p} (called the
 logsum) provides a measure of the consumer surplus of the choice set enjoyed by
-person \(n\) \citep{Williams1977a},
+person \(n\) \citep[\citet{benakiva}]{Williams1977a},
 \begin{equation}
 CS_n = \ln{{\sum_{j \in J}\exp(V_{nj})}} + C
   \label{eq:logsum}
@@ -789,7 +793,7 @@ multiple dimensions of the attributes of the choice, and can be evaluated in
 monetary terms \citep{Handy1997, Dong2006}. Note also that the logsum increases
 with the size of the choice set: if a new alternative \(q\) is added to \(J\), then
 \(\ln\sum_{j\in J}\exp(V_j) < \ln(\sum_{j\in J}\exp(V_j) + \exp(V_q))\) for
-any value of \(V_q\).
+any value of \(V_q\) \citep[p.~300]{benakiva}.
 
 In the most typical cases, researchers estimate the utility coefficients for
 destination choice models from household travel surveys. For example, the
@@ -874,25 +878,27 @@ each estimated model. The ``Network Distance'' model, which only considers the
 distance to the park and the size of the park. results in significant estimated
 coefficients of the expected sign. That is, individuals will travel further
 distances to reach larger parks. The ratio of the estimated coefficients implies
-that on average, people will travel twice as far to reach a park 3.47
-times as large.
+that on average, people will travel 0.288 times further to reach a park
+twice as large.
 
 Table \ref{tab:base-modelsummary} also shows the results of the ``Park
 Attributes'' model, which represents the presence of any sport field with a
 single dummy variable, and the ``Sport Detail'' model, which disaggregates this
 variable into facilities for different sports. The value of the size and
 distance coefficients change modestly from the ``Network Distance'' model, with
-the implied size to distance trade-off rising to 4.12. Examining
+the implied distance to size trade-off changing to 0.259. Examining
 the two amenities models --- independently and in comparison with each other ---
 reveals a few surprising findings. First, it appears that playgrounds and sport
 fields in general contribute \emph{negatively} to the choice utility equation. This
 is both unintuitive and contradictory to previous findings in this space \citep[e.g.,][]{Kinnell2006}. Considering different sports separately, there is a wide variety
 of observed response with tennis and volleyball facilities attracting more
 trips, and football and basketball facilities attracting fewer, all else equal.
-Trails and walking paths give substantive positive utility in both models. The
+Trails and walking paths give substantive positive utility in both models.\\
+Both models also contain an estimate of the number of shops within 500 feet,
+which is significant and positive. The
 difference in likelihood statistics between the three models is significant
 (likelihood ratio test between Sport Detail and Park Attributes model has
-\(p\)-value 8.16e-07), and so in spite of the curious aggregate findings,
+\(p\)-value 5.41e-26), and so in spite of the curious aggregate findings,
 we move forward with this utility specification.
 
 \begin{table}
@@ -903,33 +909,35 @@ we move forward with this utility specification.
 \toprule
   & Network Distance & Park Attributes & Sport Detail\\
 \midrule
-log(Distance) & \num{-1.358} *** & \num{-1.397} *** & \num{-1.389} ***\\
+log(Distance) & \num{-1.358} *** & \num{-1.387} *** & \num{-1.378} ***\\
  & (\num{0.010}) & (\num{0.010}) & (\num{0.010})\\
-log(Acres) & \num{0.391} *** & \num{0.339} *** & \num{0.337} ***\\
+log(Acres) & \num{0.391} *** & \num{0.347} *** & \num{0.357} ***\\
  & (\num{0.005}) & (\num{0.005}) & (\num{0.005})\\
-Playground &  & \num{-0.445} *** & \num{-0.554} ***\\
- &  & (\num{0.022}) & (\num{0.022})\\
-Trail &  & \num{0.551} *** & \num{0.568} ***\\
+Playground &  & \num{-0.471} *** & \num{-0.590} ***\\
+ &  & (\num{0.022}) & (\num{0.023})\\
+Trail &  & \num{0.462} *** & \num{0.472} ***\\
  &  & (\num{0.024}) & (\num{0.024})\\
-Sport Field &  & \num{-0.380} *** & \\
+Sport Field &  & \num{-0.414} *** & \\
  &  & (\num{0.023}) & \\
-Basketball &  &  & \num{-0.294} ***\\
- &  &  & \vphantom{2} (\num{0.030})\\
-Baseball &  &  & \num{0.130} ***\\
+Basketball &  &  & \num{-0.251} ***\\
+ &  &  & (\num{0.031})\\
+Baseball &  &  & \num{0.210} ***\\
  &  &  & \vphantom{1} (\num{0.030})\\
-Football / Soccer &  &  & \num{-0.465} ***\\
+Football / Soccer &  &  & \num{-0.400} ***\\
  &  &  & (\num{0.042})\\
-Tennis &  &  & \num{0.207} ***\\
+Tennis &  &  & \num{0.187} ***\\
  &  &  & (\num{0.030})\\
-Volleyball &  &  & \num{0.127} *\\
+Volleyball &  &  & \num{0.185} **\\
  &  &  & (\num{0.061})\\
-Other Sport &  &  & \num{-0.249} ***\\
- &  &  & (\num{0.039})\\
+Other Sport &  &  & \num{-0.621} ***\\
+ &  &  & (\num{0.043})\\
+Shops &  & \num{0.032} *** & \num{0.035} ***\\
+ &  & (\num{0.001}) & (\num{0.001})\\
 \midrule
 Num.Obs. & \num{20,000} & \num{20,000} & \num{20,000}\\
-AIC & \num{58,736.3} & \num{57,069.6} & \num{57,043.2}\\
-Log Likelihood & \num{-29,366.1} & \num{-28,529.8} & \num{-28,511.6}\\
-$\rho^2_0$ & \num{0.388} & \num{0.405} & \num{0.405}\\
+AIC & \num{58,736.3} & \num{56,157.9} & \num{56,039.6}\\
+Log Likelihood & \num{-29,366.1} & \num{-28,072.9} & \num{-28,008.8}\\
+$\rho^2_0$ & \num{0.388} & \num{0.415} & \num{0.416}\\
 \bottomrule
 \multicolumn{4}{l}{\rule{0pt}{1em}Standard errors in parentheses.}\\
 \end{tabular}
@@ -962,31 +970,33 @@ definitions largely informed by the distributions in Table \ref{tab:acs-table}.
 \cmidrule(l{3pt}r{3pt}){2-5} \cmidrule(l{3pt}r{3pt}){6-8} \cmidrule(l{3pt}r{3pt}){9-11}
   & > 30\% Asian & > 30\% Black & > 30\% Hispanic & Other Eth. & > 30\% Low income & > 50\% High income & Other Inc. & > 25\% Children & < 5\% Children & Other Children\\
 \midrule
-\cellcolor{gray!6}{log(Distance)} & \cellcolor{gray!6}{\num{-1.277} ***} & \cellcolor{gray!6}{\num{-1.515} ***} & \cellcolor{gray!6}{\num{-1.267} ***} & \cellcolor{gray!6}{\num{-1.493} ***} & \cellcolor{gray!6}{\num{-1.419} ***} & \cellcolor{gray!6}{\num{-1.392} ***} & \cellcolor{gray!6}{\num{-1.360} ***} & \cellcolor{gray!6}{\num{-1.270} ***} & \cellcolor{gray!6}{\num{-1.562} ***} & \cellcolor{gray!6}{\num{-1.387} ***}\\
- & (\num{0.017}) & (\num{0.030}) & (\num{0.022}) & (\num{0.019}) & (\num{0.026}) & (\num{0.020}) & (\num{0.013}) & (\num{0.029}) & (\num{0.037}) & (\num{0.011})\\
-\cellcolor{gray!6}{log(Acres)} & \cellcolor{gray!6}{\num{0.371} ***} & \cellcolor{gray!6}{\num{0.264} ***} & \cellcolor{gray!6}{\num{0.325} ***} & \cellcolor{gray!6}{\num{0.343} ***} & \cellcolor{gray!6}{\num{0.312} ***} & \cellcolor{gray!6}{\num{0.364} ***} & \cellcolor{gray!6}{\num{0.331} ***} & \cellcolor{gray!6}{\num{0.341} ***} & \cellcolor{gray!6}{\num{0.369} ***} & \cellcolor{gray!6}{\num{0.335} ***}\\
- & (\num{0.009}) & (\num{0.015}) & (\num{0.011}) & (\num{0.010}) & (\num{0.014}) & (\num{0.010}) & (\num{0.007}) & (\num{0.014}) & (\num{0.020}) & (\num{0.006})\\
-\cellcolor{gray!6}{Playground} & \cellcolor{gray!6}{\num{-0.455} ***} & \cellcolor{gray!6}{\num{-0.635} ***} & \cellcolor{gray!6}{\num{-0.324} ***} & \cellcolor{gray!6}{\num{-0.777} ***} & \cellcolor{gray!6}{\num{-0.590} ***} & \cellcolor{gray!6}{\num{-0.617} ***} & \cellcolor{gray!6}{\num{-0.518} ***} & \cellcolor{gray!6}{\num{-0.342} ***} & \cellcolor{gray!6}{\num{-0.669} ***} & \cellcolor{gray!6}{\num{-0.576} ***}\\
- & (\num{0.038}) & (\num{0.060}) & (\num{0.047}) & (\num{0.042}) & (\num{0.055}) & (\num{0.045}) & (\num{0.029}) & (\num{0.062}) & (\num{0.078}) & (\num{0.025})\\
-\cellcolor{gray!6}{Trail} & \cellcolor{gray!6}{\num{0.509} ***} & \cellcolor{gray!6}{\num{0.551} ***} & \cellcolor{gray!6}{\num{0.259} ***} & \cellcolor{gray!6}{\num{0.943} ***} & \cellcolor{gray!6}{\num{0.550} ***} & \cellcolor{gray!6}{\num{0.812} ***} & \cellcolor{gray!6}{\num{0.506} ***} & \cellcolor{gray!6}{\num{0.340} ***} & \cellcolor{gray!6}{\num{0.720} ***} & \cellcolor{gray!6}{\num{0.584} ***}\\
- & (\num{0.042}) & (\num{0.061}) & (\num{0.049}) & (\num{0.049}) & (\num{0.058}) & (\num{0.054}) & (\num{0.031}) & (\num{0.064}) & (\num{0.088}) & (\num{0.027})\\
-\cellcolor{gray!6}{Basketball} & \cellcolor{gray!6}{\num{-0.170} ***} & \cellcolor{gray!6}{\num{-0.256} **} & \cellcolor{gray!6}{\num{-0.504} ***} & \cellcolor{gray!6}{\num{-0.413} ***} & \cellcolor{gray!6}{\num{-0.232} **} & \cellcolor{gray!6}{\num{-0.194} ***} & \cellcolor{gray!6}{\num{-0.392} ***} & \cellcolor{gray!6}{\num{-0.445} ***} & \cellcolor{gray!6}{\num{-0.362} ***} & \cellcolor{gray!6}{\num{-0.262} ***}\\
- & (\num{0.049}) & (\num{0.085}) & (\num{0.067}) & (\num{0.060}) & (\num{0.077}) & (\num{0.058}) & (\num{0.041}) & (\num{0.083}) & (\num{0.110}) & (\num{0.034})\\
-\cellcolor{gray!6}{Baseball} & \cellcolor{gray!6}{\num{0.097} *} & \cellcolor{gray!6}{\num{0.198} *} & \cellcolor{gray!6}{\num{0.147} *} & \cellcolor{gray!6}{\num{0.163} **} & \cellcolor{gray!6}{\num{0.224} **} & \cellcolor{gray!6}{\num{-0.022}} & \cellcolor{gray!6}{\num{0.187} ***} & \cellcolor{gray!6}{\num{0.161} *} & \cellcolor{gray!6}{\num{0.154}} & \cellcolor{gray!6}{\num{0.124} ***}\\
- & (\num{0.049}) & (\num{0.080}) & (\num{0.063}) & (\num{0.058}) & (\num{0.073}) & (\num{0.060}) & (\num{0.039}) & (\num{0.080}) & (\num{0.108}) & (\num{0.033})\\
-\cellcolor{gray!6}{Football / Soccer} & \cellcolor{gray!6}{\num{-0.280} ***} & \cellcolor{gray!6}{\num{-0.726} ***} & \cellcolor{gray!6}{\num{-0.593} ***} & \cellcolor{gray!6}{\num{-0.627} ***} & \cellcolor{gray!6}{\num{-0.685} ***} & \cellcolor{gray!6}{\num{-0.175} *} & \cellcolor{gray!6}{\num{-0.586} ***} & \cellcolor{gray!6}{\num{-0.356} **} & \cellcolor{gray!6}{\num{-0.513} ***} & \cellcolor{gray!6}{\num{-0.479} ***}\\
- & (\num{0.065}) & (\num{0.125}) & (\num{0.100}) & (\num{0.084}) & (\num{0.104}) & (\num{0.080}) & (\num{0.058}) & (\num{0.116}) & (\num{0.147}) & (\num{0.048})\\
-\cellcolor{gray!6}{Tennis} & \cellcolor{gray!6}{\num{0.422} ***} & \cellcolor{gray!6}{\num{-0.423} ***} & \cellcolor{gray!6}{\num{-0.062}} & \cellcolor{gray!6}{\num{0.310} ***} & \cellcolor{gray!6}{\num{-0.205} *} & \cellcolor{gray!6}{\num{0.565} ***} & \cellcolor{gray!6}{\num{0.126} **} & \cellcolor{gray!6}{\num{0.166} *} & \cellcolor{gray!6}{\num{0.135}} & \cellcolor{gray!6}{\num{0.219} ***}\\
- & (\num{0.047}) & (\num{0.096}) & (\num{0.070}) & (\num{0.056}) & (\num{0.082}) & (\num{0.055}) & (\num{0.040}) & (\num{0.084}) & (\num{0.107}) & (\num{0.033})\\
-\cellcolor{gray!6}{Volleyball} & \cellcolor{gray!6}{\num{0.082}} & \cellcolor{gray!6}{\num{-0.223}} & \cellcolor{gray!6}{\num{0.125}} & \cellcolor{gray!6}{\num{0.245} *} & \cellcolor{gray!6}{\num{-0.184}} & \cellcolor{gray!6}{\num{0.288} **} & \cellcolor{gray!6}{\num{0.012}} & \cellcolor{gray!6}{\num{-0.112}} & \cellcolor{gray!6}{\num{0.120}} & \cellcolor{gray!6}{\num{0.165} *}\\
- & (\num{0.096}) & (\num{0.225}) & (\num{0.141}) & (\num{0.106}) & (\num{0.195}) & (\num{0.100}) & (\num{0.087}) & (\num{0.173}) & (\num{0.247}) & (\num{0.068})\\
-\cellcolor{gray!6}{Other Sport} & \cellcolor{gray!6}{\num{-0.172} **} & \cellcolor{gray!6}{\num{-0.298} *} & \cellcolor{gray!6}{\num{-0.417} ***} & \cellcolor{gray!6}{\num{-0.303} ***} & \cellcolor{gray!6}{\num{-0.523} ***} & \cellcolor{gray!6}{\num{-0.172} *} & \cellcolor{gray!6}{\num{-0.249} ***} & \cellcolor{gray!6}{\num{-0.219} *} & \cellcolor{gray!6}{\num{-0.353} *} & \cellcolor{gray!6}{\num{-0.244} ***}\\
- & (\num{0.061}) & (\num{0.116}) & (\num{0.095}) & (\num{0.073}) & (\num{0.107}) & (\num{0.073}) & (\num{0.052}) & (\num{0.109}) & (\num{0.139}) & (\num{0.044})\\
+\cellcolor{gray!6}{log(Distance)} & \cellcolor{gray!6}{\num{-1.267} ***} & \cellcolor{gray!6}{\num{-1.496} ***} & \cellcolor{gray!6}{\num{-1.272} ***} & \cellcolor{gray!6}{\num{-1.476} ***} & \cellcolor{gray!6}{\num{-1.389} ***} & \cellcolor{gray!6}{\num{-1.393} ***} & \cellcolor{gray!6}{\num{-1.345} ***} & \cellcolor{gray!6}{\num{-1.273} ***} & \cellcolor{gray!6}{\num{-1.521} ***} & \cellcolor{gray!6}{\num{-1.379} ***}\\
+ & (\num{0.017}) & (\num{0.031}) & (\num{0.022}) & (\num{0.019}) & (\num{0.027}) & (\num{0.020}) & (\num{0.013}) & (\num{0.029}) & (\num{0.037}) & (\num{0.011})\\
+\cellcolor{gray!6}{log(Acres)} & \cellcolor{gray!6}{\num{0.384} ***} & \cellcolor{gray!6}{\num{0.288} ***} & \cellcolor{gray!6}{\num{0.352} ***} & \cellcolor{gray!6}{\num{0.365} ***} & \cellcolor{gray!6}{\num{0.331} ***} & \cellcolor{gray!6}{\num{0.384} ***} & \cellcolor{gray!6}{\num{0.352} ***} & \cellcolor{gray!6}{\num{0.358} ***} & \cellcolor{gray!6}{\num{0.379} ***} & \cellcolor{gray!6}{\num{0.356} ***}\\
+ & (\num{0.009}) & (\num{0.016}) & (\num{0.012}) & (\num{0.010}) & (\num{0.014}) & (\num{0.011}) & (\num{0.007}) & (\num{0.015}) & (\num{0.020}) & (\num{0.006})\\
+\cellcolor{gray!6}{Playground} & \cellcolor{gray!6}{\num{-0.482} ***} & \cellcolor{gray!6}{\num{-0.670} ***} & \cellcolor{gray!6}{\num{-0.353} ***} & \cellcolor{gray!6}{\num{-0.825} ***} & \cellcolor{gray!6}{\num{-0.630} ***} & \cellcolor{gray!6}{\num{-0.647} ***} & \cellcolor{gray!6}{\num{-0.554} ***} & \cellcolor{gray!6}{\num{-0.366} ***} & \cellcolor{gray!6}{\num{-0.699} ***} & \cellcolor{gray!6}{\num{-0.615} ***}\\
+ & (\num{0.038}) & (\num{0.062}) & (\num{0.048}) & (\num{0.043}) & (\num{0.057}) & (\num{0.046}) & (\num{0.029}) & (\num{0.062}) & (\num{0.080}) & (\num{0.026})\\
+\cellcolor{gray!6}{Trail} & \cellcolor{gray!6}{\num{0.443} ***} & \cellcolor{gray!6}{\num{0.412} ***} & \cellcolor{gray!6}{\num{0.159} **} & \cellcolor{gray!6}{\num{0.829} ***} & \cellcolor{gray!6}{\num{0.432} ***} & \cellcolor{gray!6}{\num{0.734} ***} & \cellcolor{gray!6}{\num{0.400} ***} & \cellcolor{gray!6}{\num{0.265} ***} & \cellcolor{gray!6}{\num{0.634} ***} & \cellcolor{gray!6}{\num{0.485} ***}\\
+ & (\num{0.042}) & (\num{0.063}) & (\num{0.050}) & (\num{0.050}) & (\num{0.059}) & (\num{0.055}) & (\num{0.031}) & (\num{0.065}) & (\num{0.089}) & (\num{0.028})\\
+\cellcolor{gray!6}{Basketball} & \cellcolor{gray!6}{\num{-0.141} **} & \cellcolor{gray!6}{\num{-0.229} **} & \cellcolor{gray!6}{\num{-0.445} ***} & \cellcolor{gray!6}{\num{-0.373} ***} & \cellcolor{gray!6}{\num{-0.200} *} & \cellcolor{gray!6}{\num{-0.153} **} & \cellcolor{gray!6}{\num{-0.350} ***} & \cellcolor{gray!6}{\num{-0.401} ***} & \cellcolor{gray!6}{\num{-0.327} **} & \cellcolor{gray!6}{\num{-0.218} ***}\\
+ & (\num{0.049}) & (\num{0.086}) & (\num{0.068}) & (\num{0.061}) & (\num{0.078}) & (\num{0.059}) & (\num{0.041}) & (\num{0.084}) & (\num{0.111}) & (\num{0.035})\\
+\cellcolor{gray!6}{Baseball} & \cellcolor{gray!6}{\num{0.139} **} & \cellcolor{gray!6}{\num{0.345} ***} & \cellcolor{gray!6}{\num{0.238} ***} & \cellcolor{gray!6}{\num{0.267} ***} & \cellcolor{gray!6}{\num{0.344} ***} & \cellcolor{gray!6}{\num{0.036}} & \cellcolor{gray!6}{\num{0.275} ***} & \cellcolor{gray!6}{\num{0.229} **} & \cellcolor{gray!6}{\num{0.254} *} & \cellcolor{gray!6}{\num{0.203} ***}\\
+ & (\num{0.049}) & (\num{0.082}) & (\num{0.064}) & (\num{0.059}) & (\num{0.075}) & (\num{0.061}) & (\num{0.039}) & (\num{0.081}) & (\num{0.109}) & (\num{0.034})\\
+\cellcolor{gray!6}{Football / Soccer} & \cellcolor{gray!6}{\num{-0.221} ***} & \cellcolor{gray!6}{\num{-0.663} ***} & \cellcolor{gray!6}{\num{-0.581} ***} & \cellcolor{gray!6}{\num{-0.539} ***} & \cellcolor{gray!6}{\num{-0.624} ***} & \cellcolor{gray!6}{\num{-0.115}} & \cellcolor{gray!6}{\num{-0.528} ***} & \cellcolor{gray!6}{\num{-0.324} **} & \cellcolor{gray!6}{\num{-0.457} **} & \cellcolor{gray!6}{\num{-0.410} ***}\\
+ & (\num{0.065}) & (\num{0.126}) & (\num{0.101}) & (\num{0.084}) & (\num{0.105}) & (\num{0.080}) & (\num{0.058}) & (\num{0.116}) & (\num{0.147}) & (\num{0.048})\\
+\cellcolor{gray!6}{Tennis} & \cellcolor{gray!6}{\num{0.407} ***} & \cellcolor{gray!6}{\num{-0.456} ***} & \cellcolor{gray!6}{\num{-0.102}} & \cellcolor{gray!6}{\num{0.296} ***} & \cellcolor{gray!6}{\num{-0.226} **} & \cellcolor{gray!6}{\num{0.558} ***} & \cellcolor{gray!6}{\num{0.092} *} & \cellcolor{gray!6}{\num{0.143} +} & \cellcolor{gray!6}{\num{0.142}} & \cellcolor{gray!6}{\num{0.195} ***}\\
+ & (\num{0.047}) & (\num{0.096}) & (\num{0.071}) & (\num{0.056}) & (\num{0.082}) & (\num{0.055}) & (\num{0.040}) & (\num{0.084}) & (\num{0.108}) & (\num{0.034})\\
+\cellcolor{gray!6}{Volleyball} & \cellcolor{gray!6}{\num{0.110}} & \cellcolor{gray!6}{\num{-0.120}} & \cellcolor{gray!6}{\num{0.186}} & \cellcolor{gray!6}{\num{0.327} **} & \cellcolor{gray!6}{\num{-0.084}} & \cellcolor{gray!6}{\num{0.315} **} & \cellcolor{gray!6}{\num{0.078}} & \cellcolor{gray!6}{\num{-0.070}} & \cellcolor{gray!6}{\num{0.187}} & \cellcolor{gray!6}{\num{0.225} ***}\\
+ & (\num{0.097}) & (\num{0.226}) & (\num{0.142}) & (\num{0.107}) & (\num{0.195}) & (\num{0.101}) & (\num{0.087}) & (\num{0.174}) & (\num{0.246}) & (\num{0.068})\\
+\cellcolor{gray!6}{Other Sport} & \cellcolor{gray!6}{\num{-0.384} ***} & \cellcolor{gray!6}{\num{-1.110} ***} & \cellcolor{gray!6}{\num{-0.842} ***} & \cellcolor{gray!6}{\num{-0.799} ***} & \cellcolor{gray!6}{\num{-1.228} ***} & \cellcolor{gray!6}{\num{-0.419} ***} & \cellcolor{gray!6}{\num{-0.671} ***} & \cellcolor{gray!6}{\num{-0.492} ***} & \cellcolor{gray!6}{\num{-0.841} ***} & \cellcolor{gray!6}{\num{-0.617} ***}\\
+ & (\num{0.065}) & (\num{0.151}) & (\num{0.107}) & (\num{0.084}) & (\num{0.137}) & (\num{0.077}) & (\num{0.059}) & (\num{0.117}) & (\num{0.166}) & (\num{0.049})\\
+\cellcolor{gray!6}{Shops} & \cellcolor{gray!6}{\num{0.029} ***} & \cellcolor{gray!6}{\num{0.041} ***} & \cellcolor{gray!6}{\num{0.038} ***} & \cellcolor{gray!6}{\num{0.039} ***} & \cellcolor{gray!6}{\num{0.037} ***} & \cellcolor{gray!6}{\num{0.034} ***} & \cellcolor{gray!6}{\num{0.037} ***} & \cellcolor{gray!6}{\num{0.031} ***} & \cellcolor{gray!6}{\num{0.028} ***} & \cellcolor{gray!6}{\num{0.036} ***}\\
+ & (\num{0.002}) & (\num{0.003}) & (\num{0.002}) & (\num{0.002}) & (\num{0.003}) & (\num{0.002}) & (\num{0.001}) & (\num{0.003}) & (\num{0.003}) & (\num{0.001})\\
 \midrule
 \cellcolor{gray!6}{Num.Obs.} & \cellcolor{gray!6}{\num{6,861}} & \cellcolor{gray!6}{\num{2,600}} & \cellcolor{gray!6}{\num{3,790}} & \cellcolor{gray!6}{\num{6,749}} & \cellcolor{gray!6}{\num{2,982}} & \cellcolor{gray!6}{\num{5,759}} & \cellcolor{gray!6}{\num{11,259}} & \cellcolor{gray!6}{\num{2,365}} & \cellcolor{gray!6}{\num{1,769}} & \cellcolor{gray!6}{\num{15,866}}\\
-AIC & \num{20,530.5} & \num{7,682.8} & \num{12,391.7} & \num{15,964.7} & \num{9,078.8} & \num{14,458.8} & \num{33,312.1} & \num{7,650} & \num{4,528.8} & \num{44,834.7}\\
-\cellcolor{gray!6}{Log Likelihood} & \cellcolor{gray!6}{\num{-10,255.3}} & \cellcolor{gray!6}{\num{-3,831.4}} & \cellcolor{gray!6}{\num{-6,185.8}} & \cellcolor{gray!6}{\num{-7,972.3}} & \cellcolor{gray!6}{\num{-4,529.4}} & \cellcolor{gray!6}{\num{-7,219.4}} & \cellcolor{gray!6}{\num{-16,646.1}} & \cellcolor{gray!6}{\num{-3,815}} & \cellcolor{gray!6}{\num{-2,254.4}} & \cellcolor{gray!6}{\num{-22,407.4}}\\
-$\rho^2_0$ & \num{0.377} & \num{0.385} & \num{0.319} & \num{0.507} & \num{0.367} & \num{0.477} & \num{0.383} & \num{0.327} & \num{0.469} & \num{0.411}\\
+AIC & \num{20,311.8} & \num{7,477} & \num{12,176} & \num{15,564.9} & \num{8,882.8} & \num{14,238.4} & \num{32,673.9} & \num{7,564.1} & \num{4,464.2} & \num{43,987.4}\\
+\cellcolor{gray!6}{Log Likelihood} & \cellcolor{gray!6}{\num{-10,144.9}} & \cellcolor{gray!6}{\num{-3,727.5}} & \cellcolor{gray!6}{\num{-6,077}} & \cellcolor{gray!6}{\num{-7,771.4}} & \cellcolor{gray!6}{\num{-4,430.4}} & \cellcolor{gray!6}{\num{-7,108.2}} & \cellcolor{gray!6}{\num{-16,326}} & \cellcolor{gray!6}{\num{-3,771}} & \cellcolor{gray!6}{\num{-2,221.1}} & \cellcolor{gray!6}{\num{-21,982.7}}\\
+$\rho^2_0$ & \num{0.383} & \num{0.402} & \num{0.331} & \num{0.520} & \num{0.380} & \num{0.485} & \num{0.395} & \num{0.335} & \num{0.476} & \num{0.422}\\
 \bottomrule
 \multicolumn{11}{l}{\rule{0pt}{1em}Standard errors in parentheses.}\\
 \multicolumn{11}{l}{\textsuperscript{a} Simulated individuals segmented based on the share of households meeting the segmentation threshold in the residence block group.}\\
@@ -1049,10 +1059,10 @@ Figure \ref{fig:logsumsmap} presents this monetary valuation spatially.
 Unsurprisingly, the benefits are concentrated in the block groups surrounding
 the opened streets. Most residents of central Oakland see a benefit of somewhere
 around \$1, while some zones see an equivalent benefit of as much as \$30. One
-property of logsum-based accessibility terms is that there is some benefit given
-for simply having more options, whether or not those options are attractive in
-any way. In this application, these benefits are small, on the order of 10 cents
-for most block groups away from where the street openings occurred.
+property of logsum-based accessibility terms is that additional options
+will always increase the total logsum, whether or not those options are realistic
+\citep[p.~300]{benakiva}. In this application, these benefits are apparently small, on the order
+of 10 cents for most block groups away from where the street openings occurred.
 
 \begin{figure}
 \centering
@@ -1080,11 +1090,13 @@ There is some opportunity for confusion when some demographic variables we use
 household level and others (specifically ethnicity) are defined at the person level. It is
 similarly not clear whether the benefits of improved park access should be
 assigned at the person level, the household level, or the number of total park
-trip makers in each block group. For consistency and simplicity, we assert that
-the benefit is assigned to each household, and that persons receive a
-proportional share of the household benefit. For example, a block group with 30\%
-Black individuals will receive 30\% of the benefits assigned to all the
-households in the block group.
+trip makers in each block group. In theory, the benefits would accrue each time
+a person chose to make a trip to a park or closed street, but to estimate this
+would require a trip propensity or generation model, which we have not attempted
+here. For consistency and simplicity, we assert that the benefit is assigned to
+each household, and that persons receive a proportional share of the household
+benefit. For example, a block group with 30\% Black individuals will receive 30\%
+of the benefits assigned to all the households in the block group.
 
 Table \ref{tab:equity} shows the total benefit assigned to households in this
 way as well as the share of all monetary benefits in the region. In some cases,
@@ -1105,15 +1117,15 @@ making more than \$125,000 per year.
 \toprule
 Group & Benefit & Percent* of Benefits & Households** & Percent of Households\\
 \midrule
-Households with Children under 6 & \$144,477 & 14.11 & 83,868 & 14.53\\
-Income < \$35k & \$222,130 & 21.69 & 90,762 & 15.73\\
-Income > \$125k & \$326,618 & 31.90 & 229,963 & 39.84\\
-Black & \$186,064 & 18.17 & 61,971 & 10.74\\
-Asian & \$197,307 & 19.27 & 167,135 & 28.96\\
+Households with Children under 6 & \$137,832 & 14.19 & 83,868 & 14.53\\
+Income < \$35k & \$209,230 & 21.53 & 90,762 & 15.73\\
+Income > \$125k & \$312,926 & 32.21 & 229,963 & 39.84\\
+Black & \$173,839 & 17.89 & 61,971 & 10.74\\
+Asian & \$188,261 & 19.38 & 167,135 & 28.96\\
 \addlinespace
-Hispanic & \$228,810 & 22.35 & 119,013 & 20.62\\
-White & \$348,834 & 34.07 & 194,263 & 33.66\\
-All Households & \$1,023,915 & 100.00 & 577,177 & 100.00\\
+Hispanic & \$216,825 & 22.32 & 119,013 & 20.62\\
+White & \$332,917 & 34.26 & 194,263 & 33.66\\
+All Households & \$971,600 & 100.00 & 577,177 & 100.00\\
 \bottomrule
 \multicolumn{5}{l}{\rule{0pt}{1em}\textsuperscript{*} As individuals and households will belong in multiple groups, the percents do not sum to 100.}\\
 \multicolumn{5}{l}{\rule{0pt}{1em}\textsuperscript{\dag} Race and ethnicity are person-level attributes; households are assumed to follow the same distribution.}\\
@@ -1141,7 +1153,10 @@ from their residence block group. In this research we were able to determine
 whether a device resided in a block group with a high proportion of low-income
 households, but could not have confidence that a particular device belonged to a
 member of such a household. Similarly, there is no information on what kind of
-trip the device-holder actually accomplished at each park. These limitations
+trip the device-holder actually accomplished at each park. There is even
+substantial question as to whether the device-holder was in the park
+at all, given spatial error in the underlying LBS data and the potential
+for conflating nearby activity locations. These limitations
 combined mean that it would likely be infeasible to directly observe devices
 that traveled to the converted streets during the COVID-19 lockdowns. The ideal
 dataset for estimating individual park activity location choices generally and
@@ -1157,7 +1172,10 @@ minority populations may indicate that areas with large minority populations
 tend to have smaller parks that are more geographically distributed relative to
 other areas of the region. This interpretation could also explain some of the
 non-intuitive response observed in our models, especially in regards to
-playgrounds.
+playgrounds. Similarly, the use of individual-level estimation data would enable
+heterogeneity in the benefits calculation: individuals could receive benefits for
+the choice attributes they are observed to care most about, rather than an average
+effect for all people as used in this research.
 
 We limited our analysis to home locations and parks in Alameda County,
 California. It is possible that some Alameda residents visit parks in
@@ -1179,7 +1197,10 @@ travel distances are a function of the transport mode employed by the traveler.
 Using bare distances does not provide any detail on how access to parks might be
 increased with improved transit service, for example. Using a mode-choice model
 logsum as a multi-modal impedance term in the activity location choice model
-would enable this kind of analysis.
+would enable this kind of analysis. Using the mode choice logsum would also
+enable the inclusion of
+qualitative path attributes (sidewalk quality, greenery, etc.) known to
+influence experienced travel impedance for particular modes of travel \citep{clifton2016}.
 
 The monetary benefits we present in this analysis are heavily dependent on
 two separate assumptions. First, reasonable researchers might have selected
@@ -1193,6 +1214,10 @@ compared against other policies is desirable to help the public and policy
 makers evaluate such decisions. Further research should establish guidelines and
 practices for applying accessibility logsums in monetary cost-benefit analyses.
 
+Importantly, this research does not attempt to determine how many people
+traveled to the converted streets, or how COVID-19 affected park destination
+choice, though other researchers have used passive LBS data to answer similar
+questions \citep{doucette}.
 Of course, COVID-19 led to the closure of some park facilities --- playgrounds,
 pavilions, and in some cases entire parks --- that were not captured in this
 analysis. These closures would lead to a decrease in the consumer surplus for
@@ -1207,7 +1232,7 @@ an obvious response to the COVID-19 pandemic: Vehicle traffic demand was down,
 and there was a also critical need for pedestrian-oriented open spaces in many
 communities. The research we present here suggests that this policy had
 measurable and meaningful benefits to neighborhoods in Alameda County,
-California, and that these benefits were distributed in an equitable manner in the sense that the distributin favored marginalized populations. The total benefit to households in the community is estimated
+California, and that these benefits were distributed in an equitable manner in the sense that the distribution favored marginalized populations. The total benefit to households in the community is estimated
 at approximately \$1 million with disproportionately high benefits going to
 Black, Hispanic and low-income neighborhoods. There is, however, a
 disproportionately low benefit to neighborhoods with high Asian populations that
@@ -1218,7 +1243,8 @@ In estimating these benefits, we applied an emerging technique to estimate park
 choice preferences and utility from passive mobile device data. This technique
 allowed a more nuanced measure of access that allowed us to consider the
 converted streets as providing quantitatively different amenities than other city
-parks. A policy of permanently closing these streets to vehicle traffic may or
+parks and its application here is a primary contribution of this work.
+A policy of permanently closing these streets to vehicle traffic may or
 may not have negative effects on transportation access that would need to be
 considered against the benefits we measured in this research. But utility-based
 access measures provide a mechanism to weigh the benefits of access against the

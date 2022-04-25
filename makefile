@@ -22,7 +22,7 @@ doc:
 	
 site: 
 	Rscript -e '\
-	Sys.setenv(RSTUDIO_PANDOC="Applications/RStudio.app/Contents/MacOS/quarto/bin");
+	Sys.setenv(RSTUDIO_PANDOC="Applications/RStudio.app/Contents/MacOS/quarto/bin");\
 	bookdown::render_book("index.Rmd", "bookdown::gitbook")'
 	
 	

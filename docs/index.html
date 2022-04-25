@@ -4,26 +4,25 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>If you build it who will come? Equity analysis of park system changes during COVID-19 using passive origin-destination data</title>
+  <title>City parks and slow streets: a utility-based access and equity analysis</title>
   <meta name="description" content="Alameda Park Choice" />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="If you build it who will come? Equity analysis of park system changes during COVID-19 using passive origin-destination data" />
+  <meta property="og:title" content="City parks and slow streets: a utility-based access and equity analysis" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Alameda Park Choice" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="If you build it who will come? Equity analysis of park system changes during COVID-19 using passive origin-destination data" />
+  <meta name="twitter:title" content="City parks and slow streets: a utility-based access and equity analysis" />
   
   <meta name="twitter:description" content="Alameda Park Choice" />
   
 
 
 
-<meta name="date" content="2022-01-21" />
+<meta name="date" content="2022-04-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -42,7 +41,6 @@ div.abstract{
   width: 90%;
 }
 </style>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -60,8 +58,9 @@ div.abstract{
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
@@ -229,7 +228,7 @@ div.csl-indent {
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">If you build it who will come? Equity analysis of park system changes during COVID-19 using passive origin-destination data</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">City parks and slow streets: a utility-based access and equity analysis</a>
           </h1>
         </div>
 
@@ -238,7 +237,7 @@ div.csl-indent {
 
             <section class="normal" id="section-">
 <div id="header">
-<h1 class="title">If you build it who will come? Equity analysis of park system changes during COVID-19 using passive origin-destination data</h1>
+<h1 class="title">City parks and slow streets: a utility-based access and equity analysis</h1>
 <p class="author multi-author"><em>Gregory S. Macfarlane</em></p>
 <address class="author_afil">
 BYU<br>
@@ -254,14 +253,14 @@ Harvard<br>
 StreetLight<br>
 <a class="author_email" href="mailto:#"><a href="mailto:teresa.tapia@streetlightdata.com" class="email">teresa.tapia@streetlightdata.com</a></a>
 </address>
-<p class="date"><em>2022-01-21</em></p>
+<p class="date"><em>2022-04-25</em></p>
 <div class="abstract">
 <p class="abstract">Abstract</p>
-<p>During the spring and summer of 2020, cities across the world responded to the global COVID-19 pandemic by converting roadway facilities into open pedestrian spaces. These conversions improved access to public open space, but measuring the variation in that improvement among different populations requires clear definitions of access and methods for measuring it. In this study, we evaluate the change in a utility-based park accessibility measure resulting from street conversions in Alameda County, California. Our utility-based accessibility measure is constructed from a park activity location choice model we estimate using mobile device data — supplied by StreetLight Data, Inc. — representing trips to parks in that county. The estimated model reveals heterogeneity in inferred affinity for park attributes among different sociodemographic groups. We find, for example, that neighborhoods with more lower-income residents and those with more residents of color show a greater preference for park proximty while neighborhods with higher incomes and those with more white residents show a greater preference for park size and amenities. We then apply this model to examine the accessibility benefits resulting from COVID-19 street conversions to create a set of small park-like open spaces; we find that this policy has improved equity in that maginalized communities including Black, Hispanic, and low-income households receive a disproportionate share of the policy benefits, relative to the population distribution.</p>
+<p>During the spring and summer of 2020, cities across the world responded to the global COVID-19 pandemic by converting roadway facilities into open pedestrian spaces. These conversions improved access to public open space, but measuring the variation in that improvement among different populations requires clear definitions of access and methods for measuring it. In this study, we evaluate the change in a utility-based park accessibility measure resulting from street conversions in Alameda County, California. Our utility-based accessibility measure is constructed from a park activity location choice model we estimate using mobile device data — supplied by StreetLight Data, Inc. — representing trips to parks in that county. The estimated model reveals heterogeneity in inferred affinity for park attributes among different sociodemographic groups. We find, for example, that neighborhoods with more lower-income residents and those with more residents of color show a greater preference for park proximity while neighborhods with higher incomes and those with more white residents show a greater preference for park size and amenities. We then apply this model to examine the accessibility benefits resulting from COVID-19 street conversions to create a set of small park-like open spaces; we find that this policy has improved equity in that maginalized communities including Black, Hispanic, and low-income households receive a disproportionate share of the policy benefits, relative to the population distribution.</p>
 </div>
 </div>
-<div id="intro" class="section level1" number="1">
-<h1><span class="header-section-number"> 1</span> Introduction</h1>
+<div id="intro" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number"> 1</span> Introduction<a href="index.html#intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Parks and other open spaces generate immense value for the public who are able
 to access them. The <span class="citation">City Parks Alliance (2019)</span> categorizes the observed benefits of
 urban parks as encouraging active lifestyles <span class="citation">(Bancroft et al. 2015)</span>, contributing to

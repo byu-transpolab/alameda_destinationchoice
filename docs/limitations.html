@@ -4,26 +4,25 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title> 5 Limitations and Future Directions | If you build it who will come? Equity analysis of park system changes during COVID-19 using passive origin-destination data</title>
+  <title> 5 Limitations and Future Directions | City parks and slow streets: a utility-based access and equity analysis</title>
   <meta name="description" content="Alameda Park Choice" />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
-  <meta property="og:title" content=" 5 Limitations and Future Directions | If you build it who will come? Equity analysis of park system changes during COVID-19 using passive origin-destination data" />
+  <meta property="og:title" content=" 5 Limitations and Future Directions | City parks and slow streets: a utility-based access and equity analysis" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Alameda Park Choice" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content=" 5 Limitations and Future Directions | If you build it who will come? Equity analysis of park system changes during COVID-19 using passive origin-destination data" />
+  <meta name="twitter:title" content=" 5 Limitations and Future Directions | City parks and slow streets: a utility-based access and equity analysis" />
   
   <meta name="twitter:description" content="Alameda Park Choice" />
   
 
 
 
-<meta name="date" content="2022-01-21" />
+<meta name="date" content="2022-04-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -42,7 +41,6 @@ div.abstract{
   width: 90%;
 }
 </style>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -60,8 +58,9 @@ div.abstract{
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
@@ -229,7 +228,7 @@ div.csl-indent {
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">If you build it who will come? Equity analysis of park system changes during COVID-19 using passive origin-destination data</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">City parks and slow streets: a utility-based access and equity analysis</a>
           </h1>
         </div>
 
@@ -237,8 +236,8 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="limitations" class="section level1" number="5">
-<h1><span class="header-section-number"> 5</span> Limitations and Future Directions</h1>
+<div id="limitations" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number"> 5</span> Limitations and Future Directions<a href="limitations.html#limitations" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>The utility-based accessibility metrics we present and apply in this paper are
 evaluated from a discrete choice model estimated on simulated decision makers
 constructed from a third-party passive origin-destination matrix. This
@@ -256,7 +255,10 @@ from their residence block group. In this research we were able to determine
 whether a device resided in a block group with a high proportion of low-income
 households, but could not have confidence that a particular device belonged to a
 member of such a household. Similarly, there is no information on what kind of
-trip the device-holder actually accomplished at each park. These limitations
+trip the device-holder actually accomplished at each park. There is even
+substantial question as to whether the device-holder was in the park
+at all, given spatial error in the underlying LBS data and the potential
+for conflating nearby activity locations. These limitations
 combined mean that it would likely be infeasible to directly observe devices
 that traveled to the converted streets during the COVID-19 lockdowns. The ideal
 dataset for estimating individual park activity location choices generally and
@@ -271,7 +273,10 @@ minority populations may indicate that areas with large minority populations
 tend to have smaller parks that are more geographically distributed relative to
 other areas of the region. This interpretation could also explain some of the
 non-intuitive response observed in our models, especially in regards to
-playgrounds.</p>
+playgrounds. Similarly, the use of individual-level estimation data would enable
+heterogeneity in the benefits calculation: individuals could receive benefits for
+the choice attributes they are observed to care most about, rather than an average
+effect for all people as used in this research.</p>
 <p>We limited our analysis to home locations and parks in Alameda County,
 California. It is possible that some Alameda residents visit parks in
 neighboring counties, just as it is possible that parks in Alameda County
@@ -291,7 +296,10 @@ travel distances are a function of the transport mode employed by the traveler.
 Using bare distances does not provide any detail on how access to parks might be
 increased with improved transit service, for example. Using a mode-choice model
 logsum as a multi-modal impedance term in the activity location choice model
-would enable this kind of analysis.</p>
+would enable this kind of analysis. Using the mode choice logsum would also
+enable the inclusion of
+qualitative path attributes (sidewalk quality, greenery, etc.) known to
+influence experienced travel impedance for particular modes of travel <span class="citation">(<strong>clifton2016?</strong>)</span>.</p>
 <p>The monetary benefits we present in this analysis are heavily dependent on
 two separate assumptions. First, reasonable researchers might have selected
 different values of time or cost coefficients. Second, the decision to assign
@@ -303,7 +311,11 @@ esoteric measure of choice model logsums into a unit that can be conveniently
 compared against other policies is desirable to help the public and policy
 makers evaluate such decisions. Further research should establish guidelines and
 practices for applying accessibility logsums in monetary cost-benefit analyses.</p>
-<p>Of course, COVID-19 led to the closure of some park facilities — playgrounds,
+<p>Importantly, this research does not attempt to determine how many people
+traveled to the converted streets, or how COVID-19 affected park destination
+choice, though other researchers have used passive LBS data to answer similar
+questions <span class="citation">(Doucette et al. 2021)</span>.
+Of course, COVID-19 led to the closure of some park facilities — playgrounds,
 pavilions, and in some cases entire parks — that were not captured in this
 analysis. These closures would lead to a decrease in the consumer surplus for
 park access, which might overwhelm or at least change the distribution of
