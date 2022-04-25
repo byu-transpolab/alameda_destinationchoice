@@ -76,7 +76,6 @@ playgrounds using OSM facilities given a `leisure = playground` tag. The tagged
 facilities can be either polygon or point objects; in the former case we use the
 polygon centroid to determine the point location of the playground.
 
-
 Second, we consider sport fields of various kinds identified with the OSM
 `leisure = pitch` tag. This tag has an additional attribute describing the sport
 the field is designed for, which we retain in a consolidated manner. Soccer and
@@ -85,8 +84,7 @@ softball fields are combined as well. Basketball, tennis, and volleyball courts
 are kept as distinct categories, with all other sport-specific fields combined
 into a single "other." Golf courses are discarded. As with playgrounds, polygon
 field and court objects are converted into points at the polygon centroid.
-
-Finally, we identified trails and footpaths using the `path`, `cycleway`, and
+We identified trails and footpaths using the `path`, `cycleway`, and
 `footway` values of the `highway` tag. A visual inspection of the resulting data
 revealed that the large preponderance of sidewalks and cycling trails within
 parks in Alameda County are identified properly with these variables. Trails are
@@ -94,13 +92,17 @@ represented in OSM as polylines, or as polygons if they form a complete circle.
 In the latter case, we converted the polygon boundary into an explicit polyline
 object.
 
-
 It is possible for each of these facilities to exist outside the context of  a
 public park. For example, many private apartment complexes have playgrounds and
 high schools will have sports facilities that are not necessarily open to the
 general public. We spatially matched the OSM amenities data and retained only
 those facilities that intersected with the CPAD open spaces database identified
 earlier.
+
+An additional amenity of parks that may affect their attractiveness the land use
+that surrounds them [@clifton2016]. Accordingly, we counted the number of features
+in OpenStreetMap that are tagged with the amenities `bar`, `cafe`, `fast_food`, 
+`restaurant`, `bank`, and `pharmacy` within 500 feet of the boundary of each park. 
 
 
 ```{r parks-map, fig.cap="Location of parks in Alameda County.", warning=FALSE, cache = FALSE}
@@ -137,6 +139,8 @@ if(knitr::is_latex_output()) {
     addLayersControl(overlayGroups = c("Parks", "Playgrounds", "Sport Fields", "Trails"))
 }
 ```
+
+
 
 We provided the park boundaries layer to a commercial firm, StreetLight Data
 Inc., which develops and resells origin-destination matrices derived from
@@ -182,7 +186,7 @@ datasummary_balance(
            `Baseball` = baseball, `Basketball` = basketball,
            `Tennis` = tennis, `Volleyball` = volleyball,
            Trail = trail, 
-           `Mobile Devices` =attractions), 
+           `Mobile Devices` =attractions, `Shops` = shops), 
   dinm = FALSE, caption = "Park Summary Statistics", booktabs = TRUE)
 ```
 

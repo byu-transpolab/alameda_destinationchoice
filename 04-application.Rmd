@@ -1,8 +1,6 @@
 # Results {#results}
 
 ```{r estimation-setup, message=FALSE, warning=FALSE}
-
-
 this_map = c(
     "yj_distance" = "log(Distance)",
     "yj_acres" = "log(Acres)",
@@ -14,7 +12,8 @@ this_map = c(
     "`football / soccer`TRUE" = "Football / Soccer",
     "tennisTRUE" = "Tennis",
     "volleyballTRUE" = "Volleyball",
-    "other_pitchTRUE" = "Other Sport"
+    "other_pitchTRUE" = "Other Sport",
+    "shops" = "Shops"
   )
 f <- function(x) format(round(x, 1), big.mark=",")
 gm <-  list(
@@ -69,7 +68,9 @@ is both unintuitive and contradictory to previous findings in this space [e.g.,
 @Kinnell2006]. Considering different sports separately, there is a wide variety
 of observed response with tennis and volleyball facilities attracting more
 trips, and football and basketball facilities attracting fewer, all else equal.
-Trails and walking paths give substantive positive utility in both models. The
+Trails and walking paths give substantive positive utility in both models.  
+Both models also contain  an estimate of the number of shops within 500 feet, 
+which is significant and positive. The
 difference in likelihood statistics between the three models is significant
 (likelihood ratio test between Sport Detail and Park Attributes model has
 $p$-value  `r detail_lrt`), and so in spite of the curious aggregate findings,
