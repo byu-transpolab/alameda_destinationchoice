@@ -131,6 +131,34 @@ One excellent example of what I refer to is provided by our colleague Kelly Clif
 Therefore, the authors must provide empirical evidence supporting the claim that the type of facilities I highlighted in my comment on land uses were indeed closed in most if not all, places and times considered in the analysis. Such supporting evidence will ensure authors consider the potential estimation biases induced by omitting built-environment attributes that have been crucial in the large and growing body of literature on travel behavior and the built environment.
 
 
+\AR Upon consideration of these valuable points and consulting the Clifton et al. reference,
+we added surrounding land uses to our choice model in the form of a "Shops" variable.
+This is simply a count of various amenity tags from OpenStreetMap as described below.
+
+\begin{quote}
+\DIFaddbegin \DIFadd{An additional amenity of parks that may affect their attractiveness the land use
+that surrounds them \mbox{%DIFAUXCMD
+\citep{clifton2016}}\hskip0pt%DIFAUXCMD
+. Accordingly, we counted the number of features
+in OpenStreetMap that are tagged with the amenities }\texttt{\DIFadd{bar}}\DIFadd{, }\texttt{\DIFadd{cafe}}\DIFadd{, }\texttt{\DIFadd{fast\_food}}\DIFadd{,
+}\texttt{\DIFadd{restaurant}}\DIFadd{, }\texttt{\DIFadd{bank}}\DIFadd{, and }\texttt{\DIFadd{pharmacy}} \DIFadd{within 500 feet of the boundary of each park.
+}
+
+\DIFaddend
+\end{quote}
+
+\AR Overall, adding this variable to utility specification modestly improved the 
+overall model fit, and the variable proves to be highly significant. We have added the 
+comment describing the relevant model estimation results.
+
+\begin{quote}
+\DIFaddbegin \DIFadd{Both models also contain an estimate of the number of shops within 500 feet,
+which is significant and positive. }\DIFaddend 
+\end{quote}
+
+\AR A further implication of adding this variable is that all the model estimates
+and results calculates change slightly, but not enough to substantively alter the
+central findings of the paper.
 
 \subsection{Travel Mode of Access}
 
