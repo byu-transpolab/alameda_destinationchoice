@@ -1,5 +1,5 @@
 ---
-title: "If you build it who will come? Equity analysis of park system changes during COVID-19 using passive origin-destination data"
+title: "City parks and slow streets: a utility-based access and equity analysis"
 author:
   - name: Gregory S. Macfarlane
     email: gregmacfarlane@byu.edu

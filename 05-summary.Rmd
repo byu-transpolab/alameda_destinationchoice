@@ -80,11 +80,15 @@ compared against other policies is desirable to help the public and policy
 makers evaluate such decisions. Further research should establish guidelines and
 practices for applying accessibility logsums in monetary cost-benefit analyses.
 
+Importantly, this research does not attempt to determine how many people
+traveled to the converted streets, or how COVID-19 affected park destination
+choice, though other researchers have used passive LBS data to answer similar
+questions [@doucette].
 Of course, COVID-19 led to the closure of some park facilities --- playgrounds,
 pavilions, and in some cases entire parks --- that were not captured in this
 analysis. These closures would lead to a decrease in the consumer surplus for
 park access, which might overwhelm or at least change the distribution of
-positive benefits we measured here.
+positive benefits we measured here. 
 
 # Conclusions {#conclusions}
 
