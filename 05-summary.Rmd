@@ -19,7 +19,10 @@ from their residence block group. In this research we were able to determine
 whether a device resided in a block group with a high proportion of low-income
 households, but could not have confidence that a particular device belonged to a
 member of such a household. Similarly, there is no information on what kind of
-trip the device-holder actually accomplished at each park. These limitations
+trip the device-holder actually accomplished at each park. There is even 
+substantial question as to whether the device-holder was in the park
+at all, given spatial error in the underlying LBS data and the potential
+for conflating nearby activity locations. These limitations
 combined mean that it would likely be infeasible to directly observe devices
 that traveled to the converted streets during the COVID-19 lockdowns. The ideal
 dataset for estimating individual park activity location choices generally and
@@ -60,7 +63,10 @@ travel distances are a function of the transport mode employed by the traveler.
 Using bare distances does not provide any detail on how access to parks might be
 increased with improved transit service, for example. Using a mode-choice model
 logsum as a multi-modal impedance term in the activity location choice model
-would enable this kind of analysis.
+would enable this kind of analysis. Using the mode choice logsum  would also 
+enable the inclusion of
+qualitative path attributes (sidewalk quality, greenery, etc.) known to 
+influence experienced travel impedance for particular modes of travel [@clifton2016].
 
 The monetary benefits we present in this analysis are heavily dependent on
 two separate assumptions. First, reasonable researchers might have selected 
@@ -87,7 +93,7 @@ an obvious response to the COVID-19 pandemic: Vehicle traffic demand was down,
 and there was a also critical need for pedestrian-oriented open spaces in many
 communities. The research we present here suggests that this policy had
 measurable and meaningful benefits to neighborhoods in Alameda County,
-California, and that these benefits were distributed in an equitable manner in the sense that the distributin favored marginalized populations. The total benefit to households in the community is estimated
+California, and that these benefits were distributed in an equitable manner in the sense that the distribution favored marginalized populations. The total benefit to households in the community is estimated
 at approximately \$1 million with disproportionately high benefits going to
 Black, Hispanic and low-income neighborhoods. There is, however, a
 disproportionately low benefit to neighborhoods with high Asian populations that
