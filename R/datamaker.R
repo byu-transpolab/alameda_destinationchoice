@@ -94,7 +94,30 @@ get_pitches <- function(bb, this_crs){
     )
 }
 
-attribute_parks <- function(parks, playgrounds, pitches, trails){
+get_shops <- function(bb, this_crs){
+  retail <- opq(bb) %>%
+    add_osm_feature(key = "landuse", value = "retail") %>%
+    osmdata_sf() %>% 
+    trim_osmdata(bb, exclude = TRUE)
+  
+  shops <- lapply(c("bar", "cafe", "fast_food", "restaurant", "bank", "pharmacy"), function(type){
+    get_shoptype(type, bb, this_crs)
+  }) %>%
+    bind_rows()
+  
+    
+}
+
+get_shoptype <- function(type, bb, this_crs){
+  o <- opq(bb) %>% add_osm_feature(key = "amenity", value = type) %>%
+    osmdata_sf() %>% trim_osmdata(bb, exclude = TRUE)
+  
+  o$osm_points %>%
+    st_transform(this_crs) %>%
+    select(osm_id, amenity, geometry)
+}
+
+attribute_parks <- function(parks, playgrounds, pitches, trails, shops){
   # Append attributes to park frame ===============
   parks_with_playgrounds <-  parks %>%  
     # compute yeo-johnson transformation on acres
@@ -122,6 +145,16 @@ attribute_parks <- function(parks, playgrounds, pitches, trails){
     ) %>%
     select(-`NA`)
   
+  # count the number of shops within 100 feet of a park boundary
+  parks_with_shops <- parks %>%
+    st_buffer(500) %>%
+    st_join(shops) %>%
+    st_set_geometry(NULL)  %>%
+    group_by(id) %>%
+    summarise(
+      shops = n() - 1
+    )
+  
   # determine which walking paths are inside park polgon boundaries
   parks_with_trails <- parks %>% 
     # determine if the trails are inside the park polygon boundaries
@@ -138,6 +171,7 @@ attribute_parks <- function(parks, playgrounds, pitches, trails){
     mutate(yj_acres = VGAM::yeo.johnson(acres, lambda = 0)) %>%
     left_join(parks_with_playgrounds, by = "id") %>%
     left_join(parks_with_pitches,     by = "id") %>%
+    left_join(parks_with_shops,       by = "id") %>%
     left_join(parks_with_trails,      by = "id") 
 }
 
@@ -196,7 +230,7 @@ get_acsdata <- function(){
   
 }
 
-make_street_parks <- function(slowstreets){
+make_street_parks <- function(slowstreets, shops){
   street_parks <- slowstreets %>%
     st_buffer(dist = 25)  %>% # 50 foot wide park ( 4 lanes of traffic)
     mutate(acres = as.numeric(st_area(.)) / 43560) %>% 
@@ -208,6 +242,18 @@ make_street_parks <- function(slowstreets){
       `football / soccer` = FALSE, other_pitch = FALSE, volleyball = FALSE,
       tennis = FALSE, pitch = FALSE, trail = TRUE, attractions = NA
     )
+  
+  shopped_streets <- street_parks %>%
+    st_buffer(500) %>%
+    st_join(shops) %>%
+    st_set_geometry(NULL)  %>%
+    group_by(id) %>%
+    summarise(
+      shops = n() - 1
+    )
+  
+  street_parks %>%
+    left_join(shopped_streets, by = "id")
 }
 
 

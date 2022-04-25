@@ -14,8 +14,14 @@ source("R/modeling.R")
 tar_option_set(packages = c(
   "tidyverse", "osmdata", "sf", "ggmap", "leaflet",
   "tidycensus", "modelsummary", "knitrProgressBar",
-  "mlogit", "broom" 
+  "mlogit", "broom", "future.apply"
 ))
+
+tar_option_set(debug = "split_dat")
+
+library(future)
+library(future.callr)
+plan(callr)
 
 this_crs <- 2227 # EPSG:2227 – NAD83 / California zone 3 (ftUS)
 bb <- osmdata::getbb("Alameda County, California", format_out = "polygon")
@@ -30,8 +36,9 @@ data_plan <- tar_plan(
   tar_target(parks, get_parks(parksfile, this_crs)),
   tar_target(playgrounds, get_playgrounds(bb, this_crs)),
   tar_target(trails, get_trails(bb, this_crs)),
+  tar_target(shops, get_shops(bb, this_crs)),
   tar_target(pitches, get_pitches(bb, this_crs)),
-  tar_target(attributed_parks, attribute_parks(parks, playgrounds, pitches, trails)),
+  tar_target(attributed_parks, attribute_parks(parks, playgrounds, pitches, trails, shops)),
   
   
   # build estimation dataset
@@ -48,15 +55,21 @@ data_plan <- tar_plan(
   # slow streets
   tar_target(slowstreets_gj, "data/slow_streets.geojson", format = "file"),
   tar_target(slowstreets, st_read(slowstreets_gj, quiet = TRUE) %>% st_transform(this_crs) ),
-  tar_target(street_parks, make_street_parks(slowstreets)),
+  tar_target(street_parks, make_street_parks(slowstreets, shops)),
   
   tar_target(logitdata, make_logitdata(park_flows, attributed_parks, distance_df, acs, n_obs, n_alts)),
   
   # modeling
   tar_target(estim, make_estim(logitdata)),
   tar_target(base_models, estimate_base_models(estim)),
-  tar_target(grouped_models, estimate_grouped_models(estim)),
-  tar_target(split_models, estimate_all_splits(estim)),
+  tar_target(grouped_models, estimate_grouped_models(estim), 
+             resources = tar_resources(
+               future = tar_resources_future(resources = list(n_cores = 8))
+             )),
+  tar_target(split_models, estimate_all_splits(estim),
+             resources = tar_resources(
+               future = tar_resources_future(resources = list(num_cores = 8))
+             )),
   tar_target(split_dat, make_split_dat(split_models)),
   
   
@@ -64,15 +77,6 @@ data_plan <- tar_plan(
                          base_models, acs)),
   tar_target(benefits, make_benefits(logsums))
   
-  
 )
 
-
-# Targets necessary to build the book / article
-book_targets <- tar_plan(
-  report = bookdown::render_book(input = ".", output_yaml = "_output.yml", 
-                                 config_file = "_bookdown.yml")
-)
-
-
-tar_plan(data_plan, book_targets)
+tar_plan(data_plan)

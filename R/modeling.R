@@ -8,7 +8,7 @@ logit_converter <- function(df) {
 group_mnl <- function(df){
   tryCatch({
     mlogit(chosen ~ yj_distance + yj_acres + playground + baseball +  basketball +
-             `football / soccer` + other_pitch + volleyball + tennis + trail | -1,
+             `football / soccer` + other_pitch + volleyball + tennis + trail  + shops| -1,
            data = df)
   }, error = function(e){
     warning(e, "could not estimate mnl")
@@ -29,11 +29,11 @@ estimate_base_models <- function(estim){
     "Network Distance"   = mlogit(
       chosen ~ yj_distance + yj_acres | -1 ,  data = estim),
     "Park Attributes"    = mlogit(
-      chosen ~ yj_distance + yj_acres +  playground + trail + pitch | -1 , 
+      chosen ~ yj_distance + yj_acres +  playground + trail + pitch  + shops| -1 , 
       data = estim),
     "Sport Detail"    = mlogit(
       chosen ~ yj_distance + yj_acres + playground + baseball +  basketball +
-        `football / soccer` + other_pitch + volleyball + tennis + trail | -1 , 
+        `football / soccer` + other_pitch + volleyball + tennis + trail + shops | -1 , 
       data = estim)
   )
 }
@@ -69,7 +69,7 @@ estimate_grouped_models <- function(estim){
       mnl = map(data, group_mnl)
     )
   
-  lapply(list(child_models, income_models, minority_models), 
+  future_lapply(list(child_models, income_models, minority_models), 
                            function(df){
                              lapply(df$mnl, function(x) x) %>% 
                                set_names(nm = c(df$group)) 
@@ -83,7 +83,7 @@ estimate_grouped_models <- function(estim){
 # segments of the estimation data
 estimate_split_models <- function(data, var, splits) {
   #print(var)
-  lapply(splits, function(p){
+  future_lapply(splits, function(p){
     #print(p)
     data %>% 
       filter(.data[[var]] > p) %>% tibble() %>%
@@ -100,7 +100,7 @@ estimate_split_models <- function(data, var, splits) {
 
 estimate_all_splits <- function(estim){
   splits <- c(0, 5, 10, 15, 20, 30, 40)
-  lapply(c("black", "asian", "hispanic", "lowincome", "highincome", "children"), function(var) {
+  future_lapply(c("black", "asian", "hispanic", "lowincome", "highincome", "children"), function(var) {
     estimate_split_models(estim, var, splits) %>%
       mutate(Segmentation = var)
   }) %>% bind_rows() 
@@ -122,7 +122,8 @@ make_split_dat <- function(split_models){
     "`football / soccer`TRUE" = "Football / Soccer",
     "tennisTRUE" = "Tennis",
     "volleyballTRUE" = "Volleyball",
-    "other_pitchTRUE" = "Other Sport"
+    "other_pitchTRUE" = "Other Sport",
+    "shops" = "Shops"
   )
   # extract the coefficients you need to plot
   modelplot(split_models$mnl %>% 
