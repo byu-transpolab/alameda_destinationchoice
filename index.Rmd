@@ -27,6 +27,7 @@ documentclass: article
 journal: "Journal of Transportation and Land Use"
 bibliography: [book.bib]
 layout: "3p, authoryear, review"
+csl: elsevier-harvard-italics.csl
 keywords:
   - Accessibility
   - Passive Data
