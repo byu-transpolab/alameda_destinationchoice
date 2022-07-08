@@ -1,13 +1,11 @@
 \documentclass[3p, authoryear, review]{elsarticle} %review=doublespace preprint=single 5p=2 column
 %%% Begin My package additions %%%%%%%%%%%%%%%%%%%
+
 \usepackage[hyphens]{url}
 
   \journal{Journal of Transportation and Land Use} % Sets Journal name
 
-
 \usepackage{lineno} % add
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
 \usepackage{graphicx}
 %%%%%%%%%%%%%%%% end my additions to header
@@ -31,18 +29,9 @@
 \fi
 % use microtype if available
 \IfFileExists{microtype.sty}{\usepackage{microtype}}{}
-\usepackage{natbib}
+\usepackage[]{natbib}
 \bibliographystyle{plainnat}
-\usepackage{longtable,booktabs,array}
-\usepackage{calc} % for calculating minipage widths
-% Correct order of tables after \paragraph or \subparagraph
-\usepackage{etoolbox}
-\makeatletter
-\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
-\makeatother
-% Allow footnotes in longtable head/foot
-\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
-\makesavenoteenv{longtable}
+
 \usepackage{graphicx}
 \ifxetex
   \usepackage[setpagesize=false, % page size defined by xetex
@@ -59,14 +48,28 @@
             urlcolor=blue,
             linkcolor=magenta,
             pdfborder={0 0 0}}
-\urlstyle{same}  % don't use monospace font for urls
 
 \setcounter{secnumdepth}{5}
 % Pandoc toggle for numbering sections (defaults to be off)
 
-% Pandoc citation processing
 
-% Pandoc header
+% tightlist command for lists without linebreak
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% From pandoc table feature
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+
+
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
@@ -103,24 +106,37 @@
 
 
 \begin{document}
+
+
 \begin{frontmatter}
 
   \title{City parks and slow streets: a utility-based access and equity analysis}
-    \author[BYU]{Gregory S. Macfarlane\corref{1}}
+    \author[BYU]{Gregory S. Macfarlane%
+  %
+  \fnref{1}}
    \ead{gregmacfarlane@byu.edu} 
-    \author[Harvard]{Carole Turley Voulgaris}
+    \author[Harvard]{Carole Turley Voulgaris%
+  %
+  }
    \ead{cvoulgaris@gsd.harvard.edu} 
-    \author[StreetLight]{Teresa Tapia}
+    \author[StreetLight]{Teresa Tapia%
+  %
+  }
    \ead{teresa.tapia@streetlightdata.com} 
-      \address[BYU]{Brigham Young University, Civil and Environmental Engineering Department, 430 Engineering Building, Provo, Utah 84602}
-    \address[Harvard]{Harvard Graduate School of Design, 48 Quincy St, Cambridge, Massachussetts 02138}
-    \address[StreetLight]{StreetLight Data, Inc., San Francisco, California}
-      \cortext[1]{Corresponding Author}
+      \affiliation[BYU]{Brigham Young University, Civil and Environmental Engineering Department, 430 Engineering Building, Provo, Utah 84602}
+    \affiliation[Harvard]{Harvard Graduate School of Design, 48 Quincy St, Cambridge, Massachussetts 02138}
+    \affiliation[StreetLight]{StreetLight Data, Inc., San Francisco, California}
+    \cortext[cor1]{Corresponding author}
+    \fntext[1]{Corresponding Author}
   
   \begin{abstract}
   During the spring and summer of 2020, cities across the world responded to the global COVID-19 pandemic by converting roadway facilities into open pedestrian spaces. These conversions improved access to public open space, but measuring the variation in that improvement among different populations requires clear definitions of access and methods for measuring it. In this study, we evaluate the change in a utility-based park accessibility measure resulting from street conversions in Alameda County, California. Our utility-based accessibility measure is constructed from a park activity location choice model we estimate using mobile device data --- supplied by StreetLight Data, Inc.~--- representing trips to parks in that county. The estimated model reveals heterogeneity in inferred affinity for park attributes among different sociodemographic groups. We find, for example, that neighborhoods with more lower-income residents and those with more residents of color show a greater preference for park proximity while neighborhods with higher incomes and those with more white residents show a greater preference for park size and amenities. We then apply this model to examine the accessibility benefits resulting from COVID-19 street conversions to create a set of small park-like open spaces; we find that this policy has improved equity in that maginalized communities including Black, Hispanic, and low-income households receive a disproportionate share of the policy benefits, relative to the population distribution.
   \end{abstract}
-   \begin{keyword} Accessibility Passive Data Location Choice Parks\end{keyword}
+    \begin{keyword}
+    Accessibility \sep Passive Data \sep Location Choice \sep 
+    Parks
+  \end{keyword}
+  
  \end{frontmatter}
 
 \hypertarget{intro}{%
@@ -1259,6 +1275,10 @@ proposals.
 
 We are grateful for the comments of two anonymous reviewers. Graphics and tables
 were developed using several open-source R packages \citep{ggspatial, modelsummary, wesanderson}.
+
+\hypertarget{references}{%
+\section*{References}\label{references}}
+\addcontentsline{toc}{section}{References}
 
 \bibliography{book.bib}
 
